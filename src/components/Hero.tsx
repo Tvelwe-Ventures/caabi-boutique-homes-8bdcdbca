@@ -57,15 +57,6 @@ const Hero = () => {
         transition={{ duration: 0.8 }}
         className="container relative z-10 px-4 text-center"
       >
-        <motion.img
-          src="/lovable-uploads/783c852b-b3e6-4476-a18c-74d4b537e6c1.png"
-          alt="Caabi Boutique Homes"
-          className="w-48 mx-auto mb-8"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        />
-        
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
