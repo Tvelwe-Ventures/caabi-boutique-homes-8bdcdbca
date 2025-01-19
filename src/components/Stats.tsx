@@ -24,9 +24,9 @@ const Stats = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2 }}
-              className="p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm border border-white/10"
+              className="p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 backdrop-blur-sm border border-primary/10"
             >
-              <div className="text-4xl font-bold text-gold mb-2">
+              <div className="text-4xl font-bold text-primary mb-2">
                 {inView && (
                   <CountUp
                     end={stat.value}
@@ -36,7 +36,7 @@ const Stats = () => {
                   />
                 )}
               </div>
-              <p className="text-muted-foreground">{stat.label}</p>
+              <p className="text-secondary">{stat.label}</p>
             </motion.div>
           ))}
         </div>
