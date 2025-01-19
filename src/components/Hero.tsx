@@ -102,16 +102,16 @@ const Hero = () => {
           className="flex flex-wrap justify-center gap-6"
         >
           <motion.button 
-            whileHover={{ scale: 1.05, backgroundColor: "#9F8BC0" }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-primary hover:bg-primary-light text-white rounded-lg transition-all duration-300 shadow-lg"
           >
             View Properties
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.2)" }}
+            whileHover={{ scale: 1.05, backgroundColor: "rgba(126, 105, 171, 0.2)" }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 border-2 border-white text-white hover:bg-white/10 rounded-lg transition-all duration-300 backdrop-blur-sm shadow-lg"
+            className="px-8 py-4 border-2 border-white text-white hover:bg-primary/20 rounded-lg transition-all duration-300 backdrop-blur-sm shadow-lg"
           >
             Calculate ROI
           </motion.button>
