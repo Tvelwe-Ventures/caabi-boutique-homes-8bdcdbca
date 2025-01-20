@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Camera, Clock, Home, Paint, Shield, Users } from "lucide-react";
+import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 
 const services = [
   {
@@ -18,7 +18,7 @@ const services = [
     description: "Regular cleaning, maintenance checks, and inspections to keep your property in top shape."
   },
   {
-    icon: Paint,
+    icon: Palette,
     title: "Furnishing Solutions",
     description: "Complete furnishing services with our trusted design partners, from full transformations to stylish upgrades."
   },
