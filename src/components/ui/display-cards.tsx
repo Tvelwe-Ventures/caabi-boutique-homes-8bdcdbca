@@ -28,18 +28,19 @@ function DisplayCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      whileHover={{ y: -5 }}
       className={cn(
-        "relative flex h-36 w-full md:w-[22rem] select-none flex-col justify-between rounded-xl border-2 bg-muted/70 backdrop-blur-sm px-4 py-3 transition-all duration-700 hover:border-white/20 hover:bg-muted",
+        "relative flex h-40 w-full md:w-[22rem] select-none flex-col justify-between rounded-xl border-2 bg-white/50 shadow-lg backdrop-blur-sm px-6 py-4 transition-all duration-300 hover:border-primary/20 hover:bg-white/80",
         className
       )}
     >
-      <div className="flex items-center gap-2">
-        <span className="relative inline-block rounded-full bg-primary/20 p-1">
+      <div className="flex items-center gap-3">
+        <span className="relative inline-block rounded-full bg-primary/10 p-2">
           {icon}
         </span>
-        <p className={cn("text-lg font-medium", titleClassName)}>{title}</p>
+        <p className={cn("text-xl font-semibold", titleClassName)}>{title}</p>
       </div>
-      <p className="whitespace-nowrap text-lg">{description}</p>
+      <p className="whitespace-nowrap text-lg font-medium text-gray-700">{description}</p>
       <p className="text-muted-foreground text-sm">{subtitle}</p>
     </motion.div>
   );
@@ -92,10 +93,17 @@ export default function DisplayCards({ cards }: DisplayCardsProps) {
   const displayCards = cards || defaultCards;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 opacity-100 animate-in fade-in-0 duration-700">
-      {displayCards.map((cardProps, index) => (
-        <DisplayCard key={index} {...cardProps} />
-      ))}
+    <div className="relative py-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-primary/5 opacity-50" />
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-100 animate-in fade-in-0 duration-700"
+      >
+        {displayCards.map((cardProps, index) => (
+          <DisplayCard key={index} {...cardProps} />
+        ))}
+      </motion.div>
     </div>
   );
 }
