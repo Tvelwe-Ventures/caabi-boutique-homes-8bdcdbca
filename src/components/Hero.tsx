@@ -39,7 +39,7 @@ const Hero = () => {
             <Button 
               size="lg"
               onClick={() => navigate("/calculator")}
-              className="bg-primary hover:bg-primary-dark text-white"
+              className="bg-primary hover:bg-primary-dark text-white text-lg"
             >
               Calculate ROI <ArrowRight className="ml-2" />
             </Button>
@@ -47,7 +47,7 @@ const Hero = () => {
               size="lg"
               variant="outline"
               onClick={() => navigate("/proposal")}
-              className="border-white text-white hover:bg-white/10 backdrop-blur-sm"
+              className="border-white text-primary hover:bg-white/10 backdrop-blur-sm bg-white"
             >
               View Proposal
             </Button>
