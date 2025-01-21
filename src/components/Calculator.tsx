@@ -8,6 +8,7 @@ import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calcu
 import { CardSpotlight } from "./ui/card-spotlight";
 import { GlowingStars } from "./ui/glowing-stars";
 import { BorderBeam } from "./ui/border-beam";
+import { Carousel3D } from "./ui/3d-carousel";
 import InstagramFeed from "./InstagramFeed";
 
 interface HeroProps {
@@ -40,6 +41,41 @@ const Hero: React.FC<HeroProps> = ({ title, subtitle, actions, className }) => (
     )}
   </div>
 );
+
+const propertyImages = [
+  {
+    src: "/lovable-uploads/079ce858-92b1-4b1e-914d-8c838c3da61d.png",
+    alt: "Luxury apartment living room with city view"
+  },
+  {
+    src: "/lovable-uploads/4618407b-b0d3-4877-a682-c280200322cd.png",
+    alt: "Modern entertainment setup with gaming console"
+  },
+  {
+    src: "/lovable-uploads/03283004-5262-4d41-8ab5-97f7c8cc6e12.png",
+    alt: "Contemporary kitchen and dining area"
+  },
+  {
+    src: "/lovable-uploads/a85771eb-2106-489b-845e-598e2bac79b3.png",
+    alt: "Dubai skyline view from balcony"
+  },
+  {
+    src: "/lovable-uploads/b19fc22a-34d1-423d-9fb8-5fb63ddbe95f.png",
+    alt: "Cozy living room with Netflix setup"
+  },
+  {
+    src: "/lovable-uploads/3ffed215-b004-433e-9136-f88ccbe86091.png",
+    alt: "Elegant living space with city views"
+  },
+  {
+    src: "/lovable-uploads/912b4b6f-2827-4f22-969f-7b069b737a37.png",
+    alt: "Dubai Downtown aerial view"
+  },
+  {
+    src: "/lovable-uploads/827ceac9-51ef-47f1-a593-66925dabcc6a.png",
+    alt: "Modern apartment with blue accents"
+  }
+];
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -92,6 +128,10 @@ const Calculator = () => {
         ]}
         className="mb-12"
       />
+
+      <div className="container mx-auto px-4 mb-20">
+        <Carousel3D images={propertyImages} className="mb-20" />
+      </div>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
