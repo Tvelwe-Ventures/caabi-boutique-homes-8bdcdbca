@@ -3,17 +3,19 @@
 import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-export const CanvasRevealEffect = ({
-  colors = [[59, 130, 246], [139, 92, 246]], // Default colors
-  dotSize = 3,
-  animationSpeed = 5,
-  containerClassName,
-}: {
+interface CanvasRevealEffectProps {
   colors?: number[][];
   dotSize?: number;
   animationSpeed?: number;
   containerClassName?: string;
-}) => {
+}
+
+export const CanvasRevealEffect = ({
+  colors = [[59, 130, 246], [139, 92, 246]], // Default blue-purple gradient
+  dotSize = 3,
+  animationSpeed = 5,
+  containerClassName,
+}: CanvasRevealEffectProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -40,17 +42,22 @@ export const CanvasRevealEffect = ({
       time += animationSpeed / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Ensure colors array exists and has at least one color
-      const safeColors = colors?.length ? colors : [[59, 130, 246]];
+      // Ensure we have a valid colors array
+      const defaultColors = [[59, 130, 246], [139, 92, 246]];
+      const safeColors = Array.isArray(colors) && colors.length > 0 ? colors : defaultColors;
 
       for (let i = 0; i < canvas.width; i += dotSize * 2) {
         for (let j = 0; j < canvas.height; j += dotSize * 2) {
-          const colorIndex = Math.abs(
+          const index = Math.abs(
             Math.floor(
               (Math.sin(i * 0.05 + time) + Math.sin(j * 0.05 + time)) % safeColors.length
             )
           );
-          const [r, g, b] = safeColors[colorIndex];
+          
+          // Ensure we have a valid color at the index
+          const color = safeColors[index] || defaultColors[0];
+          const [r, g, b] = color;
+          
           ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
           ctx.fillRect(i, j, dotSize, dotSize);
         }
