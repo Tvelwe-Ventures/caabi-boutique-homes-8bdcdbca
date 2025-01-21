@@ -6,6 +6,7 @@ import { CalculatorResults } from "./calculator/CalculatorResults";
 import { calculateROI } from "./calculator/calculatorUtils";
 import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calculator/types";
 import { CardSpotlight } from "./ui/card-spotlight";
+import { Hero } from "./ui/hero";
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -22,11 +23,24 @@ const Calculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-dark py-20">
+    <div className="min-h-screen bg-gradient-dark">
+      <Hero 
+        title="Maximize your real estate investments"
+        subtitle="Request a free consultation over a coffee"
+        actions={[
+          {
+            label: "Book Consultation",
+            href: "/contact",
+            variant: "default"
+          }
+        ]}
+        className="mb-20"
+      />
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4"
+        className="container mx-auto px-4 pb-20"
       >
         <div className="max-w-4xl mx-auto space-y-8">
           <CardSpotlight className="overflow-hidden">
