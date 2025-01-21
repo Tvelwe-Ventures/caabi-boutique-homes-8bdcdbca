@@ -26,31 +26,30 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-gradient-dark">
-      <div className="relative overflow-hidden py-20 sm:py-32 isolate">
-        {/* Background gradient */}
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.primary.dark),transparent)]" />
-        
-        <div className="container mx-auto px-4">
+      <CardSpotlight className="w-full min-h-[60vh] flex items-center justify-center relative overflow-hidden">
+        <GlowingStars />
+        <BorderBeam />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center space-y-8"
+            className="text-center space-y-8 max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-gradient sm:text-6xl hero-heading">
               Calculate Your Investment Returns
             </h1>
-            <p className="mx-auto max-w-2xl text-lg leading-8 text-gray-300">
+            <p className="text-lg leading-8 text-gray-300">
               Discover the potential of your property investment in Dubai with our advanced ROI calculator.
               Make informed decisions backed by real market data.
             </p>
           </motion.div>
         </div>
-      </div>
+      </CardSpotlight>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 pb-20"
+        className="container mx-auto px-4 py-20"
       >
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="relative">

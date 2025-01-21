@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { ThemeToggle } from "./ThemeToggle";
 
 const Header = () => {
   return (
@@ -7,7 +8,7 @@ const Header = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/10"
+      className="fixed top-0 left-0 right-0 z-50 bg-black/60"
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/">
@@ -20,34 +21,37 @@ const Header = () => {
             transition={{ duration: 0.5 }}
           />
         </Link>
-        <nav>
-          <ul className="flex items-center space-x-8">
-            <li>
-              <Link 
-                to="/" 
-                className="text-lg font-medium text-white hover:text-primary transition-colors"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/calculator" 
-                className="text-lg font-medium text-white hover:text-primary transition-colors"
-              >
-                ROI Calculator
-              </Link>
-            </li>
-            <li>
-              <a 
-                href="#investment"
-                className="text-lg font-medium text-white hover:text-primary transition-colors"
-              >
-                Investment Proposal
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <div className="flex items-center gap-8">
+          <nav>
+            <ul className="flex items-center space-x-8">
+              <li>
+                <Link 
+                  to="/" 
+                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/calculator" 
+                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                >
+                  ROI Calculator
+                </Link>
+              </li>
+              <li>
+                <a 
+                  href="#investment"
+                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                >
+                  Investment Proposal
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <ThemeToggle />
+        </div>
       </div>
     </motion.header>
   );
