@@ -1,14 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Sparkles } from "lucide-react";
+import { Sparkles, Star, Home, Heart } from "lucide-react";
 
 interface DisplayCardProps {
   className?: string;
   icon?: React.ReactNode;
   title?: string;
   description?: string;
-  date?: string;
+  subtitle?: string;
   iconClassName?: string;
   titleClassName?: string;
 }
@@ -18,7 +18,7 @@ function DisplayCard({
   icon = <Sparkles className="size-4 text-primary-light" />,
   title = "Featured",
   description = "Discover amazing content",
-  date = "Today",
+  subtitle = "",
   iconClassName = "text-primary",
   titleClassName = "text-primary",
 }: DisplayCardProps) {
@@ -39,7 +39,7 @@ function DisplayCard({
         <p className={cn("text-lg font-medium", titleClassName)}>{title}</p>
       </div>
       <p className="whitespace-nowrap text-lg">{description}</p>
-      <p className="text-muted-foreground">{date}</p>
+      <p className="text-muted-foreground text-sm">{subtitle}</p>
     </div>
   );
 }
@@ -51,21 +51,24 @@ interface DisplayCardsProps {
 export default function DisplayCards({ cards }: DisplayCardsProps) {
   const defaultCards = [
     {
-      title: "Featured",
-      description: "Discover amazing properties",
-      date: "Just now",
+      icon: <Home className="size-4 text-primary-light" />,
+      title: "88%",
+      description: "Average Occupancy Rate",
+      subtitle: "Consistently outperforming market average of 65%",
       className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration:700 hover:grayscale-0 before:left-0 before:top-0",
     },
     {
-      title: "Popular",
-      description: "Trending properties",
-      date: "2 days ago",
+      icon: <Star className="size-4 text-primary-light" />,
+      title: "4.94",
+      description: "Guest Satisfaction",
+      subtitle: "Based on verified guest reviews",
       className: "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration:700 hover:grayscale-0 before:left-0 before:top-0",
     },
     {
-      title: "New",
-      description: "Latest updates and features",
-      date: "Today",
+      icon: <Heart className="size-4 text-primary-light" />,
+      title: "65+",
+      description: "5-Star Reviews",
+      subtitle: "From satisfied guests worldwide",
       className: "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
     },
   ];

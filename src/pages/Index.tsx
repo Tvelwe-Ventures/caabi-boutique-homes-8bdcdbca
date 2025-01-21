@@ -18,7 +18,6 @@ const Index = () => {
       <Hero />
       <About />
       <div className="container mx-auto px-4 py-20">
-        <h2 className="text-3xl font-bold text-primary mb-12 text-center">Featured Properties</h2>
         <DisplayCards />
       </div>
       <Services />
