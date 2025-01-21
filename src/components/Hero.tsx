@@ -12,23 +12,26 @@ const Hero = () => {
       <motion.img
         src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"
         alt="Dubai Skyline"
-        className="absolute inset-0 w-full h-full object-cover opacity-80"
+        className="absolute inset-0 w-full h-full object-cover opacity-60"
         initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 0.8, scale: 1 }}
+        animate={{ opacity: 0.6, scale: 1 }}
         transition={{ duration: 1 }}
       />
       
-      <div className="container mx-auto px-4 pt-20 relative z-10">
+      {/* Dark overlay for better text visibility */}
+      <div className="absolute inset-0 bg-black/30" />
+      
+      <div className="container mx-auto px-4 pt-20 relative z-10 flex items-end pb-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
             Turn Real Estate Into Your Wealth Multiplier
           </h1>
-          <p className="mt-4 text-lg text-white mb-8 drop-shadow-lg">
+          <p className="mt-4 text-xl text-white mb-8 drop-shadow-lg">
             Welcome to Dubai's premier family-owned luxury property management company, 
             where exceptional service meets unparalleled returns.
           </p>
