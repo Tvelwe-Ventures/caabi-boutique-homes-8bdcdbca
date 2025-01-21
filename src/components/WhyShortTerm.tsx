@@ -1,6 +1,7 @@
 import RentalComparisonChart from "./charts/RentalComparisonChart";
 import ChartLegend from "./charts/ChartLegend";
 import ShortTermContent from "./sections/ShortTermContent";
+import { CardSpotlight } from "./ui/card-spotlight";
 
 const WhyShortTerm = () => {
   const legendItems = [
@@ -26,16 +27,20 @@ const WhyShortTerm = () => {
         </h2>
         
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="bg-gray-50 p-6 rounded-xl">
-            <h3 className="text-lg font-semibold mb-4">
-              Short term letting against 12 months tenancy contract
-            </h3>
-            
-            <RentalComparisonChart />
-            <ChartLegend items={legendItems} disclaimer={disclaimer} />
-          </div>
+          <CardSpotlight className="backdrop-blur-xl">
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold mb-4 text-white">
+                Short term letting against 12 months tenancy contract
+              </h3>
+              
+              <RentalComparisonChart />
+              <ChartLegend items={legendItems} disclaimer={disclaimer} />
+            </div>
+          </CardSpotlight>
 
-          <ShortTermContent />
+          <CardSpotlight>
+            <ShortTermContent />
+          </CardSpotlight>
         </div>
       </div>
     </section>
