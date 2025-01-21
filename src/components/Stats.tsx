@@ -3,7 +3,7 @@ import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { cn } from "@/lib/utils";
 import { Particles } from "./ui/particles";
-import { GlareCard } from "./ui/glare-card";
+import { CardSpotlight } from "./ui/card-spotlight";
 import { DollarSign, Star, Home, Clock, Award, Heart } from "lucide-react";
 
 const Stats = () => {
@@ -96,8 +96,8 @@ const Stats = () => {
               transition={{ delay: index * 0.2 }}
               className={cn("flex justify-center", stat.className)}
             >
-              <GlareCard>
-                <div className="p-8 flex flex-col items-center justify-center h-full neo-blur">
+              <CardSpotlight className="w-full">
+                <div className="p-8 flex flex-col items-center justify-center h-full">
                   <div className="mb-4">
                     {stat.icon}
                   </div>
@@ -117,7 +117,7 @@ const Stats = () => {
                   <p className="text-lg font-semibold text-white mb-2">{stat.label}</p>
                   <p className="text-sm text-gray-400 text-center">{stat.description}</p>
                 </div>
-              </GlareCard>
+              </CardSpotlight>
             </motion.div>
           ))}
         </div>

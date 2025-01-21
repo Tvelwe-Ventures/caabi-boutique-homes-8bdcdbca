@@ -1,113 +1,50 @@
-"use client";
-
-import { cn } from "@/lib/utils";
-import { Sparkles, Star, Home, Heart, DollarSign, Clock, Award } from "lucide-react";
 import { motion } from "framer-motion";
+import { CardSpotlight } from "./card-spotlight";
+import { Building, Users, Trophy } from "lucide-react";
 
-interface DisplayCardProps {
-  className?: string;
-  icon?: React.ReactNode;
-  title?: string;
-  description?: string;
-  subtitle?: string;
-  iconClassName?: string;
-  titleClassName?: string;
-}
+const features = [
+  {
+    icon: <Building className="w-6 h-6 text-primary-light" />,
+    title: "Premium Properties",
+    description: "Exclusive properties in Downtown Dubai's most sought-after locations"
+  },
+  {
+    icon: <Users className="w-6 h-6 text-primary-light" />,
+    title: "Personal Service",
+    description: "Dedicated support team available 24/7 for all your needs"
+  },
+  {
+    icon: <Trophy className="w-6 h-6 text-primary-light" />,
+    title: "Expert Management",
+    description: "Professional property management with proven results"
+  }
+];
 
-function DisplayCard({
-  className,
-  icon = <Sparkles className="size-4 text-primary-light" />,
-  title = "Featured",
-  description = "Discover amazing content",
-  subtitle = "",
-  iconClassName = "text-primary",
-  titleClassName = "text-primary",
-}: DisplayCardProps) {
+export function DisplayCards() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ y: -5 }}
-      className={cn(
-        "relative flex h-[200px] w-full select-none flex-col justify-between rounded-xl border-2 shadow-lg px-6 py-4 transition-all duration-300",
-        "bg-gradient-to-br from-white via-primary-light/5 to-primary/10",
-        "hover:border-primary/20 hover:shadow-primary/20",
-        className
-      )}
-    >
-      <div className="flex items-center gap-3">
-        <span className="relative inline-block rounded-full bg-primary/10 p-2">
-          {icon}
-        </span>
-        <p className={cn("text-xl font-semibold text-primary-dark", titleClassName)}>{title}</p>
-      </div>
-      <p className="text-lg font-medium text-gray-700">{description}</p>
-      <p className="text-muted-foreground text-sm">{subtitle}</p>
-    </motion.div>
-  );
-}
-
-interface DisplayCardsProps {
-  cards?: DisplayCardProps[];
-}
-
-export default function DisplayCards({ cards }: DisplayCardsProps) {
-  const defaultCards = [
-    {
-      icon: <Home className="size-4 text-primary-light" />,
-      title: "88%",
-      description: "Average Occupancy Rate",
-      subtitle: "Consistently outperforming market average of 65%",
-    },
-    {
-      icon: <Star className="size-4 text-primary-light" />,
-      title: "4.94",
-      description: "Guest Satisfaction",
-      subtitle: "Based on verified guest reviews",
-    },
-    {
-      icon: <Heart className="size-4 text-primary-light" />,
-      title: "65+",
-      description: "5-Star Reviews",
-      subtitle: "From satisfied guests worldwide",
-    },
-    {
-      icon: <DollarSign className="size-4 text-primary-light" />,
-      title: "32%",
-      description: "Higher Revenue",
-      subtitle: "Compared to traditional long-term rentals",
-    },
-    {
-      icon: <Clock className="size-4 text-primary-light" />,
-      title: "24/7",
-      description: "Support Available",
-      subtitle: "Round-the-clock assistance for hosts and guests",
-    },
-    {
-      icon: <Award className="size-4 text-primary-light" />,
-      title: "Top 10",
-      description: "Property Management",
-      subtitle: "Ranked among the best in the region",
-    }
-  ];
-
-  const displayCards = cards || defaultCards;
-
-  return (
-    <div className="relative py-12">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-white to-primary/5 opacity-50" />
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-      >
-        {displayCards.map((cardProps, index) => (
-          <DisplayCard key={index} {...cardProps} />
-        ))}
-      </motion.div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {features.map((feature, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+        >
+          <CardSpotlight className="h-full">
+            <div className="p-8 flex flex-col items-center text-center">
+              <div className="mb-4">
+                {feature.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                {feature.title}
+              </h3>
+              <p className="text-gray-400">
+                {feature.description}
+              </p>
+            </div>
+          </CardSpotlight>
+        </motion.div>
+      ))}
     </div>
   );
 }
-
-export { DisplayCard };
