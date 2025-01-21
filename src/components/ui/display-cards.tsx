@@ -30,7 +30,9 @@ function DisplayCard({
       transition={{ duration: 0.5 }}
       whileHover={{ y: -5 }}
       className={cn(
-        "relative flex h-40 w-full md:w-[22rem] select-none flex-col justify-between rounded-xl border-2 bg-white/50 shadow-lg backdrop-blur-sm px-6 py-4 transition-all duration-300 hover:border-primary/20 hover:bg-white/80",
+        "relative flex h-[200px] w-full select-none flex-col justify-between rounded-xl border-2 shadow-lg px-6 py-4 transition-all duration-300",
+        "bg-gradient-to-br from-white via-primary-light/5 to-primary/10",
+        "hover:border-primary/20 hover:shadow-primary/20",
         className
       )}
     >
@@ -38,9 +40,9 @@ function DisplayCard({
         <span className="relative inline-block rounded-full bg-primary/10 p-2">
           {icon}
         </span>
-        <p className={cn("text-xl font-semibold", titleClassName)}>{title}</p>
+        <p className={cn("text-xl font-semibold text-primary-dark", titleClassName)}>{title}</p>
       </div>
-      <p className="whitespace-nowrap text-lg font-medium text-gray-700">{description}</p>
+      <p className="text-lg font-medium text-gray-700">{description}</p>
       <p className="text-muted-foreground text-sm">{subtitle}</p>
     </motion.div>
   );
@@ -98,7 +100,7 @@ export default function DisplayCards({ cards }: DisplayCardsProps) {
       <motion.div 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 opacity-100 animate-in fade-in-0 duration-700"
+        className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         {displayCards.map((cardProps, index) => (
           <DisplayCard key={index} {...cardProps} />
