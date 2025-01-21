@@ -112,8 +112,8 @@ export function Globe({
   }, [theme])
 
   return (
-    <div className="relative py-12 items-center justify-center bg-background">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10" />
+    <div className="relative py-12 items-center justify-center bg-white">
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-primary/5" />
       <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
           <div className="relative overflow-hidden rounded-xl">
