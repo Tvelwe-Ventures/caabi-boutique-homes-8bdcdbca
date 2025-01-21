@@ -5,14 +5,14 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 const CITIES_DATA = [
-  { name: "Dubai", location: [25.2048, 55.2708], cost: 350000, size: 0.1 },
-  { name: "London", location: [51.5074, -0.1278], cost: 750000, size: 0.08 },
-  { name: "New York", location: [40.7128, -74.0060], cost: 890000, size: 0.08 },
-  { name: "Tokyo", location: [35.6762, 139.6503], cost: 680000, size: 0.08 },
-  { name: "Singapore", location: [1.3521, 103.8198], cost: 720000, size: 0.08 },
-  { name: "Hong Kong", location: [22.3193, 114.1694], cost: 910000, size: 0.08 },
-  { name: "Mumbai", location: [19.0760, 72.8777], cost: 420000, size: 0.08 },
-  { name: "Paris", location: [48.8566, 2.3522], cost: 670000, size: 0.08 },
+  { name: "Dubai", location: [25.2048, 55.2708] as [number, number], cost: 350000, size: 0.1 },
+  { name: "London", location: [51.5074, -0.1278] as [number, number], cost: 750000, size: 0.08 },
+  { name: "New York", location: [40.7128, -74.0060] as [number, number], cost: 890000, size: 0.08 },
+  { name: "Tokyo", location: [35.6762, 139.6503] as [number, number], cost: 680000, size: 0.08 },
+  { name: "Singapore", location: [1.3521, 103.8198] as [number, number], cost: 720000, size: 0.08 },
+  { name: "Hong Kong", location: [22.3193, 114.1694] as [number, number], cost: 910000, size: 0.08 },
+  { name: "Mumbai", location: [19.0760, 72.8777] as [number, number], cost: 420000, size: 0.08 },
+  { name: "Paris", location: [48.8566, 2.3522] as [number, number], cost: 670000, size: 0.08 },
 ]
 
 const GLOBE_CONFIG: COBEOptions = {
