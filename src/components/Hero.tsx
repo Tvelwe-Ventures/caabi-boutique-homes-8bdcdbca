@@ -1,20 +1,20 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
+import { MovingBorderButton } from "./ui/moving-border-button";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-dark">
       {/* Particles animation */}
       <Particles
         className="absolute inset-0 -z-10"
         quantity={100}
         staticity={30}
-        color={`var(--${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'primary-light' : 'primary'}`}
+        color="var(--primary)"
       />
       
       {/* Decorative background elements */}
@@ -45,19 +45,20 @@ const Hero = () => {
             where exceptional service meets unparalleled returns.
           </p>
           <div className="flex gap-4 justify-center">
-            <Button 
+            <MovingBorderButton 
               onClick={() => navigate("/calculator")}
-              className="animated-border-button bg-primary hover:bg-primary-dark text-white text-lg"
+              className="px-6 py-2 font-medium"
+              borderClassName="bg-[radial-gradient(var(--primary)_40%,transparent_60%)]"
             >
-              Calculate ROI <ArrowRight className="ml-2" />
-            </Button>
-            <Button 
-              variant="outline"
+              Calculate ROI <ArrowRight className="ml-2 h-4 w-4" />
+            </MovingBorderButton>
+            <MovingBorderButton 
               onClick={() => navigate("/proposal")}
-              className="animated-border-button backdrop-blur-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
+              className="px-6 py-2 font-medium"
+              borderClassName="bg-[radial-gradient(var(--primary)_40%,transparent_60%)]"
             >
               View Proposal
-            </Button>
+            </MovingBorderButton>
           </div>
         </motion.div>
       </div>

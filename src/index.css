@@ -90,3 +90,43 @@
     transform: translateX(100%);
   }
 }
+
+.moving-border {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  padding: 1px;
+  background: transparent;
+}
+
+.moving-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: calc(0.75rem * 0.96);
+  padding: 2px;
+  background: conic-gradient(
+    from var(--angle),
+    var(--primary),
+    var(--primary-dark),
+    var(--primary),
+    var(--primary-dark)
+  );
+  animation: rotate 3s linear infinite;
+  mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
