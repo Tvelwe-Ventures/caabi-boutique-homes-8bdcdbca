@@ -1,44 +1,38 @@
 import { motion } from "framer-motion";
 import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
-import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
 import { Particles } from "./ui/particles";
+import { CardSpotlight } from "./ui/card-spotlight";
 
 const services = [
   {
     Icon: Camera,
     name: "Beautiful Listings",
     description: "Professional photos, eye-catching descriptions, and flexible pricing strategies to boost bookings.",
-    className: "md:col-span-2 bg-black/40"
   },
   {
     Icon: Clock,
     name: "24/7 Guest Care",
     description: "Round-the-clock support for all guest inquiries, check-ins, and everything in between.",
-    className: "md:row-span-2 bg-black/40"
   },
   {
     Icon: Shield,
     name: "Property Maintenance & Care",
     description: "Regular cleaning, maintenance checks, and inspections to keep your property in top shape.",
-    className: "bg-black/40"
   },
   {
     Icon: Palette,
     name: "Furnishing Solutions",
     description: "Complete furnishing services with our trusted design partners, from full transformations to stylish upgrades.",
-    className: "bg-black/40"
   },
   {
     Icon: Users,
     name: "A Personal Touch",
     description: "Building long-lasting relationships with flexible, hands-on, and responsive service.",
-    className: "bg-black/40"
   },
   {
     Icon: Home,
     name: "Premium Platforms",
     description: "Listed on top platforms like Airbnb and Booking.com for maximum visibility.",
-    className: "md:col-span-2 bg-black/40"
   }
 ];
 
@@ -65,7 +59,7 @@ const Services = () => {
           </p>
         </motion.div>
         
-        <BentoGrid className="md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -73,15 +67,20 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <BentoCard
-                Icon={service.Icon}
-                name={service.name}
-                description={service.description}
-                className={service.className}
-              />
+              <CardSpotlight>
+                <div className="relative z-10 h-full">
+                  <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+                    <service.Icon className="h-6 w-6 text-primary-light" />
+                  </div>
+                  <h3 className="mb-2 font-semibold leading-none tracking-tight text-xl text-white">
+                    {service.name}
+                  </h3>
+                  <p className="text-sm text-gray-400">{service.description}</p>
+                </div>
+              </CardSpotlight>
             </motion.div>
           ))}
-        </BentoGrid>
+        </div>
       </div>
     </section>
   );
