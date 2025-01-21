@@ -2,12 +2,21 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { Particles } from "./ui/particles";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-primary/5">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-primary/5 dark:from-black dark:to-primary/20">
+      {/* Particles animation */}
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={100}
+        staticity={30}
+        color={`var(--${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'primary-light' : 'primary'}`}
+      />
+      
       {/* Decorative background elements */}
       <motion.img
         src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"

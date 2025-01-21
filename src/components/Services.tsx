@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 import { BentoCard, BentoGrid } from "@/components/ui/bento-grid";
+import { Particles } from "./ui/particles";
 
 const services = [
   {
@@ -43,7 +44,14 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-primary/5 via-white to-primary/5">
+    <section className="relative py-24 bg-gradient-to-br from-primary/5 via-white to-primary/5 dark:from-black dark:via-primary/10 dark:to-black">
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={50}
+        staticity={50}
+        color={`var(--${window.matchMedia('(prefers-color-scheme: dark)').matches ? 'primary-light' : 'primary'}`}
+      />
+      
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,7 +60,7 @@ const Services = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-primary mb-6">What We Offer</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
             Comprehensive property management services designed to maximize your returns while providing exceptional guest experiences.
           </p>
         </motion.div>
