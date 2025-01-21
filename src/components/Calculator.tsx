@@ -53,25 +53,27 @@ const Calculator = () => {
         className="container mx-auto px-4 pb-20"
       >
         <div className="max-w-4xl mx-auto space-y-8">
-          <div className="moving-border relative">
-            <CardSpotlight className="overflow-hidden relative">
-              <BorderBeam />
-              <GlowingStars />
-              <CardHeader className="text-center relative z-10">
-                <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
-                  ROI Calculator
-                </CardTitle>
-                <CardDescription className="text-lg mt-4 text-gray-400">
-                  Use our interactive calculator to estimate your potential returns from 
-                  short-term rental property management in Dubai.
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="relative z-10">
-                <div className="mt-6">
-                  <CalculatorForm onCalculate={handleCalculate} />
-                </div>
-              </CardContent>
-            </CardSpotlight>
+          <div className="relative">
+            <div className="moving-border">
+              <CardSpotlight className="overflow-hidden relative">
+                <BorderBeam />
+                <GlowingStars />
+                <CardHeader className="text-center relative z-10">
+                  <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
+                    ROI Calculator
+                  </CardTitle>
+                  <CardDescription className="text-lg mt-4 text-gray-400">
+                    Use our interactive calculator to estimate your potential returns from 
+                    short-term rental property management in Dubai.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="relative z-10">
+                  <div className="mt-6">
+                    <CalculatorForm onCalculate={handleCalculate} />
+                  </div>
+                </CardContent>
+              </CardSpotlight>
+            </div>
           </div>
 
           {results.annualRevenue > 0 && (
@@ -80,7 +82,7 @@ const Calculator = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="moving-border relative">
+              <div className="moving-border">
                 <CardSpotlight className="relative">
                   <BorderBeam delay={2} />
                   <GlowingStars />

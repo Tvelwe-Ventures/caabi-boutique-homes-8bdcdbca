@@ -108,15 +108,6 @@
   }
 }
 
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
 .moving-border {
   position: relative;
   overflow: hidden;
@@ -133,16 +124,20 @@
   padding: 2px;
   background: conic-gradient(
     from var(--angle),
-    var(--primary),
-    var(--primary-dark),
-    var(--primary),
-    var(--primary-dark)
+    theme(colors.primary.DEFAULT),
+    theme(colors.primary.dark),
+    theme(colors.primary.DEFAULT),
+    theme(colors.primary.dark)
   );
-  animation: rotate 3s linear infinite;
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   mask: 
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
   mask-composite: exclude;
+  animation: rotate 3s linear infinite;
 }
 
 @property --angle {
@@ -154,5 +149,14 @@
 @keyframes rotate {
   to {
     --angle: 360deg;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
