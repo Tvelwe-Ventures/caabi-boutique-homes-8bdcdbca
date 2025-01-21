@@ -4,6 +4,7 @@ import Stats from "@/components/Stats";
 import Header from "@/components/Header";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import WhyShortTerm from "@/components/WhyShortTerm";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <Hero />
       <About />
       <Services />
+      <WhyShortTerm />
       <Stats />
     </motion.div>
   );
