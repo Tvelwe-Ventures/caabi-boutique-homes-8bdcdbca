@@ -3,6 +3,7 @@
 import createGlobe, { COBEOptions } from "cobe"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
+import { useTheme } from "./ThemeProvider"
 
 const CITIES_DATA = [
   { name: "Dubai", location: [25.2048, 55.2708] as [number, number], cost: 350000, size: 0.1 },
@@ -15,33 +16,12 @@ const CITIES_DATA = [
   { name: "Paris", location: [48.8566, 2.3522] as [number, number], cost: 670000, size: 0.08 },
 ]
 
-const GLOBE_CONFIG: COBEOptions = {
-  width: 800,
-  height: 800,
-  onRender: () => {},
-  devicePixelRatio: 2,
-  phi: 0,
-  theta: 0.3,
-  dark: 0,
-  diffuse: 0.4,
-  mapSamples: 16000,
-  mapBrightness: 1.2,
-  baseColor: [1, 1, 1],
-  markerColor: [0.637, 0.689, 0.863], // Converted primary color #A2B0DC to RGB
-  glowColor: [1, 1, 1],
-  markers: CITIES_DATA.map(city => ({
-    location: city.location,
-    size: city.size
-  })),
-}
-
 export function Globe({
   className,
-  config = GLOBE_CONFIG,
 }: {
   className?: string
-  config?: COBEOptions
 }) {
+  const { theme } = useTheme()
   let phi = 0
   let width = 0
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -49,6 +29,26 @@ export function Globe({
   const pointerInteractionMovement = useRef(0)
   const [r, setR] = useState(0)
   const [selectedCity, setSelectedCity] = useState(CITIES_DATA[0])
+
+  const GLOBE_CONFIG: COBEOptions = {
+    width: 800,
+    height: 800,
+    onRender: () => {},
+    devicePixelRatio: 2,
+    phi: 0,
+    theta: 0.3,
+    dark: theme === "dark" ? 1 : 0,
+    diffuse: 0.4,
+    mapSamples: 16000,
+    mapBrightness: 1.2,
+    baseColor: theme === "dark" ? [0.3, 0.3, 0.3] : [1, 1, 1],
+    markerColor: [0.637, 0.689, 0.863],
+    glowColor: theme === "dark" ? [0.2, 0.2, 0.2] : [1, 1, 1],
+    markers: CITIES_DATA.map(city => ({
+      location: city.location,
+      size: city.size
+    })),
+  }
 
   const updatePointerInteraction = (value: any) => {
     pointerInteracting.current = value
@@ -86,7 +86,7 @@ export function Globe({
     onResize()
 
     const globe = createGlobe(canvasRef.current!, {
-      ...config,
+      ...GLOBE_CONFIG,
       width: width * 2,
       height: width * 2,
       onRender,
@@ -109,7 +109,7 @@ export function Globe({
       clearInterval(interval)
       window.removeEventListener("resize", onResize)
     }
-  }, [])
+  }, [theme])
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background py-20">
@@ -143,8 +143,7 @@ export function Globe({
         </div>
         
         <div className="relative h-[600px]">
-          {/* Add gradient background */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 blur-3xl" />
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 blur-3xl dark:from-primary/5 dark:via-secondary/3 dark:to-primary/5" />
           
           <div
             className={cn(
