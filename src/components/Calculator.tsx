@@ -26,7 +26,30 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-gradient-dark">
       <Hero 
-        title="Maximize your real estate investments"
+        title={
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center gap-2"
+          >
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <span className="text-gradient">Maximize</span>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="bg-gradient-to-r from-primary via-primary-light to-primary bg-clip-text text-transparent"
+            >
+              your real estate investments
+            </motion.span>
+          </motion.div>
+        }
         subtitle="Request a free consultation over a coffee"
         actions={[
           {
@@ -35,7 +58,7 @@ const Calculator = () => {
             variant: "default"
           }
         ]}
-        className="mb-20"
+        className="mb-12" // Reduced from mb-20 to move calculator up
       />
       
       <motion.div
