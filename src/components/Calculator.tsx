@@ -9,6 +9,7 @@ import { CardSpotlight } from "./ui/card-spotlight";
 import { Hero } from "./ui/hero";
 import { GlowingStars } from "./ui/glowing-stars";
 import { BorderBeam } from "./ui/border-beam";
+import InstagramFeed from "./InstagramFeed";
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -108,6 +109,8 @@ const Calculator = () => {
           )}
         </div>
       </motion.div>
+
+      <InstagramFeed />
     </div>
   );
 };
