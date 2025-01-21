@@ -7,7 +7,7 @@ import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
 import DisplayCards from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
-import { Carousel3D } from "@/components/ui/3d-carousel";
+import { ThreeDPhotoCarousel } from "@/components/ui/3d-photo-carousel";
 import Footer from "@/components/Footer";
 
 const propertyImages = [
@@ -47,8 +47,21 @@ const Index = () => {
       <div className="container mx-auto px-4 py-8">
         <DisplayCards />
       </div>
-      <div className="container mx-auto px-4 py-8">
-        <Carousel3D images={propertyImages} />
+      <div className="container mx-auto px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
+            Our Premium Properties
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            Experience luxury living in our carefully curated collection of properties
+          </p>
+        </motion.div>
+        <ThreeDPhotoCarousel images={propertyImages} />
       </div>
       <Globe />
       <Services />
