@@ -11,7 +11,7 @@ interface CanvasRevealEffectProps {
 }
 
 export const CanvasRevealEffect = ({
-  colors = [[59, 130, 246], [139, 92, 246]], // Default blue-purple gradient
+  colors = [[162, 176, 220], [138, 153, 201]], // Default primary colors
   dotSize = 3,
   animationSpeed = 5,
   containerClassName,
@@ -38,29 +38,37 @@ export const CanvasRevealEffect = ({
     let frame: number;
     let time = 0;
 
+    const drawGradient = (x: number, y: number, radius: number, color: number[]) => {
+      const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      const [r, g, b] = color;
+      gradient.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0.1)`);
+      gradient.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
+      return gradient;
+    };
+
     const animate = () => {
       time += animationSpeed / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Ensure we have a valid colors array
-      const defaultColors = [[59, 130, 246], [139, 92, 246]];
-      const safeColors = Array.isArray(colors) && colors.length > 0 ? colors : defaultColors;
+      // Ensure we have valid colors
+      const safeColors = Array.isArray(colors) && colors.length > 0 ? colors : [[162, 176, 220]];
 
-      for (let i = 0; i < canvas.width; i += dotSize * 2) {
-        for (let j = 0; j < canvas.height; j += dotSize * 2) {
-          const index = Math.abs(
-            Math.floor(
-              (Math.sin(i * 0.05 + time) + Math.sin(j * 0.05 + time)) % safeColors.length
-            )
-          );
-          
-          // Ensure we have a valid color at the index
-          const color = safeColors[index] || defaultColors[0];
-          const [r, g, b] = color;
-          
-          ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-          ctx.fillRect(i, j, dotSize, dotSize);
-        }
+      // Create flowing, organic patterns
+      for (let i = 0; i < 3; i++) {
+        const x = canvas.width / 2 + Math.sin(time + i * 2) * 50;
+        const y = canvas.height / 2 + Math.cos(time + i * 2) * 50;
+        const radius = 100 + Math.sin(time * 0.5 + i) * 20;
+        
+        ctx.fillStyle = drawGradient(
+          x,
+          y,
+          radius,
+          safeColors[i % safeColors.length]
+        );
+        
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       frame = requestAnimationFrame(animate);
@@ -77,7 +85,7 @@ export const CanvasRevealEffect = ({
   return (
     <canvas
       ref={canvasRef}
-      className={cn("h-full w-full", containerClassName)}
+      className={cn("h-full w-full opacity-50", containerClassName)}
     />
   );
 };
