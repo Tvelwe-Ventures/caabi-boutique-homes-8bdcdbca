@@ -7,7 +7,7 @@ import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
 import DisplayCards from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
-import { ThreeDPhotoCarousel } from "@/components/ui/3d-photo-carousel";
+import { BentoGallery } from "@/components/ui/bento-gallery";
 import Footer from "@/components/Footer";
 
 const propertyImages = [
@@ -61,7 +61,7 @@ const Index = () => {
             Experience luxury living in our carefully curated collection of properties
           </p>
         </motion.div>
-        <ThreeDPhotoCarousel images={propertyImages} />
+        <BentoGallery images={propertyImages} />
       </div>
       <Globe />
       <Services />
