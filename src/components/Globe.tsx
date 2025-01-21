@@ -41,8 +41,8 @@ export function Globe({
     diffuse: 0.4,
     mapSamples: 16000,
     mapBrightness: 1.2,
-    baseColor: theme === "dark" ? [0.3, 0.3, 0.3] : [1, 1, 1],
-    markerColor: [0.637, 0.689, 0.863],
+    baseColor: theme === "dark" ? [0.2, 0.2, 0.2] : [1, 1, 1],
+    markerColor: theme === "dark" ? [0.7, 0.7, 0.9] : [0.637, 0.689, 0.863],
     glowColor: theme === "dark" ? [0.2, 0.2, 0.2] : [1, 1, 1],
     markers: CITIES_DATA.map(city => ({
       location: city.location,
@@ -92,7 +92,6 @@ export function Globe({
       onRender,
     })
 
-    // Cycle through cities every 3 seconds when not interacting
     const interval = setInterval(() => {
       if (!pointerInteracting.current) {
         setSelectedCity(prev => {
@@ -113,26 +112,27 @@ export function Globe({
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background py-20">
-      <div className="container grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10" />
+      <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div className="flex flex-col justify-center space-y-6">
-          <h2 className="text-4xl font-bold tracking-tight">
+          <h2 className="text-4xl font-bold tracking-tight dark:text-white">
             Dubai: The Most Affordable Global City
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-muted-foreground dark:text-gray-300">
             Compare property ownership costs across major global cities
           </p>
           <div className="space-y-4">
-            <div className="rounded-lg bg-primary/5 p-6">
-              <h3 className="text-2xl font-semibold text-primary">
+            <div className="rounded-lg bg-primary/5 p-6 backdrop-blur-sm dark:bg-white/5">
+              <h3 className="text-2xl font-semibold text-primary dark:text-primary-foreground">
                 {selectedCity.name}
               </h3>
-              <p className="mt-2 text-lg">
+              <p className="mt-2 text-lg dark:text-gray-300">
                 Average 1BR Apartment Cost:
                 <span className="ml-2 font-bold">
                   ${selectedCity.cost.toLocaleString()}
                 </span>
               </p>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-muted-foreground dark:text-gray-400">
                 {selectedCity.name === "Dubai" 
                   ? "Best value among global cities"
                   : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`
@@ -145,28 +145,15 @@ export function Globe({
         <div className="relative h-[600px]">
           <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 blur-3xl dark:from-primary/5 dark:via-secondary/3 dark:to-primary/5" />
           
-          <div
-            className={cn(
-              "absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]",
-              className,
-            )}
-          >
+          <div className={cn("absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]", className)}>
             <canvas
-              className={cn(
-                "size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]",
-              )}
+              className="size-full opacity-0 transition-opacity duration-500 [contain:layout_paint_size]"
               ref={canvasRef}
-              onPointerDown={(e) =>
-                updatePointerInteraction(
-                  e.clientX - pointerInteractionMovement.current,
-                )
-              }
+              onPointerDown={(e) => updatePointerInteraction(e.clientX - pointerInteractionMovement.current)}
               onPointerUp={() => updatePointerInteraction(null)}
               onPointerOut={() => updatePointerInteraction(null)}
               onMouseMove={(e) => updateMovement(e.clientX)}
-              onTouchMove={(e) =>
-                e.touches[0] && updateMovement(e.touches[0].clientX)
-              }
+              onTouchMove={(e) => e.touches[0] && updateMovement(e.touches[0].clientX)}
             />
           </div>
         </div>
