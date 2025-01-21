@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Sparkles, Star, Home, Heart } from "lucide-react";
+import { Sparkles, Star, Home, Heart, DollarSign, Clock, Award } from "lucide-react";
 
 interface DisplayCardProps {
   className?: string;
@@ -71,6 +71,27 @@ export default function DisplayCards({ cards }: DisplayCardsProps) {
       subtitle: "From satisfied guests worldwide",
       className: "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
     },
+    {
+      icon: <DollarSign className="size-4 text-primary-light" />,
+      title: "32%",
+      description: "Higher Revenue",
+      subtitle: "Compared to traditional long-term rentals",
+      className: "[grid-area:stack] translate-x-48 translate-y-30 hover:translate-y-20",
+    },
+    {
+      icon: <Clock className="size-4 text-primary-light" />,
+      title: "24/7",
+      description: "Support Available",
+      subtitle: "Round-the-clock assistance for hosts and guests",
+      className: "[grid-area:stack] translate-x-64 translate-y-40 hover:translate-y-30",
+    },
+    {
+      icon: <Award className="size-4 text-primary-light" />,
+      title: "Top 10",
+      description: "Property Management",
+      subtitle: "Ranked among the best in the region",
+      className: "[grid-area:stack] translate-x-80 translate-y-50 hover:translate-y-40",
+    }
   ];
 
   const displayCards = cards || defaultCards;
