@@ -4,6 +4,7 @@ import createGlobe, { COBEOptions } from "cobe"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "./ThemeProvider"
+import { BorderBeam } from "./ui/border-beam"
 
 const CITIES_DATA = [
   { name: "Dubai", location: [25.2048, 55.2708] as [number, number], cost: 350000, size: 0.1 },
@@ -115,29 +116,41 @@ export function Globe({
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10" />
       <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
-          <h2 className="text-4xl font-bold tracking-tight dark:text-white">
-            Dubai: The Most Affordable Global City
-          </h2>
-          <p className="text-xl text-muted-foreground dark:text-gray-300">
-            Compare property ownership costs across major global cities
-          </p>
-          <div className="space-y-4">
-            <div className="rounded-lg bg-primary/5 p-6 backdrop-blur-sm dark:bg-white/5">
-              <h3 className="text-2xl font-semibold text-primary dark:text-primary-foreground">
-                {selectedCity.name}
-              </h3>
-              <p className="mt-2 text-lg dark:text-gray-300">
-                Average 1BR Apartment Cost:
-                <span className="ml-2 font-bold">
-                  ${selectedCity.cost.toLocaleString()}
-                </span>
+          <div className="relative overflow-hidden rounded-xl">
+            <div className="absolute inset-0 bg-primary/5 animate-pulse rounded-xl" />
+            <BorderBeam 
+              className="rounded-xl"
+              duration={8}
+              colorFrom="#A2B0DC"
+              colorTo="#8A99C9"
+              size={300}
+            />
+            <div className="relative space-y-6 p-6 backdrop-blur-xl bg-black/40">
+              <h2 className="text-4xl font-bold tracking-tight dark:text-white">
+                Dubai: The Most Affordable Global City
+              </h2>
+              <p className="text-xl text-muted-foreground dark:text-gray-300">
+                Compare property ownership costs across major global cities
               </p>
-              <p className="mt-2 text-sm text-muted-foreground dark:text-gray-400">
-                {selectedCity.name === "Dubai" 
-                  ? "Best value among global cities"
-                  : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`
-                }
-              </p>
+              <div className="space-y-4">
+                <div className="rounded-lg bg-primary/5 p-6 backdrop-blur-sm dark:bg-white/5">
+                  <h3 className="text-2xl font-semibold text-primary dark:text-primary-foreground">
+                    {selectedCity.name}
+                  </h3>
+                  <p className="mt-2 text-lg dark:text-gray-300">
+                    Average 1BR Apartment Cost:
+                    <span className="ml-2 font-bold">
+                      ${selectedCity.cost.toLocaleString()}
+                    </span>
+                  </p>
+                  <p className="mt-2 text-sm text-muted-foreground dark:text-gray-400">
+                    {selectedCity.name === "Dubai" 
+                      ? "Best value among global cities"
+                      : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`
+                    }
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
