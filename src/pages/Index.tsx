@@ -6,6 +6,7 @@ import About from "@/components/About";
 import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
 import DisplayCards from "@/components/ui/display-cards";
+import { Globe } from "@/components/Globe";
 
 const Index = () => {
   return (
@@ -20,6 +21,7 @@ const Index = () => {
       <div className="container mx-auto px-4 py-20">
         <DisplayCards />
       </div>
+      <Globe />
       <Services />
       <WhyShortTerm />
       <Stats />
