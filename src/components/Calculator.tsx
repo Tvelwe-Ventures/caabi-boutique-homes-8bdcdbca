@@ -6,10 +6,40 @@ import { CalculatorResults } from "./calculator/CalculatorResults";
 import { calculateROI } from "./calculator/calculatorUtils";
 import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calculator/types";
 import { CardSpotlight } from "./ui/card-spotlight";
-import { Hero } from "./ui/hero";
 import { GlowingStars } from "./ui/glowing-stars";
 import { BorderBeam } from "./ui/border-beam";
 import InstagramFeed from "./InstagramFeed";
+
+interface HeroProps {
+  title: React.ReactNode;
+  subtitle: string;
+  actions?: Array<{
+    label: string;
+    href: string;
+    variant?: string;
+  }>;
+  className?: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ title, subtitle, actions, className }) => (
+  <div className={`text-center py-12 ${className}`}>
+    {title}
+    <p className="mt-4 text-lg text-gray-400">{subtitle}</p>
+    {actions && (
+      <div className="mt-6 flex justify-center gap-4">
+        {actions.map((action, index) => (
+          <a
+            key={index}
+            href={action.href}
+            className="inline-flex items-center px-6 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90"
+          >
+            {action.label}
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
