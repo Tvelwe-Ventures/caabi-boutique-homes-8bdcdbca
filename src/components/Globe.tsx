@@ -37,13 +37,13 @@ export function Globe({
     devicePixelRatio: 2,
     phi: 0,
     theta: 0.3,
-    dark: theme === "dark" ? 1 : 0,
+    dark: 0,
     diffuse: 0.4,
     mapSamples: 16000,
     mapBrightness: 1.2,
-    baseColor: theme === "dark" ? [0.2, 0.2, 0.2] : [1, 1, 1],
-    markerColor: theme === "dark" ? [0.7, 0.7, 0.9] : [0.637, 0.689, 0.863],
-    glowColor: theme === "dark" ? [0.2, 0.2, 0.2] : [1, 1, 1],
+    baseColor: [1, 1, 1],
+    markerColor: [0.637, 0.689, 0.863],
+    glowColor: [1, 1, 1],
     markers: CITIES_DATA.map(city => ({
       location: city.location,
       size: city.size
