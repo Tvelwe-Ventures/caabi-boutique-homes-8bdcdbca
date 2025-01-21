@@ -64,7 +64,7 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-20 overflow-hidden bg-black/40">
+    <section ref={ref} className="relative py-20 overflow-hidden section-dark">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
@@ -97,11 +97,11 @@ const Stats = () => {
               className={cn("flex justify-center", stat.className)}
             >
               <GlareCard>
-                <div className="p-8 flex flex-col items-center justify-center h-full">
+                <div className="p-8 flex flex-col items-center justify-center h-full neo-blur">
                   <div className="mb-4">
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold bg-gradient-to-r from-white via-primary-light to-white bg-clip-text text-transparent mb-2">
+                  <div className="text-4xl font-bold animated-gradient-text mb-2">
                     {inView && (
                       <>
                         {stat.prefix}
