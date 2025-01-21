@@ -103,12 +103,21 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
           />
         </div>
       </div>
-      <Button 
-        onClick={() => onCalculate(inputs)} 
-        className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3"
-      >
-        Calculate ROI
-      </Button>
+      <div className="grid grid-cols-2 gap-4">
+        <Button 
+          onClick={() => onCalculate(inputs)} 
+          className="bg-primary hover:bg-primary-dark text-white font-semibold"
+        >
+          Calculate ROI
+        </Button>
+        <Button 
+          variant="secondary"
+          onClick={() => window.location.href = '/contact'}
+          className="hover:bg-secondary-dark text-white font-semibold"
+        >
+          Contact Us
+        </Button>
+      </div>
     </div>
   );
 };
