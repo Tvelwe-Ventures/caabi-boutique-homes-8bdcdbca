@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { CalculatorForm } from "./calculator/CalculatorForm";
 import { CalculatorResults } from "./calculator/CalculatorResults";
 import { calculateROI } from "./calculator/calculatorUtils";
 import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calculator/types";
+import { CardSpotlight } from "./ui/card-spotlight";
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -21,29 +22,42 @@ const Calculator = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-primary/5 py-20">
+    <div className="min-h-screen bg-gradient-dark py-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="container mx-auto px-4"
       >
-        <div className="max-w-4xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle>Calculate Your Property's Potential</CardTitle>
-              <CardDescription>
+        <div className="max-w-4xl mx-auto space-y-8">
+          <CardSpotlight className="overflow-hidden">
+            <CardHeader className="text-center">
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
+                Calculate Your Property's Potential
+              </CardTitle>
+              <CardDescription className="text-lg mt-4 text-gray-400">
                 Use our interactive calculator to estimate your potential returns from 
                 short-term rental property management in Dubai.
               </CardDescription>
             </CardHeader>
-          </Card>
-          
-          <div className="mt-6">
-            <CalculatorForm onCalculate={handleCalculate} />
-          </div>
+            <CardContent>
+              <div className="mt-6">
+                <CalculatorForm onCalculate={handleCalculate} />
+              </div>
+            </CardContent>
+          </CardSpotlight>
 
           {results.annualRevenue > 0 && (
-            <CalculatorResults results={results} />
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <CardSpotlight>
+                <CardContent className="p-6">
+                  <CalculatorResults results={results} />
+                </CardContent>
+              </CardSpotlight>
+            </motion.div>
           )}
         </div>
       </motion.div>

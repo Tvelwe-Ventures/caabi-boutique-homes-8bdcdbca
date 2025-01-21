@@ -33,35 +33,41 @@ export const CalculatorResults = ({ results }: CalculatorResultsProps) => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6"
+      className="grid grid-cols-1 md:grid-cols-3 gap-6"
     >
       <motion.div variants={itemVariants}>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-3xl font-bold text-primary-light">
               {results.annualRevenue.toLocaleString()} AED
             </CardTitle>
-            <CardDescription>Annual Revenue</CardDescription>
+            <CardDescription className="text-gray-400">
+              Annual Revenue
+            </CardDescription>
           </CardHeader>
         </Card>
       </motion.div>
       <motion.div variants={itemVariants}>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-3xl font-bold text-primary-light">
               {results.netProfit.toLocaleString()} AED
             </CardTitle>
-            <CardDescription>Net Annual Profit</CardDescription>
+            <CardDescription className="text-gray-400">
+              Net Annual Profit
+            </CardDescription>
           </CardHeader>
         </Card>
       </motion.div>
       <motion.div variants={itemVariants}>
-        <Card>
+        <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-2xl">
+            <CardTitle className="text-3xl font-bold text-primary-light">
               {results.roi.toFixed(2)}%
             </CardTitle>
-            <CardDescription>Return on Investment</CardDescription>
+            <CardDescription className="text-gray-400">
+              Return on Investment
+            </CardDescription>
           </CardHeader>
         </Card>
       </motion.div>
