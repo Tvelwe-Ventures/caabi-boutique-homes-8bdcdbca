@@ -10,9 +10,9 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <motion.img
-          src="/lovable-uploads/10ed4f4c-f515-4635-ab65-ce78d558f42e.png"
+          src="/lovable-uploads/19e19dba-2d9f-4ea9-90d7-a959d65d869b.png"
           alt="Caabi Boutique Homes"
-          className="w-32"
+          className="h-16 w-auto"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
