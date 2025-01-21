@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { BorderBeam } from "./ui/border-beam";
+import { cn } from "@/lib/utils";
 
 const Stats = () => {
   const [ref, inView] = useInView({
