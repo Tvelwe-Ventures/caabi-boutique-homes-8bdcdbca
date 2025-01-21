@@ -43,22 +43,24 @@ const Calculator = () => {
         className="container mx-auto px-4 pb-20"
       >
         <div className="max-w-4xl mx-auto space-y-8">
-          <CardSpotlight className="overflow-hidden">
-            <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
-                Calculate Your Property's Potential
-              </CardTitle>
-              <CardDescription className="text-lg mt-4 text-gray-400">
-                Use our interactive calculator to estimate your potential returns from 
-                short-term rental property management in Dubai.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="mt-6">
-                <CalculatorForm onCalculate={handleCalculate} />
-              </div>
-            </CardContent>
-          </CardSpotlight>
+          <div className="moving-border">
+            <CardSpotlight className="overflow-hidden">
+              <CardHeader className="text-center">
+                <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
+                  Calculate Your Property's Potential
+                </CardTitle>
+                <CardDescription className="text-lg mt-4 text-gray-400">
+                  Use our interactive calculator to estimate your potential returns from 
+                  short-term rental property management in Dubai.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="mt-6">
+                  <CalculatorForm onCalculate={handleCalculate} />
+                </div>
+              </CardContent>
+            </CardSpotlight>
+          </div>
 
           {results.annualRevenue > 0 && (
             <motion.div
@@ -66,11 +68,13 @@ const Calculator = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <CardSpotlight>
-                <CardContent className="p-6">
-                  <CalculatorResults results={results} />
-                </CardContent>
-              </CardSpotlight>
+              <div className="moving-border">
+                <CardSpotlight>
+                  <CardContent className="p-6">
+                    <CalculatorResults results={results} />
+                  </CardContent>
+                </CardSpotlight>
+              </div>
             </motion.div>
           )}
         </div>
