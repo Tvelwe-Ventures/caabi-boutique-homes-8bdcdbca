@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 export const CanvasRevealEffect = ({
-  colors = [[59, 130, 246], [139, 92, 246]],
+  colors = [[59, 130, 246], [139, 92, 246]], // Default colors
   dotSize = 3,
   animationSpeed = 5,
   containerClassName,
@@ -40,12 +40,17 @@ export const CanvasRevealEffect = ({
       time += animationSpeed / 1000;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Ensure colors array exists and has at least one color
+      const safeColors = colors?.length ? colors : [[59, 130, 246]];
+
       for (let i = 0; i < canvas.width; i += dotSize * 2) {
         for (let j = 0; j < canvas.height; j += dotSize * 2) {
-          const colorIndex = Math.floor(
-            (Math.sin(i * 0.05 + time) + Math.sin(j * 0.05 + time)) % colors.length
+          const colorIndex = Math.abs(
+            Math.floor(
+              (Math.sin(i * 0.05 + time) + Math.sin(j * 0.05 + time)) % safeColors.length
+            )
           );
-          const [r, g, b] = colors[Math.abs(colorIndex)];
+          const [r, g, b] = safeColors[colorIndex];
           ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
           ctx.fillRect(i, j, dotSize, dotSize);
         }
