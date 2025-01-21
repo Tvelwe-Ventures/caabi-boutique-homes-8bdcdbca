@@ -55,42 +55,42 @@ export default function DisplayCards({ cards }: DisplayCardsProps) {
       title: "88%",
       description: "Average Occupancy Rate",
       subtitle: "Consistently outperforming market average of 65%",
-      className: "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration:700 hover:grayscale-0 before:left-0 before:top-0",
+      className: "[grid-area:stack] hover:-translate-y-2",
     },
     {
       icon: <Star className="size-4 text-primary-light" />,
       title: "4.94",
       description: "Guest Satisfaction",
       subtitle: "Based on verified guest reviews",
-      className: "[grid-area:stack] translate-x-16 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-border before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-background/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration:700 hover:grayscale-0 before:left-0 before:top-0",
+      className: "[grid-area:stack] translate-y-4 hover:translate-y-2",
     },
     {
       icon: <Heart className="size-4 text-primary-light" />,
       title: "65+",
       description: "5-Star Reviews",
       subtitle: "From satisfied guests worldwide",
-      className: "[grid-area:stack] translate-x-32 translate-y-20 hover:translate-y-10",
+      className: "[grid-area:stack] translate-y-8 hover:translate-y-6",
     },
     {
       icon: <DollarSign className="size-4 text-primary-light" />,
       title: "32%",
       description: "Higher Revenue",
       subtitle: "Compared to traditional long-term rentals",
-      className: "[grid-area:stack] translate-x-48 translate-y-30 hover:translate-y-20",
+      className: "[grid-area:stack] translate-y-12 hover:translate-y-10",
     },
     {
       icon: <Clock className="size-4 text-primary-light" />,
       title: "24/7",
       description: "Support Available",
       subtitle: "Round-the-clock assistance for hosts and guests",
-      className: "[grid-area:stack] translate-x-64 translate-y-40 hover:translate-y-30",
+      className: "[grid-area:stack] translate-y-16 hover:translate-y-14",
     },
     {
       icon: <Award className="size-4 text-primary-light" />,
       title: "Top 10",
       description: "Property Management",
       subtitle: "Ranked among the best in the region",
-      className: "[grid-area:stack] translate-x-80 translate-y-50 hover:translate-y-40",
+      className: "[grid-area:stack] translate-y-20 hover:translate-y-18",
     }
   ];
 
