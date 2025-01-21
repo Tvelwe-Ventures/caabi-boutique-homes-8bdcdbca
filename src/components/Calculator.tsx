@@ -7,6 +7,7 @@ import { calculateROI } from "./calculator/calculatorUtils";
 import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calculator/types";
 import { CardSpotlight } from "./ui/card-spotlight";
 import { Hero } from "./ui/hero";
+import { GlowingStars } from "./ui/glowing-stars";
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -44,8 +45,9 @@ const Calculator = () => {
       >
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="moving-border">
-            <CardSpotlight className="overflow-hidden">
-              <CardHeader className="text-center">
+            <CardSpotlight className="overflow-hidden relative">
+              <GlowingStars />
+              <CardHeader className="text-center relative z-10">
                 <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
                   Calculate Your Property's Potential
                 </CardTitle>
@@ -54,7 +56,7 @@ const Calculator = () => {
                   short-term rental property management in Dubai.
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="relative z-10">
                 <div className="mt-6">
                   <CalculatorForm onCalculate={handleCalculate} />
                 </div>
@@ -69,8 +71,9 @@ const Calculator = () => {
               transition={{ delay: 0.2 }}
             >
               <div className="moving-border">
-                <CardSpotlight>
-                  <CardContent className="p-6">
+                <CardSpotlight className="relative">
+                  <GlowingStars />
+                  <CardContent className="p-6 relative z-10">
                     <CalculatorResults results={results} />
                   </CardContent>
                 </CardSpotlight>
