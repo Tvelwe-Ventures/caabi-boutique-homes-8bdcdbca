@@ -81,7 +81,7 @@ const WhyShortTerm = () => {
                 <div className="w-4 h-0.5 bg-[#FF6B6B]"></div>
                 <span>12 month tenancy contract. Total AED 90,000</span>
               </div>
-              <p className="text-xs text-gray-500 italic">* for illustration purposes only.</p>
+              <p className="text-xs text-gray-500 italic">* For illustration purposes only. The long term rent variables could potentially match the short-term revenue in some cases.</p>
             </div>
           </div>
 
