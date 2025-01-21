@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 import { Particles } from "./ui/particles";
 import { CardSpotlight } from "./ui/card-spotlight";
+import { BorderBeam } from "./ui/border-beam";
 
 const services = [
   {
@@ -38,7 +39,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="relative py-24 bg-gradient-dark">
+    <section className="relative py-24 section-dark">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
@@ -53,7 +54,9 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gradient mb-6">What We Offer</h2>
+          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
+            What We Offer
+          </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-lg">
             Comprehensive property management services designed to maximize your returns while providing exceptional guest experiences.
           </p>
@@ -67,7 +70,8 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <CardSpotlight>
+              <CardSpotlight className="relative">
+                <BorderBeam duration={15} delay={index} />
                 <div className="relative z-10 h-full">
                   <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
                     <service.Icon className="h-6 w-6 text-primary-light" />

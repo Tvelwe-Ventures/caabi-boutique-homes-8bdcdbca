@@ -74,7 +74,7 @@
   /* Dark mode specific styles */
   .dark {
     .text-gradient {
-      @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+      @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent animate-text-shimmer;
     }
     .glass-card {
       @apply backdrop-blur-xl bg-black/40 border border-white/10;
@@ -82,81 +82,40 @@
     .neo-blur {
       @apply backdrop-blur-2xl bg-black/40 border border-white/10;
     }
+    .section-dark {
+      @apply bg-gradient-to-b from-black via-black/95 to-primary/5;
+    }
+    .glow-effect {
+      @apply before:absolute before:inset-0 before:bg-primary/20 before:blur-3xl before:opacity-30 before:-z-10;
+    }
   }
 }
 
 @layer utilities {
-  .animated-border-button {
-    @apply relative inline-flex items-center justify-center overflow-hidden rounded-md bg-background px-8 py-3 font-medium transition-all hover:scale-105;
+  .animated-gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] animate-text-flow;
   }
 
-  .animated-border-button::before {
+  .bento-card {
+    @apply relative overflow-hidden rounded-xl backdrop-blur-xl bg-black/40 border border-white/10;
+  }
+
+  .bento-card::before {
     content: '';
-    @apply absolute inset-0 translate-x-[100%] animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    @apply absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0 transition-opacity duration-300;
   }
 
-  .glass-card {
-    @apply backdrop-blur-xl bg-black/40 border border-white/10 shadow-[0_8px_16px_-6px_rgba(0,0,0,0.5)] hover:shadow-primary/20;
-  }
-
-  .neo-blur {
-    @apply backdrop-blur-2xl bg-black/40 border border-white/10;
-  }
-
-  .text-gradient {
-    @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+  .bento-card:hover::before {
+    @apply opacity-100;
   }
 }
 
-.moving-border {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.75rem;
-  padding: 1px;
-  background: transparent;
+@keyframes textShimmer {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
 }
 
-.moving-border::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: calc(0.75rem * 0.96);
-  padding: 2px;
-  background: conic-gradient(
-    from var(--angle),
-    theme(colors.primary.DEFAULT),
-    theme(colors.primary.dark),
-    theme(colors.primary.DEFAULT),
-    theme(colors.primary.dark)
-  );
-  -webkit-mask: 
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  mask: 
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: rotate 3s linear infinite;
-}
-
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@keyframes rotate {
-  to {
-    --angle: 360deg;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
+@keyframes textFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }

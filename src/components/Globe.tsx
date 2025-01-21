@@ -111,9 +111,9 @@ export function Globe({
   }, [theme])
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center bg-background py-20">
+    <div className="relative py-12 items-center justify-center bg-background">
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10" />
-      <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2">
+      <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
           <h2 className="text-4xl font-bold tracking-tight dark:text-white">
             Dubai: The Most Affordable Global City
@@ -143,7 +143,7 @@ export function Globe({
         </div>
         
         <div className="relative h-[600px]">
-          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 blur-3xl dark:from-primary/5 dark:via-secondary/3 dark:to-primary/5" />
+          <div className="absolute inset-0 rounded-full bg-gradient-radial from-primary/20 via-primary/5 to-transparent blur-3xl dark:from-primary/10 dark:via-primary/5 dark:to-transparent animate-pulse" />
           
           <div className={cn("absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]", className)}>
             <canvas
@@ -159,5 +159,5 @@ export function Globe({
         </div>
       </div>
     </div>
-  )
+  );
 }
