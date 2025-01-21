@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 import { Particles } from "./ui/particles";
-import { CardSpotlight } from "./ui/card-spotlight";
-import { BorderBeam } from "./ui/border-beam";
+import { BentoGrid, BentoCard } from "./ui/bento-grid";
 
 const services = [
   {
@@ -62,7 +61,7 @@ const Services = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <BentoGrid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -70,21 +69,14 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <CardSpotlight className="relative">
-                <BorderBeam duration={15} delay={index} />
-                <div className="relative z-10 h-full">
-                  <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
-                    <service.Icon className="h-6 w-6 text-primary-light" />
-                  </div>
-                  <h3 className="mb-2 font-semibold leading-none tracking-tight text-xl text-white">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-gray-400">{service.description}</p>
-                </div>
-              </CardSpotlight>
+              <BentoCard
+                Icon={service.Icon}
+                name={service.name}
+                description={service.description}
+              />
             </motion.div>
           ))}
-        </div>
+        </BentoGrid>
       </div>
     </section>
   );
