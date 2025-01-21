@@ -8,6 +8,7 @@ import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calcu
 import { CardSpotlight } from "./ui/card-spotlight";
 import { Hero } from "./ui/hero";
 import { GlowingStars } from "./ui/glowing-stars";
+import { BorderBeam } from "./ui/border-beam";
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -58,7 +59,7 @@ const Calculator = () => {
             variant: "default"
           }
         ]}
-        className="mb-12" // Reduced from mb-20 to move calculator up
+        className="mb-12"
       />
       
       <motion.div
@@ -67,8 +68,9 @@ const Calculator = () => {
         className="container mx-auto px-4 pb-20"
       >
         <div className="max-w-4xl mx-auto space-y-8">
-          <div className="moving-border">
+          <div className="moving-border relative">
             <CardSpotlight className="overflow-hidden relative">
+              <BorderBeam />
               <GlowingStars />
               <CardHeader className="text-center relative z-10">
                 <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
@@ -93,8 +95,9 @@ const Calculator = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
             >
-              <div className="moving-border">
+              <div className="moving-border relative">
                 <CardSpotlight className="relative">
+                  <BorderBeam delay={2} />
                   <GlowingStars />
                   <CardContent className="p-6 relative z-10">
                     <CalculatorResults results={results} />

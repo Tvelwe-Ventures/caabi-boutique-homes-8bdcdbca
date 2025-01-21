@@ -83,6 +83,11 @@ export default {
             transform: "translateX(100%)",
           },
         },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -90,6 +95,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s infinite",
+        "border-beam": "border-beam var(--duration) infinite linear",
       },
     },
   },
