@@ -10,25 +10,25 @@ const Hero = () => {
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-primary/5">
       {/* Decorative background elements */}
       <motion.img
-        src="/lovable-uploads/844637b7-bec7-4617-895b-028a7e1be2e2.png"
-        alt=""
-        className="absolute right-0 top-1/4 w-96 opacity-5 -rotate-12"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 0.05, scale: 1 }}
+        src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"
+        alt="Dubai Skyline"
+        className="absolute inset-0 w-full h-full object-cover opacity-80"
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 0.8, scale: 1 }}
         transition={{ duration: 1 }}
       />
       
-      <div className="container mx-auto px-4 pt-20">
+      <div className="container mx-auto px-4 pt-20 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
-            Experience Dubai's Finest Short-Term Rentals
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent drop-shadow-lg">
+            Turn Real Estate Into Your Wealth Multiplier
           </h1>
-          <p className="mt-4 text-lg text-gray-600 mb-8">
+          <p className="mt-4 text-lg text-white mb-8 drop-shadow-lg">
             Welcome to Dubai's premier family-owned luxury property management company, 
             where exceptional service meets unparalleled returns.
           </p>
@@ -44,7 +44,7 @@ const Hero = () => {
               size="lg"
               variant="outline"
               onClick={() => navigate("/proposal")}
-              className="border-primary text-primary hover:bg-primary/10"
+              className="border-white text-white hover:bg-white/10 backdrop-blur-sm"
             >
               View Proposal
             </Button>
