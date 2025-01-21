@@ -26,22 +26,25 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-gradient-dark">
-      <div className="container mx-auto px-4 py-12">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold text-center mb-8 text-gradient"
-        >
-          Calculate Your Investment Returns
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-xl md:text-2xl text-center mb-12 text-gray-300"
-        >
-          Discover the potential of your property investment in Dubai
-        </motion.p>
+      <div className="relative overflow-hidden py-20 sm:py-32 isolate">
+        {/* Background gradient */}
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.primary.dark),transparent)]" />
+        
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center space-y-8"
+          >
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+              Calculate Your Investment Returns
+            </h1>
+            <p className="mx-auto max-w-2xl text-lg leading-8 text-gray-300">
+              Discover the potential of your property investment in Dubai with our advanced ROI calculator.
+              Make informed decisions backed by real market data.
+            </p>
+          </motion.div>
+        </div>
       </div>
       
       <motion.div
