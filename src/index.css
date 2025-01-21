@@ -51,9 +51,42 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border selection:bg-white/10 selection:text-white;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+}
+
+@layer utilities {
+  .animated-border-button {
+    @apply relative inline-flex items-center justify-center overflow-hidden rounded-md bg-background px-8 py-3 font-medium transition-all hover:scale-105;
+  }
+
+  .animated-border-button::before {
+    content: '';
+    @apply absolute inset-0 translate-x-[100%] animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent;
+  }
+
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)] dark:bg-black/40;
+  }
+
+  .neo-blur {
+    @apply backdrop-blur-2xl bg-black/40 border border-white/10;
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }

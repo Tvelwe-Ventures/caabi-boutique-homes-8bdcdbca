@@ -52,6 +52,10 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      backgroundImage: {
+        'gradient-dark': 'linear-gradient(to bottom right, rgb(0 0 0), rgb(17 24 39), rgb(0 0 0))',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -74,9 +78,10 @@ export default {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "card-rotate": {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(-8deg)" },
+        shimmer: {
+          "100%": {
+            transform: "translateX(100%)",
+          },
         },
       },
       animation: {
@@ -84,7 +89,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease-out forwards",
-        "card-rotate": "card-rotate 0.3s ease-out forwards",
+        shimmer: "shimmer 2s infinite",
       },
     },
   },

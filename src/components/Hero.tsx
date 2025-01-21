@@ -8,7 +8,7 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-white to-primary/5 dark:from-black dark:to-primary/20">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-primary/5 dark:from-black dark:via-primary/5 dark:to-primary/10">
       {/* Particles animation */}
       <Particles
         className="absolute inset-0 -z-10"
@@ -21,14 +21,14 @@ const Hero = () => {
       <motion.img
         src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"
         alt="Dubai Skyline"
-        className="absolute inset-0 w-full h-full object-cover opacity-60"
+        className="absolute inset-0 w-full h-full object-cover opacity-60 dark:opacity-30"
         initial={{ opacity: 0, scale: 1.1 }}
         animate={{ opacity: 0.6, scale: 1 }}
         transition={{ duration: 1 }}
       />
       
       {/* Dark overlay for better text visibility */}
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
       
       <div className="container mx-auto px-4 pt-20 relative z-10 flex items-end pb-32">
         <motion.div
@@ -37,26 +37,24 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg dark:text-gradient">
             Turn Real Estate Into Your Wealth Multiplier
           </h1>
-          <p className="mt-4 text-xl text-white mb-8 drop-shadow-lg">
+          <p className="mt-4 text-xl text-white mb-8 drop-shadow-lg dark:text-white/90">
             Welcome to Dubai's premier family-owned luxury property management company, 
             where exceptional service meets unparalleled returns.
           </p>
           <div className="flex gap-4 justify-center">
             <Button 
-              size="lg"
               onClick={() => navigate("/calculator")}
-              className="bg-primary hover:bg-primary-dark text-white text-lg"
+              className="animated-border-button bg-primary hover:bg-primary-dark text-white text-lg"
             >
               Calculate ROI <ArrowRight className="ml-2" />
             </Button>
             <Button 
-              size="lg"
               variant="outline"
               onClick={() => navigate("/proposal")}
-              className="border-white text-primary hover:bg-white/10 backdrop-blur-sm bg-white"
+              className="animated-border-button backdrop-blur-sm bg-white/10 border-white/20 text-white hover:bg-white/20"
             >
               View Proposal
             </Button>
