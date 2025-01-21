@@ -3,6 +3,7 @@ import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { BorderBeam } from "./ui/border-beam";
 import { cn } from "@/lib/utils";
+import { Particles } from "./ui/particles";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -35,8 +36,29 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={ref} className="py-20 section-dark">
+    <section ref={ref} className="relative py-20 section-dark overflow-hidden">
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={50}
+        staticity={50}
+        color="var(--primary-light)"
+      />
+      
       <div className="container px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
+            Our Performance
+          </h2>
+          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            Delivering exceptional results through dedicated property management
+          </p>
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <motion.div
