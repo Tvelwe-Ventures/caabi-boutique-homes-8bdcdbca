@@ -10,7 +10,7 @@ export function BentoGrid({ className, children }: BentoGridProps) {
   return (
     <div
       className={cn(
-        "grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8",
+        "grid grid-cols-1 gap-4",
         className
       )}
     >
@@ -24,8 +24,6 @@ interface BentoCardProps {
   name: string;
   description: string;
   href?: string;
-  cta?: string;
-  background?: React.ReactNode;
   className?: string;
 }
 
@@ -34,32 +32,30 @@ export function BentoCard({
   name,
   description,
   className,
-  background,
 }: BentoCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+    <div
       className={cn(
-        "group relative overflow-hidden rounded-xl border bg-background p-6 shadow-md transition-all hover:shadow-xl",
+        "group relative overflow-hidden rounded-3xl border border-white/10",
+        "backdrop-blur-xl transition-all duration-300",
+        "hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20",
+        "before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite]",
+        "before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent",
         className
       )}
     >
-      <div className="relative z-10">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="relative z-10 p-8">
         {Icon && (
-          <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3">
-            <Icon className="h-6 w-6 text-primary" />
+          <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
+            <Icon className="h-6 w-6 text-primary-light" />
           </div>
         )}
-        <h3 className="mb-2 font-semibold leading-none tracking-tight text-xl">
+        <h3 className="mb-2 font-semibold leading-none tracking-tight text-xl text-white">
           {name}
         </h3>
-        <p className="text-sm text-muted-foreground">{description}</p>
+        <p className="text-sm text-gray-400">{description}</p>
       </div>
-      {background && (
-        <div className="pointer-events-none absolute inset-0 z-0">{background}</div>
-      )}
-    </motion.div>
+    </div>
   );
 }
