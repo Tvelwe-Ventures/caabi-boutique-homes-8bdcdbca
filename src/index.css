@@ -51,11 +51,37 @@
 
 @layer base {
   * {
-    @apply border-border selection:bg-white/10 selection:text-white;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
+  }
+  
+  /* Light mode specific styles */
+  :root:not(.dark) {
+    .text-gradient {
+      @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent;
+    }
+    .glass-card {
+      @apply bg-white/90 border border-gray-200 shadow-lg;
+    }
+    .neo-blur {
+      @apply bg-white/90 border border-gray-200;
+    }
+  }
+  
+  /* Dark mode specific styles */
+  .dark {
+    .text-gradient {
+      @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+    }
+    .glass-card {
+      @apply backdrop-blur-xl bg-black/40 border border-white/10;
+    }
+    .neo-blur {
+      @apply backdrop-blur-2xl bg-black/40 border border-white/10;
+    }
   }
 }
 

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -17,6 +18,34 @@ const Header = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         />
+        <nav>
+          <ul className="flex items-center space-x-8">
+            <li>
+              <Link 
+                to="/" 
+                className="text-lg font-medium text-gray-200 hover:text-primary transition-colors"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link 
+                to="/calculator" 
+                className="text-lg font-medium text-gray-200 hover:text-primary transition-colors"
+              >
+                ROI Calculator
+              </Link>
+            </li>
+            <li>
+              <a 
+                href="#investment"
+                className="text-lg font-medium text-gray-200 hover:text-primary transition-colors"
+              >
+                Investment Proposal
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </motion.header>
   );
