@@ -143,6 +143,9 @@ export function Globe({
         </div>
         
         <div className="relative h-[600px]">
+          {/* Add gradient background */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/10 via-secondary/5 to-primary/10 blur-3xl" />
+          
           <div
             className={cn(
               "absolute inset-0 mx-auto aspect-[1/1] w-full max-w-[600px]",
