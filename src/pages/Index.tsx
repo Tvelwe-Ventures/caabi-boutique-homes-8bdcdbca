@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
-import DisplayCards from "@/components/ui/display-cards";
+import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
 import { BentoGallery } from "@/components/ui/bento-gallery";
 import Footer from "@/components/Footer";

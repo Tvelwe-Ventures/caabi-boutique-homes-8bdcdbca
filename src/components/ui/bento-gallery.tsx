@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GlareCard } from "./glare-card";
+import { CardSpotlight } from "./card-spotlight";
 
 interface GalleryImage {
   src: string;
@@ -19,7 +19,7 @@ export function BentoGallery({ images, className }: BentoGalleryProps) {
     <div className={className}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {images.map((image, index) => (
-          <GlareCard key={index} className="w-full h-full">
+          <CardSpotlight key={index} className="w-full h-full">
             <div 
               className="cursor-pointer w-full h-full"
               onClick={() => setSelectedImage(image.src)}
@@ -30,7 +30,7 @@ export function BentoGallery({ images, className }: BentoGalleryProps) {
                 className="w-full h-full object-cover"
               />
             </div>
-          </GlareCard>
+          </CardSpotlight>
         ))}
       </div>
 
