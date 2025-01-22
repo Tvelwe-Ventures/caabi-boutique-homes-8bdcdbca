@@ -41,12 +41,12 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <a 
-                  href="#investment"
+                <Link 
+                  to="/investment"
                   className="text-lg font-medium text-gray-800 dark:text-white hover:text-primary transition-colors"
                 >
                   Investment Proposal
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
