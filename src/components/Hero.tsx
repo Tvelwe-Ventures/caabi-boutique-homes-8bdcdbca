@@ -37,7 +37,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-6xl hero-heading mb-6 text-white drop-shadow-lg dark:text-gradient">
+          <h1 className="text-5xl md:text-6xl hero-heading mb-6 text-white drop-shadow-lg dark:text-gradient font-bold">
             Turn Real Estate Into Your Wealth Multiplier
           </h1>
           <p className="mt-4 text-xl text-white mb-8 drop-shadow-lg dark:text-white/90">
