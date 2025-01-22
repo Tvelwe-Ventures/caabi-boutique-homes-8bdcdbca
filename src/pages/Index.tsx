@@ -7,6 +7,7 @@ import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
 import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
+import Portfolio from "@/components/Portfolio";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -25,6 +26,7 @@ const Index = () => {
       </div>
       <Globe />
       <Services />
+      <Portfolio />
       <WhyShortTerm />
       <Stats />
       <Footer />

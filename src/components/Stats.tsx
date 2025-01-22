@@ -2,7 +2,8 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { Home, Star, Heart, DollarSign } from "lucide-react";
-import { GradientCard } from "./ui/gradient-card";
+import { CardSpotlight } from "./ui/card-spotlight";
+import { BorderBeam } from "./ui/border-beam";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -46,7 +47,7 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-20 overflow-hidden bg-white dark:bg-black">
+    <section ref={ref} className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-primary-dark/5 dark:to-black">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,7 +55,7 @@ const Stats = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-4xl font-bold text-gray-900 dark:text-gradient mb-6">
             Our Performance
           </h2>
           <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
@@ -62,7 +63,7 @@ const Stats = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
@@ -71,8 +72,9 @@ const Stats = () => {
               transition={{ delay: index * 0.2 }}
               className={stat.className}
             >
-              <GradientCard>
-                <div className="flex flex-col items-center text-center space-y-4">
+              <CardSpotlight className="h-full">
+                <BorderBeam className="rounded-xl" />
+                <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4">
                   <div className="p-3 rounded-full bg-primary/10 dark:bg-white/10">
                     {stat.icon}
                   </div>
@@ -95,7 +97,7 @@ const Stats = () => {
                     {stat.description}
                   </p>
                 </div>
-              </GradientCard>
+              </CardSpotlight>
             </motion.div>
           ))}
         </div>
