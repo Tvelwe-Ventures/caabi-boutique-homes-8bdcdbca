@@ -24,15 +24,15 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#A2B0DC",
-          light: "#B4C0E5",
-          dark: "#8A99C9",
+          DEFAULT: "#8394CA", // Slightly darker blue from the palette
+          light: "#B2D1E3", // Light blue from palette
+          dark: "#1A2957", // Dark navy from palette
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#8E9196",
-          light: "#A5A8AC",
-          dark: "#6B6E73",
+          DEFAULT: "#DFD5EA", // Soft lavender from palette
+          light: "#A0DDDB", // Turquoise from palette
+          dark: "#8E9196",
           foreground: "#FFFFFF",
         },
         destructive: {
