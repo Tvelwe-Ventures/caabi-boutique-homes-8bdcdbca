@@ -18,7 +18,7 @@ const Stats = () => {
       suffix: "%", 
       label: "Average Occupancy Rate",
       description: "Consistently outperforming market average of 65%",
-      icon: <Home className="w-6 h-6 text-primary-light" />,
+      icon: <Home className="w-6 h-6 text-primary" />,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -26,7 +26,7 @@ const Stats = () => {
       decimals: 2, 
       label: "Guest Satisfaction",
       description: "Based on verified guest reviews",
-      icon: <Star className="w-6 h-6 text-primary-light" />,
+      icon: <Star className="w-6 h-6 text-primary" />,
       className: "lg:col-span-2"
     },
     { 
@@ -34,7 +34,7 @@ const Stats = () => {
       suffix: "+", 
       label: "5-Star Reviews",
       description: "From satisfied guests worldwide",
-      icon: <Heart className="w-6 h-6 text-primary-light" />,
+      icon: <Heart className="w-6 h-6 text-primary" />,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -42,7 +42,7 @@ const Stats = () => {
       suffix: "%", 
       label: "Higher Revenue",
       description: "Compared to traditional long-term rentals",
-      icon: <DollarSign className="w-6 h-6 text-primary-light" />,
+      icon: <DollarSign className="w-6 h-6 text-primary" />,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -50,7 +50,7 @@ const Stats = () => {
       suffix: "/7", 
       label: "Support Available",
       description: "Round-the-clock assistance for hosts and guests",
-      icon: <Clock className="w-6 h-6 text-primary-light" />,
+      icon: <Clock className="w-6 h-6 text-primary" />,
       className: "lg:col-span-2"
     },
     { 
@@ -58,13 +58,13 @@ const Stats = () => {
       prefix: "Top ", 
       label: "Property Management",
       description: "Ranked among the best in the region",
-      icon: <Award className="w-6 h-6 text-primary-light" />,
+      icon: <Award className="w-6 h-6 text-primary" />,
       className: "md:col-span-2 lg:col-span-1"
     },
   ];
 
   return (
-    <section ref={ref} className="relative py-20 overflow-hidden section-dark">
+    <section ref={ref} className="relative py-20 overflow-hidden bg-gray-50 dark:section-dark">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
@@ -79,10 +79,10 @@ const Stats = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
+          <h2 className="text-4xl font-bold text-gray-900 dark:animated-gradient-text mb-6">
             Our Performance
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
             Delivering exceptional results through dedicated property management
           </p>
         </motion.div>
@@ -96,12 +96,12 @@ const Stats = () => {
               transition={{ delay: index * 0.2 }}
               className={cn("flex justify-center", stat.className)}
             >
-              <CardSpotlight className="w-full">
+              <CardSpotlight className="w-full bg-white dark:bg-black/40">
                 <div className="p-8 flex flex-col items-center justify-center h-full">
                   <div className="mb-4">
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold animated-gradient-text mb-2">
+                  <div className="text-4xl font-bold text-gray-900 dark:animated-gradient-text mb-2">
                     {inView && (
                       <>
                         {stat.prefix}
@@ -114,8 +114,8 @@ const Stats = () => {
                       </>
                     )}
                   </div>
-                  <p className="text-lg font-semibold text-white mb-2">{stat.label}</p>
-                  <p className="text-sm text-gray-400 text-center">{stat.description}</p>
+                  <p className="text-lg font-semibold text-gray-800 dark:text-white mb-2">{stat.label}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 text-center">{stat.description}</p>
                 </div>
               </CardSpotlight>
             </motion.div>

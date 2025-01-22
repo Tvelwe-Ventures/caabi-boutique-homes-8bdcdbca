@@ -8,7 +8,7 @@ const Header = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-black dark:bg-black"
+      className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-black border-b border-gray-200 dark:border-gray-800"
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/">
@@ -27,7 +27,7 @@ const Header = () => {
               <li>
                 <Link 
                   to="/" 
-                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                  className="text-lg font-medium text-gray-800 dark:text-white hover:text-primary transition-colors"
                 >
                   Home
                 </Link>
@@ -35,7 +35,7 @@ const Header = () => {
               <li>
                 <Link 
                   to="/calculator" 
-                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                  className="text-lg font-medium text-gray-800 dark:text-white hover:text-primary transition-colors"
                 >
                   ROI Calculator
                 </Link>
@@ -43,7 +43,7 @@ const Header = () => {
               <li>
                 <a 
                   href="#investment"
-                  className="text-lg font-medium text-white hover:text-primary transition-colors"
+                  className="text-lg font-medium text-gray-800 dark:text-white hover:text-primary transition-colors"
                 >
                   Investment Proposal
                 </a>
