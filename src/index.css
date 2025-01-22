@@ -52,36 +52,26 @@
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
   }
-}
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  
-  body {
-    @apply bg-background text-foreground antialiased font-inter;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-bricolage font-medium;
-  }
-
-  .hero-heading {
-    @apply font-bricolage font-semibold;
-  }
-  
   /* Light mode specific styles */
   :root:not(.dark) {
     .text-gradient {
       @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent;
     }
     .glass-card {
-      @apply bg-white/90 border border-gray-200 shadow-lg;
+      @apply bg-white/95 border-2 border-gray-300 shadow-lg hover:border-primary/50 transition-all duration-300;
     }
     .neo-blur {
-      @apply bg-white/90 border border-gray-200;
+      @apply bg-white/95 border-2 border-gray-300 shadow-md;
+    }
+    .bento-card {
+      @apply bg-white border-2 border-gray-300 shadow-md hover:border-primary/50 transition-all duration-300;
+    }
+    .card-text {
+      @apply text-gray-800;
+    }
+    .card-icon {
+      @apply text-gray-700;
     }
   }
   
@@ -111,7 +101,7 @@
   }
 
   .bento-card {
-    @apply relative overflow-hidden rounded-xl backdrop-blur-xl bg-black/40 border border-white/10;
+    @apply relative overflow-hidden rounded-xl backdrop-blur-xl;
   }
 
   .bento-card::before {
@@ -121,6 +111,10 @@
 
   .bento-card:hover::before {
     @apply opacity-100;
+  }
+
+  .card-hover-animation {
+    @apply transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg;
   }
 }
 

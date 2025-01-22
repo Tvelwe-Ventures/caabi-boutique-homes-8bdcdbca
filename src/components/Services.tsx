@@ -56,7 +56,7 @@ const Services = () => {
           <h2 className="text-4xl font-bold text-gray-900 dark:animated-gradient-text mb-6">
             What We Offer
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-lg">
             Comprehensive property management services designed to maximize your returns while providing exceptional guest experiences.
           </p>
         </motion.div>
@@ -73,6 +73,7 @@ const Services = () => {
                 Icon={service.Icon}
                 name={service.name}
                 description={service.description}
+                className="card-hover-animation"
               />
             </motion.div>
           ))}
