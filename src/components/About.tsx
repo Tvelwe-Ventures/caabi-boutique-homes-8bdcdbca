@@ -21,7 +21,7 @@ const About = () => {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gradient mb-6">About Caabi Boutique Homes</h2>
-          <CardSpotlight className="relative p-6 bg-white dark:bg-black/40">
+          <CardSpotlight className="relative p-6 glass-card dark:bg-black/40">
             <BorderBeam duration={15} />
             <div className="relative z-10">
               <div className="space-y-4">

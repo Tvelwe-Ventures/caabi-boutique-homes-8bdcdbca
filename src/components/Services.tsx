@@ -78,7 +78,7 @@ const Services = () => {
               className={`${service.isFeatured ? 'row-span-2' : ''}`}
             >
               {service.isFeatured ? (
-                <CardSpotlight className="h-full p-8 card-hover-animation">
+                <CardSpotlight className="h-full p-8 card-hover-animation glass-card">
                   <div className="flex flex-col h-full">
                     <div className="mb-6 inline-flex rounded-xl bg-primary/10 p-3 w-fit">
                       <service.Icon className="h-6 w-6 card-icon" />
