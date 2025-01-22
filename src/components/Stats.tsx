@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { Home, Star, Heart, DollarSign } from "lucide-react";
+import { GradientCard } from "./ui/gradient-card";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -15,7 +16,7 @@ const Stats = () => {
       suffix: "%", 
       label: "Average Occupancy Rate",
       description: "Consistently outperforming market average of 65%",
-      icon: <Home className="w-6 h-6 text-primary/60" />,
+      icon: <Home className="w-6 h-6 text-primary" />,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -70,9 +71,9 @@ const Stats = () => {
               transition={{ delay: index * 0.2 }}
               className={stat.className}
             >
-              <div className="p-8 rounded-2xl bg-gray-50 dark:bg-gray-900/50 hover:shadow-lg transition-all duration-300">
+              <GradientCard>
                 <div className="flex flex-col items-center text-center space-y-4">
-                  <div className="p-3 rounded-full bg-white dark:bg-gray-800 shadow-sm">
+                  <div className="p-3 rounded-full bg-primary/10 dark:bg-white/10">
                     {stat.icon}
                   </div>
                   <div className="text-4xl font-bold text-gray-900 dark:text-white">
@@ -94,7 +95,7 @@ const Stats = () => {
                     {stat.description}
                   </p>
                 </div>
-              </div>
+              </GradientCard>
             </motion.div>
           ))}
         </div>
