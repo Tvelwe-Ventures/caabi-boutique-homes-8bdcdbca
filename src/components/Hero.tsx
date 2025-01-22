@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
-import { MovingBorderButton } from "./ui/moving-border-button";
+import { ButtonColorful } from "./ui/button-colorful";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -45,20 +45,16 @@ const Hero = () => {
             where exceptional service meets unparalleled returns.
           </p>
           <div className="flex gap-4 justify-center">
-            <MovingBorderButton 
+            <ButtonColorful 
               onClick={() => navigate("/calculator")}
-              className="px-6 py-2 font-medium"
-              borderClassName="bg-[radial-gradient(var(--primary)_40%,transparent_60%)]"
-            >
-              Calculate ROI <ArrowRight className="ml-2 h-4 w-4" />
-            </MovingBorderButton>
-            <MovingBorderButton 
+              label="Calculate ROI"
+              icon={<ArrowRight className="w-4 h-4" />}
+            />
+            <ButtonColorful 
               onClick={() => navigate("/proposal")}
-              className="px-6 py-2 font-medium"
-              borderClassName="bg-[radial-gradient(var(--primary)_40%,transparent_60%)]"
-            >
-              View Proposal
-            </MovingBorderButton>
+              label="View Proposal"
+              className="bg-opacity-80"
+            />
           </div>
         </motion.div>
       </div>
