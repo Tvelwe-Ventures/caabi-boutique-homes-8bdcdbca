@@ -7,6 +7,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import { ThemeToggle } from "./components/ThemeToggle";
 import Index from "./pages/Index";
 import Calculator from "./components/Calculator";
+import InvestmentProposal from "./pages/InvestmentProposal";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/calculator" element={<Calculator />} />
+            <Route path="/investment" element={<InvestmentProposal />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
