@@ -53,8 +53,8 @@ const reviews: Review[] = [
 const Feedback = () => {
   return (
     <section className="relative py-24 overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent dark:from-primary-dark/10" />
+      {/* Enhanced gradient background */}
+      <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-primary/5 to-transparent dark:from-primary-dark/20" />
       
       <div className="container mx-auto px-4 relative">
         <motion.div
@@ -79,39 +79,46 @@ const Feedback = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all hover:shadow-lg hover:shadow-primary/5 md:p-8 group">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="relative group h-full">
+                {/* Enhanced gradient glow effect */}
+                <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
                 
-                <div className="relative z-10">
-                  <div className="absolute right-6 top-6 text-6xl font-serif text-muted-foreground/20">
-                    "
-                  </div>
-
-                  <div className="flex flex-col gap-4">
-                    <div className="flex gap-1">
-                      {Array.from({ length: review.rating }).map((_, i) => (
-                        <Star
-                          key={i}
-                          size={16}
-                          className="fill-yellow-400 text-yellow-400"
-                        />
-                      ))}
+                <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-lg group-hover:shadow-primary/5 md:p-8">
+                  {/* Gradient overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/[0.02] dark:from-primary-dark/10 dark:to-primary-dark/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="relative z-10">
+                    <div className="absolute right-6 top-6 text-6xl font-serif text-muted-foreground/20">
+                      "
                     </div>
 
-                    <p className="text-pretty text-base text-muted-foreground">
-                      {review.content}
-                    </p>
+                    <div className="flex flex-col gap-4">
+                      <div className="flex gap-1">
+                        {Array.from({ length: review.rating }).map((_, i) => (
+                          <Star
+                            key={i}
+                            size={16}
+                            className="fill-yellow-400 text-yellow-400"
+                          />
+                        ))}
+                      </div>
 
-                    <div className="flex items-center gap-4">
-                      <Avatar>
-                        <AvatarImage src={review.image} alt={review.name} />
-                        <AvatarFallback>{review.name[0]}</AvatarFallback>
-                      </Avatar>
+                      <p className="text-pretty text-base text-muted-foreground">
+                        {review.content}
+                      </p>
 
-                      <div className="flex flex-col">
-                        <h3 className="font-semibold text-foreground">{review.name}</h3>
-                        <p className="text-sm text-muted-foreground">{review.date}</p>
+                      <div className="flex items-center gap-4">
+                        <Avatar>
+                          <AvatarImage src={review.image} alt={review.name} />
+                          <AvatarFallback>{review.name[0]}</AvatarFallback>
+                        </Avatar>
+
+                        <div className="flex flex-col">
+                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                            {review.name}
+                          </h3>
+                          <p className="text-sm text-muted-foreground">{review.date}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
