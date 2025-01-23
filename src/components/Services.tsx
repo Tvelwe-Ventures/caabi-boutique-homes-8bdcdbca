@@ -3,6 +3,7 @@ import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 import { Particles } from "./ui/particles";
 import { BentoGrid, BentoCard } from "./ui/bento-grid";
 import { CardSpotlight } from "./ui/card-spotlight";
+import { BorderBeam } from "./ui/border-beam";
 
 const services = [
   {
@@ -50,7 +51,7 @@ const Services = () => {
         className="absolute inset-0 -z-10"
         quantity={50}
         staticity={50}
-        color="var(--primary-light)"
+        color="var(--primary)"
       />
       
       <div className="container mx-auto px-4">
@@ -60,7 +61,7 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:animated-gradient-text mb-6">
+          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
             What We Offer
           </h2>
           <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-lg">
@@ -77,33 +78,25 @@ const Services = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`${service.isFeatured ? 'row-span-2' : ''}`}
             >
-              {service.isFeatured ? (
-                <CardSpotlight className="h-full p-8 card-hover-animation glass-card">
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6 inline-flex rounded-xl bg-primary/10 p-3 w-fit">
-                      <service.Icon className="h-6 w-6 card-icon" />
-                    </div>
-                    <h3 className="text-2xl font-semibold mb-4 card-text">
-                      {service.name}
-                    </h3>
-                    <p className="text-lg card-text opacity-90 flex-grow">
-                      {service.description}
-                    </p>
-                    <div className="mt-6 flex items-center justify-between">
-                      <span className="text-sm text-primary">Learn more</span>
-                      <div className="h-px flex-grow mx-4 bg-primary/20" />
-                      <span className="text-sm text-primary">→</span>
-                    </div>
+              <CardSpotlight className="h-full p-8 hover:border-primary/50 transition-all duration-300">
+                <BorderBeam className="rounded-xl" duration={10} />
+                <div className="flex flex-col h-full relative z-10">
+                  <div className="mb-6 inline-flex rounded-xl bg-primary/10 p-3 w-fit">
+                    <service.Icon className="h-6 w-6 text-primary dark:text-white" />
                   </div>
-                </CardSpotlight>
-              ) : (
-                <BentoCard
-                  Icon={service.Icon}
-                  name={service.name}
-                  description={service.description}
-                  className="h-full card-hover-animation"
-                />
-              )}
+                  <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
+                    {service.name}
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow">
+                    {service.description}
+                  </p>
+                  <div className="mt-6 flex items-center justify-between">
+                    <span className="text-sm text-primary dark:text-white">Learn more</span>
+                    <div className="h-px flex-grow mx-4 bg-primary/20" />
+                    <span className="text-sm text-primary dark:text-white">→</span>
+                  </div>
+                </div>
+              </CardSpotlight>
             </motion.div>
           ))}
         </div>

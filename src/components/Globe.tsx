@@ -112,12 +112,10 @@ export function Globe({
   }, [theme])
 
   return (
-    <div className="relative py-12 items-center justify-center bg-white">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-primary/5" />
+    <div className="relative py-12 items-center justify-center bg-gradient-to-b from-primary/5 via-primary/10 to-transparent dark:from-black dark:via-primary-dark/5 dark:to-black">
       <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
           <div className="relative overflow-hidden rounded-xl">
-            <div className="absolute inset-0 bg-primary/5 animate-pulse rounded-xl" />
             <BorderBeam 
               className="rounded-xl"
               duration={8}
@@ -125,25 +123,25 @@ export function Globe({
               colorTo="#8A99C9"
               size={300}
             />
-            <div className="relative space-y-6 p-6 backdrop-blur-xl bg-black/40">
-              <h2 className="text-4xl font-bold tracking-tight dark:text-white">
+            <div className="relative space-y-6 p-6 backdrop-blur-xl bg-gradient-to-br from-primary/80 to-primary-light/80 dark:from-black/80 dark:to-primary-dark/40">
+              <h2 className="text-4xl font-bold tracking-tight text-white">
                 Dubai: The Most Affordable Global City
               </h2>
-              <p className="text-xl text-muted-foreground dark:text-gray-300">
+              <p className="text-xl text-white/90">
                 Compare property ownership costs across major global cities
               </p>
               <div className="space-y-4">
-                <div className="rounded-lg bg-primary/5 p-6 backdrop-blur-sm dark:bg-white/5">
-                  <h3 className="text-2xl font-semibold text-primary dark:text-primary-foreground">
+                <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                  <h3 className="text-2xl font-semibold text-white">
                     {selectedCity.name}
                   </h3>
-                  <p className="mt-2 text-lg dark:text-gray-300">
+                  <p className="mt-2 text-lg text-white/90">
                     Average 1BR Apartment Cost:
                     <span className="ml-2 font-bold">
                       ${selectedCity.cost.toLocaleString()}
                     </span>
                   </p>
-                  <p className="mt-2 text-sm text-muted-foreground dark:text-gray-400">
+                  <p className="mt-2 text-sm text-white/80">
                     {selectedCity.name === "Dubai" 
                       ? "Best value among global cities"
                       : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`

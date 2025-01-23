@@ -5,12 +5,12 @@ import { Particles } from "./ui/particles";
 
 const About = () => {
   return (
-    <section className="relative py-20 bg-gray-50 dark:section-dark">
+    <section className="relative py-20 bg-gray-50 dark:bg-gradient-to-b dark:from-black dark:via-primary-dark/5 dark:to-black">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
         staticity={50}
-        color="var(--primary-light)"
+        color="var(--primary)"
       />
       
       <div className="container mx-auto px-4">
@@ -21,7 +21,7 @@ const About = () => {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-3xl font-bold text-gray-900 dark:text-gradient mb-6">About Caabi Boutique Homes</h2>
-          <CardSpotlight className="relative p-6 glass-card dark:bg-black/40">
+          <CardSpotlight className="relative p-6 hover:border-primary/50 transition-all duration-300">
             <BorderBeam duration={15} />
             <div className="relative z-10">
               <div className="space-y-4">
