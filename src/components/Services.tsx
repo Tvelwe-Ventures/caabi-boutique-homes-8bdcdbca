@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
 import { Particles } from "./ui/particles";
-import { BentoGrid, BentoCard } from "./ui/bento-grid";
-import { CardSpotlight } from "./ui/card-spotlight";
 import { BorderBeam } from "./ui/border-beam";
 
 const services = [
@@ -46,7 +44,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="relative py-24 bg-white dark:section-dark">
+    <section className="relative py-24 bg-gradient-to-br from-[#8394ca]/10 to-[#a2d4f4]/10 dark:section-dark">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
@@ -61,10 +59,10 @@ const Services = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold animated-gradient-text mb-6">
+          <h2 className="text-4xl font-bold text-gradient mb-6">
             What We Offer
           </h2>
-          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg">
             Comprehensive property management services designed to maximize your returns while providing exceptional guest experiences.
           </p>
         </motion.div>
@@ -78,25 +76,30 @@ const Services = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`${service.isFeatured ? 'row-span-2' : ''}`}
             >
-              <CardSpotlight className="h-full p-8 hover:border-primary/50 transition-all duration-300">
-                <BorderBeam className="rounded-xl" duration={10} />
-                <div className="flex flex-col h-full relative z-10">
-                  <div className="mb-6 inline-flex rounded-xl bg-primary/10 p-3 w-fit">
-                    <service.Icon className="h-6 w-6 text-primary dark:text-white" />
+              <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl border border-[#355AD1] dark:border-[#213674] group transition-all duration-300 hover:translate-y-[-4px]">
+                <BorderBeam 
+                  className="rounded-xl" 
+                  duration={10} 
+                  colorFrom="#355AD1"
+                  colorTo="#8394CA"
+                />
+                <div className="relative z-10 p-8 h-full flex flex-col">
+                  <div className="mb-6 inline-flex rounded-xl bg-[#8394CA]/10 dark:bg-[#213674]/20 p-3 w-fit">
+                    <service.Icon className="h-6 w-6 text-[#355AD1] dark:text-white" />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-800 dark:text-white">
+                  <h3 className="text-2xl font-semibold mb-4 text-[#213674] dark:text-white group-hover:text-[#355AD1] dark:group-hover:text-[#8394CA] transition-colors">
                     {service.name}
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow">
+                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#213674] dark:group-hover:text-gray-200 transition-colors">
                     {service.description}
                   </p>
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm text-primary dark:text-white">Learn more</span>
-                    <div className="h-px flex-grow mx-4 bg-primary/20" />
-                    <span className="text-sm text-primary dark:text-white">→</span>
+                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">Learn more</span>
+                    <div className="h-px flex-grow mx-4 bg-[#355AD1]/20 dark:bg-[#213674]/20" />
+                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">→</span>
                   </div>
                 </div>
-              </CardSpotlight>
+              </div>
             </motion.div>
           ))}
         </div>
