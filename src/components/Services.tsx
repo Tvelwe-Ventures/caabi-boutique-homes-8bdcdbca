@@ -74,8 +74,11 @@ const Services = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`${service.isFeatured ? 'row-span-2' : ''}`}
+              className={`${service.isFeatured ? 'row-span-2' : ''} relative group`}
             >
+              {/* Gradient glow effect */}
+              <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/30 to-transparent dark:from-[#213674]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/40 dark:group-hover:from-[#213674]/30 transition-all duration-300 -z-10" />
+              
               <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl border border-[#355AD1] dark:border-[#213674] group transition-all duration-300 hover:translate-y-[-4px]">
                 <BorderBeam 
                   className="rounded-xl" 
