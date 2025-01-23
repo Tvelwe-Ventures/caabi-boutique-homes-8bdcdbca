@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Star } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { BorderBeam } from "./ui/border-beam"
 import { cn } from "@/lib/utils"
 
 interface Review {
@@ -53,7 +54,6 @@ const reviews: Review[] = [
 const Feedback = () => {
   return (
     <section className="relative py-24 overflow-hidden">
-      {/* Enhanced gradient background */}
       <div className="absolute inset-0 bg-gradient-radial from-primary/10 via-primary/5 to-transparent dark:from-primary-dark/20" />
       
       <div className="container mx-auto px-4 relative">
@@ -80,12 +80,17 @@ const Feedback = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="relative group h-full">
-                {/* Enhanced gradient glow effect */}
                 <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
                 
                 <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-lg group-hover:shadow-primary/5 md:p-8">
-                  {/* Gradient overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary/[0.02] dark:from-primary-dark/10 dark:to-primary-dark/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <BorderBeam 
+                    className="rounded-2xl"
+                    duration={15}
+                    size={300}
+                    colorFrom="#355AD1"
+                    colorTo="#8394CA"
+                    delay={index}
+                  />
                   
                   <div className="relative z-10">
                     <div className="absolute right-6 top-6 text-6xl font-serif text-muted-foreground/20">
