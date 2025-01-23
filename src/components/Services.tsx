@@ -67,45 +67,44 @@ const Services = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(240px,auto)]">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`${service.isFeatured ? 'row-span-2' : ''} relative group`}
-            >
-              {/* Gradient glow effect */}
-              <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/30 to-transparent dark:from-[#213674]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/40 dark:group-hover:from-[#213674]/30 transition-all duration-300 -z-10" />
-              
-              <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl border border-[#355AD1] dark:border-[#213674] group transition-all duration-300 hover:translate-y-[-4px]">
-                <BorderBeam 
-                  className="rounded-xl" 
-                  duration={10} 
-                  colorFrom="#355AD1"
-                  colorTo="#8394CA"
-                />
-                <div className="relative z-10 p-8 h-full flex flex-col">
-                  <div className="mb-6 inline-flex rounded-xl bg-[#8394CA]/10 dark:bg-[#213674]/20 p-3 w-fit">
-                    <service.Icon className="h-6 w-6 text-[#355AD1] dark:text-white" />
-                  </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-[#213674] dark:text-white group-hover:text-[#355AD1] dark:group-hover:text-[#8394CA] transition-colors">
-                    {service.name}
-                  </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#213674] dark:group-hover:text-gray-200 transition-colors">
-                    {service.description}
-                  </p>
-                  <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">Learn more</span>
-                    <div className="h-px flex-grow mx-4 bg-[#355AD1]/20 dark:bg-[#213674]/20" />
-                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">→</span>
-                  </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(240px,auto)]">
+        {services.map((service, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className={`${service.isFeatured ? 'row-span-2' : ''} relative group`}
+          >
+            {/* Enhanced gradient glow effect */}
+            <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-2xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
+            
+            <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl border border-[#355AD1] dark:border-[#213674] group transition-all duration-300 hover:translate-y-[-4px]">
+              <BorderBeam 
+                className="rounded-xl" 
+                duration={10} 
+                colorFrom="#355AD1"
+                colorTo="#8394CA"
+              />
+              <div className="relative z-10 p-8 h-full flex flex-col">
+                <div className="mb-6 inline-flex rounded-xl bg-[#8394CA]/10 dark:bg-[#213674]/20 p-3 w-fit">
+                  <service.Icon className="h-6 w-6 text-[#355AD1] dark:text-white" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-4 text-[#213674] dark:text-white group-hover:text-[#355AD1] dark:group-hover:text-[#8394CA] transition-colors">
+                  {service.name}
+                </h3>
+                <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#213674] dark:group-hover:text-gray-200 transition-colors">
+                  {service.description}
+                </p>
+                <div className="mt-6 flex items-center justify-between">
+                  <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">Learn more</span>
+                  <div className="h-px flex-grow mx-4 bg-[#355AD1]/20 dark:bg-[#213674]/20" />
+                  <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">→</span>
                 </div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
