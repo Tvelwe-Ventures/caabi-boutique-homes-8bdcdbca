@@ -8,6 +8,7 @@ import WhyShortTerm from "@/components/WhyShortTerm";
 import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
 import Portfolio from "@/components/Portfolio";
+import Feedback from "@/components/Feedback";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -27,6 +28,7 @@ const Index = () => {
       <Globe />
       <Services />
       <Portfolio />
+      <Feedback />
       <WhyShortTerm />
       <Stats />
       <Footer />
