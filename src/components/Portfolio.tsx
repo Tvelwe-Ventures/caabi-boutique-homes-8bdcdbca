@@ -27,8 +27,8 @@ const properties = [
   },
   {
     image: "/lovable-uploads/b19fc22a-34d1-423d-9fb8-5fb63ddbe95f.png",
-    title: "Palm Jumeirah Villa",
-    description: "Beachfront Luxury Living",
+    title: "Chic Downtown Suite",
+    description: "Luxury in the Heart of Dubai",
     rating: 4.9,
     reviews: 22
   }
