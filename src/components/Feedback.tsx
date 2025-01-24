@@ -78,17 +78,18 @@ const Feedback = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="h-full"
             >
-              <div className="relative group h-full">
-                <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
+              <div className="relative h-full">
+                <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/40 via-[#8394CA]/20 to-transparent dark:from-[#213674]/30 dark:via-[#355AD1]/10 dark:to-transparent blur-xl transition-all duration-300 -z-10" />
                 
-                <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all duration-300 md:p-8">
+                <div className="relative h-full rounded-2xl border border-primary/20 bg-background/90 backdrop-blur-sm p-6 transition-all duration-300 md:p-8">
                   <BorderBeam 
                     className="rounded-2xl"
-                    duration={15}
-                    size={300}
-                    colorFrom="#355AD1"
-                    colorTo="#8394CA"
+                    duration={8}
+                    size={200}
+                    colorFrom="#213674"
+                    colorTo="#355AD1"
                     delay={index}
                   />
                   
@@ -108,18 +109,18 @@ const Feedback = () => {
                         ))}
                       </div>
 
-                      <p className="text-pretty text-base text-muted-foreground">
+                      <p className="text-pretty text-base text-muted-foreground min-h-[80px]">
                         {review.content}
                       </p>
 
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-4 mt-auto">
                         <Avatar>
                           <AvatarImage src={review.image} alt={review.name} />
                           <AvatarFallback>{review.name[0]}</AvatarFallback>
                         </Avatar>
 
                         <div className="flex flex-col">
-                          <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          <h3 className="font-semibold text-foreground transition-colors">
                             {review.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">{review.date}</p>
