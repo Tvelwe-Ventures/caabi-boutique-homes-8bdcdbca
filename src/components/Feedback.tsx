@@ -82,7 +82,7 @@ const Feedback = () => {
               <div className="relative group h-full">
                 <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
                 
-                <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-lg group-hover:shadow-primary/5 md:p-8">
+                <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-background/80 backdrop-blur-sm p-6 transition-all duration-300 md:p-8">
                   <BorderBeam 
                     className="rounded-2xl"
                     duration={15}
