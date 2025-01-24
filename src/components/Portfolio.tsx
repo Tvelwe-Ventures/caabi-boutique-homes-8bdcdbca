@@ -60,16 +60,16 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
             >
-              <CardSpotlight className="h-full overflow-hidden group bg-white shadow-sm hover:shadow-md transition-all duration-300">
+              <CardSpotlight className="h-full overflow-hidden group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden rounded-t-2xl">
                     <img
                       src={property.image}
                       alt={property.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <div className="p-6 bg-white backdrop-blur-sm">
+                  <div className="p-6 bg-white backdrop-blur-sm rounded-b-2xl">
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">
                       {property.title}
                     </h3>
