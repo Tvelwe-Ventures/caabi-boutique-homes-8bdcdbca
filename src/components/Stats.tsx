@@ -3,7 +3,6 @@ import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { Home, Star, Heart, DollarSign } from "lucide-react";
 import { CardSpotlight } from "./ui/card-spotlight";
-import { BorderBeam } from "./ui/border-beam";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -73,7 +72,6 @@ const Stats = () => {
               className={stat.className}
             >
               <CardSpotlight className="h-full">
-                <BorderBeam className="rounded-xl" />
                 <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4">
                   <div className="p-3 rounded-full bg-primary/10 dark:bg-white/10">
                     {stat.icon}

@@ -3,7 +3,6 @@
 import { motion } from "framer-motion"
 import { Star } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { BorderBeam } from "./ui/border-beam"
 import { cn } from "@/lib/utils"
 
 interface Review {
@@ -83,16 +82,7 @@ const Feedback = () => {
               <div className="relative h-full">
                 <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/40 via-[#8394CA]/20 to-transparent dark:from-[#213674]/30 dark:via-[#355AD1]/10 dark:to-transparent blur-xl transition-all duration-300 -z-10" />
                 
-                <div className="relative h-full rounded-2xl border border-primary/20 bg-background/90 backdrop-blur-sm p-6 transition-all duration-300 md:p-8">
-                  <BorderBeam 
-                    className="rounded-2xl"
-                    duration={8}
-                    size={200}
-                    colorFrom="#213674"
-                    colorTo="#355AD1"
-                    delay={index}
-                  />
-                  
+                <div className="relative h-full rounded-2xl bg-background/90 backdrop-blur-sm p-6 transition-all duration-300 hover:translate-y-[-4px] md:p-8 shadow-sm hover:shadow-md">
                   <div className="relative z-10">
                     <div className="absolute right-6 top-6 text-6xl font-serif text-muted-foreground/20">
                       "
