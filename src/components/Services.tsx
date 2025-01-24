@@ -1,97 +1,62 @@
 import { motion } from "framer-motion";
-import { Camera, Clock, Home, Palette, Shield, Users } from "lucide-react";
+import { Building2, Clock, Trophy } from "lucide-react";
 import { Particles } from "./ui/particles";
 
 const services = [
   {
-    Icon: Camera,
-    name: "Beautiful Listings",
-    description: "Professional photos, eye-catching descriptions, and flexible pricing strategies to boost bookings.",
+    Icon: Building2,
+    name: "Premium Properties",
+    description: "Exclusive properties in Downtown Dubai's most sought-after locations",
     isFeatured: true
   },
   {
     Icon: Clock,
-    name: "24/7 Guest Care",
-    description: "Round-the-clock support for all guest inquiries, check-ins, and everything in between.",
+    name: "Personal Service",
+    description: "Dedicated support team available 24/7 for all your needs",
     isFeatured: false
   },
   {
-    Icon: Shield,
-    name: "Property Maintenance & Care",
-    description: "Regular cleaning, maintenance checks, and inspections to keep your property in top shape.",
+    Icon: Trophy,
+    name: "Expert Management",
+    description: "Professional property management with proven results",
     isFeatured: true
-  },
-  {
-    Icon: Palette,
-    name: "Furnishing Solutions",
-    description: "Complete furnishing services with our trusted design partners, from full transformations to stylish upgrades.",
-    isFeatured: false
-  },
-  {
-    Icon: Users,
-    name: "A Personal Touch",
-    description: "Building long-lasting relationships with flexible, hands-on, and responsive service.",
-    isFeatured: true
-  },
-  {
-    Icon: Home,
-    name: "Premium Platforms",
-    description: "Listed on top platforms like Airbnb and Booking.com for maximum visibility.",
-    isFeatured: false
   }
 ];
 
 const Services = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-[#1EAEDB]/10 via-[#33C3F0]/5 to-[#D3E4FD]/10 dark:section-dark">
+    <section className="relative py-24 bg-gradient-to-b from-white via-gray-50/80 to-gray-100/50">
       <Particles
         className="absolute inset-0 -z-10"
-        quantity={50}
-        staticity={50}
+        quantity={30}
+        staticity={70}
         color="var(--primary)"
       />
       
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-gradient mb-6">
-            What We Offer
-          </h2>
-          <p className="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto text-lg">
-            Comprehensive property management services designed to maximize your returns while providing exceptional guest experiences.
-          </p>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[minmax(240px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`${service.isFeatured ? 'row-span-2' : ''} relative group`}
+              className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#33C3F0]/20 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-2xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#33C3F0]/30 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
-              
-              <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl transition-all duration-300 hover:translate-y-[-4px]">
+              <div className="relative h-full rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10 p-8 h-full flex flex-col">
-                  <div className="mb-6 inline-flex rounded-xl bg-[#33C3F0]/10 dark:bg-[#213674]/20 p-3 w-fit">
-                    <service.Icon className="h-6 w-6 text-[#1EAEDB] dark:text-white" />
+                  <div className="mb-6 inline-flex rounded-xl bg-primary-light/20 p-3 w-fit">
+                    <service.Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] dark:group-hover:text-[#8394CA] transition-colors">
+                  <h3 className="text-2xl font-semibold mb-4 text-gray-900">
                     {service.name}
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#1EAEDB] dark:group-hover:text-gray-200 transition-colors">
+                  <p className="text-lg text-gray-600 flex-grow">
                     {service.description}
                   </p>
-                  <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] transition-colors">Learn more</span>
-                    <div className="h-px flex-grow mx-4 bg-[#1EAEDB]/20 dark:bg-[#213674]/20" />
-                    <span className="text-sm text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] transition-colors">→</span>
+                  <div className="mt-6 flex items-center">
+                    <span className="text-sm text-primary font-medium">Learn more</span>
+                    <span className="ml-2 text-primary">→</span>
                   </div>
                 </div>
               </div>
