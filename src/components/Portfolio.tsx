@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { CardSpotlight } from "./ui/card-spotlight";
-import { BorderBeam } from "./ui/border-beam";
 import { Particles } from "./ui/particles";
 import { Star } from "lucide-react";
 
@@ -62,7 +61,6 @@ const Portfolio = () => {
               transition={{ delay: index * 0.2 }}
             >
               <CardSpotlight className="h-full overflow-hidden group">
-                <BorderBeam className="rounded-xl" />
                 <div className="relative z-10">
                   <div className="aspect-[4/3] overflow-hidden">
                     <img
