@@ -43,7 +43,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-[#8394ca]/10 to-[#a2d4f4]/10 dark:section-dark">
+    <section className="relative py-24 bg-gradient-to-br from-[#1EAEDB]/10 via-[#33C3F0]/5 to-[#D3E4FD]/10 dark:section-dark">
       <Particles
         className="absolute inset-0 -z-10"
         quantity={50}
@@ -75,23 +75,23 @@ const Services = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className={`${service.isFeatured ? 'row-span-2' : ''} relative group`}
             >
-              <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#8394CA]/30 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-2xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#8394CA]/40 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
+              <div className="absolute inset-0 bg-gradient-radial from-[#D3E4FD]/60 via-[#33C3F0]/20 to-transparent dark:from-[#213674]/40 dark:via-[#355AD1]/20 dark:to-transparent blur-2xl group-hover:from-[#D3E4FD]/80 group-hover:via-[#33C3F0]/30 dark:group-hover:from-[#213674]/60 dark:group-hover:via-[#355AD1]/30 transition-all duration-300 -z-10" />
               
               <div className="relative h-full rounded-xl overflow-hidden bg-white/90 dark:bg-[#121C30]/40 backdrop-blur-xl transition-all duration-300 hover:translate-y-[-4px]">
                 <div className="relative z-10 p-8 h-full flex flex-col">
-                  <div className="mb-6 inline-flex rounded-xl bg-[#8394CA]/10 dark:bg-[#213674]/20 p-3 w-fit">
-                    <service.Icon className="h-6 w-6 text-[#355AD1] dark:text-white" />
+                  <div className="mb-6 inline-flex rounded-xl bg-[#33C3F0]/10 dark:bg-[#213674]/20 p-3 w-fit">
+                    <service.Icon className="h-6 w-6 text-[#1EAEDB] dark:text-white" />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-[#213674] dark:text-white group-hover:text-[#355AD1] dark:group-hover:text-[#8394CA] transition-colors">
+                  <h3 className="text-2xl font-semibold mb-4 text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] dark:group-hover:text-[#8394CA] transition-colors">
                     {service.name}
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#213674] dark:group-hover:text-gray-200 transition-colors">
+                  <p className="text-lg text-gray-600 dark:text-gray-300 flex-grow group-hover:text-[#1EAEDB] dark:group-hover:text-gray-200 transition-colors">
                     {service.description}
                   </p>
                   <div className="mt-6 flex items-center justify-between">
-                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">Learn more</span>
-                    <div className="h-px flex-grow mx-4 bg-[#355AD1]/20 dark:bg-[#213674]/20" />
-                    <span className="text-sm text-[#355AD1] dark:text-white group-hover:text-[#8394CA] transition-colors">→</span>
+                    <span className="text-sm text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] transition-colors">Learn more</span>
+                    <div className="h-px flex-grow mx-4 bg-[#1EAEDB]/20 dark:bg-[#213674]/20" />
+                    <span className="text-sm text-[#1EAEDB] dark:text-white group-hover:text-[#33C3F0] transition-colors">→</span>
                   </div>
                 </div>
               </div>
