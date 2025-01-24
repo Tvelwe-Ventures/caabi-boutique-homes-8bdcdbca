@@ -30,7 +30,7 @@ export default {
         },
         secondary: {
           DEFAULT: "#DFD5EA",
-          light: "#A0DDDB",
+          light: "#F8F9FC",
           dark: "#8E9196",
           foreground: "#FFFFFF",
         },

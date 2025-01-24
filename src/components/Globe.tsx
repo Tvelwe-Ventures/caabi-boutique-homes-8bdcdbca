@@ -112,7 +112,7 @@ export function Globe({
   }, [theme])
 
   return (
-    <div className="relative py-12 items-center justify-center bg-gradient-to-b from-primary/5 via-primary/10 to-transparent dark:from-black dark:via-primary-dark/5 dark:to-black">
+    <div className="relative py-12 items-center justify-center bg-gradient-to-b from-primary/5 via-primary/10 to-transparent">
       <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
           <div className="relative overflow-hidden rounded-xl">
@@ -123,25 +123,25 @@ export function Globe({
               colorTo="#8A99C9"
               size={300}
             />
-            <div className="relative space-y-6 p-6 bg-[#1A1F2C]/95 backdrop-blur-xl">
-              <h2 className="text-4xl font-bold tracking-tight text-white">
+            <div className="relative space-y-6 p-6 bg-[#F8F9FC] backdrop-blur-xl">
+              <h2 className="text-4xl font-bold tracking-tight text-primary-dark">
                 Dubai: The Most Affordable Global City
               </h2>
-              <p className="text-xl text-white/90">
+              <p className="text-xl text-gray-600">
                 Compare property ownership costs across major global cities
               </p>
               <div className="space-y-4">
-                <div className="rounded-lg bg-[#213674]/40 p-6 backdrop-blur-sm border border-white/10">
-                  <h3 className="text-2xl font-semibold text-white">
+                <div className="rounded-lg bg-white/80 p-6 backdrop-blur-sm border border-primary/10">
+                  <h3 className="text-2xl font-semibold text-primary-dark">
                     {selectedCity.name}
                   </h3>
-                  <p className="mt-2 text-lg text-white/90">
+                  <p className="mt-2 text-lg text-gray-600">
                     Average 1BR Apartment Cost:
-                    <span className="ml-2 font-bold">
+                    <span className="ml-2 font-bold text-primary">
                       ${selectedCity.cost.toLocaleString()}
                     </span>
                   </p>
-                  <p className="mt-2 text-sm text-white/80">
+                  <p className="mt-2 text-sm text-gray-500">
                     {selectedCity.name === "Dubai" 
                       ? "Best value among global cities"
                       : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`

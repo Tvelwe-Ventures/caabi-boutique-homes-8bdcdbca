@@ -9,7 +9,7 @@
 
 @layer base {
   body {
-    @apply font-bricolage;
+    @apply font-bricolage bg-white;
   }
   
   :root {
@@ -40,7 +40,7 @@
   }
   
   .glass-card {
-    @apply bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
   }
   
   .neo-blur {
