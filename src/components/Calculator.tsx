@@ -9,6 +9,10 @@ import { CardSpotlight } from "./ui/card-spotlight";
 import { GlowingStars } from "./ui/glowing-stars";
 import { BorderBeam } from "./ui/border-beam";
 import { Calculator as CalculatorIcon, TrendingUp, DollarSign } from "lucide-react";
+import { Slider } from "./ui/slider";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Footer from "./Footer";
 
 const Calculator = () => {
@@ -27,10 +31,37 @@ const Calculator = () => {
     }
   });
 
+  const [investmentAmount, setInvestmentAmount] = useState(1000000);
+  const [annualReturn, setAnnualReturn] = useState(9.9);
+  const [appreciation, setAppreciation] = useState(5.65);
+
+  const generateChartData = () => {
+    const years = 5;
+    const data = [];
+    
+    for (let i = 0; i <= years; i++) {
+      const rentalReturn = investmentAmount * (Math.pow(1 + annualReturn / 100, i) - 1);
+      const propertyAppreciation = investmentAmount * (Math.pow(1 + appreciation / 100, i) - 1);
+      
+      data.push({
+        year: i,
+        rental: rentalReturn,
+        appreciation: propertyAppreciation,
+        total: rentalReturn + propertyAppreciation
+      });
+    }
+    
+    return data;
+  };
+
   const handleCalculate = (inputs: CalculatorInputs) => {
     const calculatedResults = calculateROI(inputs);
     setResults(calculatedResults);
   };
+
+  const chartData = generateChartData();
+  const totalReturn = chartData[chartData.length - 1].total;
+  const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
 
   return (
     <div className="min-h-screen bg-white">
@@ -62,41 +93,125 @@ const Calculator = () => {
         className="container mx-auto px-4 py-20"
       >
         <div className="max-w-4xl mx-auto space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/10">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-full bg-primary/10">
-                    <TrendingUp className="w-5 h-5 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl text-gray-800">Smart Analysis</CardTitle>
+          <Card className="p-6">
+            <CardHeader>
+              <CardTitle>Investment Calculator</CardTitle>
+              <CardDescription>
+                Adjust the sliders to see how your investment could grow over time
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Investment Amount (AED)</Label>
+                  <Input 
+                    type="number" 
+                    value={investmentAmount}
+                    onChange={(e) => setInvestmentAmount(Number(e.target.value))}
+                    className="text-lg font-semibold"
+                  />
                 </div>
-                <CardDescription className="text-gray-600">
-                  Our calculator uses real market data to provide accurate ROI projections
-                </CardDescription>
-              </CardHeader>
-            </Card>
-            <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/10">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-full bg-primary/10">
-                    <DollarSign className="w-5 h-5 text-primary" />
+                
+                <div className="space-y-2">
+                  <Label>Annual Rental Return (%)</Label>
+                  <div className="flex items-center gap-4">
+                    <Slider
+                      value={[annualReturn]}
+                      onValueChange={(value) => setAnnualReturn(value[0])}
+                      min={4}
+                      max={12}
+                      step={0.1}
+                      className="flex-1"
+                    />
+                    <span className="text-lg font-semibold w-20">{annualReturn}%</span>
                   </div>
-                  <CardTitle className="text-xl text-gray-800">Revenue Insights</CardTitle>
                 </div>
-                <CardDescription className="text-gray-600">
-                  Get detailed breakdowns of potential earnings and expenses
-                </CardDescription>
-              </CardHeader>
-            </Card>
-          </div>
+
+                <div className="space-y-2">
+                  <Label>Annual Appreciation (%)</Label>
+                  <div className="flex items-center gap-4">
+                    <Slider
+                      value={[appreciation]}
+                      onValueChange={(value) => setAppreciation(value[0])}
+                      min={2}
+                      max={8}
+                      step={0.1}
+                      className="flex-1"
+                    />
+                    <span className="text-lg font-semibold w-20">{appreciation}%</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-[300px] mt-8">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={chartData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis 
+                      dataKey="year" 
+                      label={{ value: 'Years', position: 'bottom' }} 
+                    />
+                    <YAxis 
+                      label={{ 
+                        value: 'Return (AED)', 
+                        angle: -90, 
+                        position: 'insideLeft' 
+                      }} 
+                    />
+                    <Tooltip />
+                    <Area 
+                      type="monotone" 
+                      dataKey="rental" 
+                      stackId="1"
+                      stroke="#8394CA" 
+                      fill="#8394CA" 
+                    />
+                    <Area 
+                      type="monotone" 
+                      dataKey="appreciation" 
+                      stackId="1"
+                      stroke="#B2D1E3" 
+                      fill="#B2D1E3" 
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <Card className="bg-gradient-to-br from-primary/5 to-transparent">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Total Return</CardTitle>
+                    <p className="text-2xl font-bold text-primary">
+                      AED {totalReturn.toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    </p>
+                  </CardHeader>
+                </Card>
+                
+                <Card className="bg-gradient-to-br from-primary/5 to-transparent">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Total ROI</CardTitle>
+                    <p className="text-2xl font-bold text-primary">{totalROIPercentage}%</p>
+                  </CardHeader>
+                </Card>
+                
+                <Card className="bg-gradient-to-br from-primary/5 to-transparent">
+                  <CardHeader>
+                    <CardTitle className="text-xl">Annual Return</CardTitle>
+                    <p className="text-2xl font-bold text-primary">
+                      {(totalReturn / 5).toLocaleString(undefined, { maximumFractionDigits: 0 })} AED/year
+                    </p>
+                  </CardHeader>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
 
           <CardSpotlight className="overflow-hidden relative">
             <BorderBeam />
             <GlowingStars />
             <CardHeader className="text-center relative z-10">
               <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
-                ROI Calculator
+                Detailed ROI Calculator
               </CardTitle>
               <CardDescription className="text-lg mt-4 text-gray-600">
                 Use our interactive calculator to estimate your potential returns from 
