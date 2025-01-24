@@ -5,14 +5,17 @@ import { Slider } from "./ui/slider";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import { useToast } from "./ui/use-toast";
 import Footer from "./Footer";
 import CalculatorHeader from "./calculator/CalculatorHeader";
 import InvestmentChart from "./calculator/InvestmentChart";
 import ReturnMetrics from "./calculator/ReturnMetrics";
 import ImportantNotes from "./calculator/ImportantNotes";
+import { supabase } from "@/lib/supabaseClient";
+import { CalculatorSettings, MarketData } from "./calculator/types";
+import { useQuery, useMutation } from "@tanstack/react-query";
 
-// Market data - In a real application, these would come from an API
-const MARKET_DATA = {
+const MARKET_DATA: MarketData = {
   averageRentalYield: 9.9,
   averageAppreciation: 5.65,
   marketTrends: {
@@ -23,9 +26,62 @@ const MARKET_DATA = {
 };
 
 const Calculator = () => {
+  const { toast } = useToast();
   const [investmentAmount, setInvestmentAmount] = useState(1000000);
   const [annualReturn, setAnnualReturn] = useState(MARKET_DATA.averageRentalYield);
   const [appreciation, setAppreciation] = useState(MARKET_DATA.averageAppreciation);
+
+  // Fetch user's saved settings
+  const { data: savedSettings } = useQuery({
+    queryKey: ['calculatorSettings'],
+    queryFn: async () => {
+      const { data: settings, error } = await supabase
+        .from('calculator_settings')
+        .select('*')
+        .single();
+      
+      if (error) throw error;
+      return settings as CalculatorSettings;
+    },
+  });
+
+  // Save settings mutation
+  const { mutate: saveSettings } = useMutation({
+    mutationFn: async () => {
+      const { error } = await supabase
+        .from('calculator_settings')
+        .upsert({
+          investment_amount: investmentAmount,
+          annual_return: annualReturn,
+          appreciation: appreciation,
+        });
+      
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      toast({
+        title: "Settings saved",
+        description: "Your calculator settings have been saved successfully.",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to save settings. Please try again.",
+        variant: "destructive",
+      });
+      console.error('Error saving settings:', error);
+    },
+  });
+
+  // Load saved settings when available
+  useEffect(() => {
+    if (savedSettings) {
+      setInvestmentAmount(savedSettings.investment_amount);
+      setAnnualReturn(savedSettings.annual_return);
+      setAppreciation(savedSettings.appreciation);
+    }
+  }, [savedSettings]);
 
   const generateChartData = () => {
     const years = 5;
@@ -47,6 +103,10 @@ const Calculator = () => {
     return data;
   };
 
+  const handleValueChange = () => {
+    saveSettings();
+  };
+
   const chartData = generateChartData();
   const totalReturn = chartData[chartData.length - 1].total;
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
@@ -66,7 +126,7 @@ const Calculator = () => {
             <CardHeader>
               <CardTitle>Investment Calculator</CardTitle>
               <CardDescription>
-                Adjust the sliders to see how your investment could grow over time
+                Your settings are automatically saved as you make changes
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
@@ -88,7 +148,10 @@ const Calculator = () => {
                   id="investment"
                   type="number"
                   value={investmentAmount}
-                  onChange={(e) => setInvestmentAmount(Number(e.target.value))}
+                  onChange={(e) => {
+                    setInvestmentAmount(Number(e.target.value));
+                    handleValueChange();
+                  }}
                   className="w-full"
                 />
 
@@ -107,7 +170,10 @@ const Calculator = () => {
                 </div>
                 <Slider
                   value={[annualReturn]}
-                  onValueChange={([value]) => setAnnualReturn(value)}
+                  onValueChange={([value]) => {
+                    setAnnualReturn(value);
+                    handleValueChange();
+                  }}
                   min={0}
                   max={20}
                   step={0.1}
@@ -128,7 +194,10 @@ const Calculator = () => {
                 </div>
                 <Slider
                   value={[appreciation]}
-                  onValueChange={([value]) => setAppreciation(value)}
+                  onValueChange={([value]) => {
+                    setAppreciation(value);
+                    handleValueChange();
+                  }}
                   min={0}
                   max={15}
                   step={0.1}
