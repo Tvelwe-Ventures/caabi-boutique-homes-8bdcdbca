@@ -14,7 +14,7 @@ const Hero = () => {
         className="absolute inset-0 -z-10"
         quantity={100}
         staticity={30}
-        color="var(--primary)"
+        color="#1EAEDB"
       />
       
       {/* Decorative background elements */}
@@ -49,12 +49,12 @@ const Hero = () => {
               onClick={() => navigate("/calculator")}
               label="Calculate ROI"
               icon={<ArrowRight className="w-4 h-4" />}
-              className="relative bg-gradient-to-r from-[#355AD1] to-[#5B8DEF] hover:from-[#5B8DEF] hover:to-[#355AD1] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+              className="relative bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] hover:from-[#0FA0CE] hover:to-[#1EAEDB] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
             />
             <ButtonColorful 
               onClick={() => navigate("/investment")}
               label="View Proposal"
-              className="relative bg-gradient-to-r from-[#355AD1] to-[#5B8DEF] hover:from-[#5B8DEF] hover:to-[#355AD1] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+              className="relative bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] hover:from-[#0FA0CE] hover:to-[#1EAEDB] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
             />
           </div>
         </motion.div>
