@@ -46,7 +46,7 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={ref} className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white dark:from-black dark:via-primary-dark/5 dark:to-black">
+    <section ref={ref} className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
       <div className="container px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,10 +54,10 @@ const Stats = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-900 dark:text-gradient mb-6">
+          <h2 className="text-4xl font-bold text-gray-900 mb-6">
             Our Performance
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
             Delivering exceptional results through dedicated property management
           </p>
         </motion.div>
@@ -73,10 +73,10 @@ const Stats = () => {
             >
               <CardSpotlight className="h-full">
                 <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4">
-                  <div className="p-3 rounded-full bg-primary/10 dark:bg-white/10">
+                  <div className="p-3 rounded-full bg-primary/10">
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold text-gray-900 dark:text-white">
+                  <div className="text-4xl font-bold animated-gradient-text">
                     {inView && (
                       <>
                         <CountUp
@@ -88,10 +88,10 @@ const Stats = () => {
                       </>
                     )}
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                  <h3 className="text-xl font-semibold text-gray-600">
                     {stat.label}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <p className="text-gray-400">
                     {stat.description}
                   </p>
                 </div>
