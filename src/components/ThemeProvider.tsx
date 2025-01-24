@@ -24,8 +24,8 @@ export function ThemeProvider({
   children,
   ...props
 }: ThemeProviderProps) {
-  const value = {
-    theme: "light",
+  const value: ThemeProviderState = {
+    theme: "light" as const,
     setTheme: () => {}, // No-op since we're forcing light mode
   }
 
