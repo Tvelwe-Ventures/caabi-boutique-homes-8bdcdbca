@@ -17,12 +17,12 @@ const Index = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-white dark:bg-gradient-dark"
+      className="min-h-screen bg-white"
     >
       <Header />
       <Hero />
       <About />
-      <div className="relative bg-gray-50/50 dark:bg-black py-12">
+      <div className="relative bg-white py-12">
         <DisplayCards />
       </div>
       <Globe />
