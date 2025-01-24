@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Card, CardHeader, CardTitle, CardDescription } from "../ui/card";
 import { CalculatorResults as ResultsType } from "./types";
+import { TrendingUp, DollarSign, Percent } from "lucide-react";
 
 interface CalculatorResultsProps {
   results: ResultsType;
@@ -38,10 +39,15 @@ export const CalculatorResults = ({ results }: CalculatorResultsProps) => {
       <motion.div variants={itemVariants}>
         <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text-primary-light">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-full bg-primary/10">
+                <DollarSign className="w-5 h-5 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-3xl font-bold text-gray-800">
               {results.annualRevenue.toLocaleString()} AED
             </CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-gray-600">
               Annual Revenue
             </CardDescription>
           </CardHeader>
@@ -50,10 +56,15 @@ export const CalculatorResults = ({ results }: CalculatorResultsProps) => {
       <motion.div variants={itemVariants}>
         <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text-primary-light">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-full bg-primary/10">
+                <TrendingUp className="w-5 h-5 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-3xl font-bold text-gray-800">
               {results.netProfit.toLocaleString()} AED
             </CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-gray-600">
               Net Annual Profit
             </CardDescription>
           </CardHeader>
@@ -62,10 +73,15 @@ export const CalculatorResults = ({ results }: CalculatorResultsProps) => {
       <motion.div variants={itemVariants}>
         <Card className="bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
           <CardHeader>
-            <CardTitle className="text-3xl font-bold text-primary-light">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="p-2 rounded-full bg-primary/10">
+                <Percent className="w-5 h-5 text-primary" />
+              </div>
+            </div>
+            <CardTitle className="text-3xl font-bold text-gray-800">
               {results.roi.toFixed(2)}%
             </CardTitle>
-            <CardDescription className="text-gray-400">
+            <CardDescription className="text-gray-600">
               Return on Investment
             </CardDescription>
           </CardHeader>

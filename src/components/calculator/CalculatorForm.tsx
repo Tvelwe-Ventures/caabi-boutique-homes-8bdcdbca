@@ -9,8 +9,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Card, CardContent } from "../ui/card";
 import { CalculatorInputs } from "./types";
+import { Building2, MapPin, Bed, Coins, Calculator, BankCard } from "lucide-react";
 
 interface CalculatorFormProps {
   onCalculate: (inputs: CalculatorInputs) => void;
@@ -27,39 +27,48 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
   });
 
   return (
-    <div className="grid gap-6">
+    <div className="space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Property Value (AED)</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-primary" />
+            Property Value (AED)
+          </label>
           <Input
             type="number"
             value={inputs.propertyValue}
             onChange={(e) =>
               setInputs({ ...inputs, propertyValue: Number(e.target.value) })
             }
-            className="bg-black/50 border-primary/20 text-gray-200"
+            className="bg-white border-primary/20 focus:border-primary"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Property Size (sq ft)</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-primary" />
+            Property Size (sq ft)
+          </label>
           <Input
             type="number"
             value={inputs.propertySize}
             onChange={(e) =>
               setInputs({ ...inputs, propertySize: Number(e.target.value) })
             }
-            className="bg-black/50 border-primary/20 text-gray-200"
+            className="bg-white border-primary/20 focus:border-primary"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Location</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <MapPin className="w-4 h-4 text-primary" />
+            Location
+          </label>
           <Select
             value={inputs.location}
             onValueChange={(value) =>
               setInputs({ ...inputs, location: value })
             }
           >
-            <SelectTrigger className="bg-black/50 border-primary/20 text-gray-200">
+            <SelectTrigger className="bg-white border-primary/20">
               <SelectValue placeholder="Select location" />
             </SelectTrigger>
             <SelectContent>
@@ -70,52 +79,55 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
           </Select>
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Number of Bedrooms</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <Bed className="w-4 h-4 text-primary" />
+            Number of Bedrooms
+          </label>
           <Input
             type="number"
             value={inputs.bedrooms}
             onChange={(e) =>
               setInputs({ ...inputs, bedrooms: Number(e.target.value) })
             }
-            className="bg-black/50 border-primary/20 text-gray-200"
+            className="bg-white border-primary/20 focus:border-primary"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Initial Investment (AED)</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <Coins className="w-4 h-4 text-primary" />
+            Initial Investment (AED)
+          </label>
           <Input
             type="number"
             value={inputs.initialInvestment}
             onChange={(e) =>
               setInputs({ ...inputs, initialInvestment: Number(e.target.value) })
             }
-            className="bg-black/50 border-primary/20 text-gray-200"
+            className="bg-white border-primary/20 focus:border-primary"
           />
         </div>
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300">Monthly Mortgage (AED)</label>
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <BankCard className="w-4 h-4 text-primary" />
+            Monthly Mortgage (AED)
+          </label>
           <Input
             type="number"
             value={inputs.monthlyMortgage}
             onChange={(e) =>
               setInputs({ ...inputs, monthlyMortgage: Number(e.target.value) })
             }
-            className="bg-black/50 border-primary/20 text-gray-200"
+            className="bg-white border-primary/20 focus:border-primary"
           />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="flex justify-center gap-4">
         <Button 
           onClick={() => onCalculate(inputs)} 
-          className="bg-primary hover:bg-primary-dark text-white font-semibold"
+          className="bg-primary hover:bg-primary-dark text-white font-semibold px-8"
         >
+          <Calculator className="w-4 h-4 mr-2" />
           Calculate ROI
-        </Button>
-        <Button 
-          variant="secondary"
-          onClick={() => window.location.href = '/contact'}
-          className="hover:bg-secondary-dark text-white font-semibold"
-        >
-          Contact Us
         </Button>
       </div>
     </div>
