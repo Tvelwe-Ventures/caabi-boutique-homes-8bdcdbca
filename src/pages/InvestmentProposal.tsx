@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import OccupancyComparison from "@/components/charts/OccupancyComparison";
 import RevenueMetrics from "@/components/charts/RevenueMetrics";
+import CallToAction from "@/components/CallToAction";
 
 const InvestmentProposal = () => {
   return (
@@ -45,7 +46,7 @@ const InvestmentProposal = () => {
           <RevenueMetrics />
         </div>
 
-        {/* Rest of the content */}
+        {/* Investment Cards */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -133,6 +134,9 @@ const InvestmentProposal = () => {
             </button>
           </div>
         </motion.div>
+
+        {/* New Call to Action Component */}
+        <CallToAction />
       </main>
       <Footer />
     </div>
