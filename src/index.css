@@ -63,13 +63,13 @@
       @apply bg-gradient-to-br from-[#8394ca] to-[#a2d4f4] bg-clip-text text-transparent;
     }
     .glass-card {
-      @apply bg-white/80 backdrop-blur-sm border border-[#355AD1]/20 shadow-sm hover:border-[#8394CA]/40 transition-all duration-300;
+      @apply bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
     }
     .neo-blur {
-      @apply bg-white/90 backdrop-blur-sm border border-[#355AD1]/20 shadow-sm;
+      @apply bg-white/90 backdrop-blur-sm shadow-sm;
     }
     .bento-card {
-      @apply bg-white/95 backdrop-blur-sm border border-[#355AD1]/20 shadow-sm hover:border-[#8394CA]/40 transition-all duration-300;
+      @apply bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
     }
     .card-text {
       @apply text-[#213674];
@@ -85,10 +85,10 @@
       @apply bg-gradient-to-br from-[#0c1114] to-[#355ad1] bg-clip-text text-transparent animate-text-shimmer;
     }
     .glass-card {
-      @apply backdrop-blur-xl bg-[#121C30]/40 border border-[#213674]/40 hover:border-[#355AD1]/60 transition-all duration-300;
+      @apply backdrop-blur-xl bg-[#121C30]/40 hover:bg-[#121C30]/60 transition-all duration-300;
     }
     .neo-blur {
-      @apply backdrop-blur-2xl bg-[#121C30]/40 border border-[#213674]/40;
+      @apply backdrop-blur-2xl bg-[#121C30]/40;
     }
     .section-dark {
       @apply bg-gradient-to-b from-[#0c1114] via-[#121C30] to-[#355ad1]/5;
