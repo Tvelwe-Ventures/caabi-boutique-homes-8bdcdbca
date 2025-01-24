@@ -76,7 +76,7 @@ const Stats = () => {
                   <div className="p-3 rounded-full bg-primary/10">
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold animated-gradient-text">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] bg-clip-text text-transparent animate-text-flow">
                     {inView && (
                       <>
                         <CountUp
