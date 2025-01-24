@@ -46,38 +46,17 @@ const Hero = () => {
             where exceptional service meets unparalleled returns.
           </p>
           <div className="flex gap-4 justify-center">
-            <div className="relative">
-              <ButtonColorful 
-                onClick={() => navigate("/calculator")}
-                label="Calculate ROI"
-                icon={<ArrowRight className="w-4 h-4" />}
-                className="bg-gradient-to-r from-[#0EA5E9] to-[#1EAEDB] hover:from-[#1EAEDB] hover:to-[#0EA5E9] transition-all duration-300"
-              />
-              <BorderBeam 
-                className="rounded-lg"
-                colorFrom="#D3E4FD"
-                colorTo="#C8C8C9"
-                duration={8}
-                size={150}
-                borderWidth={1}
-              />
-            </div>
-            <div className="relative">
-              <ButtonColorful 
-                onClick={() => navigate("/investment")}
-                label="View Proposal"
-                className="bg-gradient-to-r from-[#0EA5E9] to-[#1EAEDB] hover:from-[#1EAEDB] hover:to-[#0EA5E9] transition-all duration-300"
-              />
-              <BorderBeam 
-                className="rounded-lg"
-                colorFrom="#D3E4FD"
-                colorTo="#C8C8C9"
-                duration={8}
-                size={150}
-                borderWidth={1}
-                delay={2}
-              />
-            </div>
+            <ButtonColorful 
+              onClick={() => navigate("/calculator")}
+              label="Calculate ROI"
+              icon={<ArrowRight className="w-4 h-4" />}
+              className="relative bg-gradient-to-r from-[#355AD1] to-[#5B8DEF] hover:from-[#5B8DEF] hover:to-[#355AD1] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+            />
+            <ButtonColorful 
+              onClick={() => navigate("/investment")}
+              label="View Proposal"
+              className="relative bg-gradient-to-r from-[#355AD1] to-[#5B8DEF] hover:from-[#5B8DEF] hover:to-[#355AD1] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+            />
           </div>
         </motion.div>
       </div>
