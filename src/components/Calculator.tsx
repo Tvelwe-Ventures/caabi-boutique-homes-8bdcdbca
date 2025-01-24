@@ -139,6 +139,71 @@ const Calculator = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="investment">Investment Amount</Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>The total amount you plan to invest in the property</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <Input
+                  id="investment"
+                  type="number"
+                  value={investmentAmount}
+                  onChange={(e) => setInvestmentAmount(Number(e.target.value))}
+                  className="w-full"
+                />
+
+                <div className="flex items-center gap-2">
+                  <Label>Annual Rental Return (%)</Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Expected yearly rental income as a percentage of property value</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <Slider
+                  value={[annualReturn]}
+                  onValueChange={([value]) => setAnnualReturn(value)}
+                  min={0}
+                  max={20}
+                  step={0.1}
+                />
+
+                <div className="flex items-center gap-2">
+                  <Label>Property Appreciation (%)</Label>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Info className="h-4 w-4 text-muted-foreground" />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Expected annual increase in property value</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+                <Slider
+                  value={[appreciation]}
+                  onValueChange={([value]) => setAppreciation(value)}
+                  min={0}
+                  max={15}
+                  step={0.1}
+                />
+              </div>
+
               <div className="h-[300px] mt-8 bg-white rounded-lg p-4 shadow-sm">
                 <h3 className="text-lg font-semibold mb-4">Return Timeline Trend</h3>
                 <ResponsiveContainer width="100%" height="100%">
@@ -168,24 +233,11 @@ const Calculator = () => {
                       tickFormatter={(value) => `${(value/1000000).toFixed(1)}M`}
                     />
                     <Tooltip 
-                      content={({ active, payload }) => {
-                        if (active && payload && payload.length) {
-                          return (
-                            <div className="bg-white p-4 shadow-lg rounded-lg border">
-                              <p className="text-sm text-gray-600">
-                                Year {Math.floor(payload[0].payload.month/12)}
-                              </p>
-                              <p className="text-sm font-semibold">
-                                Rental: {(payload[0].value/1000000).toFixed(2)}M AED
-                              </p>
-                              <p className="text-sm font-semibold">
-                                Appreciation: {(payload[1].value/1000000).toFixed(2)}M AED
-                              </p>
-                            </div>
-                          );
-                        }
-                        return null;
-                      }}
+                      formatter={(value: number) => [
+                        `${(value/1000000).toFixed(2)}M AED`,
+                        value === chartData[0]?.rental ? "Rental Return" : "Property Appreciation"
+                      ]}
+                      labelFormatter={(label) => `Year ${Math.floor(Number(label)/12)}`}
                     />
                     <Area 
                       type="monotone" 
@@ -236,40 +288,40 @@ const Calculator = () => {
             </CardContent>
           </Card>
 
-          <CardSpotlight className="overflow-hidden relative">
-            <BorderBeam />
-            <GlowingStars />
-            <CardHeader className="text-center relative z-10">
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">
-                Detailed ROI Calculator
-              </CardTitle>
-              <CardDescription className="text-lg mt-4 text-gray-600">
-                Use our interactive calculator to estimate your potential returns from 
-                short-term rental property management in Dubai.
-              </CardDescription>
+          <Card className="p-6 bg-slate-50">
+            <CardHeader>
+              <CardTitle className="text-xl">Important Notes</CardTitle>
             </CardHeader>
-            <CardContent className="relative z-10">
-              <div className="mt-6">
-                <CalculatorForm onCalculate={handleCalculate} />
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="font-semibold">Calculation Method:</h4>
+                <ul className="list-disc pl-6 space-y-2 text-sm text-muted-foreground">
+                  <li>Rental Return: Calculated monthly based on the annual rental yield percentage</li>
+                  <li>Property Appreciation: Compounds monthly based on the annual appreciation rate</li>
+                  <li>Total Return: Combines both rental income and property value increase</li>
+                  <li>ROI Percentage: (Total Return / Initial Investment) × 100</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-semibold">Market Insights:</h4>
+                <ul className="list-disc pl-6 space-y-2 text-sm text-muted-foreground">
+                  <li>Current market average rental yield: {MARKET_DATA.averageRentalYield}%</li>
+                  <li>Average property appreciation rate: {MARKET_DATA.averageAppreciation}%</li>
+                  <li>Returns vary by location and property type</li>
+                </ul>
+              </div>
+
+              <div className="space-y-2">
+                <h4 className="font-semibold">Assumptions:</h4>
+                <ul className="list-disc pl-6 space-y-2 text-sm text-muted-foreground">
+                  <li>Calculations assume consistent market conditions over the 5-year period</li>
+                  <li>Property maintenance costs and other expenses are not included</li>
+                  <li>Actual returns may vary based on market conditions and property management</li>
+                </ul>
               </div>
             </CardContent>
-          </CardSpotlight>
-
-          {results.annualRevenue > 0 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <CardSpotlight className="relative">
-                <BorderBeam delay={2} />
-                <GlowingStars />
-                <CardContent className="p-6 relative z-10">
-                  <CalculatorResults results={results} />
-                </CardContent>
-              </CardSpotlight>
-            </motion.div>
-          )}
+          </Card>
         </div>
       </motion.div>
       <Footer />
