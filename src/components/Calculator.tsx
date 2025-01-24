@@ -18,6 +18,13 @@ const Calculator = () => {
     roi: 0,
     occupancyRate: 0,
     averageNightlyRate: 0,
+    airbnbFees: 0,
+    managementFees: 0,
+    scenarios: {
+      conservative: { revenue: 0, roi: 0 },
+      moderate: { revenue: 0, roi: 0 },
+      optimistic: { revenue: 0, roi: 0 }
+    }
   });
 
   const handleCalculate = (inputs: CalculatorInputs) => {
