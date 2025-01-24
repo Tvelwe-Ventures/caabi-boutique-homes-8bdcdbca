@@ -10,4 +10,8 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 console.log('Initializing Supabase client with URL:', supabaseUrl);
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false
+  }
+});
