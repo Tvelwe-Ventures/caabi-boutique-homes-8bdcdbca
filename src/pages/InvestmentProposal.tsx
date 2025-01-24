@@ -8,23 +8,36 @@ const InvestmentProposal = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      <main className="container mx-auto px-4 pt-24 pb-12">
-        {/* Hero Section */}
+      <main className="container mx-auto px-4 pb-12">
+        {/* Hero Section with Dubai Skyline */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="relative h-[60vh] mb-16 rounded-2xl overflow-hidden"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Investment Opportunities
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Join us in revolutionizing the short-term rental market in Dubai with our proven business model and exceptional returns.
-          </p>
+          <motion.img
+            src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"
+            alt="Dubai Skyline"
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+          />
+          <div className="absolute inset-0 bg-black/30" />
+          <div className="relative h-full flex items-center justify-center text-center z-10">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                Investment Opportunities
+              </h1>
+              <p className="text-lg text-white/90 max-w-2xl mx-auto">
+                Join us in revolutionizing the short-term rental market in Dubai with our proven business model and exceptional returns.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Key Benefits */}
+        {/* Rest of the content */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
