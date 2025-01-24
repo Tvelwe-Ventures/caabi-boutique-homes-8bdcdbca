@@ -31,17 +31,28 @@ const Calculator = () => {
   const [annualReturn, setAnnualReturn] = useState(MARKET_DATA.averageRentalYield);
   const [appreciation, setAppreciation] = useState(MARKET_DATA.averageAppreciation);
 
-  // Fetch user's saved settings
+  // Fetch user's saved settings with error logging
   const { data: savedSettings } = useQuery({
     queryKey: ['calculatorSettings'],
     queryFn: async () => {
-      const { data: settings, error } = await supabase
-        .from('calculator_settings')
-        .select('*')
-        .single();
-      
-      if (error) throw error;
-      return settings as CalculatorSettings;
+      console.log('Attempting to fetch calculator settings...');
+      try {
+        const { data: settings, error } = await supabase
+          .from('calculator_settings')
+          .select('*')
+          .single();
+        
+        if (error) {
+          console.error('Supabase query error:', error);
+          throw error;
+        }
+        
+        console.log('Successfully fetched settings:', settings);
+        return settings as CalculatorSettings;
+      } catch (error) {
+        console.error('Failed to fetch calculator settings:', error);
+        throw error;
+      }
     },
   });
 
