@@ -31,19 +31,26 @@ export function DisplayCards() {
           transition={{ duration: 0.5, delay: index * 0.1 }}
           className="group"
         >
-          <GradientCard>
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="p-3 rounded-full bg-primary/10 dark:bg-white/10">
+          <div className="relative h-full rounded-xl overflow-hidden bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-primary/10">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#D3E4FD]/40 via-[#F8F9FC]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            
+            <div className="relative z-10 p-8 h-full flex flex-col">
+              <div className="mb-6 inline-flex rounded-xl bg-[#D3E4FD]/50 p-3 w-fit">
                 {feature.icon}
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+              <h3 className="text-2xl font-semibold mb-4 text-primary-dark group-hover:text-primary transition-colors">
                 {feature.title}
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
+              <p className="text-lg text-gray-600 flex-grow group-hover:text-primary-dark transition-colors">
                 {feature.description}
               </p>
+              <div className="mt-6 flex items-center justify-between">
+                <span className="text-sm text-primary group-hover:text-primary-dark transition-colors">Learn more</span>
+                <div className="h-px flex-grow mx-4 bg-primary/20" />
+                <span className="text-sm text-primary group-hover:text-primary-dark transition-colors">→</span>
+              </div>
             </div>
-          </GradientCard>
+          </div>
         </motion.div>
       ))}
     </div>
