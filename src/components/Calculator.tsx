@@ -39,12 +39,13 @@ const Calculator = () => {
     const years = 5;
     const data = [];
     
-    for (let i = 0; i <= years; i++) {
-      const rentalReturn = investmentAmount * (Math.pow(1 + annualReturn / 100, i) - 1);
-      const propertyAppreciation = investmentAmount * (Math.pow(1 + appreciation / 100, i) - 1);
+    for (let i = 0; i <= years * 12; i++) {
+      const month = i;
+      const rentalReturn = investmentAmount * (Math.pow(1 + (annualReturn / 100) / 12, i) - 1);
+      const propertyAppreciation = investmentAmount * (Math.pow(1 + (appreciation / 100) / 12, i) - 1);
       
       data.push({
-        year: i,
+        month,
         rental: rentalReturn,
         appreciation: propertyAppreciation,
         total: rentalReturn + propertyAppreciation
@@ -143,35 +144,69 @@ const Calculator = () => {
                 </div>
               </div>
 
-              <div className="h-[300px] mt-8">
+              <div className="h-[300px] mt-8 bg-white rounded-lg p-4 shadow-sm">
+                <h3 className="text-lg font-semibold mb-4">Return Timeline Trend</h3>
                 <ResponsiveContainer width="100%" height="100%">
                   <AreaChart data={chartData}>
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <defs>
+                      <linearGradient id="colorRental" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.2}/>
+                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                      </linearGradient>
+                      <linearGradient id="colorAppreciation" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.2}/>
+                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
                     <XAxis 
-                      dataKey="year" 
-                      label={{ value: 'Years', position: 'bottom' }} 
+                      dataKey="month" 
+                      tickFormatter={(value) => `${Math.floor(value/12)}`}
+                      stroke="#94a3b8"
+                      axisLine={false}
+                      tickLine={false}
                     />
                     <YAxis 
-                      label={{ 
-                        value: 'Return (AED)', 
-                        angle: -90, 
-                        position: 'insideLeft' 
-                      }} 
+                      stroke="#94a3b8"
+                      axisLine={false}
+                      tickLine={false}
+                      tickFormatter={(value) => `${(value/1000000).toFixed(1)}M`}
                     />
-                    <Tooltip />
+                    <Tooltip 
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-white p-4 shadow-lg rounded-lg border">
+                              <p className="text-sm text-gray-600">
+                                Year {Math.floor(payload[0].payload.month/12)}
+                              </p>
+                              <p className="text-sm font-semibold">
+                                Rental: {(payload[0].value/1000000).toFixed(2)}M AED
+                              </p>
+                              <p className="text-sm font-semibold">
+                                Appreciation: {(payload[1].value/1000000).toFixed(2)}M AED
+                              </p>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
                     <Area 
                       type="monotone" 
                       dataKey="rental" 
-                      stackId="1"
-                      stroke="#8394CA" 
-                      fill="#8394CA" 
+                      stroke="#8884d8" 
+                      fillOpacity={1}
+                      fill="url(#colorRental)"
+                      strokeWidth={2}
                     />
                     <Area 
                       type="monotone" 
                       dataKey="appreciation" 
-                      stackId="1"
-                      stroke="#B2D1E3" 
-                      fill="#B2D1E3" 
+                      stroke="#82ca9d" 
+                      fillOpacity={1}
+                      fill="url(#colorAppreciation)"
+                      strokeWidth={2}
                     />
                   </AreaChart>
                 </ResponsiveContainer>
