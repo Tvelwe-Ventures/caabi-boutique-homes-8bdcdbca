@@ -46,7 +46,7 @@ const Calculator = () => {
               Make informed decisions backed by real market data.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
       
       <motion.div
