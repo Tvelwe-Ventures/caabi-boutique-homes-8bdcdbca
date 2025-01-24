@@ -6,9 +6,6 @@ import { CalculatorForm } from "./calculator/CalculatorForm";
 import { CalculatorResults } from "./calculator/CalculatorResults";
 import { calculateROI } from "./calculator/calculatorUtils";
 import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calculator/types";
-import { CardSpotlight } from "./ui/card-spotlight";
-import { GlowingStars } from "./ui/glowing-stars";
-import { BorderBeam } from "./ui/border-beam";
 import { Calculator as CalculatorIcon, TrendingUp, DollarSign, Info } from "lucide-react";
 import { Slider } from "./ui/slider";
 import { Input } from "./ui/input";
@@ -19,7 +16,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
 import Footer from "./Footer";
 
 // Market data - In a real application, these would come from an API
@@ -86,11 +83,7 @@ const Calculator = () => {
     <div className="min-h-screen bg-white">
       <div className="relative bg-gradient-to-b from-primary/10 to-transparent pt-32 pb-20">
         <div className="absolute inset-0 bg-grid-white/10 bg-[size:30px_30px] [mask-image:linear-gradient(0deg,transparent,black)]" />
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="container mx-auto px-4 relative z-10"
-        >
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center space-y-8 max-w-3xl mx-auto">
             <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-8">
               <CalculatorIcon className="w-8 h-8 text-primary" />
@@ -120,16 +113,12 @@ const Calculator = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       <CalculatorForm onCalculate={handleCalculate} />
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 py-20"
-      >
+      <div className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto space-y-12">
           <Card className="p-6">
             <CardHeader>
@@ -232,12 +221,23 @@ const Calculator = () => {
                       tickLine={false}
                       tickFormatter={(value) => `${(value/1000000).toFixed(1)}M`}
                     />
-                    <Tooltip 
-                      formatter={(value: number) => [
-                        `${(value/1000000).toFixed(2)}M AED`,
-                        value === chartData[0]?.rental ? "Rental Return" : "Property Appreciation"
-                      ]}
-                      labelFormatter={(label) => `Year ${Math.floor(Number(label)/12)}`}
+                    <RechartsTooltip 
+                      content={({ active, payload, label }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="bg-white p-3 border rounded shadow-lg">
+                              <p className="font-semibold">Year {Math.floor(Number(label)/12)}</p>
+                              {payload.map((entry, index) => (
+                                <p key={index} className="text-sm">
+                                  {entry.name === "rental" ? "Rental Return: " : "Property Appreciation: "}
+                                  {(entry.value/1000000).toFixed(2)}M AED
+                                </p>
+                              ))}
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
                     />
                     <Area 
                       type="monotone" 
@@ -323,7 +323,7 @@ const Calculator = () => {
             </CardContent>
           </Card>
         </div>
-      </motion.div>
+      </div>
       <Footer />
     </div>
   );
