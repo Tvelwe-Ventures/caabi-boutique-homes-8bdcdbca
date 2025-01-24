@@ -8,8 +8,13 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
   body {
-    @apply font-bricolage bg-white;
+    @apply font-bricolage bg-white antialiased;
+    text-rendering: optimizeLegibility;
   }
   
   :root {

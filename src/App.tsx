@@ -23,15 +23,17 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/calculator" element={<Calculator />} />
-              <Route path="/investment" element={<InvestmentProposal />} />
-            </Routes>
-          </BrowserRouter>
+          <div className="min-h-screen w-full overflow-x-hidden">
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/calculator" element={<Calculator />} />
+                <Route path="/investment" element={<InvestmentProposal />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

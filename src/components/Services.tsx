@@ -25,7 +25,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="relative py-24 bg-gradient-to-b from-white via-white to-gray-50/30">
+    <section className="relative py-12 md:py-24 bg-gradient-to-b from-white via-white to-gray-50/30">
       <Particles
         className="absolute inset-0 -z-10 opacity-30"
         quantity={20}
@@ -34,7 +34,7 @@ const Services = () => {
       />
       
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={index}
@@ -44,17 +44,17 @@ const Services = () => {
               className="relative group"
             >
               <div className="relative h-full rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-                <div className="relative z-10 p-8 h-full flex flex-col">
+                <div className="relative z-10 p-6 md:p-8 h-full flex flex-col">
                   <div className="mb-6 inline-flex rounded-xl bg-[#1EAEDB]/10 p-3 w-fit">
                     <service.Icon className="h-6 w-6 text-[#1EAEDB]" />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-gray-800">
+                  <h3 className="text-xl md:text-2xl font-semibold mb-3 md:mb-4 text-gray-800">
                     {service.name}
                   </h3>
-                  <p className="text-lg text-gray-600 flex-grow">
+                  <p className="text-base md:text-lg text-gray-600 flex-grow">
                     {service.description}
                   </p>
-                  <div className="mt-6 flex items-center">
+                  <div className="mt-4 md:mt-6 flex items-center">
                     <span className="text-sm text-[#1EAEDB] font-medium">Learn more</span>
                     <span className="ml-2 text-[#1EAEDB]">→</span>
                   </div>
