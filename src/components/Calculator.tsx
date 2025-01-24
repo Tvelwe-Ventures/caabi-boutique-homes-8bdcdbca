@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { CalculatorForm } from "./calculator/CalculatorForm";
@@ -8,12 +9,29 @@ import type { CalculatorInputs, CalculatorResults as ResultsType } from "./calcu
 import { CardSpotlight } from "./ui/card-spotlight";
 import { GlowingStars } from "./ui/glowing-stars";
 import { BorderBeam } from "./ui/border-beam";
-import { Calculator as CalculatorIcon, TrendingUp, DollarSign } from "lucide-react";
+import { Calculator as CalculatorIcon, TrendingUp, DollarSign, Info } from "lucide-react";
 import { Slider } from "./ui/slider";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from 'recharts';
 import Footer from "./Footer";
+
+// Market data - In a real application, these would come from an API
+const MARKET_DATA = {
+  averageRentalYield: 9.9,
+  averageAppreciation: 5.65,
+  marketTrends: {
+    downtown: { yield: 9.9, appreciation: 5.65 },
+    marina: { yield: 8.5, appreciation: 5.2 },
+    palmJumeirah: { yield: 10.2, appreciation: 6.0 }
+  }
+};
 
 const Calculator = () => {
   const [results, setResults] = useState<ResultsType>({
@@ -32,8 +50,8 @@ const Calculator = () => {
   });
 
   const [investmentAmount, setInvestmentAmount] = useState(1000000);
-  const [annualReturn, setAnnualReturn] = useState(9.9);
-  const [appreciation, setAppreciation] = useState(5.65);
+  const [annualReturn, setAnnualReturn] = useState(MARKET_DATA.averageRentalYield);
+  const [appreciation, setAppreciation] = useState(MARKET_DATA.averageAppreciation);
 
   const generateChartData = () => {
     const years = 5;
@@ -41,8 +59,8 @@ const Calculator = () => {
     
     for (let i = 0; i <= years * 12; i++) {
       const month = i;
-      const rentalReturn = investmentAmount * (Math.pow(1 + (annualReturn / 100) / 12, i) - 1);
-      const propertyAppreciation = investmentAmount * (Math.pow(1 + (appreciation / 100) / 12, i) - 1);
+      const rentalReturn = Number(investmentAmount) * (Math.pow(1 + (Number(annualReturn) / 100) / 12, i) - 1);
+      const propertyAppreciation = Number(investmentAmount) * (Math.pow(1 + (Number(appreciation) / 100) / 12, i) - 1);
       
       data.push({
         month,
@@ -78,16 +96,35 @@ const Calculator = () => {
               <CalculatorIcon className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-gradient sm:text-6xl">
-              Calculate Your Investment Returns
+              Dubai Property Investment Calculator
             </h1>
-            <p className="text-lg leading-8 text-gray-600">
-              Discover the potential of your property investment in Dubai with our advanced ROI calculator.
-              Make informed decisions backed by real market data.
-            </p>
+            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-lg">
+              <h2 className="text-xl font-semibold mb-4">How to Use This Calculator</h2>
+              <div className="grid gap-4 text-left text-sm">
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">1</div>
+                  <p>Enter your investment amount (property purchase price)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">2</div>
+                  <p>Adjust the annual rental return slider based on expected rental yield (current market average: {MARKET_DATA.averageRentalYield}%)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">3</div>
+                  <p>Adjust the property appreciation slider based on expected value increase (current market average: {MARKET_DATA.averageAppreciation}%)</p>
+                </div>
+                <div className="flex items-start gap-2">
+                  <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">4</div>
+                  <p>View your projected returns over 5 years, including rental income and property appreciation</p>
+                </div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>
-      
+
+      <CalculatorForm onCalculate={handleCalculate} />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -102,48 +139,6 @@ const Calculator = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-8">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Investment Amount (AED)</Label>
-                  <Input 
-                    type="number" 
-                    value={investmentAmount}
-                    onChange={(e) => setInvestmentAmount(Number(e.target.value))}
-                    className="text-lg font-semibold"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label>Annual Rental Return (%)</Label>
-                  <div className="flex items-center gap-4">
-                    <Slider
-                      value={[annualReturn]}
-                      onValueChange={(value) => setAnnualReturn(value[0])}
-                      min={4}
-                      max={12}
-                      step={0.1}
-                      className="flex-1"
-                    />
-                    <span className="text-lg font-semibold w-20">{annualReturn}%</span>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Annual Appreciation (%)</Label>
-                  <div className="flex items-center gap-4">
-                    <Slider
-                      value={[appreciation]}
-                      onValueChange={(value) => setAppreciation(value[0])}
-                      min={2}
-                      max={8}
-                      step={0.1}
-                      className="flex-1"
-                    />
-                    <span className="text-lg font-semibold w-20">{appreciation}%</span>
-                  </div>
-                </div>
-              </div>
-
               <div className="h-[300px] mt-8 bg-white rounded-lg p-4 shadow-sm">
                 <h3 className="text-lg font-semibold mb-4">Return Timeline Trend</h3>
                 <ResponsiveContainer width="100%" height="100%">
