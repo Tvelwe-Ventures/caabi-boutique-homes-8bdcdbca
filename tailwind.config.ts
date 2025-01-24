@@ -1,7 +1,6 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  darkMode: ["class"],
   content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
@@ -24,14 +23,14 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#8394CA", // Slightly darker blue from the palette
-          light: "#B2D1E3", // Light blue from palette
-          dark: "#1A2957", // Dark navy from palette
+          DEFAULT: "#8394CA",
+          light: "#B2D1E3",
+          dark: "#1A2957",
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#DFD5EA", // Soft lavender from palette
-          light: "#A0DDDB", // Turquoise from palette
+          DEFAULT: "#DFD5EA",
+          light: "#A0DDDB",
           dark: "#8E9196",
           foreground: "#FFFFFF",
         },
@@ -57,7 +56,6 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-dark': 'linear-gradient(to bottom right, rgb(0 0 0), rgb(17 24 39), rgb(0 0 0))',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       keyframes: {
@@ -82,15 +80,6 @@ export default {
             transform: "translateX(100%)",
           },
         },
-        "border-beam": {
-          "100%": {
-            "offset-distance": "100%",
-          },
-        },
-        "text-shimmer": {
-          "0%, 100%": { backgroundPosition: "200% center" },
-          "50%": { backgroundPosition: "-200% center" }
-        },
         "text-flow": {
           "0%": { backgroundPosition: "0% center" },
           "100%": { backgroundPosition: "200% center" }
@@ -102,8 +91,6 @@ export default {
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s infinite",
-        "border-beam": "border-beam var(--duration) infinite linear",
-        "text-shimmer": "textShimmer 8s ease infinite",
         "text-flow": "textFlow 8s linear infinite"
       },
     },

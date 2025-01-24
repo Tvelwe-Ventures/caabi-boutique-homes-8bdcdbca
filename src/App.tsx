@@ -4,7 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
-import { ThemeToggle } from "./components/ThemeToggle";
 import { useEffect } from "react";
 import Index from "./pages/Index";
 import Calculator from "./components/Calculator";
@@ -22,9 +21,8 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey="caabi-theme">
+      <ThemeProvider>
         <TooltipProvider>
-          <ThemeToggle />
           <Toaster />
           <Sonner />
           <BrowserRouter>

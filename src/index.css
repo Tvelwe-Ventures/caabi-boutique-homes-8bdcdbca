@@ -35,73 +35,34 @@
     --radius: 0.5rem;
   }
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
-
-  /* Light mode specific styles */
-  :root:not(.dark) {
-    .text-gradient {
-      @apply bg-gradient-to-br from-[#8394ca] to-[#a2d4f4] bg-clip-text text-transparent;
-    }
-    .glass-card {
-      @apply bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
-    }
-    .neo-blur {
-      @apply bg-white/90 backdrop-blur-sm shadow-sm;
-    }
-    .bento-card {
-      @apply bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
-    }
-    .card-text {
-      @apply text-[#213674];
-    }
-    .card-icon {
-      @apply text-[#355AD1];
-    }
+  .text-gradient {
+    @apply bg-gradient-to-br from-[#8394ca] to-[#a2d4f4] bg-clip-text text-transparent;
   }
   
-  /* Dark mode specific styles */
-  .dark {
-    .text-gradient {
-      @apply bg-gradient-to-br from-[#0c1114] to-[#355ad1] bg-clip-text text-transparent animate-text-shimmer;
-    }
-    .glass-card {
-      @apply backdrop-blur-xl bg-[#121C30]/40 hover:bg-[#121C30]/60 transition-all duration-300;
-    }
-    .neo-blur {
-      @apply backdrop-blur-2xl bg-[#121C30]/40;
-    }
-    .section-dark {
-      @apply bg-gradient-to-b from-[#0c1114] via-[#121C30] to-[#355ad1]/5;
-    }
-    .glow-effect {
-      @apply before:absolute before:inset-0 before:bg-[#213674]/20 before:blur-3xl before:opacity-30 before:-z-10;
-    }
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  .neo-blur {
+    @apply bg-white/90 backdrop-blur-sm shadow-sm;
+  }
+  
+  .bento-card {
+    @apply bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-300;
+  }
+  
+  .card-text {
+    @apply text-[#213674];
+  }
+  
+  .card-icon {
+    @apply text-[#355AD1];
   }
 }
 
 @layer utilities {
   .animated-gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-primary to-white bg-[length:200%_auto] animate-text-flow;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary-light to-primary bg-[length:200%_auto] animate-text-flow;
   }
 
   .bento-card {
@@ -120,11 +81,6 @@
   .card-hover-animation {
     @apply transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg;
   }
-}
-
-@keyframes textShimmer {
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
 }
 
 @keyframes textFlow {
