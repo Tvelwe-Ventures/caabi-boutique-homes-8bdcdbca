@@ -31,6 +31,13 @@ const properties = [
     description: "Luxury in the Heart of Dubai",
     rating: 4.9,
     reviews: 22
+  },
+  {
+    image: "/lovable-uploads/d427a985-0bc2-49f1-90e9-75b050fc5687.png",
+    title: "The Downtown Cinema Suite",
+    description: "Steps from Dubai Mall",
+    rating: 5.0,
+    reviews: 8
   }
 ];
 
