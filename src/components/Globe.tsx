@@ -123,7 +123,7 @@ export function Globe({
               colorTo="#8A99C9"
               size={300}
             />
-            <div className="relative space-y-6 p-6 backdrop-blur-xl bg-gradient-to-br from-primary/80 to-primary-light/80 dark:from-black/80 dark:to-primary-dark/40">
+            <div className="relative space-y-6 p-6 bg-[#1A1F2C]/95 backdrop-blur-xl">
               <h2 className="text-4xl font-bold tracking-tight text-white">
                 Dubai: The Most Affordable Global City
               </h2>
@@ -131,7 +131,7 @@ export function Globe({
                 Compare property ownership costs across major global cities
               </p>
               <div className="space-y-4">
-                <div className="rounded-lg bg-white/10 p-6 backdrop-blur-sm">
+                <div className="rounded-lg bg-[#213674]/40 p-6 backdrop-blur-sm border border-white/10">
                   <h3 className="text-2xl font-semibold text-white">
                     {selectedCity.name}
                   </h3>
