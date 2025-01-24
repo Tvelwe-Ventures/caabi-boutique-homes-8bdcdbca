@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
 import { ButtonColorful } from "./ui/button-colorful";
+import { BorderBeam } from "./ui/border-beam";
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -45,16 +46,38 @@ const Hero = () => {
             where exceptional service meets unparalleled returns.
           </p>
           <div className="flex gap-4 justify-center">
-            <ButtonColorful 
-              onClick={() => navigate("/calculator")}
-              label="Calculate ROI"
-              icon={<ArrowRight className="w-4 h-4" />}
-            />
-            <ButtonColorful 
-              onClick={() => navigate("/proposal")}
-              label="View Proposal"
-              className="bg-opacity-80"
-            />
+            <div className="relative">
+              <ButtonColorful 
+                onClick={() => navigate("/calculator")}
+                label="Calculate ROI"
+                icon={<ArrowRight className="w-4 h-4" />}
+                className="bg-gradient-to-r from-[#0EA5E9] to-[#1EAEDB] hover:from-[#1EAEDB] hover:to-[#0EA5E9] transition-all duration-300"
+              />
+              <BorderBeam 
+                className="rounded-lg"
+                colorFrom="#D3E4FD"
+                colorTo="#C8C8C9"
+                duration={8}
+                size={150}
+                borderWidth={1}
+              />
+            </div>
+            <div className="relative">
+              <ButtonColorful 
+                onClick={() => navigate("/investment")}
+                label="View Proposal"
+                className="bg-gradient-to-r from-[#0EA5E9] to-[#1EAEDB] hover:from-[#1EAEDB] hover:to-[#0EA5E9] transition-all duration-300"
+              />
+              <BorderBeam 
+                className="rounded-lg"
+                colorFrom="#D3E4FD"
+                colorTo="#C8C8C9"
+                duration={8}
+                size={150}
+                borderWidth={1}
+                delay={2}
+              />
+            </div>
           </div>
         </motion.div>
       </div>
