@@ -210,10 +210,11 @@ const Calculator = () => {
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f0f0f0" />
                     <XAxis 
                       dataKey="month" 
-                      tickFormatter={(value) => `${Math.floor(value/12)}`}
+                      tickFormatter={(value) => `Year ${Math.floor(value/12)}`}
                       stroke="#94a3b8"
                       axisLine={false}
                       tickLine={false}
+                      ticks={[0, 12, 24, 36, 48, 60]} // Show ticks only for each year
                     />
                     <YAxis 
                       stroke="#94a3b8"
