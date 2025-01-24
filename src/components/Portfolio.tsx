@@ -19,14 +19,14 @@ const properties = [
     reviews: 26
   },
   {
-    image: "/lovable-uploads/d817b3ef-28fe-41c1-99bc-aa78607b4cae.png",
+    image: "/lovable-uploads/a436f37f-a68e-4c2f-93c0-96307cb42f16.png",
     title: "The Skyline Suite",
     description: "Luxury Downtown Retreat",
     rating: 4.75,
     reviews: 16
   },
   {
-    image: "/lovable-uploads/b19fc22a-34d1-423d-9fb8-5fb63ddbe95f.png",
+    image: "/lovable-uploads/d817b3ef-28fe-41c1-99bc-aa78607b4cae.png",
     title: "Chic Downtown Suite",
     description: "Luxury in the Heart of Dubai",
     rating: 4.9,
