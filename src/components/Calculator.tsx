@@ -113,23 +113,23 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative bg-gradient-to-b from-primary/10 to-transparent pt-32 pb-20">
+      <div className="relative bg-gradient-to-b from-primary/10 to-transparent pt-16 md:pt-32 pb-12 md:pb-20">
         <div className="absolute inset-0 bg-grid-white/10 bg-[size:30px_30px] [mask-image:linear-gradient(0deg,transparent,black)]" />
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
           <CalculatorHeader />
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto space-y-12">
-          <Card className="p-6">
-            <CardHeader>
-              <CardTitle>Investment Calculator</CardTitle>
+      <div className="container mx-auto px-4 py-8 md:py-20 max-w-7xl">
+        <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
+          <Card className="p-4 md:p-6">
+            <CardHeader className="space-y-2">
+              <CardTitle className="text-xl md:text-2xl">Investment Calculator</CardTitle>
               <CardDescription>
                 Your settings are automatically saved as you make changes
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-8">
+            <CardContent className="space-y-6 md:space-y-8">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <Label htmlFor="investment">Investment Amount</Label>
@@ -177,6 +177,7 @@ const Calculator = () => {
                   min={0}
                   max={20}
                   step={0.1}
+                  className="w-full"
                 />
 
                 <div className="flex items-center gap-2">
@@ -201,10 +202,13 @@ const Calculator = () => {
                   min={0}
                   max={15}
                   step={0.1}
+                  className="w-full"
                 />
               </div>
 
-              <InvestmentChart data={chartData} />
+              <div className="w-full overflow-x-auto">
+                <InvestmentChart data={chartData} />
+              </div>
 
               <ReturnMetrics 
                 totalReturn={totalReturn}
