@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import Calculator from "./components/Calculator";
 import InvestmentProposal from "./pages/InvestmentProposal";
+import Chat from "./components/Chat";
+import Community from "./components/Community";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +33,8 @@ const App = () => {
                 <Route path="/" element={<Index />} />
                 <Route path="/calculator" element={<Calculator />} />
                 <Route path="/investment" element={<InvestmentProposal />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/community" element={<Community />} />
               </Routes>
             </BrowserRouter>
           </div>

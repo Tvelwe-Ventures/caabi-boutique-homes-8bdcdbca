@@ -27,7 +27,6 @@ const Header = () => {
             />
           </Link>
           
-          {/* Mobile menu button */}
           <button 
             className="md:hidden p-2 text-white"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -35,7 +34,6 @@ const Header = () => {
             <Menu className="h-6 w-6" />
           </button>
 
-          {/* Desktop navigation */}
           <div className="hidden md:flex items-center gap-8">
             <nav>
               <ul className="flex items-center space-x-8">
@@ -63,13 +61,28 @@ const Header = () => {
                     Investment Proposal
                   </Link>
                 </li>
+                <li>
+                  <Link 
+                    to="/chat"
+                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                  >
+                    Chat
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    to="/community"
+                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                  >
+                    Community
+                  </Link>
+                </li>
               </ul>
             </nav>
             <ThemeToggle />
           </div>
         </div>
 
-        {/* Mobile navigation */}
         {isMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, y: -10 }}
@@ -97,6 +110,20 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Investment Proposal
+              </Link>
+              <Link 
+                to="/chat"
+                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Chat
+              </Link>
+              <Link 
+                to="/community"
+                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Community
               </Link>
             </nav>
             <div className="mt-4 pb-2">
