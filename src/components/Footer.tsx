@@ -14,7 +14,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gradient">About Us</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-sm text-gray-800 dark:text-gray-200">
               Caabi Boutique Homes specializes in luxury short-term rentals in Dubai,
               offering premium properties and exceptional service.
             </p>
@@ -22,16 +22,16 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gradient">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Home</Link></li>
-              <li><Link to="/calculator" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">ROI Calculator</Link></li>
-              <li><Link to="/investment" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Investment Proposal</Link></li>
-              <li><Link to="/privacy" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">Terms & Conditions</Link></li>
+              <li><Link to="/" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">Home</Link></li>
+              <li><Link to="/calculator" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">ROI Calculator</Link></li>
+              <li><Link to="/investment" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">Investment Proposal</Link></li>
+              <li><Link to="/privacy" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">Terms & Conditions</Link></li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gradient">Contact</h3>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <ul className="space-y-2 text-sm text-gray-800 dark:text-gray-200">
               <li>Dubai, UAE</li>
               <li>Email: info@caabi.com</li>
               <li>Phone: +971 XX XXX XXXX</li>
@@ -40,22 +40,22 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-gradient">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+              <a href="#" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+              <a href="#" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+              <a href="#" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-primary transition-colors">
+              <a href="#" className="text-gray-800 dark:text-gray-200 hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-800 text-center text-xs text-gray-700 dark:text-gray-300">
           <p>&copy; {new Date().getFullYear()} Caabi Boutique Homes. All rights reserved.</p>
         </div>
       </div>
