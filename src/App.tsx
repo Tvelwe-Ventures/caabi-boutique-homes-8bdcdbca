@@ -13,6 +13,7 @@ import Community from "./components/Community";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import CommunityGuidelines from "./pages/CommunityGuidelines";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ const App = () => {
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/guidelines" element={<CommunityGuidelines />} />
+                <Route path="/auth" element={<Auth />} />
               </Routes>
             </BrowserRouter>
           </div>

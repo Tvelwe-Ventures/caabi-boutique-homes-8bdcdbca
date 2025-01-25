@@ -1,5 +1,9 @@
-import { Search } from "lucide-react";
-import { Input } from "../ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+import { LogIn } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 interface CommunityHeaderProps {
   searchQuery: string;
@@ -7,23 +11,45 @@ interface CommunityHeaderProps {
 }
 
 export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeaderProps) => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogin = async () => {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (session) {
+      // If already logged in, show a message
+      toast({
+        title: "Already logged in",
+        description: "You are already logged in to your account.",
+      });
+      return;
+    }
+
+    // If not logged in, redirect to auth page (we'll create this next)
+    navigate("/auth");
+  };
+
   return (
-    <div className="sticky top-0 z-10 backdrop-blur-lg bg-white/70 border-b border-gray-100 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-primary-dark">
-            Community
-          </h1>
-          <div className="relative w-full max-w-md mx-4">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <Input
-              type="text"
-              placeholder="Search posts..."
-              className="pl-10 pr-4 py-2 w-full rounded-full border-gray-200 focus:border-primary/40 transition-colors"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+    <div className="bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-primary-dark">Community</h1>
+        <div className="flex items-center gap-4">
+          <Input
+            type="search"
+            placeholder="Search posts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="max-w-sm"
+          />
+          <Button 
+            onClick={handleLogin}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <LogIn className="w-4 h-4" />
+            Login
+          </Button>
         </div>
       </div>
     </div>

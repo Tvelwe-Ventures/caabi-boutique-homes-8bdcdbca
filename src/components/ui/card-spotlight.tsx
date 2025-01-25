@@ -7,13 +7,11 @@ import { cn } from "@/lib/utils";
 
 export const CardSpotlight = ({
   children,
-  radius = 350,
-  color = "#262626",
+  radius = 250, // Reduced radius for smaller spotlight effect
   className,
   ...props
 }: {
   radius?: number;
-  color?: string;
   children: React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>) => {
   const mouseX = useMotionValue(0);
@@ -36,7 +34,7 @@ export const CardSpotlight = ({
   return (
     <div
       className={cn(
-        "group/spotlight p-8 rounded-xl relative border border-white/10 bg-black/40",
+        "group/spotlight p-8 rounded-xl relative border border-white/10 bg-white/80",
         className
       )}
       onMouseMove={handleMouseMove}
@@ -47,7 +45,7 @@ export const CardSpotlight = ({
       <motion.div
         className="pointer-events-none absolute z-0 -inset-px rounded-xl opacity-0 transition duration-300 group-hover/spotlight:opacity-100"
         style={{
-          backgroundColor: color,
+          background: "rgba(131, 148, 202, 0.1)", // Using primary color with low opacity
           maskImage: useMotionTemplate`
             radial-gradient(
               ${radius}px circle at ${mouseX}px ${mouseY}px,
@@ -62,10 +60,10 @@ export const CardSpotlight = ({
             animationSpeed={5}
             containerClassName="bg-transparent absolute inset-0 pointer-events-none"
             colors={[
-              [162, 176, 220], // primary color
-              [138, 153, 201]  // primary dark
+              [131, 148, 202], // primary color
+              [178, 209, 227]  // primary light
             ]}
-            dotSize={3}
+            dotSize={2}
           />
         )}
       </motion.div>
