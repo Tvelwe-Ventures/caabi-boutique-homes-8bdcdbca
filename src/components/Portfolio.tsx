@@ -74,7 +74,7 @@ const Portfolio = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
             >
-              <CardSpotlight className="h-full overflow-hidden group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300">
+              <CardSpotlight className="h-full overflow-hidden group bg-gradient-to-br from-primary-light/30 to-primary/10 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md transition-all duration-300">
                 <div className="relative z-10">
                   <div className="aspect-[4/3] overflow-hidden rounded-t-2xl">
                     <img
@@ -83,19 +83,19 @@ const Portfolio = () => {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
-                  <div className="p-6 bg-white backdrop-blur-sm rounded-b-2xl">
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                  <div className="p-6 bg-white/80 backdrop-blur-sm rounded-b-2xl">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       {property.title}
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-700 mb-4">
                       {property.description}
                     </p>
                     <div className="flex items-center gap-2">
                       <Star className="w-5 h-5 text-[#1EAEDB] fill-[#1EAEDB]" />
-                      <span className="text-gray-700 font-semibold">
+                      <span className="text-gray-900 font-semibold">
                         {property.rating} 
                       </span>
-                      <span className="text-gray-500">
+                      <span className="text-gray-700">
                         ({property.reviews} reviews)
                       </span>
                     </div>
