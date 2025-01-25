@@ -57,6 +57,9 @@ export default {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'soft-gradient': 'linear-gradient(to bottom right, #F5E6FA, #F8F9FC)',
+        'hero-gradient': 'linear-gradient(to bottom right, #F0E5F4, #FFFFFF)',
+        'card-gradient': 'linear-gradient(to bottom right, #F5E6FA, #FFFFFF)',
       },
       keyframes: {
         "accordion-down": {

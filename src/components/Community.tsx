@@ -77,12 +77,12 @@ const Community = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50">
+    <div className="min-h-screen bg-soft-gradient">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 backdrop-blur-lg bg-white/70 border-b border-gray-200">
+      <div className="sticky top-0 z-10 backdrop-blur-lg bg-white/70 border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold text-gray-900">
+            <h1 className="text-2xl font-semibold text-primary-dark">
               Community
             </h1>
             <div className="relative w-full max-w-md mx-4">
@@ -107,7 +107,7 @@ const Community = () => {
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-3 space-y-6"
           >
-            <CardSpotlight className="space-y-4">
+            <CardSpotlight className="bg-card-gradient space-y-4">
               <div className="flex items-center gap-2 text-primary-dark">
                 <Users className="h-5 w-5" />
                 <h2 className="font-semibold">Community Stats</h2>
@@ -115,7 +115,7 @@ const Community = () => {
               <CommunityStats />
             </CardSpotlight>
 
-            <CardSpotlight className="space-y-4">
+            <CardSpotlight className="bg-card-gradient space-y-4">
               <div className="flex items-center gap-2 text-primary-dark">
                 <TrendingUp className="h-5 w-5" />
                 <h2 className="font-semibold">Trending Topics</h2>
@@ -124,15 +124,15 @@ const Community = () => {
             </CardSpotlight>
 
             <nav className="space-y-2">
-              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-white/80 rounded-lg transition-colors">
                 <BookOpen className="h-5 w-5" />
                 <span>Resources</span>
               </a>
-              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-white/80 rounded-lg transition-colors">
                 <MessageSquare className="h-5 w-5" />
                 <span>Discussions</span>
               </a>
-              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-white/80 rounded-lg transition-colors">
                 <Calendar className="h-5 w-5" />
                 <span>Events</span>
               </a>
@@ -171,12 +171,12 @@ const Community = () => {
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-3 space-y-6"
           >
-            <CardSpotlight className="p-6">
+            <CardSpotlight className="bg-card-gradient p-6">
               <h3 className="font-semibold text-lg mb-4">Upcoming Events</h3>
               <p className="text-gray-600">No upcoming events</p>
             </CardSpotlight>
             
-            <CardSpotlight className="p-6">
+            <CardSpotlight className="bg-card-gradient p-6">
               <h3 className="font-semibold text-lg mb-4">Activity Feed</h3>
               <p className="text-gray-600">No recent activity</p>
             </CardSpotlight>
