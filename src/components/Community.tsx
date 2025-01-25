@@ -26,7 +26,7 @@ const Community = () => {
       .from("posts")
       .select(`
         *,
-        profile:user_id (
+        profiles!posts_user_id_fkey (
           username,
           avatar_url
         )
@@ -55,7 +55,7 @@ const Community = () => {
         .from("comments")
         .select(`
           *,
-          profile:user_id (
+          profiles!comments_user_id_fkey (
             username,
             avatar_url
           )
