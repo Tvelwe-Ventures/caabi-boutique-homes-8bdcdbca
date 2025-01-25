@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { Home, Star, Heart, DollarSign } from "lucide-react";
-import { CardSpotlight } from "./ui/card-spotlight";
+import { StandardCard } from "./ui/standard-card";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -16,7 +16,7 @@ const Stats = () => {
       suffix: "%", 
       label: "Average Occupancy Rate",
       description: "Consistently outperforming market average of 65%",
-      icon: <Home className="w-6 h-6 text-primary" />,
+      icon: Home,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -24,7 +24,7 @@ const Stats = () => {
       decimals: 2, 
       label: "Guest Satisfaction",
       description: "Based on verified guest reviews",
-      icon: <Star className="w-6 h-6 text-primary/60" />,
+      icon: Star,
       className: "lg:col-span-2"
     },
     { 
@@ -32,7 +32,7 @@ const Stats = () => {
       suffix: "+", 
       label: "5-Star Reviews",
       description: "From satisfied guests worldwide",
-      icon: <Heart className="w-6 h-6 text-primary/60" />,
+      icon: Heart,
       className: "md:col-span-2 lg:col-span-1"
     },
     { 
@@ -40,7 +40,7 @@ const Stats = () => {
       suffix: "%", 
       label: "Higher Revenue",
       description: "Compared to traditional long-term rentals",
-      icon: <DollarSign className="w-6 h-6 text-primary/60" />,
+      icon: DollarSign,
       className: "md:col-span-2 lg:col-span-1"
     }
   ];
@@ -64,39 +64,24 @@ const Stats = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <motion.div
+            <StandardCard
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: index * 0.2 }}
+              icon={stat.icon}
+              title={
+                inView ? (
+                  <CountUp
+                    end={stat.value}
+                    duration={2}
+                    decimals={stat.decimals || 0}
+                    suffix={stat.suffix}
+                  />
+                ) : (
+                  "0"
+                )
+              }
+              description={stat.description}
               className={stat.className}
-            >
-              <CardSpotlight className="h-full">
-                <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4 bg-gradient-to-br from-primary-light/30 to-primary/10">
-                  <div className="p-3 rounded-full bg-primary/10">
-                    {stat.icon}
-                  </div>
-                  <div className="text-4xl font-bold text-gray-900">
-                    {inView && (
-                      <>
-                        <CountUp
-                          end={stat.value}
-                          duration={2}
-                          decimals={stat.decimals || 0}
-                        />
-                        {stat.suffix}
-                      </>
-                    )}
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900">
-                    {stat.label}
-                  </h3>
-                  <p className="text-gray-700">
-                    {stat.description}
-                  </p>
-                </div>
-              </CardSpotlight>
-            </motion.div>
+            />
           ))}
         </div>
       </div>

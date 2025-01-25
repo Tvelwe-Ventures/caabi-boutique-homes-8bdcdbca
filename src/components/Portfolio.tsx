@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { CardSpotlight } from "./ui/card-spotlight";
+import { StandardCard } from "./ui/standard-card";
 import { Particles } from "./ui/particles";
 import { Star } from "lucide-react";
 
@@ -68,41 +68,24 @@ const Portfolio = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {properties.map((property, index) => (
-            <motion.div
+            <StandardCard
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
+              title={property.title}
+              description={property.description}
+              className="h-full"
+              icon={Star}
+              action={{
+                label: `${property.rating} (${property.reviews} reviews)`
+              }}
             >
-              <CardSpotlight className="h-full overflow-hidden group bg-gradient-to-br from-primary-light/30 to-primary/10 rounded-2xl border border-primary/20 shadow-sm hover:shadow-md transition-all duration-300">
-                <div className="relative z-10">
-                  <div className="aspect-[4/3] overflow-hidden rounded-t-2xl">
-                    <img
-                      src={property.image}
-                      alt={property.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                  <div className="p-6 bg-white/80 backdrop-blur-sm rounded-b-2xl">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                      {property.title}
-                    </h3>
-                    <p className="text-gray-700 mb-4">
-                      {property.description}
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <Star className="w-5 h-5 text-[#1EAEDB] fill-[#1EAEDB]" />
-                      <span className="text-gray-900 font-semibold">
-                        {property.rating} 
-                      </span>
-                      <span className="text-gray-700">
-                        ({property.reviews} reviews)
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </CardSpotlight>
-            </motion.div>
+              <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+              </div>
+            </StandardCard>
           ))}
         </div>
       </div>

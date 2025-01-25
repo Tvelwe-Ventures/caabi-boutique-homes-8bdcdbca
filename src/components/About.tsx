@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Particles } from "./ui/particles";
+import { StandardCard } from "./ui/standard-card";
+import { Info } from "lucide-react";
 
 const About = () => {
   return (
@@ -18,18 +20,11 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">About Caabi Boutique Homes</h2>
-          <div className="space-y-6">
-            <p className="text-lg text-gray-600 leading-relaxed">
-              We're Caabi Boutique Homes, a small, family-run business that kicked off in May 2024 with just one property. Fast forward a bit, and we're now managing three beautiful homes, all in the heart of Downtown Dubai!
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              What sets us apart? Well, we're all about the personal touch. We treat every property like it's part of our own family, making sure both homeowners and guests get the best experience possible.
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Since we're a boutique operation, we offer a level of attention and care that the bigger guys just can't match. Whether you're looking to rent out your property or stay in one of our luxurious homes, we're here to make it a smooth, stress-free experience from start to finish.
-            </p>
-          </div>
+          <StandardCard
+            icon={Info}
+            title="About Caabi Boutique Homes"
+            description="We're Caabi Boutique Homes, a small, family-run business that kicked off in May 2024 with just one property. Fast forward a bit, and we're now managing three beautiful homes, all in the heart of Downtown Dubai! What sets us apart? Well, we're all about the personal touch. We treat every property like it's part of our own family, making sure both homeowners and guests get the best experience possible. Since we're a boutique operation, we offer a level of attention and care that the bigger guys just can't match. Whether you're looking to rent out your property or stay in one of our luxurious homes, we're here to make it a smooth, stress-free experience from start to finish."
+          />
         </motion.div>
       </div>
     </section>

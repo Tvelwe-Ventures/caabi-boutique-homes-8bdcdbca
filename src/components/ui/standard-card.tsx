@@ -1,16 +1,18 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 interface StandardCardProps {
   icon?: LucideIcon;
-  title: string;
+  title: string | ReactNode;
   description: string;
   action?: {
     label: string;
     onClick?: () => void;
   };
   className?: string;
+  children?: ReactNode;
 }
 
 export function StandardCard({
@@ -19,6 +21,7 @@ export function StandardCard({
   description,
   action,
   className,
+  children,
 }: StandardCardProps) {
   return (
     <motion.div
@@ -33,7 +36,9 @@ export function StandardCard({
       <div className="absolute inset-0 bg-gradient-to-br from-primary-light/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       
       <div className="relative z-10 p-8 space-y-4">
-        {Icon && (
+        {children}
+        
+        {Icon && !children && (
           <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
             <Icon className="h-6 w-6 text-primary" />
           </div>
@@ -48,7 +53,7 @@ export function StandardCard({
         </p>
 
         {action && (
-          <div className="pt-2 flex items-center space-x-2 text-primary hover:text-primary-dark transition-colors cursor-pointer">
+          <div className="pt-2 flex items-center space-x-2 text-primary hover:text-primary-dark transition-colors cursor-pointer" onClick={action.onClick}>
             <span className="text-sm font-medium">{action.label}</span>
             <span className="text-sm">→</span>
           </div>
