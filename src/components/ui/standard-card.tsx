@@ -7,6 +7,7 @@ interface StandardCardProps {
   icon?: LucideIcon;
   title: string | ReactNode;
   description: string;
+  subtitle?: string;
   action?: {
     label: string;
     onClick?: () => void;
@@ -19,6 +20,7 @@ export function StandardCard({
   icon: Icon,
   title,
   description,
+  subtitle,
   action,
   className,
   children,
@@ -51,6 +53,12 @@ export function StandardCard({
         <p className="text-gray-700">
           {description}
         </p>
+
+        {subtitle && (
+          <p className="text-sm text-gray-600">
+            {subtitle}
+          </p>
+        )}
 
         {action && (
           <div className="pt-2 flex items-center space-x-2 text-primary hover:text-primary-dark transition-colors cursor-pointer" onClick={action.onClick}>
