@@ -10,6 +10,9 @@ import Calculator from "./components/Calculator";
 import InvestmentProposal from "./pages/InvestmentProposal";
 import Chat from "./components/Chat";
 import Community from "./components/Community";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
+import CommunityGuidelines from "./pages/CommunityGuidelines";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +38,9 @@ const App = () => {
                 <Route path="/investment" element={<InvestmentProposal />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/community" element={<Community />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/guidelines" element={<CommunityGuidelines />} />
               </Routes>
             </BrowserRouter>
           </div>

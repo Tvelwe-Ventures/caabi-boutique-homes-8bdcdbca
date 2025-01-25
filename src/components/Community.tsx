@@ -8,6 +8,7 @@ import { CommunityHeader } from "./community/CommunityHeader";
 import { LeftSidebar } from "./community/LeftSidebar";
 import { RightSidebar } from "./community/RightSidebar";
 import { usePostsSubscription } from "@/hooks/usePostsSubscription";
+import Footer from "./Footer";
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -113,6 +114,7 @@ const Community = () => {
           <RightSidebar />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
