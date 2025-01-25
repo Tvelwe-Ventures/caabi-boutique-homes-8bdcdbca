@@ -5,9 +5,10 @@ import { CreatePost } from "./community/CreatePost";
 import { Post } from "./community/Post";
 import { TrendingTopics } from "./community/TrendingTopics";
 import { CommunityStats } from "./community/CommunityStats";
-import { Search, TrendingUp, Users } from "lucide-react";
+import { Search, TrendingUp, Users, BookOpen, MessageSquare, Calendar } from "lucide-react";
 import { Input } from "./ui/input";
 import { motion } from "framer-motion";
+import { CardSpotlight } from "./ui/card-spotlight";
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -76,12 +77,12 @@ const Community = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5">
+    <div className="min-h-screen bg-gradient-to-br from-white to-gray-50">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-10 backdrop-blur-lg bg-white/70 border-b border-primary/10 shadow-sm">
+      <div className="sticky top-0 z-10 backdrop-blur-lg bg-white/70 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
+            <h1 className="text-2xl font-semibold text-gray-900">
               Community
             </h1>
             <div className="relative w-full max-w-md mx-4">
@@ -89,7 +90,7 @@ const Community = () => {
               <Input
                 type="text"
                 placeholder="Search posts..."
-                className="pl-10 pr-4 py-2 w-full rounded-full border-primary/20 focus:border-primary/40 transition-colors"
+                className="pl-10 pr-4 py-2 w-full rounded-full border-gray-200 focus:border-primary/40 transition-colors"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -106,20 +107,36 @@ const Community = () => {
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-3 space-y-6"
           >
-            <div className="glass-card rounded-xl p-6 space-y-4">
+            <CardSpotlight className="space-y-4">
               <div className="flex items-center gap-2 text-primary-dark">
                 <Users className="h-5 w-5" />
                 <h2 className="font-semibold">Community Stats</h2>
               </div>
               <CommunityStats />
-            </div>
-            <div className="glass-card rounded-xl p-6 space-y-4">
+            </CardSpotlight>
+
+            <CardSpotlight className="space-y-4">
               <div className="flex items-center gap-2 text-primary-dark">
                 <TrendingUp className="h-5 w-5" />
                 <h2 className="font-semibold">Trending Topics</h2>
               </div>
               <TrendingTopics />
-            </div>
+            </CardSpotlight>
+
+            <nav className="space-y-2">
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <BookOpen className="h-5 w-5" />
+                <span>Resources</span>
+              </a>
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <MessageSquare className="h-5 w-5" />
+                <span>Discussions</span>
+              </a>
+              <a href="#" className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
+                <Calendar className="h-5 w-5" />
+                <span>Events</span>
+              </a>
+            </nav>
           </motion.div>
 
           {/* Main Content */}
@@ -154,7 +171,15 @@ const Community = () => {
             animate={{ opacity: 1, x: 0 }}
             className="lg:col-span-3 space-y-6"
           >
-            {/* Add upcoming events and activity feed components here */}
+            <CardSpotlight className="p-6">
+              <h3 className="font-semibold text-lg mb-4">Upcoming Events</h3>
+              <p className="text-gray-600">No upcoming events</p>
+            </CardSpotlight>
+            
+            <CardSpotlight className="p-6">
+              <h3 className="font-semibold text-lg mb-4">Activity Feed</h3>
+              <p className="text-gray-600">No recent activity</p>
+            </CardSpotlight>
           </motion.div>
         </div>
       </div>
