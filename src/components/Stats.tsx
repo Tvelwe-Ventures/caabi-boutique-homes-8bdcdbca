@@ -57,7 +57,7 @@ const Stats = () => {
           <h2 className="text-4xl font-bold text-gray-900 mb-6">
             Our Performance
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-700 max-w-2xl mx-auto text-lg">
             Delivering exceptional results through dedicated property management
           </p>
         </motion.div>
@@ -72,11 +72,11 @@ const Stats = () => {
               className={stat.className}
             >
               <CardSpotlight className="h-full">
-                <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4">
+                <div className="relative z-10 p-6 flex flex-col items-center text-center space-y-4 bg-gradient-to-br from-primary-light/30 to-primary/10">
                   <div className="p-3 rounded-full bg-primary/10">
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold text-white">
+                  <div className="text-4xl font-bold text-gray-900">
                     {inView && (
                       <>
                         <CountUp
@@ -88,10 +88,10 @@ const Stats = () => {
                       </>
                     )}
                   </div>
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {stat.label}
                   </h3>
-                  <p className="text-white/80">
+                  <p className="text-gray-700">
                     {stat.description}
                   </p>
                 </div>
