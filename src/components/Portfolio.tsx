@@ -12,7 +12,7 @@ const properties = [
     reviews: 10
   },
   {
-    image: "/lovable-uploads/95b3bcd7-3500-409b-89b5-256673b7f92b.png",
+    image: "/lovable-uploads/a210a040-aa99-4aad-a7d0-7d2b08ad0e58.png",
     title: "Downtown Oasis",
     description: "Chic Luxury In the Heart of Dubai",
     rating: 5.0,
