@@ -3,9 +3,26 @@ import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
 import { ButtonColorful } from "./ui/button-colorful";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = [
+    "/lovable-uploads/d2b589ed-e60c-4ce2-aa36-237d64b2a62e.png",
+    "/lovable-uploads/7991a2c3-27fc-4d0e-a270-d195af276951.png",
+    "/lovable-uploads/20ef23e7-7914-4739-8e09-59c7660417c8.png",
+    "/lovable-uploads/d5623907-02e5-4601-8db4-e7614ef6f391.png"
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-dark">
@@ -16,14 +33,20 @@ const Hero = () => {
         color="#1EAEDB"
       />
       
-      <motion.img
-        src="/lovable-uploads/d5623907-02e5-4601-8db4-e7614ef6f391.png"
-        alt="Luxury Dubai Apartment"
-        className="absolute inset-0 w-full h-full object-cover opacity-80"
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={{ opacity: 0.8, scale: 1 }}
-        transition={{ duration: 1 }}
-      />
+      {images.map((image, index) => (
+        <motion.img
+          key={image}
+          src={image}
+          alt={`Luxury Dubai Property ${index + 1}`}
+          className="absolute inset-0 w-full h-full object-cover"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: currentImageIndex === index ? 0.8 : 0,
+            scale: currentImageIndex === index ? 1 : 1.1
+          }}
+          transition={{ duration: 1 }}
+        />
+      ))}
       
       <div className="absolute inset-0 bg-black/20" />
       
