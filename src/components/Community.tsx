@@ -22,7 +22,9 @@ const Community = () => {
       .from("posts")
       .select(`
         *,
-        profiles:user_id (username)
+        profile:user_id (
+          username
+        )
       `)
       .order("created_at", { ascending: false });
 
@@ -47,7 +49,9 @@ const Community = () => {
         .from("comments")
         .select(`
           *,
-          profiles:user_id (username)
+          profile:user_id (
+            username
+          )
         `)
         .eq("post_id", post.id)
         .order("created_at", { ascending: true });
@@ -124,7 +128,7 @@ const Community = () => {
             <div>
               <h3 className="text-xl font-semibold">{post.title}</h3>
               <p className="text-sm text-muted-foreground">
-                Posted by {post.profiles?.username || "Anonymous"}
+                Posted by {post.profile?.username || "Anonymous"}
               </p>
             </div>
             <p>{post.content}</p>
@@ -135,7 +139,7 @@ const Community = () => {
                 <div key={comment.id} className="pl-4 border-l-2">
                   <p>{comment.content}</p>
                   <p className="text-sm text-muted-foreground">
-                    By {comment.profiles?.username || "Anonymous"}
+                    By {comment.profile?.username || "Anonymous"}
                   </p>
                 </div>
               ))}
