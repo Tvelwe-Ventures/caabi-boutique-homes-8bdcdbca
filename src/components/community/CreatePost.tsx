@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -22,16 +22,16 @@ export const CreatePost = ({ onPostCreated }: { onPostCreated: () => void }) => 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
   const fetchCategories = async () => {
     const { data, error } = await supabase.from("categories").select("*");
     if (!error && data) {
       setCategories(data);
     }
   };
-
-  useState(() => {
-    fetchCategories();
-  }, []);
 
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -86,7 +86,7 @@ export const CreatePost = ({ onPostCreated }: { onPostCreated: () => void }) => 
       return;
     }
 
-    const { error: postError } = await supabase
+    const { data: postData, error: postError } = await supabase
       .from("posts")
       .insert({
         title: newPost.title.trim(),
@@ -105,11 +105,11 @@ export const CreatePost = ({ onPostCreated }: { onPostCreated: () => void }) => 
       return;
     }
 
-    if (selectedCategory) {
+    if (selectedCategory && postData) {
       const { error: categoryError } = await supabase
         .from("post_categories")
         .insert({
-          post_id: postError.id,
+          post_id: postData.id,
           category_id: selectedCategory,
         });
 
