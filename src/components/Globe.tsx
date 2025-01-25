@@ -4,7 +4,8 @@ import createGlobe, { COBEOptions } from "cobe"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "./ThemeProvider"
-import { BorderBeam } from "./ui/border-beam"
+import { StandardCard } from "./ui/standard-card"
+import { Building2 } from "lucide-react"
 
 const CITIES_DATA = [
   { name: "Dubai", location: [25.2048, 55.2708] as [number, number], cost: 350000, size: 0.1 },
@@ -115,42 +116,32 @@ export function Globe({
     <div className="relative py-12 items-center justify-center bg-gradient-to-b from-primary/5 via-primary/10 to-transparent">
       <div className="container relative z-10 grid grid-cols-1 gap-8 lg:grid-cols-2 max-w-6xl mx-auto">
         <div className="flex flex-col justify-center space-y-6">
-          <div className="relative overflow-hidden rounded-xl">
-            <BorderBeam 
-              className="rounded-xl"
-              duration={8}
-              colorFrom="#A2B0DC"
-              colorTo="#8A99C9"
-              size={300}
-            />
-            <div className="relative space-y-6 p-6 bg-[#F8F9FC] backdrop-blur-xl">
-              <h2 className="text-4xl font-bold tracking-tight text-primary-dark">
-                Dubai: The Most Affordable Global City
-              </h2>
-              <p className="text-xl text-gray-600">
-                Compare property ownership costs across major global cities
-              </p>
-              <div className="space-y-4">
-                <div className="rounded-lg bg-white/80 p-6 backdrop-blur-sm border border-primary/10">
-                  <h3 className="text-2xl font-semibold text-primary-dark">
-                    {selectedCity.name}
-                  </h3>
-                  <p className="mt-2 text-lg text-gray-600">
-                    Average 1BR Apartment Cost:
-                    <span className="ml-2 font-bold text-primary">
-                      ${selectedCity.cost.toLocaleString()}
-                    </span>
-                  </p>
-                  <p className="mt-2 text-sm text-gray-500">
-                    {selectedCity.name === "Dubai" 
-                      ? "Best value among global cities"
-                      : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`
-                    }
-                  </p>
-                </div>
+          <StandardCard
+            icon={Building2}
+            title="Dubai: The Most Affordable Global City"
+            description="Compare property ownership costs across major global cities"
+            className="overflow-visible"
+          >
+            <div className="mt-6 space-y-4">
+              <div className="rounded-lg bg-white/80 p-6 backdrop-blur-sm border border-primary/10">
+                <h3 className="text-2xl font-semibold text-gray-900">
+                  {selectedCity.name}
+                </h3>
+                <p className="mt-2 text-lg text-gray-700">
+                  Average 1BR Apartment Cost:
+                  <span className="ml-2 font-bold text-primary">
+                    ${selectedCity.cost.toLocaleString()}
+                  </span>
+                </p>
+                <p className="mt-2 text-sm text-gray-600">
+                  {selectedCity.name === "Dubai" 
+                    ? "Best value among global cities"
+                    : `${Math.round((selectedCity.cost / CITIES_DATA[0].cost - 1) * 100)}% more expensive than Dubai`
+                  }
+                </p>
               </div>
             </div>
-          </div>
+          </StandardCard>
         </div>
         
         <div className="relative h-[600px]">
