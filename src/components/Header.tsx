@@ -12,7 +12,7 @@ const Header = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] dark:bg-[#221F26] border-b border-[#33C3F0]/20 dark:border-gray-800"
+      className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary via-primary-light to-primary dark:bg-[#221F26] border-b border-primary-light/20 dark:border-gray-800"
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
@@ -40,7 +40,7 @@ const Header = () => {
                 <li>
                   <Link 
                     to="/" 
-                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                    className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                   >
                     Home
                   </Link>
@@ -48,7 +48,7 @@ const Header = () => {
                 <li>
                   <Link 
                     to="/calculator" 
-                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                    className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                   >
                     ROI Calculator
                   </Link>
@@ -56,7 +56,7 @@ const Header = () => {
                 <li>
                   <Link 
                     to="/investment"
-                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                    className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                   >
                     Investment Proposal
                   </Link>
@@ -64,7 +64,7 @@ const Header = () => {
                 <li>
                   <Link 
                     to="/chat"
-                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                    className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                   >
                     Chat
                   </Link>
@@ -72,7 +72,7 @@ const Header = () => {
                 <li>
                   <Link 
                     to="/community"
-                    className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                    className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                   >
                     Community
                   </Link>
@@ -92,35 +92,35 @@ const Header = () => {
             <nav className="flex flex-col space-y-4">
               <Link 
                 to="/" 
-                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 to="/calculator" 
-                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 ROI Calculator
               </Link>
               <Link 
                 to="/investment"
-                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Investment Proposal
               </Link>
               <Link 
                 to="/chat"
-                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Chat
               </Link>
               <Link 
                 to="/community"
-                className="text-lg font-medium text-white hover:text-[#C8C8C9] transition-colors"
+                className="text-lg font-medium text-white hover:text-secondary-light transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Community
