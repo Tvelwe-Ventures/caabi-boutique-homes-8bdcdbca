@@ -30,12 +30,10 @@ const Index = () => {
       <Services />
       <Portfolio />
       <Feedback />
-      <div className="py-16 px-4 bg-gray-50">
-        <WebsiteFeedback />
-      </div>
       <WhyShortTerm />
       <Stats />
       <Footer />
+      <WebsiteFeedback />
     </motion.div>
   );
 };

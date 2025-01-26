@@ -4,8 +4,10 @@ import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { FeyButton } from "./ui/fey-button";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { MessageSquare } from "lucide-react";
 
 export const WebsiteFeedback = () => {
   const [content, setContent] = useState("");
@@ -47,8 +49,8 @@ export const WebsiteFeedback = () => {
     }
   };
 
-  return (
-    <Card className="p-6 bg-white/90 backdrop-blur-sm shadow-lg max-w-2xl mx-auto">
+  const FeedbackForm = () => (
+    <Card className="p-6 bg-white/90 backdrop-blur-sm shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-primary-dark">We Value Your Feedback</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
@@ -98,5 +100,20 @@ export const WebsiteFeedback = () => {
         </FeyButton>
       </form>
     </Card>
+  );
+
+  return (
+    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50">
+      <Sheet>
+        <SheetTrigger asChild>
+          <button className="bg-primary hover:bg-primary-dark text-white p-3 rounded-l-lg shadow-lg transition-all duration-300 hover:translate-x-1">
+            <MessageSquare className="w-6 h-6" />
+          </button>
+        </SheetTrigger>
+        <SheetContent className="w-full sm:max-w-lg">
+          <FeedbackForm />
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 };
