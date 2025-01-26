@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      calculator_settings: {
+        Row: {
+          annual_return: number
+          appreciation: number
+          created_at: string
+          id: string
+          investment_amount: number
+          user_id: string | null
+        }
+        Insert: {
+          annual_return?: number
+          appreciation?: number
+          created_at?: string
+          id?: string
+          investment_amount?: number
+          user_id?: string | null
+        }
+        Update: {
+          annual_return?: number
+          appreciation?: number
+          created_at?: string
+          id?: string
+          investment_amount?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           created_at: string

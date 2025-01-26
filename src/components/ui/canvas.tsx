@@ -10,6 +10,11 @@ interface NodeType {
   vy: number;
 }
 
+interface CustomCanvasRenderingContext2D extends CanvasRenderingContext2D {
+  running?: boolean;
+  frame?: number;
+}
+
 // @ts-ignore
 function n(e) {
   // @ts-ignore
@@ -195,7 +200,7 @@ function resizeCanvas() {
   ctx.canvas.height = window.innerHeight;
 }
 
-var ctx: CanvasRenderingContext2D | null = null,
+var ctx: CustomCanvasRenderingContext2D | null = null,
   f: any,
   e = 0,
   pos: Position = { x: 0, y: 0 },
@@ -220,7 +225,7 @@ export const renderCanvas = function () {
   const canvas = document.getElementById("canvas") as HTMLCanvasElement;
   if (!canvas) return;
   
-  ctx = canvas.getContext("2d");
+  ctx = canvas.getContext("2d") as CustomCanvasRenderingContext2D;
   if (!ctx) return;
   
   ctx.running = true;
