@@ -3,6 +3,7 @@ import { ArrowRight, Building2, TrendingUp, Users } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Calculator from "@/components/Calculator";
 import OccupancyComparison from "@/components/charts/OccupancyComparison";
 import RevenueMetrics from "@/components/charts/RevenueMetrics";
 import CallToAction from "@/components/CallToAction";
@@ -39,6 +40,11 @@ const InvestmentProposal = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Calculator Section */}
+        <section className="mb-16">
+          <Calculator />
+        </section>
 
         {/* Statistics Section */}
         <div className="space-y-12 mb-16">
