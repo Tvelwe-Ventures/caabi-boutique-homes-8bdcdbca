@@ -30,7 +30,7 @@ const Hero = () => {
         className="absolute inset-0 -z-10"
         quantity={100}
         staticity={30}
-        color="#1EAEDB"
+        color="#8798CE"
       />
       
       {images.map((image, index) => (
@@ -58,23 +58,24 @@ const Hero = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <h1 className="text-3xl md:text-5xl lg:text-6xl hero-heading mb-4 md:mb-6 text-white drop-shadow-lg font-bold">
-            Turn Real Estate Into Your Wealth Multiplier
+            Turning Properties into Profit
           </h1>
           <p className="mt-2 md:mt-4 text-base md:text-xl text-white mb-6 md:mb-8 drop-shadow-lg px-4 md:px-0">
-            Welcome to Dubai's premier family-owned luxury property management company, 
-            where exceptional service meets unparalleled returns.
+            Detail-oriented? We iron the welcome mats.<br />
+            People-focused? We remember your cat's birthday.<br />
+            Performance-driven? Our returns make economists blush.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
             <ButtonColorful 
               onClick={() => navigate("/calculator")}
               label="Calculate ROI"
               icon={<ArrowRight className="w-4 h-4" />}
-              className="w-full md:w-auto relative bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] hover:from-[#0FA0CE] hover:to-[#1EAEDB] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+              className="w-full md:w-auto relative bg-[#8798CE] hover:bg-[#8798CE]/90 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
             />
             <ButtonColorful 
               onClick={() => navigate("/investment")}
               label="View Proposal"
-              className="w-full md:w-auto relative bg-gradient-to-r from-[#1EAEDB] to-[#33C3F0] hover:from-[#0FA0CE] hover:to-[#1EAEDB] transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
+              className="w-full md:w-auto relative bg-[#8798CE] hover:bg-[#8798CE]/90 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
             />
           </div>
         </motion.div>
