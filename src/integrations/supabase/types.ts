@@ -324,6 +324,33 @@ export type Database = {
         }
         Relationships: []
       }
+      website_feedback: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          rating: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          rating?: number | null
+          type: Database["public"]["Enums"]["feedback_type"]
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          rating?: number | null
+          type?: Database["public"]["Enums"]["feedback_type"]
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -332,6 +359,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      feedback_type: "bug" | "feature" | "general"
       report_type: "spam" | "harassment" | "inappropriate" | "other"
       user_role: "user" | "moderator" | "admin"
     }

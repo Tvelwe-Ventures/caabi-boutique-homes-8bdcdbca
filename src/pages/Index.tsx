@@ -9,6 +9,7 @@ import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
 import Portfolio from "@/components/Portfolio";
 import Feedback from "@/components/Feedback";
+import { WebsiteFeedback } from "@/components/WebsiteFeedback";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -29,6 +30,9 @@ const Index = () => {
       <Services />
       <Portfolio />
       <Feedback />
+      <div className="py-16 px-4 bg-gray-50">
+        <WebsiteFeedback />
+      </div>
       <WhyShortTerm />
       <Stats />
       <Footer />
