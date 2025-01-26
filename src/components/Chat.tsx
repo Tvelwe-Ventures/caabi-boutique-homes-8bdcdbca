@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "./ui/button";
+import { FeyButton } from "./ui/fey-button";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
 import { useToast } from "./ui/use-toast";
@@ -107,9 +107,9 @@ const Chat = () => {
           placeholder="Type your message..."
           disabled={isLoading}
         />
-        <Button type="submit" disabled={isLoading}>
+        <FeyButton type="submit" disabled={isLoading}>
           Send
-        </Button>
+        </FeyButton>
       </form>
     </div>
   );

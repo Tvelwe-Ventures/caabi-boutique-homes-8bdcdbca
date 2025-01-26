@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "../ui/button";
+import { FeyButton } from "../ui/fey-button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Card } from "../ui/card";
@@ -173,20 +173,19 @@ export const CreatePost = ({ onPostCreated }: { onPostCreated: () => void }) => 
             accept="image/*"
             onChange={handleImageUpload}
           />
-          <Button
+          <FeyButton
             type="button"
-            variant="outline"
             onClick={() => fileInputRef.current?.click()}
             disabled={isUploading}
           >
             <Image className="w-4 h-4 mr-2" />
             Add Image
-          </Button>
+          </FeyButton>
         </div>
-        <Button type="submit" className="w-full bg-primary hover:bg-primary-dark">
+        <FeyButton type="submit" className="w-full">
           <Plus className="w-4 h-4 mr-2" />
           Create Post
-        </Button>
+        </FeyButton>
       </form>
     </Card>
   );

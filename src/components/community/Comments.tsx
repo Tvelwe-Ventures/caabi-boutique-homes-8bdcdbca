@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "../ui/button";
+import { FeyButton } from "../ui/fey-button";
 import { Input } from "../ui/input";
 import { useToast } from "../ui/use-toast";
 
@@ -66,7 +66,7 @@ export const Comments = ({ postId, comments, onCommentAdded }: CommentsProps) =>
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Add a comment..."
         />
-        <Button onClick={addComment}>Comment</Button>
+        <FeyButton onClick={addComment}>Comment</FeyButton>
       </div>
     </div>
   );

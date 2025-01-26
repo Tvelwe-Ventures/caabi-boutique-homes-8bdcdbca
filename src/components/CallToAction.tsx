@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
+import { FeyButton } from "./ui/fey-button";
 import { useNavigate } from "react-router-dom";
 import { toast } from "./ui/use-toast";
 
@@ -8,7 +8,6 @@ const CallToAction = () => {
   const navigate = useNavigate();
 
   const handleContactUs = () => {
-    // Open email client with pre-filled subject
     window.location.href = "mailto:contact@example.com?subject=Agent Inquiry";
     toast({
       title: "Contact Request",
@@ -17,7 +16,6 @@ const CallToAction = () => {
   };
 
   const handleDownloadPDF = () => {
-    // For now, show a toast since PDF isn't implemented yet
     toast({
       title: "Download Started",
       description: "Your PDF will begin downloading shortly.",
@@ -25,7 +23,6 @@ const CallToAction = () => {
   };
 
   const handleExploreAreas = () => {
-    // Navigate to area guides section
     navigate("/areas");
     toast({
       title: "Exploring Areas",
@@ -36,7 +33,6 @@ const CallToAction = () => {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Agents Card */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -54,25 +50,20 @@ const CallToAction = () => {
               Discover how we can help you earn AED
             </p>
             <div className="flex gap-4">
-              <Button 
-                variant="outline" 
-                className="bg-white text-black hover:bg-white/90"
+              <FeyButton 
                 onClick={handleContactUs}
               >
                 Contact us <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button 
-                variant="outline" 
-                className="border-white/20 hover:bg-white/10"
+              </FeyButton>
+              <FeyButton 
                 onClick={handleDownloadPDF}
               >
                 Download PDF <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              </FeyButton>
             </div>
           </div>
         </motion.div>
 
-        {/* Area Guides Card */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -90,13 +81,11 @@ const CallToAction = () => {
             <p className="text-lg text-white/80">
               Leading to area guide resources
             </p>
-            <Button 
-              variant="outline" 
-              className="bg-white text-black hover:bg-white/90"
+            <FeyButton 
               onClick={handleExploreAreas}
             >
               Explore now <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            </FeyButton>
           </div>
         </motion.div>
       </div>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
+import { FeyButton } from "@/components/ui/fey-button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
@@ -90,9 +90,9 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full" disabled={loading}>
+              <FeyButton type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing in..." : "Sign In"}
-              </Button>
+              </FeyButton>
             </form>
           </TabsContent>
           
@@ -112,9 +112,9 @@ const Auth = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full" disabled={loading}>
+              <FeyButton type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing up..." : "Sign Up"}
-              </Button>
+              </FeyButton>
             </form>
           </TabsContent>
         </Tabs>
