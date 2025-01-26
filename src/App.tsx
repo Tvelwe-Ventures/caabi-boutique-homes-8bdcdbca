@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Index from "./pages/Index";
 import Calculator from "./components/Calculator";
 import InvestmentProposal from "./pages/InvestmentProposal";
+import Statistics from "./pages/Statistics";
 import Chat from "./components/Chat";
 import Community from "./components/Community";
 import Terms from "./pages/Terms";
@@ -37,6 +38,7 @@ const App = () => {
                 <Route path="/" element={<Index />} />
                 <Route path="/calculator" element={<Calculator />} />
                 <Route path="/investment" element={<InvestmentProposal />} />
+                <Route path="/statistics" element={<Statistics />} />
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/community" element={<Community />} />
                 <Route path="/terms" element={<Terms />} />
