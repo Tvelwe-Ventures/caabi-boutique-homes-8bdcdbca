@@ -106,9 +106,9 @@ export const WebsiteFeedback = () => {
     <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50">
       <Sheet>
         <SheetTrigger asChild>
-          <button className="bg-primary hover:bg-primary-dark text-white px-4 py-3 rounded-l-lg shadow-lg transition-all duration-300 hover:translate-x-1 flex flex-col items-center gap-1">
+          <button className="bg-primary hover:bg-primary-dark text-white px-2 py-4 rounded-l-lg shadow-lg transition-all duration-300 hover:translate-x-1 flex flex-col items-center gap-2">
             <MessageSquare className="w-5 h-5" />
-            <span className="font-medium text-sm">Feedback+</span>
+            <span className="font-medium text-sm [writing-mode:vertical-lr] rotate-180 tracking-wide">Feedback+</span>
           </button>
         </SheetTrigger>
         <SheetContent className="w-full sm:max-w-lg">
