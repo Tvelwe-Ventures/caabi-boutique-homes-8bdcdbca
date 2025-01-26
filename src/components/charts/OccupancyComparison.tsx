@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from 'recharts';
 import { CardSpotlight } from "../ui/card-spotlight";
 import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
@@ -45,38 +45,54 @@ const OccupancyComparison = () => {
         
         <div className="h-[400px] relative">
           <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={data}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={140}
-                paddingAngle={2}
-                dataKey="value"
-              >
-                {data.map((entry, index) => (
-                  <Cell 
-                    key={`cell-${index}`} 
-                    fill={entry.color}
-                    className="transition-all duration-300 hover:opacity-80"
-                  />
-                ))}
-              </Pie>
+            <BarChart
+              data={data}
+              margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+              layout="vertical"
+            >
+              <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+              <XAxis 
+                type="number" 
+                domain={[0, 60]} 
+                tickFormatter={(value) => `${value}%`}
+              />
+              <YAxis 
+                type="category" 
+                dataKey="name" 
+                width={100}
+                tick={{ fontSize: 12 }}
+              />
               <Tooltip
-                content={({ active, payload }) => {
+                content={({ active, payload, label }) => {
                   if (active && payload && payload.length) {
                     return (
                       <div className="bg-white p-3 rounded-lg shadow-lg border">
-                        <p className="font-semibold">{`${payload[0].name}`}</p>
-                        <p className="text-[#4169E1]">{`Occupancy: ${payload[0].value}%`}</p>
+                        <p className="font-semibold">{label}</p>
+                        <p className="text-[#4169E1]">
+                          Occupancy: {payload[0].value}%
+                        </p>
                       </div>
                     );
                   }
                   return null;
                 }}
               />
-            </PieChart>
+              <Bar
+                dataKey="value"
+                fill="#4169E1"
+                radius={[0, 4, 4, 0]}
+                barSize={20}
+              >
+                {data.map((entry, index) => (
+                  <motion.rect
+                    key={`bar-${index}`}
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  />
+                ))}
+              </Bar>
+            </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
