@@ -10,7 +10,7 @@ const data = [
   { name: 'Singapore', value: 36, color: '#E6E6FA' },
   { name: 'Hong Kong', value: 33, color: '#E6E6FA' },
   { name: 'Monaco', value: 37, color: '#E6E6FA' },
-  { name: 'Dubai', value: 43, color: '#4169E1' },
+  { name: 'Dubai', value: 43, color: '#8380CA' },
   { name: 'Amsterdam', value: 48, color: '#D3D3D3' },
   { name: 'Berlin', value: 44, color: '#D3D3D3' },
   { name: 'Sydney', value: 47, color: '#D3D3D3' },
@@ -30,13 +30,13 @@ const OccupancyComparison = () => {
           >
             <h2 className="text-3xl font-bold mb-4">
               Dubai's short-let<br />
-              <span className="text-[#4169E1]">occupancy level</span>
+              <span className="text-[#8380CA]">occupancy level</span>
             </h2>
             <p className="text-gray-600 mb-6">
               We are proud to achieve the highest occupancy rates in Dubai for our clients across our portfolio.
               We proactively monitor market trends and implement a strategic pricing approach which ensures you keep ahead of the competition.
             </p>
-            <Button className="inline-flex items-center gap-2 bg-[#4169E1] hover:bg-[#3158D3]">
+            <Button className="inline-flex items-center gap-2 bg-[#8380CA] hover:bg-[#1A2957]">
               Book a free consultation
               <ArrowRight className="w-4 h-4" />
             </Button>
@@ -68,7 +68,7 @@ const OccupancyComparison = () => {
                     return (
                       <div className="bg-white p-3 rounded-lg shadow-lg border">
                         <p className="font-semibold">{label}</p>
-                        <p className="text-[#4169E1]">
+                        <p className="text-[#8380CA]">
                           Occupancy: {payload[0].value}%
                         </p>
                       </div>
@@ -79,13 +79,13 @@ const OccupancyComparison = () => {
               />
               <Bar
                 dataKey="value"
-                fill="#4169E1"
                 radius={[0, 4, 4, 0]}
                 barSize={20}
               >
                 {data.map((entry, index) => (
                   <motion.rect
                     key={`bar-${index}`}
+                    fill={entry.color}
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
