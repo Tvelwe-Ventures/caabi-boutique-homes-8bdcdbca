@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
-import { ButtonColorful } from "./ui/button-colorful";
+import { FeyButton } from "./ui/fey-button";
 import { useState, useEffect } from "react";
 
 const Hero = () => {
@@ -57,7 +57,7 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mx-auto text-center"
         >
-          <h1 className="text-3xl md:text-5xl lg:text-6xl hero-heading mb-4 md:mb-6 text-white drop-shadow-lg font-bold">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl hero-heading mb-4 md:mb-6 text-white drop-shadow-lg font-bold">
             Turning Properties into Profit
           </h1>
           <p className="mt-2 md:mt-4 text-base md:text-xl text-white mb-6 md:mb-8 drop-shadow-lg px-4 md:px-0">
@@ -66,17 +66,21 @@ const Hero = () => {
             Performance-driven? Our returns make economists blush.
           </p>
           <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-            <ButtonColorful 
+            <FeyButton 
               onClick={() => navigate("/calculator")}
-              label="Calculate ROI"
-              icon={<ArrowRight className="w-4 h-4" />}
-              className="w-full md:w-auto relative bg-[#8798CE] hover:bg-[#8798CE]/90 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
-            />
-            <ButtonColorful 
+              className="w-full md:w-auto bg-[#8798CE] hover:bg-[#8798CE]/90"
+            >
+              <span className="flex items-center gap-2">
+                Calculate ROI
+                <ArrowRight className="w-4 h-4" />
+              </span>
+            </FeyButton>
+            <FeyButton 
               onClick={() => navigate("/investment")}
-              label="View Proposal"
-              className="w-full md:w-auto relative bg-[#8798CE] hover:bg-[#8798CE]/90 transition-all duration-500 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transform"
-            />
+              className="w-full md:w-auto bg-[#8798CE] hover:bg-[#8798CE]/90"
+            >
+              View Proposal
+            </FeyButton>
           </div>
         </motion.div>
       </div>
