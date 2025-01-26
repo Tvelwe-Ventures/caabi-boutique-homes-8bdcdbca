@@ -15,6 +15,7 @@ export function FeyButton({ className, children, ...props }: FeyButtonProps) {
         "text-white",
         "bg-[#8798CE]",
         "shadow-sm",
+        "border border-white/20",
         "[box-shadow:inset_0_0_0_0.5px_rgba(255,255,255,0.2)]",
         "after:absolute after:inset-0 after:rounded-[28px] after:opacity-0 after:transition-opacity after:duration-200",
         "after:bg-[radial-gradient(61.35%_50.07%_at_48.58%_50%,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0)_100%)]",
