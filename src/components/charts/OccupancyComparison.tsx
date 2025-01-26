@@ -43,37 +43,26 @@ const OccupancyComparison = () => {
           </motion.div>
         </div>
         
-        <div className="h-[400px]">
+        <div className="h-[400px] relative">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
-              <motion.g
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 50,
-                  repeat: Infinity,
-                  ease: "linear"
-                }}
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={60}
+                outerRadius={140}
+                paddingAngle={2}
+                dataKey="value"
               >
-                <Pie
-                  data={data}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={140}
-                  paddingAngle={2}
-                  dataKey="value"
-                >
-                  {data.map((entry, index) => (
-                    <Cell 
-                      key={`cell-${index}`} 
-                      fill={entry.color}
-                      className="transition-all duration-300 hover:opacity-80"
-                    />
-                  ))}
-                </Pie>
-              </motion.g>
+                {data.map((entry, index) => (
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={entry.color}
+                    className="transition-all duration-300 hover:opacity-80"
+                  />
+                ))}
+              </Pie>
               <Tooltip
                 content={({ active, payload }) => {
                   if (active && payload && payload.length) {
