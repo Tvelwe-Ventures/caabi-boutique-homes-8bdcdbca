@@ -221,6 +221,101 @@ export type Database = {
         }
         Relationships: []
       }
+      property_evaluations: {
+        Row: {
+          average_daily_rate: number | null
+          bedrooms: number
+          created_at: string
+          estimated_occupancy: number | null
+          estimated_revenue: number | null
+          id: string
+          is_furnished: boolean | null
+          lead_id: string | null
+          location: string
+          max_guests: number
+          property_type: string | null
+          rental_months: string[] | null
+          report_sent: boolean | null
+          report_sent_at: string | null
+        }
+        Insert: {
+          average_daily_rate?: number | null
+          bedrooms: number
+          created_at?: string
+          estimated_occupancy?: number | null
+          estimated_revenue?: number | null
+          id?: string
+          is_furnished?: boolean | null
+          lead_id?: string | null
+          location: string
+          max_guests: number
+          property_type?: string | null
+          rental_months?: string[] | null
+          report_sent?: boolean | null
+          report_sent_at?: string | null
+        }
+        Update: {
+          average_daily_rate?: number | null
+          bedrooms?: number
+          created_at?: string
+          estimated_occupancy?: number | null
+          estimated_revenue?: number | null
+          id?: string
+          is_furnished?: boolean | null
+          lead_id?: string | null
+          location?: string
+          max_guests?: number
+          property_type?: string | null
+          rental_months?: string[] | null
+          report_sent?: boolean | null
+          report_sent_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_evaluations_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "property_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_leads: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          last_contacted_at: string | null
+          last_name: string
+          phone: string | null
+          source: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          last_contacted_at?: string | null
+          last_name: string
+          phone?: string | null
+          source?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          last_contacted_at?: string | null
+          last_name?: string
+          phone?: string | null
+          source?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
       reactions: {
         Row: {
           created_at: string
