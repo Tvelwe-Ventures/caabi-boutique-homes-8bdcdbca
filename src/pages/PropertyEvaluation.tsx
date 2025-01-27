@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CalculatorForm } from "@/components/CalculatorForm";
+import { CalculatorForm } from "@/components/calculator/CalculatorForm";
 import { CalculatorResults } from "@/components/calculator/CalculatorResults";
 import { calculateROI } from "@/components/calculator/calculatorUtils";
 import { supabase } from "@/lib/supabaseClient";
