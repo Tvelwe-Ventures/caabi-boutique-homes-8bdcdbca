@@ -18,10 +18,13 @@ import { useQuery } from "@tanstack/react-query";
 const MARKET_DATA: MarketData = {
   averageRentalYield: 9.9,
   averageAppreciation: 5.65,
+  averageOccupancy: 85,
+  averageDailyRate: 1000,
+  seasonalityFactors: [1, 1.2, 1.3, 1.1, 0.9, 0.8, 0.8, 0.9, 1, 1.1, 1.2, 1.3],
   marketTrends: {
     downtown: { yield: 9.9, appreciation: 5.65 },
     marina: { yield: 8.5, appreciation: 5.2 },
-    palmJumeirah: { yield: 10.2, appreciation: 6.0 }
+    palm: { yield: 10.2, appreciation: 6.0 }
   }
 };
 
@@ -61,8 +64,8 @@ const Calculator = () => {
   // Load saved settings when available
   useEffect(() => {
     if (savedSettings) {
-      setInvestmentAmount(savedSettings.investment_amount);
-      setAnnualReturn(savedSettings.annual_return);
+      setInvestmentAmount(savedSettings.investmentAmount);
+      setAnnualReturn(savedSettings.annualReturn);
       setAppreciation(savedSettings.appreciation);
     }
   }, [savedSettings]);
