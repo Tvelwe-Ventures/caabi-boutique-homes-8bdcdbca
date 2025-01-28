@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import About from "@/components/About";
 import Services from "@/components/Services";
 import WhyShortTerm from "@/components/WhyShortTerm";
-import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
 import Portfolio from "@/components/Portfolio";
 import PropertyPerformance from "@/components/PropertyPerformance";
@@ -24,9 +23,6 @@ const Index = () => {
       <Header />
       <Hero />
       <About />
-      <div className="relative bg-white py-12">
-        <DisplayCards />
-      </div>
       <Globe />
       <Services />
       <Portfolio />
