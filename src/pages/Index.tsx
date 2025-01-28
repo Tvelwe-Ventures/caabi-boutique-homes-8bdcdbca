@@ -8,6 +8,7 @@ import WhyShortTerm from "@/components/WhyShortTerm";
 import { DisplayCards } from "@/components/ui/display-cards";
 import { Globe } from "@/components/Globe";
 import Portfolio from "@/components/Portfolio";
+import PropertyPerformance from "@/components/PropertyPerformance";
 import Feedback from "@/components/Feedback";
 import { WebsiteFeedback } from "@/components/WebsiteFeedback";
 import Footer from "@/components/Footer";
@@ -29,9 +30,10 @@ const Index = () => {
       <Globe />
       <Services />
       <Portfolio />
-      <Feedback />
-      <WhyShortTerm />
       <Stats />
+      <PropertyPerformance />
+      <WhyShortTerm />
+      <Feedback />
       <Footer />
       <WebsiteFeedback />
     </motion.div>
