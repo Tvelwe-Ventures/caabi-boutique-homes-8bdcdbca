@@ -9,12 +9,30 @@ import { LeftSidebar } from "./community/LeftSidebar";
 import { RightSidebar } from "./community/RightSidebar";
 import { usePostsSubscription } from "@/hooks/usePostsSubscription";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
   const [comments, setComments] = useState<{ [key: string]: any[] }>({});
   const [searchQuery, setSearchQuery] = useState("");
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to access the community.",
+      });
+      navigate("/auth");
+      return;
+    }
+  };
 
   usePostsSubscription(setPosts);
 
