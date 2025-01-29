@@ -15,6 +15,7 @@ export default {
       fontFamily: {
         bricolage: ['Bricolage Grotesque', 'sans-serif'],
         inter: ['Inter', 'sans-serif'],
+        geist: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -86,6 +87,10 @@ export default {
         "text-flow": {
           "0%": { backgroundPosition: "0% center" },
           "100%": { backgroundPosition: "200% center" }
+        },
+        grid: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(calc(var(--cell-size) * -1))" }
         }
       },
       animation: {
@@ -94,7 +99,8 @@ export default {
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s infinite",
-        "text-flow": "textFlow 8s linear infinite"
+        "text-flow": "textFlow 8s linear infinite",
+        grid: "grid 20s linear infinite"
       },
     },
   },

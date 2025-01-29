@@ -1,6 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Footer from "@/components/Footer";
-import CalculatorHeader from "@/components/calculator/CalculatorHeader";
 import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 import ImportantNotes from "@/components/calculator/ImportantNotes";
@@ -10,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { CalculatorForm } from "@/components/CalculatorForm";
 import { useToast } from "@/components/ui/use-toast";
 import { calculateROI } from "@/components/calculator/calculatorUtils";
+import { HeroSection } from "@/components/ui/hero-section";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -52,12 +52,19 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative bg-gradient-to-b from-primary/10 to-transparent pt-16 md:pt-32 pb-12 md:pb-20">
-        <div className="absolute inset-0 bg-grid-white/10 bg-[size:30px_30px] [mask-image:linear-gradient(0deg,transparent,black)]" />
-        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-          <CalculatorHeader />
-        </div>
-      </div>
+      <HeroSection 
+        title="ROI Calculator"
+        subtitle={{
+          regular: "Calculate your potential ",
+          gradient: "returns in Dubai's property market",
+        }}
+        description="Use our advanced ROI calculator to estimate your property's potential returns, taking into account rental yield, property appreciation, and market trends."
+        gridOptions={{
+          opacity: 0.3,
+          lightLineColor: "#8394CA",
+          darkLineColor: "#1A2957"
+        }}
+      />
 
       <div className="container mx-auto px-4 py-8 md:py-20 max-w-7xl">
         <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
@@ -70,21 +77,7 @@ const Calculator = () => {
             </CardHeader>
             <CardContent className="space-y-6 md:space-y-8">
               <CalculatorForm
-                investmentAmount={investmentAmount}
-                annualReturn={annualReturn}
-                appreciation={appreciation}
-                onInvestmentChange={(value) => {
-                  setInvestmentAmount(value);
-                  handleValueChange();
-                }}
-                onAnnualReturnChange={(value) => {
-                  setAnnualReturn(value);
-                  handleValueChange();
-                }}
-                onAppreciationChange={(value) => {
-                  setAppreciation(value);
-                  handleValueChange();
-                }}
+                onCalculate={handlePropertyEvaluation}
               />
 
               <div className="w-full overflow-x-auto">
@@ -100,20 +93,6 @@ const Calculator = () => {
           </Card>
 
           <ImportantNotes marketData={MARKET_DATA} />
-
-          <Separator className="my-12" />
-
-          <Card className="p-4 md:p-6">
-            <CardHeader className="space-y-2">
-              <CardTitle className="text-xl md:text-2xl">Property Evaluation</CardTitle>
-              <CardDescription>
-                Get a detailed analysis of your property's potential in Dubai's short-term rental market
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CalculatorForm onCalculate={handlePropertyEvaluation} />
-            </CardContent>
-          </Card>
         </div>
       </div>
       <Footer />
