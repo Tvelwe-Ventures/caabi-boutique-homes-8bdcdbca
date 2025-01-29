@@ -13,7 +13,7 @@ import Statistics from "@/pages/Statistics";
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+    <ThemeProvider>
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
