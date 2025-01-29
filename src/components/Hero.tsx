@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Particles } from "./ui/particles";
 import { FeyButton } from "./ui/fey-button";
@@ -72,14 +72,17 @@ const Hero = () => {
             >
               <span className="flex items-center gap-2">
                 Calculate ROI
-                <ArrowRight className="w-4 h-4" />
+                <Calculator className="w-4 h-4" />
               </span>
             </FeyButton>
             <FeyButton 
-              onClick={() => navigate("/investment")}
-              className="w-full md:w-auto bg-[#8798CE] hover:bg-[#8798CE]/90"
+              onClick={() => navigate("/property-evaluation")}
+              className="w-full md:w-auto bg-gradient-to-r from-[#4169E1] to-[#8798CE] hover:from-[#4169E1]/90 hover:to-[#8798CE]/90 animate-pulse"
             >
-              View Proposal
+              <span className="flex items-center gap-2">
+                Evaluate Your Property
+                <ArrowRight className="w-4 h-4" />
+              </span>
             </FeyButton>
           </div>
         </motion.div>
