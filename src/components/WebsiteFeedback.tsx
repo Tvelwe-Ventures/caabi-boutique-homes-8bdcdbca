@@ -11,7 +11,7 @@ import { MessageSquare } from "lucide-react";
 
 export const WebsiteFeedback = () => {
   const [content, setContent] = useState("");
-  const [type, setType] = useState<"bug" | "feature" | "general">("general");
+  const [type, setType] = useState<"stay" | "suggestion" | "general">("general");
   const [rating, setRating] = useState<string>("5");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -55,14 +55,14 @@ export const WebsiteFeedback = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="type">Feedback Type</Label>
-          <Select value={type} onValueChange={(value: "bug" | "feature" | "general") => setType(value)}>
+          <Select value={type} onValueChange={(value: "stay" | "suggestion" | "general") => setType(value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select feedback type" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="general">General Feedback</SelectItem>
-              <SelectItem value="bug">Report a Bug</SelectItem>
-              <SelectItem value="feature">Feature Request</SelectItem>
+              <SelectItem value="suggestion">Suggestion</SelectItem>
+              <SelectItem value="stay">Stay Experience</SelectItem>
             </SelectContent>
           </Select>
         </div>

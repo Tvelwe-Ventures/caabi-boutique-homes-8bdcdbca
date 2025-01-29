@@ -1,12 +1,19 @@
 import { NavLink } from "./NavLink";
+import { motion } from "framer-motion";
 
 export const DesktopNav = () => {
   return (
-    <nav className="hidden md:flex items-center space-x-6">
-      <NavLink href="/">Home</NavLink>
-      <NavLink href="/calculator">Calculator</NavLink>
-      <NavLink href="/community">Community</NavLink>
-      <NavLink href="/statistics">Statistics</NavLink>
-    </nav>
+    <motion.nav 
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="hidden md:flex items-center space-x-8"
+    >
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/calculator">ROI Calculator</NavLink>
+      <NavLink to="/investment">Investment Proposal</NavLink>
+      <NavLink to="/statistics">Statistics</NavLink>
+      <NavLink to="/chat">Chat</NavLink>
+      <NavLink to="/community">Community</NavLink>
+    </motion.nav>
   );
 };

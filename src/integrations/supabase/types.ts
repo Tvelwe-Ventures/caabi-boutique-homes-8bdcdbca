@@ -421,26 +421,35 @@ export type Database = {
       }
       website_feedback: {
         Row: {
+          assigned_to: string | null
           content: string
           created_at: string
           id: string
           rating: number | null
+          resolved_at: string | null
+          status: string | null
           type: Database["public"]["Enums"]["feedback_type"]
           user_id: string | null
         }
         Insert: {
+          assigned_to?: string | null
           content: string
           created_at?: string
           id?: string
           rating?: number | null
+          resolved_at?: string | null
+          status?: string | null
           type: Database["public"]["Enums"]["feedback_type"]
           user_id?: string | null
         }
         Update: {
+          assigned_to?: string | null
           content?: string
           created_at?: string
           id?: string
           rating?: number | null
+          resolved_at?: string | null
+          status?: string | null
           type?: Database["public"]["Enums"]["feedback_type"]
           user_id?: string | null
         }
