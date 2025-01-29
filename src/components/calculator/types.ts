@@ -1,44 +1,21 @@
-export interface CalculatorSettings {
-  investmentAmount: number;
-  annualReturn: number;
-  appreciation: number;
-}
-
-export interface MarketData {
-  averageRentalYield: number;
-  averageAppreciation: number;
-  averageOccupancy: number;
-  averageDailyRate: number;
-  seasonalityFactors: number[];
-  marketTrends: {
-    [key: string]: { yield: number; appreciation: number };
-  };
-}
-
-export interface PropertyDetails {
-  location: string;
-  bedrooms: number;
-  maxGuests: number;
-  isFurnished: boolean;
-  propertyType: string;
-}
-
 export interface CalculatorInputs {
-  type: 'rental' | 'purchase';
+  type: 'rental' | 'sale';
   rental?: {
-    annualRent: number;
-    initialInvestment: number;
-    numberOfCheques: number;
     location: string;
     bedrooms: number;
-    area: number;
+    maxGuests: number;
   };
-  purchase?: {
-    purchaseValue: number;
-    paymentType: 'cash' | 'mortgage';
+  sale?: {
+    propertyValue: number;
     downPayment: number;
-    monthlyMortgage: number;
-    reraFees: number;
-    interiorCosts: number;
+    loanTerm: number;
   };
+}
+
+export interface CalculatorResults {
+  monthlyRevenue: number;
+  annualRevenue: number;
+  occupancyRate: number;
+  roi: number;
+  propertyValue: number;
 }
