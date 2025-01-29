@@ -12,7 +12,6 @@ export const DesktopNav = () => {
       <NavLink to="/calculator">ROI Calculator</NavLink>
       <NavLink to="/investment">Investment Proposal</NavLink>
       <NavLink to="/statistics">Statistics</NavLink>
-      <NavLink to="/chat">Chat</NavLink>
       <NavLink to="/community">Community</NavLink>
     </motion.nav>
   );

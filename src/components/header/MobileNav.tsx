@@ -20,7 +20,6 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
         <NavLink to="/calculator" onClick={onClose}>ROI Calculator</NavLink>
         <NavLink to="/investment" onClick={onClose}>Investment Proposal</NavLink>
         <NavLink to="/statistics" onClick={onClose}>Statistics</NavLink>
-        <NavLink to="/chat" onClick={onClose}>Chat</NavLink>
         <NavLink to="/community" onClick={onClose}>Community</NavLink>
       </nav>
     </motion.div>
