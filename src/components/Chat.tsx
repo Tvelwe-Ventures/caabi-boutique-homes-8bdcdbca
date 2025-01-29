@@ -4,11 +4,23 @@ import { FeyButton } from "./ui/fey-button";
 import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
 import { useToast } from "./ui/use-toast";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+
+const USE_CASES = [
+  { id: 'general', label: 'General Assistance' },
+  { id: 'property', label: 'Property Analysis' },
+  { id: 'market', label: 'Market Research' },
+  { id: 'roi', label: 'ROI Calculator Help' },
+  { id: 'investment', label: 'Investment Strategy' },
+  { id: 'document', label: 'Document Analysis' },
+  { id: 'scheduling', label: 'Scheduling Assistance' },
+];
 
 const Chat = () => {
   const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedUseCase, setSelectedUseCase] = useState("general");
   const { toast } = useToast();
 
   useEffect(() => {
@@ -33,6 +45,19 @@ const Chat = () => {
     setMessages(data || []);
   };
 
+  const getSystemPrompt = (useCase: string) => {
+    const prompts = {
+      general: "You are a helpful assistant for a real estate investment platform.",
+      property: "You are a property analysis expert. Help analyze properties, their potential, and market value.",
+      market: "You are a market research specialist focusing on real estate trends and opportunities.",
+      roi: "You are an ROI calculation expert. Help users understand and calculate potential returns on real estate investments.",
+      investment: "You are an investment strategy advisor specializing in real estate portfolios.",
+      document: "You are a document analysis expert helping users understand real estate documentation.",
+      scheduling: "You are a scheduling assistant helping coordinate property viewings and meetings.",
+    };
+    return prompts[useCase as keyof typeof prompts] || prompts.general;
+  };
+
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
@@ -46,11 +71,14 @@ const Chat = () => {
 
       if (insertError) throw insertError;
 
-      // Get AI response
+      // Get AI response with specialized context
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: newMessage }),
+        body: JSON.stringify({ 
+          message: newMessage,
+          systemPrompt: getSystemPrompt(selectedUseCase)
+        }),
       });
 
       const data = await response.json();
@@ -78,6 +106,24 @@ const Chat = () => {
 
   return (
     <div className="w-full max-w-2xl mx-auto p-4 space-y-4">
+      <div className="mb-4">
+        <Select
+          value={selectedUseCase}
+          onValueChange={setSelectedUseCase}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select use case" />
+          </SelectTrigger>
+          <SelectContent>
+            {USE_CASES.map((useCase) => (
+              <SelectItem key={useCase.id} value={useCase.id}>
+                {useCase.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      
       <ScrollArea className="h-[500px] p-4 rounded-lg border">
         <div className="space-y-4">
           {messages.map((message, index) => (

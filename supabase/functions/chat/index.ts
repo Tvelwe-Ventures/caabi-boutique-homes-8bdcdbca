@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { message } = await req.json();
+    const { message, systemPrompt } = await req.json();
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -24,7 +24,7 @@ serve(async (req) => {
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         messages: [
-          { role: 'system', content: 'You are a helpful assistant for a real estate investment platform. You help users understand real estate investments, ROI calculations, and property management.' },
+          { role: 'system', content: systemPrompt || 'You are a helpful assistant for a real estate investment platform.' },
           { role: 'user', content: message }
         ],
       }),
