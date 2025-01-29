@@ -42,32 +42,3 @@ export interface CalculatorInputs {
     interiorCosts: number;
   };
 }
-
-export interface CalculatorResults {
-  annualRevenue: number;
-  netProfit: number;
-  roi: number;
-  occupancyRate: number;
-  averageNightlyRate: number;
-  airbnbFees: number;
-  managementFees: number;
-  scenarios: {
-    conservative: { revenue: number; roi: number };
-    moderate: { revenue: number; roi: number };
-    optimistic: { revenue: number; roi: number };
-  };
-}
-
-export interface ContactInfo {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-}
-
-export interface EvaluationResult {
-  estimatedRevenue: number;
-  estimatedOccupancy: number;
-  averageDailyRate: number;
-  rentalMonths: string[];
-}

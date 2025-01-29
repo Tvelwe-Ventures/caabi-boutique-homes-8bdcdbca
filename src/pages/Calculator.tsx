@@ -4,7 +4,7 @@ import CalculatorHeader from "@/components/calculator/CalculatorHeader";
 import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 import ImportantNotes from "@/components/calculator/ImportantNotes";
-import { CalculatorInputs } from "@/components/calculator/types";
+import { type CalculatorInputs } from "@/components/calculator/types";
 import { useCalculator } from "@/hooks/useCalculator";
 import { Separator } from "@/components/ui/separator";
 import { CalculatorForm } from "@/components/CalculatorForm";
@@ -41,7 +41,7 @@ const Calculator = () => {
   const totalReturn = chartData[chartData.length - 1].total;
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
 
-  const handlePropertyEvaluation = async (inputs: any) => {
+  const handlePropertyEvaluation = async (inputs: CalculatorInputs) => {
     const results = calculateROI(inputs);
     
     toast({
@@ -69,7 +69,7 @@ const Calculator = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 md:space-y-8">
-              <CalculatorInputs
+              <CalculatorForm
                 investmentAmount={investmentAmount}
                 annualReturn={annualReturn}
                 appreciation={appreciation}
