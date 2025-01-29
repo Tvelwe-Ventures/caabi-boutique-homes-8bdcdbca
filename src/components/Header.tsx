@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
-import { Menu } from "lucide-react";
-import { useState } from "react";
 import { Logo } from "./header/Logo";
 import { DesktopNav } from "./header/DesktopNav";
 import { MobileNav } from "./header/MobileNav";
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
     <motion.header 
       initial={{ opacity: 0, y: -20 }}
@@ -18,18 +14,9 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Logo />
-          
-          <button 
-            className="md:hidden p-2 text-white"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <Menu className="h-6 w-6" />
-          </button>
-
+          <MobileNav />
           <DesktopNav />
         </div>
-
-        <MobileNav isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
       </div>
     </motion.header>
   );
