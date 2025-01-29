@@ -7,13 +7,41 @@ import { useToast } from "./ui/use-toast";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 const USE_CASES = [
-  { id: 'general', label: 'General Assistance' },
-  { id: 'property', label: 'Property Analysis' },
-  { id: 'market', label: 'Market Research' },
-  { id: 'roi', label: 'ROI Calculator Help' },
-  { id: 'investment', label: 'Investment Strategy' },
-  { id: 'document', label: 'Document Analysis' },
-  { id: 'scheduling', label: 'Scheduling Assistance' },
+  { 
+    id: 'general', 
+    label: 'General Assistance',
+    example: 'E.g., "What services do you offer?"'
+  },
+  { 
+    id: 'property', 
+    label: 'Property Analysis',
+    example: 'E.g., "Analyze this 3-bed property in Miami for short-term rental potential"'
+  },
+  { 
+    id: 'market', 
+    label: 'Market Research',
+    example: 'E.g., "What are the current trends in the Austin real estate market?"'
+  },
+  { 
+    id: 'roi', 
+    label: 'ROI Calculator Help',
+    example: 'E.g., "Help me understand the ROI calculation for a $500k property"'
+  },
+  { 
+    id: 'investment', 
+    label: 'Investment Strategy',
+    example: 'E.g., "What investment strategy would you recommend for $1M budget?"'
+  },
+  { 
+    id: 'document', 
+    label: 'Document Analysis',
+    example: 'E.g., "Can you explain this lease agreement terms?"'
+  },
+  { 
+    id: 'scheduling', 
+    label: 'Scheduling Assistance',
+    example: 'E.g., "Help me plan viewings for 5 properties next week"'
+  },
 ];
 
 const Chat = () => {
@@ -116,8 +144,13 @@ const Chat = () => {
           </SelectTrigger>
           <SelectContent>
             {USE_CASES.map((useCase) => (
-              <SelectItem key={useCase.id} value={useCase.id}>
-                {useCase.label}
+              <SelectItem 
+                key={useCase.id} 
+                value={useCase.id}
+                className="flex flex-col items-start py-3"
+              >
+                <span className="font-medium">{useCase.label}</span>
+                <span className="text-sm text-muted-foreground mt-1">{useCase.example}</span>
               </SelectItem>
             ))}
           </SelectContent>
