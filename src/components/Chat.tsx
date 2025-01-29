@@ -15,12 +15,12 @@ const USE_CASES = [
   { 
     id: 'property', 
     label: 'Property Analysis',
-    example: 'E.g., "Analyze this 3-bed property in Miami for short-term rental potential"'
+    example: 'E.g., "Analyze this 3-bed property in Abu Dhabi for short-term rental potential"'
   },
   { 
     id: 'market', 
     label: 'Market Research',
-    example: 'E.g., "What are the current trends in the Austin real estate market?"'
+    example: 'E.g., "What are the current trends in the Ras Al Khaimah real estate market?"'
   },
   { 
     id: 'roi', 
