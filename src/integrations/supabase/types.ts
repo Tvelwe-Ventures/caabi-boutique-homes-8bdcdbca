@@ -454,7 +454,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      feedback_type: "bug" | "feature" | "general"
+      feedback_type: "stay" | "suggestion" | "general"
       report_type: "spam" | "harassment" | "inappropriate" | "other"
       user_role: "user" | "moderator" | "admin"
     }

@@ -11,8 +11,13 @@ import PropertyPerformance from "@/components/PropertyPerformance";
 import Feedback from "@/components/Feedback";
 import { WebsiteFeedback } from "@/components/WebsiteFeedback";
 import Footer from "@/components/Footer";
+import { MessageSquare } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -32,6 +37,15 @@ const Index = () => {
       <Feedback />
       <Footer />
       <WebsiteFeedback />
+      
+      {/* Floating Chat Button */}
+      <Button
+        onClick={() => navigate("/chat")}
+        className="fixed bottom-6 right-6 rounded-full p-4 shadow-lg bg-primary hover:bg-primary/90"
+        size="icon"
+      >
+        <MessageSquare className="h-6 w-6" />
+      </Button>
     </motion.div>
   );
 };
