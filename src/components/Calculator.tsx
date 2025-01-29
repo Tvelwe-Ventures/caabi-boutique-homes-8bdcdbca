@@ -1,21 +1,13 @@
-import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import { Info } from "lucide-react";
-import { Slider } from "./ui/slider";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
-import { useToast } from "./ui/use-toast";
 import Footer from "./Footer";
 import CalculatorHeader from "./calculator/CalculatorHeader";
 import InvestmentChart from "./calculator/InvestmentChart";
 import ReturnMetrics from "./calculator/ReturnMetrics";
 import ImportantNotes from "./calculator/ImportantNotes";
-import { supabase } from "@/lib/supabaseClient";
-import { CalculatorSettings, MarketData } from "./calculator/types";
-import { useQuery } from "@tanstack/react-query";
+import { CalculatorInputs } from "./calculator/CalculatorInputs";
+import { useCalculator } from "@/hooks/useCalculator";
 
-const MARKET_DATA: MarketData = {
+export const MARKET_DATA = {
   averageRentalYield: 9.9,
   averageAppreciation: 5.65,
   averageOccupancy: 85,
@@ -29,101 +21,16 @@ const MARKET_DATA: MarketData = {
 };
 
 const Calculator = () => {
-  const { toast } = useToast();
-  const [investmentAmount, setInvestmentAmount] = useState(1000000);
-  const [annualReturn, setAnnualReturn] = useState(MARKET_DATA.averageRentalYield);
-  const [appreciation, setAppreciation] = useState(MARKET_DATA.averageAppreciation);
-
-  // Fetch user's saved settings with error handling
-  const { data: savedSettings } = useQuery({
-    queryKey: ['calculatorSettings'],
-    queryFn: async () => {
-      try {
-        console.log('Attempting to fetch calculator settings...');
-        const { data, error } = await supabase
-          .from('calculator_settings')
-          .select('*')
-          .single();
-        
-        if (error) {
-          console.warn('Supabase query returned error:', error);
-          return null;
-        }
-        
-        console.log('Successfully fetched settings:', data);
-        return data as CalculatorSettings;
-      } catch (error) {
-        console.warn('Failed to fetch calculator settings:', error);
-        return null;
-      }
-    },
-    retry: false,
-    gcTime: 0
-  });
-
-  // Load saved settings when available
-  useEffect(() => {
-    if (savedSettings) {
-      setInvestmentAmount(savedSettings.investmentAmount);
-      setAnnualReturn(savedSettings.annualReturn);
-      setAppreciation(savedSettings.appreciation);
-    }
-  }, [savedSettings]);
-
-  const handleValueChange = async () => {
-    try {
-      const { error } = await supabase
-        .from('calculator_settings')
-        .upsert({
-          investment_amount: investmentAmount,
-          annual_return: annualReturn,
-          appreciation: appreciation,
-        });
-      
-      if (error) {
-        console.warn('Error saving settings:', error);
-        toast({
-          title: "Note",
-          description: "Changes saved locally. Connect to save online.",
-          duration: 3000,
-        });
-        return;
-      }
-
-      toast({
-        title: "Settings saved",
-        description: "Your calculator settings have been saved successfully.",
-        duration: 3000,
-      });
-    } catch (error) {
-      console.warn('Failed to save settings:', error);
-      toast({
-        title: "Note",
-        description: "Changes saved locally. Connect to save online.",
-        duration: 3000,
-      });
-    }
-  };
-
-  const generateChartData = () => {
-    const years = 5;
-    const data = [];
-    
-    for (let i = 0; i <= years * 12; i++) {
-      const month = i;
-      const rentalReturn = Number(investmentAmount) * (Math.pow(1 + (Number(annualReturn) / 100) / 12, i) - 1);
-      const propertyAppreciation = Number(investmentAmount) * (Math.pow(1 + (Number(appreciation) / 100) / 12, i) - 1);
-      
-      data.push({
-        month,
-        rental: rentalReturn,
-        appreciation: propertyAppreciation,
-        total: rentalReturn + propertyAppreciation
-      });
-    }
-    
-    return data;
-  };
+  const {
+    investmentAmount,
+    setInvestmentAmount,
+    annualReturn,
+    setAnnualReturn,
+    appreciation,
+    setAppreciation,
+    handleValueChange,
+    generateChartData
+  } = useCalculator();
 
   const chartData = generateChartData();
   const totalReturn = chartData[chartData.length - 1].total;
@@ -148,81 +55,23 @@ const Calculator = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 md:space-y-8">
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="investment">Investment Amount</Label>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>The total amount you plan to invest in the property</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <Input
-                  id="investment"
-                  type="number"
-                  value={investmentAmount}
-                  onChange={(e) => {
-                    setInvestmentAmount(Number(e.target.value));
-                    handleValueChange();
-                  }}
-                  className="w-full"
-                />
-
-                <div className="flex items-center gap-2">
-                  <Label>Annual Rental Return (%)</Label>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Expected yearly rental income as a percentage of property value</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <Slider
-                  value={[annualReturn]}
-                  onValueChange={([value]) => {
-                    setAnnualReturn(value);
-                    handleValueChange();
-                  }}
-                  min={0}
-                  max={20}
-                  step={0.1}
-                  className="w-full"
-                />
-
-                <div className="flex items-center gap-2">
-                  <Label>Property Appreciation (%)</Label>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <Info className="h-4 w-4 text-muted-foreground" />
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Expected annual increase in property value</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-                <Slider
-                  value={[appreciation]}
-                  onValueChange={([value]) => {
-                    setAppreciation(value);
-                    handleValueChange();
-                  }}
-                  min={0}
-                  max={15}
-                  step={0.1}
-                  className="w-full"
-                />
-              </div>
+              <CalculatorInputs
+                investmentAmount={investmentAmount}
+                annualReturn={annualReturn}
+                appreciation={appreciation}
+                onInvestmentChange={(value) => {
+                  setInvestmentAmount(value);
+                  handleValueChange();
+                }}
+                onAnnualReturnChange={(value) => {
+                  setAnnualReturn(value);
+                  handleValueChange();
+                }}
+                onAppreciationChange={(value) => {
+                  setAppreciation(value);
+                  handleValueChange();
+                }}
+              />
 
               <div className="w-full overflow-x-auto">
                 <InvestmentChart data={chartData} />
