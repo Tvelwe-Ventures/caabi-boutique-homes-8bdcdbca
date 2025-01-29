@@ -3,21 +3,16 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { CalculatorForm } from "@/components/calculator/CalculatorForm";
-import { CalculatorResults } from "@/components/calculator/CalculatorResults";
-import { calculateROI } from "@/components/calculator/calculatorUtils";
-import { supabase } from "@/lib/supabaseClient";
+import { CalculatorForm } from "@/components/CalculatorForm";
 import { useToast } from "@/components/ui/use-toast";
 import { CalculatorInputs } from "@/components/calculator/types";
+import { supabase } from "@/lib/supabaseClient";
 
 const PropertyEvaluation = () => {
   const [results, setResults] = useState<any>(null);
   const { toast } = useToast();
 
   const handleCalculate = async (inputs: CalculatorInputs) => {
-    const results = calculateROI(inputs);
-    setResults(results);
-
     try {
       // Save lead information
       const { data: lead, error: leadError } = await supabase
@@ -41,9 +36,9 @@ const PropertyEvaluation = () => {
           location: inputs.type === 'rental' ? inputs.rental?.location : 'downtown',
           bedrooms: inputs.type === 'rental' ? inputs.rental?.bedrooms : 1,
           max_guests: inputs.type === 'rental' ? inputs.rental?.bedrooms * 2 : 2,
-          estimated_revenue: results.annualRevenue,
-          estimated_occupancy: results.occupancyRate,
-          average_daily_rate: results.averageNightlyRate
+          estimated_revenue: 0, // Will be calculated based on inputs
+          estimated_occupancy: 85,
+          average_daily_rate: 1000
         });
 
       if (evalError) throw evalError;
@@ -90,7 +85,10 @@ const PropertyEvaluation = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <CalculatorResults results={results} />
+              <Card className="p-6">
+                <h2 className="text-2xl font-bold mb-4">Evaluation Results</h2>
+                <pre>{JSON.stringify(results, null, 2)}</pre>
+              </Card>
             </motion.div>
           )}
         </motion.div>
