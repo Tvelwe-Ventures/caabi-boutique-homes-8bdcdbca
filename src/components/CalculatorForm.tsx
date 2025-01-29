@@ -25,6 +25,7 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
     location: "downtown",
     bedrooms: 1,
     area: 800,
+    maxGuests: 2, // Added maxGuests property
   });
 
   const [purchaseInputs, setPurchaseInputs] = useState({

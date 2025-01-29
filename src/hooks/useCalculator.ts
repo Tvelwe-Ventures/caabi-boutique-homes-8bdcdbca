@@ -38,8 +38,8 @@ export const useCalculator = () => {
 
   useEffect(() => {
     if (savedSettings) {
-      setInvestmentAmount(savedSettings.investmentAmount);
-      setAnnualReturn(savedSettings.annualReturn);
+      setInvestmentAmount(savedSettings.investment_amount);
+      setAnnualReturn(savedSettings.annual_return);
       setAppreciation(savedSettings.appreciation);
     }
   }, [savedSettings]);
