@@ -4,13 +4,14 @@ interface NavLinkProps {
   to: string;
   children: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }
 
-export const NavLink = ({ to, children, onClick }: NavLinkProps) => (
+export const NavLink = ({ to, children, onClick, className = "" }: NavLinkProps) => (
   <Link
     to={to}
     onClick={onClick}
-    className="text-sm text-white/90 hover:text-white transition-colors"
+    className={`text-sm text-white/90 hover:text-white transition-colors w-full ${className}`}
   >
     {children}
   </Link>
