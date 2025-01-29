@@ -99,7 +99,7 @@ export default {
         float: "float 6s ease-in-out infinite",
         "fade-up": "fade-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s infinite",
-        "text-flow": "textFlow 8s linear infinite",
+        "text-flow": "text-flow 8s linear infinite",
         grid: "grid 20s linear infinite"
       },
     },

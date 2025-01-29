@@ -5,7 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { CalculatorForm } from "@/components/CalculatorForm";
 import { useToast } from "@/components/ui/use-toast";
-import { type CalculatorInputs } from "@/components/calculator/types";
 import { supabase } from "@/lib/supabaseClient";
 import { HeroSection } from "@/components/ui/hero-section";
 
@@ -13,7 +12,7 @@ const PropertyEvaluation = () => {
   const [results, setResults] = useState<any>(null);
   const { toast } = useToast();
 
-  const handleCalculate = async (inputs: CalculatorInputs) => {
+  const handleCalculate = async (inputs: any) => {
     try {
       // Save lead information
       const { data: lead, error: leadError } = await supabase
@@ -59,20 +58,22 @@ const PropertyEvaluation = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-secondary-light to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#F5E6FA] to-white">
       <Header />
       <main>
         <HeroSection 
           title="Property Evaluation"
           subtitle={{
-            regular: "Get a detailed analysis of your ",
-            gradient: "property's potential",
+            regular: "Get a detailed analysis of ",
+            gradient: "your property's potential",
           }}
           description="Our AI-powered calculator provides accurate revenue projections, occupancy rates, and ROI estimates based on Dubai's current market conditions."
           gridOptions={{
-            opacity: 0.3,
+            opacity: 0.2,
             lightLineColor: "#8394CA",
-            darkLineColor: "#1A2957"
+            darkLineColor: "#1A2957",
+            angle: 55,
+            cellSize: 50
           }}
         />
 
@@ -83,7 +84,7 @@ const PropertyEvaluation = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="max-w-4xl mx-auto space-y-8"
           >
-            <Card className="p-6 shadow-lg bg-white/80 backdrop-blur-sm">
+            <Card className="p-6 shadow-lg bg-white/90 backdrop-blur-sm border border-[#8394CA]/20 hover:border-[#8394CA]/30 transition-all duration-300">
               <CalculatorForm onCalculate={handleCalculate} />
             </Card>
 
@@ -93,8 +94,8 @@ const PropertyEvaluation = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="p-6">
-                  <h2 className="text-2xl font-bold mb-4">Evaluation Results</h2>
+                <Card className="p-6 bg-white/90 backdrop-blur-sm border border-[#8394CA]/20">
+                  <h2 className="text-2xl font-bold mb-4 text-[#1A2957]">Evaluation Results</h2>
                   <pre>{JSON.stringify(results, null, 2)}</pre>
                 </Card>
               </motion.div>
