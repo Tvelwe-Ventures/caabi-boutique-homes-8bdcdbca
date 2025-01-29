@@ -19,6 +19,7 @@ function App() {
           <Route path="/" element={<Index />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/property-evaluation" element={<PropertyEvaluation />} />
+          <Route path="/investment" element={<InvestmentProposal />} />
           <Route path="/investment-proposal" element={<InvestmentProposal />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/terms" element={<Terms />} />
