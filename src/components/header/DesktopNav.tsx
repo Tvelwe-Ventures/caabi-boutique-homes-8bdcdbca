@@ -20,15 +20,15 @@ export const DesktopNav = () => {
           Investment Tools
           <ChevronDown className="ml-1 h-4 w-4" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuContent align="end" className="w-48 bg-white">
           <DropdownMenuItem asChild>
-            <NavLink to="/calculator">ROI Calculator</NavLink>
+            <NavLink to="/calculator" className="text-gray-700 hover:text-gray-900">ROI Calculator</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <NavLink to="/property-evaluation">Property Evaluation</NavLink>
+            <NavLink to="/property-evaluation" className="text-gray-700 hover:text-gray-900">Property Evaluation</NavLink>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <NavLink to="/investment">Investment Proposal</NavLink>
+            <NavLink to="/investment" className="text-gray-700 hover:text-gray-900">Investment Proposal</NavLink>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
