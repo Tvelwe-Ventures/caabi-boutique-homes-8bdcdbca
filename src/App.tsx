@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Index from "@/pages/Index";
-import Calculator from "@/pages/Calculator";
+import Calculator from "@/components/Calculator";
 import PropertyEvaluation from "@/pages/PropertyEvaluation";
 import InvestmentProposal from "@/pages/InvestmentProposal";
 import Auth from "@/pages/Auth";
