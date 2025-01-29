@@ -1,5 +1,4 @@
 import { NavLink } from "./NavLink";
-import { ThemeToggle } from "../ThemeToggle";
 import { motion } from "framer-motion";
 
 interface MobileNavProps {
@@ -24,9 +23,6 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
         <NavLink to="/chat" onClick={onClose}>Chat</NavLink>
         <NavLink to="/community" onClick={onClose}>Community</NavLink>
       </nav>
-      <div className="mt-4 pb-2">
-        <ThemeToggle />
-      </div>
     </motion.div>
   );
 };

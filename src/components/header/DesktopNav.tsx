@@ -1,5 +1,4 @@
 import { NavLink } from "./NavLink";
-import { ThemeToggle } from "../ThemeToggle";
 
 export const DesktopNav = () => (
   <div className="hidden md:flex items-center gap-8">
@@ -13,6 +12,5 @@ export const DesktopNav = () => (
         <li><NavLink to="/community">Community</NavLink></li>
       </ul>
     </nav>
-    <ThemeToggle />
   </div>
 );
