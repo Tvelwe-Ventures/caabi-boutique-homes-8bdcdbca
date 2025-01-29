@@ -133,8 +133,8 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-4 space-y-4">
-      <div className="mb-4">
+    <div className="flex flex-col h-full">
+      <div className="p-4 border-b">
         <Select
           value={selectedUseCase}
           onValueChange={setSelectedUseCase}
@@ -157,7 +157,7 @@ const Chat = () => {
         </Select>
       </div>
       
-      <ScrollArea className="h-[500px] p-4 rounded-lg border">
+      <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
           {messages.map((message, index) => (
             <div
@@ -179,16 +179,19 @@ const Chat = () => {
           ))}
         </div>
       </ScrollArea>
-      <form onSubmit={sendMessage} className="flex gap-2">
-        <Input
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
-          disabled={isLoading}
-        />
-        <FeyButton type="submit" disabled={isLoading}>
-          Send
-        </FeyButton>
+
+      <form onSubmit={sendMessage} className="p-4 border-t">
+        <div className="flex gap-2">
+          <Input
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            placeholder="Type your message..."
+            disabled={isLoading}
+          />
+          <FeyButton type="submit" disabled={isLoading}>
+            Send
+          </FeyButton>
+        </div>
       </form>
     </div>
   );

@@ -12,12 +12,11 @@ import Feedback from "@/components/Feedback";
 import { WebsiteFeedback } from "@/components/WebsiteFeedback";
 import Footer from "@/components/Footer";
 import { MessageSquare } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Chat from "@/components/Chat";
 
 const Index = () => {
-  const navigate = useNavigate();
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -38,14 +37,20 @@ const Index = () => {
       <Footer />
       <WebsiteFeedback />
       
-      {/* Floating Chat Button */}
-      <Button
-        onClick={() => navigate("/chat")}
-        className="fixed bottom-6 right-6 rounded-full p-4 shadow-lg bg-primary hover:bg-primary/90"
-        size="icon"
-      >
-        <MessageSquare className="h-6 w-6" />
-      </Button>
+      {/* Floating Chat Dialog */}
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button
+            className="fixed bottom-6 right-6 rounded-full p-4 shadow-lg bg-primary hover:bg-primary/90"
+            size="icon"
+          >
+            <MessageSquare className="h-6 w-6" />
+          </Button>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[500px] h-[600px] p-0">
+          <Chat />
+        </DialogContent>
+      </Dialog>
     </motion.div>
   );
 };
