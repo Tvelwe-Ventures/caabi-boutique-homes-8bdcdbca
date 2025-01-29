@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "@/pages/Index";
-import Calculator from "@/components/Calculator";
+import Calculator from "@/pages/Calculator";
 import PropertyEvaluation from "@/pages/PropertyEvaluation";
 import InvestmentProposal from "@/pages/InvestmentProposal";
 import Auth from "@/pages/Auth";
