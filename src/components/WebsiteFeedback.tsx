@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { FeyButton } from "./ui/fey-button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
 import { MessageSquare } from "lucide-react";
 
 export const WebsiteFeedback = () => {
@@ -38,6 +38,12 @@ export const WebsiteFeedback = () => {
       setContent("");
       setType("general");
       setRating("5");
+      
+      // Close the sheet after successful submission
+      const closeButton = document.querySelector('[data-sheet-close]') as HTMLButtonElement;
+      if (closeButton) {
+        closeButton.click();
+      }
     } catch (error: any) {
       toast({
         title: "Error submitting feedback",
@@ -90,7 +96,7 @@ export const WebsiteFeedback = () => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder="Please share your thoughts..."
-            className="min-h-[150px]"
+            className="min-h-[150px] resize-none"
             required
           />
         </div>
@@ -111,7 +117,7 @@ export const WebsiteFeedback = () => {
             <span className="font-medium text-sm [writing-mode:vertical-lr] rotate-180 tracking-wide">Feedback+</span>
           </button>
         </SheetTrigger>
-        <SheetContent className="w-full sm:max-w-lg">
+        <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
           <FeedbackForm />
         </SheetContent>
       </Sheet>
