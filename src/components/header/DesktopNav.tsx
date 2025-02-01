@@ -16,7 +16,7 @@ type NavItem = {
     }[];
   }[];
   link?: string;
-  icon?: React.ElementType;  // Added this line to fix the TypeScript error
+  icon?: React.ElementType;
 };
 
 const navItems: NavItem[] = [
@@ -126,7 +126,7 @@ export const DesktopNav = () => {
                     <div className="w-fit shrink-0 flex space-x-9 overflow-hidden">
                       {navItem.subMenus.map((sub) => (
                         <motion.div layout className="w-full" key={sub.title}>
-                          <h3 className="mb-4 text-sm font-medium capitalize text-gray-500">
+                          <h3 className="mb-4 text-sm font-medium text-gray-700">
                             {sub.title}
                           </h3>
                           <ul className="space-y-6">
@@ -142,10 +142,10 @@ export const DesktopNav = () => {
                                       <Icon className="h-5 w-5 flex-none" />
                                     </div>
                                     <div className="leading-5 w-max">
-                                      <p className="text-sm font-medium text-gray-700 shrink-0 group-hover:text-primary">
+                                      <p className="text-sm font-medium text-gray-900 shrink-0 group-hover:text-primary">
                                         {item.label}
                                       </p>
-                                      <p className="text-xs text-gray-500 shrink-0 group-hover:text-primary/80 transition-colors duration-300">
+                                      <p className="text-xs text-gray-600 shrink-0 group-hover:text-primary/80 transition-colors duration-300">
                                         {item.description}
                                       </p>
                                     </div>
