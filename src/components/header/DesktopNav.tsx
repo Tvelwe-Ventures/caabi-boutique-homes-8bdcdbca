@@ -51,12 +51,14 @@ const navItems: NavItem[] = [
   {
     id: 2,
     label: "Statistics",
-    link: "/statistics"
+    link: "/statistics",
+    icon: BarChart3
   },
   {
     id: 3,
     label: "Community",
-    link: "/community"
+    link: "/community",
+    icon: Users
   }
 ];
 
@@ -83,7 +85,8 @@ export const DesktopNav = () => {
             onMouseLeave={() => handleHover(null)}
           >
             {navItem.link ? (
-              <NavLink to={navItem.link} className="py-1.5 px-4 rounded-full hover:bg-primary-light/10">
+              <NavLink to={navItem.link} className="py-1.5 px-4 rounded-full hover:bg-primary-light/10 flex items-center gap-2">
+                {navItem.icon && <navItem.icon className="h-4 w-4" />}
                 {navItem.label}
               </NavLink>
             ) : (
