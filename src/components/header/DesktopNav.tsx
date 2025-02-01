@@ -16,6 +16,7 @@ type NavItem = {
     }[];
   }[];
   link?: string;
+  icon?: React.ElementType;  // Added this line to fix the TypeScript error
 };
 
 const navItems: NavItem[] = [
