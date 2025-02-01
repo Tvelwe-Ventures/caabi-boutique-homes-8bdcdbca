@@ -4,8 +4,6 @@ import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 import ImportantNotes from "@/components/calculator/ImportantNotes";
 import { useCalculator } from "@/hooks/useCalculator";
-import { Separator } from "@/components/ui/separator";
-import { BuyVsRentCalculator } from "@/components/calculator/BuyVsRentCalculator";
 import { HeroSection } from "@/components/ui/hero-section";
 
 export const MARKET_DATA = {
@@ -37,7 +35,7 @@ const Calculator = () => {
   return (
     <div className="min-h-screen bg-white">
       <HeroSection 
-        title="ROI Calculator"
+        title="Investment Calculator"
         subtitle={{
           regular: "Calculate your potential ",
           gradient: "returns in Dubai's property market",
@@ -71,10 +69,6 @@ const Calculator = () => {
               />
             </CardContent>
           </Card>
-
-          <Separator className="my-8" />
-
-          <BuyVsRentCalculator />
 
           <ImportantNotes marketData={MARKET_DATA} />
         </div>
