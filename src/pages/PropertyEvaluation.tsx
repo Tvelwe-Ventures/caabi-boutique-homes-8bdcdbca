@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useToast } from "@/components/ui/use-toast";
-import { supabase } from "@/lib/supabaseClient";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { HeroSection } from "@/components/ui/hero-section";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -39,7 +39,7 @@ const PropertyEvaluation = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    console.log("Submitting property evaluation...", formData);
+    console.log("Starting property evaluation submission...");
 
     try {
       // First create the lead
@@ -55,10 +55,15 @@ const PropertyEvaluation = () => {
         .select()
         .single();
 
-      if (leadError) throw leadError;
+      if (leadError) {
+        console.error('Error creating lead:', leadError);
+        throw new Error(leadError.message);
+      }
+
+      console.log("Lead created successfully:", lead);
 
       // Then create the evaluation
-      const { error: evalError } = await supabase
+      const { data: evaluation, error: evalError } = await supabase
         .from('property_evaluations')
         .insert({
           lead_id: lead.id,
@@ -70,16 +75,38 @@ const PropertyEvaluation = () => {
           estimated_revenue: formData.annualRent * 0.85, // Simple estimation
           estimated_occupancy: 85,
           average_daily_rate: (formData.annualRent / 365) * 1.5 // Simple daily rate calculation
-        });
+        })
+        .select()
+        .single();
 
-      if (evalError) throw evalError;
+      if (evalError) {
+        console.error('Error creating evaluation:', evalError);
+        throw new Error(evalError.message);
+      }
+
+      console.log("Evaluation created successfully:", evaluation);
 
       toast({
         title: "Evaluation Submitted Successfully",
         description: "We'll send your detailed property evaluation report to your email shortly.",
       });
+
+      // Reset form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        location: "downtown",
+        bedrooms: 1,
+        maxGuests: 2,
+        annualRent: 120000,
+        propertyType: "apartment",
+        isFurnished: true
+      });
+
     } catch (error: any) {
-      console.error('Error saving evaluation:', error);
+      console.error('Error in submission process:', error);
       toast({
         title: "Error",
         description: "There was an error saving your evaluation. Please try again.",
@@ -244,6 +271,7 @@ const PropertyEvaluation = () => {
             </Card>
           </motion.div>
         </div>
+
       </main>
       <Footer />
     </div>
