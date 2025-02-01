@@ -6,10 +6,6 @@ import ReturnMetrics from "./calculator/ReturnMetrics";
 import ImportantNotes from "./calculator/ImportantNotes";
 import { CalculatorInputs } from "./calculator/CalculatorInputs";
 import { useCalculator } from "@/hooks/useCalculator";
-import { Separator } from "./ui/separator";
-import { CalculatorForm } from "./CalculatorForm";
-import { useToast } from "./ui/use-toast";
-import { calculateROI } from "./calculator/calculatorUtils";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -36,19 +32,9 @@ const Calculator = () => {
     generateChartData
   } = useCalculator();
 
-  const { toast } = useToast();
   const chartData = generateChartData();
   const totalReturn = chartData[chartData.length - 1].total;
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
-
-  const handlePropertyEvaluation = async (inputs: any) => {
-    const results = calculateROI(inputs);
-    
-    toast({
-      title: "Property Evaluation Complete",
-      description: "We've analyzed your property. Check the detailed results below.",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -100,20 +86,6 @@ const Calculator = () => {
           </Card>
 
           <ImportantNotes marketData={MARKET_DATA} />
-
-          <Separator className="my-12" />
-
-          <Card className="p-4 md:p-6">
-            <CardHeader className="space-y-2">
-              <CardTitle className="text-xl md:text-2xl">Property Evaluation</CardTitle>
-              <CardDescription>
-                Get a detailed analysis of your property's potential in Dubai's short-term rental market
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <CalculatorForm onCalculate={handlePropertyEvaluation} />
-            </CardContent>
-          </Card>
         </div>
       </div>
       <Footer />
