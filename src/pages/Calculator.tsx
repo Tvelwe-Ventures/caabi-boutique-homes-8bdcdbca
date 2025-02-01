@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 import ImportantNotes from "@/components/calculator/ImportantNotes";
-import { type CalculatorInputs } from "@/components/calculator/types";
 import { useCalculator } from "@/hooks/useCalculator";
 import { Separator } from "@/components/ui/separator";
-import { CalculatorForm } from "@/components/CalculatorForm";
-import { useToast } from "@/components/ui/use-toast";
-import { calculateROI } from "@/components/calculator/calculatorUtils";
+import { BuyVsRentCalculator } from "@/components/calculator/BuyVsRentCalculator";
 import { HeroSection } from "@/components/ui/hero-section";
 
 export const MARKET_DATA = {
@@ -27,28 +24,15 @@ export const MARKET_DATA = {
 const Calculator = () => {
   const {
     investmentAmount,
-    setInvestmentAmount,
     annualReturn,
-    setAnnualReturn,
     appreciation,
-    setAppreciation,
     handleValueChange,
     generateChartData
   } = useCalculator();
 
-  const { toast } = useToast();
   const chartData = generateChartData();
   const totalReturn = chartData[chartData.length - 1].total;
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
-
-  const handlePropertyEvaluation = async (inputs: CalculatorInputs) => {
-    const results = calculateROI(inputs);
-    
-    toast({
-      title: "Property Evaluation Complete",
-      description: "We've analyzed your property. Check the detailed results below.",
-    });
-  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -76,10 +60,6 @@ const Calculator = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 md:space-y-8">
-              <CalculatorForm
-                onCalculate={handlePropertyEvaluation}
-              />
-
               <div className="w-full overflow-x-auto">
                 <InvestmentChart data={chartData} />
               </div>
@@ -91,6 +71,10 @@ const Calculator = () => {
               />
             </CardContent>
           </Card>
+
+          <Separator className="my-8" />
+
+          <BuyVsRentCalculator />
 
           <ImportantNotes marketData={MARKET_DATA} />
         </div>

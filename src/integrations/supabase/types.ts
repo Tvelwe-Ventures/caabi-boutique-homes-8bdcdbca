@@ -9,6 +9,57 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      buy_rent_settings: {
+        Row: {
+          created_at: string
+          down_payment: number
+          id: string
+          insurance_rate: number
+          interest_rate: number
+          maintenance_cost_rate: number
+          monthly_rent: number
+          mortgage_term: number
+          property_appreciation_rate: number
+          property_price: number
+          property_tax_rate: number
+          rent_increase_rate: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          down_payment?: number
+          id?: string
+          insurance_rate?: number
+          interest_rate?: number
+          maintenance_cost_rate?: number
+          monthly_rent?: number
+          mortgage_term?: number
+          property_appreciation_rate?: number
+          property_price?: number
+          property_tax_rate?: number
+          rent_increase_rate?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          down_payment?: number
+          id?: string
+          insurance_rate?: number
+          interest_rate?: number
+          maintenance_cost_rate?: number
+          monthly_rent?: number
+          mortgage_term?: number
+          property_appreciation_rate?: number
+          property_price?: number
+          property_tax_rate?: number
+          rent_increase_rate?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       calculator_settings: {
         Row: {
           annual_return: number
