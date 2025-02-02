@@ -1,90 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { FeyButton } from "./ui/fey-button";
-import { Input } from "./ui/input";
 import { ScrollArea } from "./ui/scroll-area";
 import { useToast } from "./ui/use-toast";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { ChatMessage } from "./chat/ChatMessage";
+import { ChatInput } from "./chat/ChatInput";
+import { UseCaseSelector, USE_CASES } from "./chat/UseCaseSelector";
+import { useChatMessages } from "./chat/useChatMessages";
 
-const USE_CASES = [
-  { 
-    id: 'general', 
-    label: 'General Assistance',
-    example: 'E.g., "What services do you offer?"'
-  },
-  { 
-    id: 'property', 
-    label: 'Property Analysis',
-    example: 'E.g., "Analyze this 3-bed property in Abu Dhabi for short-term rental potential"'
-  },
-  { 
-    id: 'market', 
-    label: 'Market Research',
-    example: 'E.g., "What are the current trends in the Ras Al Khaimah real estate market?"'
-  },
-  { 
-    id: 'roi', 
-    label: 'ROI Calculator Help',
-    example: 'E.g., "Help me understand the ROI calculation for a $500k property"'
-  },
-  { 
-    id: 'investment', 
-    label: 'Investment Strategy',
-    example: 'E.g., "What investment strategy would you recommend for $1M budget?"'
-  },
-  { 
-    id: 'document', 
-    label: 'Document Analysis',
-    example: 'E.g., "Can you explain this lease agreement terms?"'
-  },
-  { 
-    id: 'scheduling', 
-    label: 'Scheduling Assistance',
-    example: 'E.g., "Help me plan viewings for 5 properties next week"'
-  },
-];
+const getSystemPrompt = (useCase: string) => {
+  const prompts: Record<string, string> = {
+    general: "You are a helpful assistant for a real estate investment platform.",
+    property: "You are a property analysis expert. Help analyze properties, their potential, and market value.",
+    market: "You are a market research specialist focusing on real estate trends and opportunities.",
+    roi: "You are an ROI calculation expert. Help users understand and calculate potential returns on real estate investments.",
+    investment: "You are an investment strategy advisor specializing in real estate portfolios.",
+    document: "You are a document analysis expert helping users understand real estate documentation.",
+    scheduling: "You are a scheduling assistant helping coordinate property viewings and meetings.",
+  };
+  return prompts[useCase] || prompts.general;
+};
 
 const Chat = () => {
-  const [messages, setMessages] = useState<any[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUseCase, setSelectedUseCase] = useState("general");
   const { toast } = useToast();
-
-  useEffect(() => {
-    fetchMessages();
-  }, []);
-
-  const fetchMessages = async () => {
-    const { data, error } = await supabase
-      .from("chat_messages")
-      .select("*")
-      .order("created_at", { ascending: true });
-
-    if (error) {
-      toast({
-        title: "Error fetching messages",
-        description: error.message,
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setMessages(data || []);
-  };
-
-  const getSystemPrompt = (useCase: string) => {
-    const prompts = {
-      general: "You are a helpful assistant for a real estate investment platform.",
-      property: "You are a property analysis expert. Help analyze properties, their potential, and market value.",
-      market: "You are a market research specialist focusing on real estate trends and opportunities.",
-      roi: "You are an ROI calculation expert. Help users understand and calculate potential returns on real estate investments.",
-      investment: "You are an investment strategy advisor specializing in real estate portfolios.",
-      document: "You are a document analysis expert helping users understand real estate documentation.",
-      scheduling: "You are a scheduling assistant helping coordinate property viewings and meetings.",
-    };
-    return prompts[useCase as keyof typeof prompts] || prompts.general;
-  };
+  const { messages, fetchMessages } = useChatMessages();
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,7 +33,6 @@ const Chat = () => {
 
     setIsLoading(true);
     try {
-      // Get current user
       const { data: { user } } = await supabase.auth.getUser();
       
       if (!user) {
@@ -115,17 +55,26 @@ const Chat = () => {
 
       if (insertError) throw insertError;
 
-      // Get AI response with specialized context
+      // Get AI response
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: newMessage,
-          systemPrompt: getSystemPrompt(selectedUseCase)
+          systemPrompt: getSystemPrompt(selectedUseCase),
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
+      
+      if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
+        throw new Error("Invalid response format from AI service");
+      }
+
       const aiResponse = data.choices[0].message.content;
 
       // Save AI response
@@ -142,6 +91,7 @@ const Chat = () => {
       setNewMessage("");
       await fetchMessages();
     } catch (error: any) {
+      console.error("Chat error:", error);
       toast({
         title: "Error sending message",
         description: error.message,
@@ -154,65 +104,26 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-4 border-b">
-        <Select
-          value={selectedUseCase}
-          onValueChange={setSelectedUseCase}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select use case" />
-          </SelectTrigger>
-          <SelectContent>
-            {USE_CASES.map((useCase) => (
-              <SelectItem 
-                key={useCase.id} 
-                value={useCase.id}
-                className="flex flex-col items-start py-3"
-              >
-                <span className="font-medium">{useCase.label}</span>
-                <span className="text-sm text-muted-foreground mt-1">{useCase.example}</span>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <UseCaseSelector value={selectedUseCase} onChange={setSelectedUseCase} />
       
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
-          {messages.map((message, index) => (
-            <div
-              key={index}
-              className={`flex ${
-                message.is_ai ? "justify-start" : "justify-end"
-              }`}
-            >
-              <div
-                className={`max-w-[80%] p-3 rounded-lg ${
-                  message.is_ai
-                    ? "bg-secondary text-secondary-foreground"
-                    : "bg-primary text-primary-foreground"
-                }`}
-              >
-                {message.content}
-              </div>
-            </div>
+          {messages.map((message) => (
+            <ChatMessage
+              key={message.id}
+              content={message.content}
+              isAi={message.is_ai}
+            />
           ))}
         </div>
       </ScrollArea>
 
-      <form onSubmit={sendMessage} className="p-4 border-t">
-        <div className="flex gap-2">
-          <Input
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-            placeholder="Type your message..."
-            disabled={isLoading}
-          />
-          <FeyButton type="submit" disabled={isLoading}>
-            Send
-          </FeyButton>
-        </div>
-      </form>
+      <ChatInput
+        value={newMessage}
+        onChange={setNewMessage}
+        onSubmit={sendMessage}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
