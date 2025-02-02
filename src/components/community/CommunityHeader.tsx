@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
 import { LogIn } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
 
 interface CommunityHeaderProps {
   searchQuery: string;
@@ -13,6 +14,16 @@ interface CommunityHeaderProps {
 export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeaderProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    checkAuthStatus();
+  }, []);
+
+  const checkAuthStatus = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    setIsLoggedIn(!!session);
+  };
 
   const handleLogin = async () => {
     const { data: { session }, error } = await supabase.auth.getSession();
@@ -51,14 +62,16 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-sm"
           />
-          <Button 
-            onClick={handleLogin}
-            variant="outline"
-            className="flex items-center gap-2"
-          >
-            <LogIn className="w-4 h-4" />
-            Login
-          </Button>
+          {!isLoggedIn && (
+            <Button 
+              onClick={handleLogin}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <LogIn className="w-4 h-4" />
+              Login
+            </Button>
+          )}
         </div>
       </div>
     </div>
