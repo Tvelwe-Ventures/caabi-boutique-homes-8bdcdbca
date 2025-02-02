@@ -5,7 +5,8 @@ import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 import ImportantNotes from "@/components/calculator/ImportantNotes";
 import { useCalculator } from "@/hooks/useCalculator";
 import { HeroSection } from "@/components/ui/hero-section";
-import { Calculator as CalculatorIcon } from "lucide-react";
+import Header from "@/components/Header";
+import { motion } from "framer-motion";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -35,95 +36,48 @@ const Calculator = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#F5E6FA] to-white">
-      <HeroSection 
-        title="Dubai Property Investment"
-        subtitle={{
-          regular: "Investment ",
-          gradient: "Calculator",
-        }}
-        description="How to Use This Calculator"
-        ctaText="Get Started"
-        gridOptions={{
-          opacity: 0.2,
-          lightLineColor: "#8394CA",
-          darkLineColor: "#1A2957"
-        }}
-      />
+      <Header />
+      <main>
+        <HeroSection 
+          title="Investment Calculator"
+          subtitle={{
+            regular: "Calculate your potential ",
+            gradient: "returns in Dubai's property market",
+          }}
+          description="Our AI-powered calculator provides accurate revenue projections, occupancy rates, and ROI estimates based on Dubai's current market conditions."
+        />
 
-      <div className="container mx-auto px-4 -mt-20 relative z-10">
-        <Card className="bg-white/80 backdrop-blur-sm shadow-xl border-primary/10">
-          <CardContent className="p-6 space-y-6">
-            <div className="grid grid-cols-1 gap-6">
-              <div className="space-y-2">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <CalculatorIcon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">1. Enter your investment amount (property purchase price)</h3>
-                  </div>
+        <div className="container mx-auto px-4 py-12 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <Card className="p-4 md:p-6">
+              <CardHeader className="space-y-2">
+                <CardTitle className="text-xl md:text-2xl">Investment Calculator</CardTitle>
+                <CardDescription>
+                  Your settings are automatically saved as you make changes
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6 md:space-y-8">
+                <div className="w-full overflow-x-auto">
+                  <InvestmentChart data={chartData} />
                 </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <span className="text-primary font-semibold">2</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Adjust the annual rental return slider based on expected rental yield</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <span className="text-primary font-semibold">3</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Adjust the property appreciation slider based on expected value increase</h3>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-start gap-4">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <span className="text-primary font-semibold">4</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">View your projected returns over 5 years, including rental income and property appreciation</h3>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
-      <div className="container mx-auto px-4 py-8 md:py-20 max-w-7xl">
-        <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
-          <Card className="p-4 md:p-6">
-            <CardHeader className="space-y-2">
-              <CardTitle className="text-xl md:text-2xl">Investment Calculator</CardTitle>
-              <CardDescription>
-                Your settings are automatically saved as you make changes
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6 md:space-y-8">
-              <div className="w-full overflow-x-auto">
-                <InvestmentChart data={chartData} />
-              </div>
+                <ReturnMetrics 
+                  totalReturn={totalReturn}
+                  totalROIPercentage={totalROIPercentage}
+                  annualReturn={totalReturn / 5}
+                />
+              </CardContent>
+            </Card>
 
-              <ReturnMetrics 
-                totalReturn={totalReturn}
-                totalROIPercentage={totalROIPercentage}
-                annualReturn={totalReturn / 5}
-              />
-            </CardContent>
-          </Card>
-
-          <ImportantNotes marketData={MARKET_DATA} />
+            <ImportantNotes marketData={MARKET_DATA} />
+          </motion.div>
         </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
