@@ -55,12 +55,12 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto text-center"
+          className="max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl hero-heading mb-4 md:mb-6 text-white drop-shadow-lg font-bold">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl hero-heading mb-6 md:mb-8 text-white drop-shadow-lg font-bold">
             Turning Properties into Profit
           </h1>
-          <p className="mt-2 md:mt-4 text-base md:text-xl text-white mb-6 md:mb-8 drop-shadow-lg px-4 md:px-0">
+          <p className="mt-4 md:mt-6 text-lg md:text-2xl lg:text-3xl text-white mb-8 md:mb-10 drop-shadow-lg px-4 md:px-0 leading-relaxed">
             Detail-oriented? We iron the welcome mats.<br />
             People-focused? We remember your cat's birthday.<br />
             Performance-driven? Our returns make economists blush.
