@@ -88,7 +88,65 @@
   }
 }
 
-@keyframes textFlow {
-  0% { background-position: 0% center; }
-  100% { background-position: 200% center; }
+@keyframes first {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(50%) translateY(-100%) rotate(360deg);
+  }
+}
+
+@keyframes second {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(50%) translateY(-100%) rotate(360deg);
+  }
+}
+
+@keyframes third {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(50%) translateY(-100%) rotate(360deg);
+  }
+}
+
+@keyframes fourth {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(50%) translateY(-100%) rotate(360deg);
+  }
+}
+
+@keyframes fifth {
+  from {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  to {
+    transform: translateX(50%) translateY(-100%) rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .animate-first {
+    animation: first 25s infinite linear;
+  }
+  .animate-second {
+    animation: second 30s infinite linear;
+  }
+  .animate-third {
+    animation: third 35s infinite linear;
+  }
+  .animate-fourth {
+    animation: fourth 40s infinite linear;
+  }
+  .animate-fifth {
+    animation: fifth 45s infinite linear;
+  }
 }
