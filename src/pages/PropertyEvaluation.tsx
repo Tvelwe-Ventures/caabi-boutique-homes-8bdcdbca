@@ -62,7 +62,12 @@ const PropertyEvaluation = () => {
 
       console.log("Lead created successfully:", lead);
 
-      // Then create the evaluation
+      // Calculate estimated metrics
+      const estimatedRevenue = formData.annualRent * 0.85;
+      const estimatedOccupancy = 85;
+      const averageDailyRate = (formData.annualRent / 365) * 1.5;
+
+      // Create the evaluation
       const { data: evaluation, error: evalError } = await supabase
         .from('property_evaluations')
         .insert({
@@ -72,9 +77,9 @@ const PropertyEvaluation = () => {
           max_guests: formData.maxGuests,
           property_type: formData.propertyType,
           is_furnished: formData.isFurnished,
-          estimated_revenue: formData.annualRent * 0.85, // Simple estimation
-          estimated_occupancy: 85,
-          average_daily_rate: (formData.annualRent / 365) * 1.5 // Simple daily rate calculation
+          estimated_revenue: estimatedRevenue,
+          estimated_occupancy: estimatedOccupancy,
+          average_daily_rate: averageDailyRate
         })
         .select()
         .single();
@@ -86,9 +91,38 @@ const PropertyEvaluation = () => {
 
       console.log("Evaluation created successfully:", evaluation);
 
+      // Send email with evaluation report
+      const response = await fetch(
+        "https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/send-evaluation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            location: formData.location,
+            propertyType: formData.propertyType,
+            bedrooms: formData.bedrooms,
+            estimatedRevenue,
+            estimatedOccupancy,
+            averageDailyRate,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to send evaluation email");
+      }
+
+      console.log("Evaluation email sent successfully");
+
       toast({
         title: "Evaluation Submitted Successfully",
-        description: "We'll send your detailed property evaluation report to your email shortly.",
+        description: "We've sent your detailed property evaluation report to your email.",
       });
 
       // Reset form
