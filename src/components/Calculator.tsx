@@ -1,11 +1,12 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import Footer from "./Footer";
-import CalculatorHeader from "./calculator/CalculatorHeader";
 import InvestmentChart from "./calculator/InvestmentChart";
 import ReturnMetrics from "./calculator/ReturnMetrics";
 import ImportantNotes from "./calculator/ImportantNotes";
-import { CalculatorInputs } from "./calculator/CalculatorInputs";
 import { useCalculator } from "@/hooks/useCalculator";
+import { HeroSection } from "./ui/hero-section";
+import Header from "./Header";
+import { motion } from "framer-motion";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -23,11 +24,8 @@ export const MARKET_DATA = {
 const Calculator = () => {
   const {
     investmentAmount,
-    setInvestmentAmount,
     annualReturn,
-    setAnnualReturn,
     appreciation,
-    setAppreciation,
     handleValueChange,
     generateChartData
   } = useCalculator();
@@ -37,57 +35,49 @@ const Calculator = () => {
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="relative bg-gradient-to-b from-primary/10 to-transparent pt-16 md:pt-32 pb-12 md:pb-20">
-        <div className="absolute inset-0 bg-grid-white/10 bg-[size:30px_30px] [mask-image:linear-gradient(0deg,transparent,black)]" />
-        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
-          <CalculatorHeader />
+    <div className="min-h-screen bg-gradient-to-b from-[#F5E6FA] to-white">
+      <Header />
+      <main>
+        <HeroSection 
+          title="Investment Calculator"
+          subtitle={{
+            regular: "Calculate your potential ",
+            gradient: "returns in Dubai's property market",
+          }}
+          description="Our AI-powered calculator provides accurate revenue projections, occupancy rates, and ROI estimates based on Dubai's current market conditions."
+        />
+
+        <div className="container mx-auto px-4 py-12 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="max-w-4xl mx-auto"
+          >
+            <Card className="p-4 md:p-6">
+              <CardHeader className="space-y-2">
+                <CardTitle className="text-xl md:text-2xl">Investment Calculator</CardTitle>
+                <CardDescription>
+                  Your settings are automatically saved as you make changes
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6 md:space-y-8">
+                <div className="w-full overflow-x-auto">
+                  <InvestmentChart data={chartData} />
+                </div>
+
+                <ReturnMetrics 
+                  totalReturn={totalReturn}
+                  totalROIPercentage={totalROIPercentage}
+                  annualReturn={totalReturn / 5}
+                />
+              </CardContent>
+            </Card>
+
+            <ImportantNotes marketData={MARKET_DATA} />
+          </motion.div>
         </div>
-      </div>
-
-      <div className="container mx-auto px-4 py-8 md:py-20 max-w-7xl">
-        <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
-          <Card className="p-4 md:p-6">
-            <CardHeader className="space-y-2">
-              <CardTitle className="text-xl md:text-2xl">Investment Calculator</CardTitle>
-              <CardDescription>
-                Your settings are automatically saved as you make changes
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6 md:space-y-8">
-              <CalculatorInputs
-                investmentAmount={investmentAmount}
-                annualReturn={annualReturn}
-                appreciation={appreciation}
-                onInvestmentChange={(value) => {
-                  setInvestmentAmount(value);
-                  handleValueChange();
-                }}
-                onAnnualReturnChange={(value) => {
-                  setAnnualReturn(value);
-                  handleValueChange();
-                }}
-                onAppreciationChange={(value) => {
-                  setAppreciation(value);
-                  handleValueChange();
-                }}
-              />
-
-              <div className="w-full overflow-x-auto">
-                <InvestmentChart data={chartData} />
-              </div>
-
-              <ReturnMetrics 
-                totalReturn={totalReturn}
-                totalROIPercentage={totalROIPercentage}
-                annualReturn={totalReturn / 5}
-              />
-            </CardContent>
-          </Card>
-
-          <ImportantNotes marketData={MARKET_DATA} />
-        </div>
-      </div>
+      </main>
       <Footer />
     </div>
   );
