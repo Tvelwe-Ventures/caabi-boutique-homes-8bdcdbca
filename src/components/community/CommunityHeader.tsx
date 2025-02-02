@@ -42,17 +42,12 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
   return (
     <div className="bg-white border-b">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex flex-col items-center">
-          <div className="relative flex flex-col items-center">
-            <img 
-              src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
-              alt="PropOsphere" 
-              className="h-16 md:h-20 w-auto"
-            />
-            <span className="text-sm text-gray-500 mt-1">
-              by Caabi
-            </span>
-          </div>
+        <div className="flex items-center">
+          <img 
+            src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
+            alt="PropOsphere" 
+            className="h-8 md:h-12 w-auto"
+          />
         </div>
         <div className="flex items-center gap-4">
           <Input
