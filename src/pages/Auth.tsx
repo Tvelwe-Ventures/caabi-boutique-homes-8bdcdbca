@@ -66,7 +66,14 @@ const Auth = () => {
   return (
     <div className="min-h-screen bg-soft-gradient flex items-center justify-center p-4">
       <Card className="w-full max-w-md p-6 space-y-6">
-        <h1 className="text-2xl font-bold text-center text-primary-dark">Welcome to Caabi Community</h1>
+        <div className="flex flex-col items-center space-y-2">
+          <img 
+            src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
+            alt="PropOsphere" 
+            className="h-12 w-auto"
+          />
+          <span className="text-sm text-gray-500">by Caabi</span>
+        </div>
         
         <Tabs defaultValue="signin" className="w-full">
           <TabsList className="grid w-full grid-cols-2">

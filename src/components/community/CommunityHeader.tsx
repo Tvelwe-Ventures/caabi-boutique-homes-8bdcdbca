@@ -18,7 +18,6 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
     const { data: { session }, error } = await supabase.auth.getSession();
     
     if (session) {
-      // If already logged in, show a message
       toast({
         title: "Already logged in",
         description: "You are already logged in to your account.",
@@ -26,14 +25,20 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
       return;
     }
 
-    // If not logged in, redirect to auth page (we'll create this next)
     navigate("/auth");
   };
 
   return (
     <div className="bg-white border-b">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-primary-dark">Community</h1>
+        <div className="flex flex-col">
+          <img 
+            src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
+            alt="PropOsphere" 
+            className="h-8 md:h-10 w-auto"
+          />
+          <span className="text-xs text-gray-500 mt-1">by Caabi</span>
+        </div>
         <div className="flex items-center gap-4">
           <Input
             type="search"
