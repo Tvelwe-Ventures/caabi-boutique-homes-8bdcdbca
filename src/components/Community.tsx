@@ -10,6 +10,7 @@ import { RightSidebar } from "./community/RightSidebar";
 import { usePostsSubscription } from "@/hooks/usePostsSubscription";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -20,11 +21,27 @@ const Community = () => {
 
   useEffect(() => {
     checkAuth();
+    fetchPosts();
+    console.log("Initial community component mount");
   }, []);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const { data: { session }, error } = await supabase.auth.getSession();
+    console.log("Checking auth status:", session ? "Authenticated" : "Not authenticated");
+    
+    if (error) {
+      console.error("Auth check error:", error);
+      toast({
+        title: "Error checking authentication",
+        description: error.message,
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+
     if (!session) {
+      console.log("No session found, redirecting to auth");
       toast({
         title: "Authentication required",
         description: "Please sign in to access the community.",
@@ -36,12 +53,8 @@ const Community = () => {
 
   usePostsSubscription(setPosts);
 
-  useEffect(() => {
-    fetchPosts();
-    console.log("Fetching initial posts");
-  }, []);
-
   const fetchPosts = async () => {
+    console.log("Fetching posts");
     const { data, error } = await supabase
       .from("posts")
       .select(`
@@ -98,6 +111,7 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-soft-gradient">
+      <Header />
       <CommunityHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
