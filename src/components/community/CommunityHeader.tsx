@@ -36,7 +36,7 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
             <img 
               src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
               alt="PropOsphere" 
-              className="h-24 md:h-32 w-auto"
+              className="h-16 md:h-20 w-auto"
             />
             <span className="text-sm text-gray-500 mt-1">
               by Caabi
