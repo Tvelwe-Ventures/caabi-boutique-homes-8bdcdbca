@@ -14,25 +14,25 @@ export const useCalculator = () => {
     queryKey: ['calculatorSettings'],
     queryFn: async () => {
       try {
-        console.log('Attempting to fetch calculator settings...');
+        console.log('Fetching calculator settings...');
         const { data, error } = await supabase
           .from('calculator_settings')
           .select('*')
-          .single();
+          .maybeSingle();
         
         if (error) {
-          console.warn('Supabase query returned error:', error);
-          return null;
+          console.error('Error fetching settings:', error);
+          throw error;
         }
         
         console.log('Successfully fetched settings:', data);
         return data as CalculatorSettings;
       } catch (error) {
-        console.warn('Failed to fetch calculator settings:', error);
+        console.error('Failed to fetch calculator settings:', error);
         return null;
       }
     },
-    retry: false,
+    retry: 1,
     gcTime: 0
   });
 
@@ -46,6 +46,7 @@ export const useCalculator = () => {
 
   const handleValueChange = async () => {
     try {
+      console.log('Saving calculator settings...');
       const { error } = await supabase
         .from('calculator_settings')
         .upsert({
@@ -55,25 +56,25 @@ export const useCalculator = () => {
         });
       
       if (error) {
-        console.warn('Error saving settings:', error);
+        console.error('Error saving settings:', error);
         toast({
-          title: "Note",
-          description: "Changes saved locally. Connect to save online.",
+          title: "Error",
+          description: "Failed to save settings. Your changes are only saved locally.",
           duration: 3000,
         });
         return;
       }
 
       toast({
-        title: "Settings saved",
-        description: "Your calculator settings have been saved successfully.",
+        title: "Success",
+        description: "Your calculator settings have been saved.",
         duration: 3000,
       });
     } catch (error) {
-      console.warn('Failed to save settings:', error);
+      console.error('Failed to save settings:', error);
       toast({
-        title: "Note",
-        description: "Changes saved locally. Connect to save online.",
+        title: "Error",
+        description: "Failed to save settings. Your changes are only saved locally.",
         duration: 3000,
       });
     }
