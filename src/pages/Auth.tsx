@@ -5,6 +5,7 @@ import { FeyButton } from "@/components/ui/fey-button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
+import { CanvasRevealEffect } from "@/components/ui/canvas-reveal-effect";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
@@ -60,20 +61,28 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-soft-gradient flex items-center justify-center p-4">
+    <div className="min-h-screen bg-secondary-light relative overflow-hidden flex items-center justify-center p-4">
+      <div className="absolute inset-0 z-0">
+        <CanvasRevealEffect
+          colors={[[130, 148, 202], [178, 209, 227]]} // Primary colors
+          animationSpeed={3}
+          containerClassName="opacity-30"
+        />
+      </div>
+      
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        className="w-full max-w-md z-10"
       >
         <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl space-y-6">
           <div className="flex flex-col items-center space-y-1">
             <img 
-              src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
+              src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
               alt="PropOsphere" 
-              className="h-40 md:h-56 w-auto"
+              className="h-32 md:h-40 w-auto"
             />
-            <span className="text-base text-gray-500 -mt-8">by Caabi</span>
+            <span className="text-base text-gray-500 mt-1">by Caabi</span>
           </div>
           
           <div className="flex justify-center space-x-4 mb-6">
