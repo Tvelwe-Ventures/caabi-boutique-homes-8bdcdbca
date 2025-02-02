@@ -35,9 +35,9 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
           <img 
             src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
             alt="PropOsphere" 
-            className="h-12 md:h-16 w-auto" // Increased from h-8/h-10 to h-12/h-16
+            className="h-32 md:h-48 w-auto" // Increased significantly from previous h-12/h-16
           />
-          <span className="text-xs text-gray-500 mt-1">by Caabi</span>
+          <span className="text-sm text-gray-500 mt-2">by Caabi</span>
         </div>
         <div className="flex items-center gap-4">
           <Input
