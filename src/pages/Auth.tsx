@@ -70,12 +70,14 @@ const Auth = () => {
         >
           <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl space-y-6">
             <div className="flex flex-col items-center space-y-1">
-              <img 
-                src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
-                alt="PropOsphere" 
-                className="h-32 md:h-40 w-auto"
-              />
-              <span className="text-base text-gray-500 mt-1">by Caabi</span>
+              <div className="w-64 h-24 relative">
+                <img 
+                  src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
+                  alt="PropOsphere" 
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-base text-gray-500">by Caabi</span>
             </div>
             
             <div className="flex justify-center space-x-4 mb-6">
