@@ -10,7 +10,6 @@ import { RightSidebar } from "./community/RightSidebar";
 import { usePostsSubscription } from "@/hooks/usePostsSubscription";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -123,7 +122,6 @@ const Community = () => {
 
   return (
     <div className="min-h-screen bg-soft-gradient">
-      <Header />
       <CommunityHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
