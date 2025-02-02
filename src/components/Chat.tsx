@@ -92,10 +92,26 @@ const Chat = () => {
 
     setIsLoading(true);
     try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to send messages",
+          variant: "destructive",
+        });
+        return;
+      }
+
       // Save user message
       const { error: insertError } = await supabase
         .from("chat_messages")
-        .insert([{ content: newMessage, is_ai: false }]);
+        .insert([{ 
+          content: newMessage, 
+          is_ai: false,
+          user_id: user.id 
+        }]);
 
       if (insertError) throw insertError;
 
@@ -115,7 +131,11 @@ const Chat = () => {
       // Save AI response
       const { error: aiInsertError } = await supabase
         .from("chat_messages")
-        .insert([{ content: aiResponse, is_ai: true }]);
+        .insert([{ 
+          content: aiResponse, 
+          is_ai: true,
+          user_id: user.id 
+        }]);
 
       if (aiInsertError) throw aiInsertError;
 
