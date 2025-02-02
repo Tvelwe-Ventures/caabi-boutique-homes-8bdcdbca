@@ -33,14 +33,14 @@ const Calculator = () => {
   const totalROIPercentage = (totalReturn / investmentAmount * 100).toFixed(2);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-b from-[#F5E6FA] to-white">
       <HeroSection 
         title="Investment Calculator"
         subtitle={{
           regular: "Calculate your potential ",
           gradient: "returns in Dubai's property market",
         }}
-        description="Use our advanced ROI calculator to estimate your property's potential returns, taking into account rental yield, property appreciation, and market trends."
+        description="Our AI-powered calculator provides accurate revenue projections, occupancy rates, and ROI estimates based on Dubai's current market conditions."
         gridOptions={{
           opacity: 0.3,
           lightLineColor: "#8394CA",
