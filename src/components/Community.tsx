@@ -55,29 +55,41 @@ const Community = () => {
 
   const fetchPosts = async () => {
     console.log("Fetching posts");
-    const { data, error } = await supabase
-      .from("posts")
-      .select(`
-        *,
-        profiles!posts_user_id_fkey (
-          username,
-          avatar_url
-        )
-      `)
-      .order("created_at", { ascending: false });
+    try {
+      // First, get all posts
+      const { data: postsData, error: postsError } = await supabase
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false });
 
-    if (error) {
+      if (postsError) throw postsError;
+
+      // Then, for each post, get the profile information of its author
+      const postsWithProfiles = await Promise.all(
+        (postsData || []).map(async (post) => {
+          const { data: profileData } = await supabase
+            .from("profiles")
+            .select("username, avatar_url")
+            .eq("id", post.user_id)
+            .single();
+
+          return {
+            ...post,
+            profiles: profileData
+          };
+        })
+      );
+
+      setPosts(postsWithProfiles);
+      await fetchCommentsForPosts(postsWithProfiles);
+    } catch (error: any) {
       console.error("Error fetching posts:", error);
       toast({
         title: "Error fetching posts",
         description: error.message,
         variant: "destructive",
       });
-      return;
     }
-
-    setPosts(data || []);
-    await fetchCommentsForPosts(data || []);
   };
 
   const fetchCommentsForPosts = async (posts: any[]) => {
