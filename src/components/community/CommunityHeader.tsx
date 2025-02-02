@@ -32,13 +32,13 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
     <div className="bg-white border-b">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex flex-col items-center">
-          <div className="relative">
+          <div className="relative flex flex-col items-center">
             <img 
-              src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
+              src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
               alt="PropOsphere" 
-              className="h-32 md:h-48 w-auto"
+              className="h-24 md:h-32 w-auto"
             />
-            <span className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-sm text-gray-500">
+            <span className="text-sm text-gray-500 mt-1">
               by Caabi
             </span>
           </div>
