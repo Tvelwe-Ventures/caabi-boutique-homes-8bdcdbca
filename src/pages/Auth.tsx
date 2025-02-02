@@ -70,7 +70,7 @@ const Auth = () => {
           <img 
             src="/lovable-uploads/a5da3d5d-8a5a-4d5e-9212-80d44c6a6a88.png" 
             alt="PropOsphere" 
-            className="h-12 w-auto"
+            className="h-16 md:h-20 w-auto" // Increased from h-12 to h-16/h-20
           />
           <span className="text-sm text-gray-500">by Caabi</span>
         </div>
