@@ -15,6 +15,14 @@ export const useCalculator = () => {
     queryFn: async () => {
       try {
         console.log('Fetching calculator settings...');
+        const session = await supabase.auth.getSession();
+        
+        // If no session, return null without making the request
+        if (!session.data.session) {
+          console.log('No authenticated session, skipping settings fetch');
+          return null;
+        }
+
         const { data, error } = await supabase
           .from('calculator_settings')
           .select('*')
@@ -47,6 +55,18 @@ export const useCalculator = () => {
   const handleValueChange = async () => {
     try {
       console.log('Saving calculator settings...');
+      const session = await supabase.auth.getSession();
+      
+      // If no session, show a message about local-only changes
+      if (!session.data.session) {
+        toast({
+          title: "Note",
+          description: "Sign in to save your settings online.",
+          duration: 3000,
+        });
+        return;
+      }
+
       const { error } = await supabase
         .from('calculator_settings')
         .upsert({
