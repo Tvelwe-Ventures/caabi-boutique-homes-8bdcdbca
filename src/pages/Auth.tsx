@@ -12,6 +12,7 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [isForgotPassword, setIsForgotPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -19,7 +20,25 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     
-    if (isSignUp) {
+    if (isForgotPassword) {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+
+      if (error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Success",
+          description: "Password reset instructions have been sent to your email.",
+        });
+        setIsForgotPassword(false);
+      }
+    } else if (isSignUp) {
       const { error } = await supabase.auth.signUp({
         email,
         password,
@@ -80,28 +99,30 @@ const Auth = () => {
               <span className="text-base text-gray-500">by Caabi</span>
             </div>
             
-            <div className="flex justify-center space-x-4 mb-6">
-              <button
-                onClick={() => setIsSignUp(false)}
-                className={`px-6 py-2 rounded-full transition-all ${
-                  !isSignUp 
-                    ? 'bg-primary text-white shadow-md' 
-                    : 'text-gray-500 hover:text-primary'
-                }`}
-              >
-                Sign In
-              </button>
-              <button
-                onClick={() => setIsSignUp(true)}
-                className={`px-6 py-2 rounded-full transition-all ${
-                  isSignUp 
-                    ? 'bg-primary text-white shadow-md' 
-                    : 'text-gray-500 hover:text-primary'
-                }`}
-              >
-                Sign Up
-              </button>
-            </div>
+            {!isForgotPassword && (
+              <div className="flex justify-center space-x-4 mb-6">
+                <button
+                  onClick={() => setIsSignUp(false)}
+                  className={`px-6 py-2 rounded-full transition-all ${
+                    !isSignUp 
+                      ? 'bg-primary text-white shadow-md' 
+                      : 'text-gray-500 hover:text-primary'
+                  }`}
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => setIsSignUp(true)}
+                  className={`px-6 py-2 rounded-full transition-all ${
+                    isSignUp 
+                      ? 'bg-primary text-white shadow-md' 
+                      : 'text-gray-500 hover:text-primary'
+                  }`}
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
@@ -114,24 +135,50 @@ const Auth = () => {
                   className="h-12 rounded-xl bg-white/50 border-gray-200 focus:border-primary focus:ring-primary"
                 />
               </div>
-              <div className="space-y-2">
-                <Input
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="h-12 rounded-xl bg-white/50 border-gray-200 focus:border-primary focus:ring-primary"
-                />
-              </div>
+              {!isForgotPassword && (
+                <div className="space-y-2">
+                  <Input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    className="h-12 rounded-xl bg-white/50 border-gray-200 focus:border-primary focus:ring-primary"
+                  />
+                </div>
+              )}
               <FeyButton 
                 type="submit" 
                 className="w-full h-12 rounded-xl text-lg font-medium"
                 disabled={loading}
               >
-                {loading ? "Processing..." : isSignUp ? "Create Account" : "Sign In"}
+                {loading 
+                  ? "Processing..." 
+                  : isForgotPassword 
+                    ? "Send Reset Instructions"
+                    : isSignUp 
+                      ? "Create Account" 
+                      : "Sign In"}
               </FeyButton>
             </form>
+
+            {!isForgotPassword && !isSignUp && (
+              <button
+                onClick={() => setIsForgotPassword(true)}
+                className="w-full text-center text-sm text-gray-500 hover:text-primary transition-colors"
+              >
+                Forgot your password?
+              </button>
+            )}
+
+            {isForgotPassword && (
+              <button
+                onClick={() => setIsForgotPassword(false)}
+                className="w-full text-center text-sm text-gray-500 hover:text-primary transition-colors"
+              >
+                Back to Sign In
+              </button>
+            )}
           </div>
         </motion.div>
       </div>
