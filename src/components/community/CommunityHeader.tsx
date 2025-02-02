@@ -44,8 +44,8 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
           <img 
-            src="/lovable-uploads/fbda3091-cdbd-45db-9212-e98a7256ef7d.png" 
-            alt="PropOsphere" 
+            src="/lovable-uploads/05a25d35-9cba-4184-8637-313d262535f1.png" 
+            alt="PropOSphere" 
             className="h-8 md:h-12 w-auto"
           />
         </div>
