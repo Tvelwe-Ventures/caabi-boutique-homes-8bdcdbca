@@ -18,6 +18,7 @@ import { MessageSquare } from "lucide-react";
 import Chat from "@/components/Chat";
 import Community from "@/components/Community";
 import Dashboard from "@/pages/Dashboard";
+import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,8 @@ function App() {
             <Route path="/community-guidelines" element={<CommunityGuidelines />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/community" element={<Community />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route path="/dashboard/design-system" element={<DesignSystemDemo />} />
           </Routes>
           
           {/* Global Feedback Component */}
