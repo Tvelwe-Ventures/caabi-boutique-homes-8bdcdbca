@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
+import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import PropertyList from "@/components/dashboard/PropertyList";
 import FinancialOverview from "@/components/dashboard/FinancialOverview";
 import PortfolioPerformance from "@/components/dashboard/PortfolioPerformance";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,7 +35,8 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <main className="container mx-auto px-4 py-8 pt-24">
+      <DashboardSidebar />
+      <main className="ml-[250px] pt-24 px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,6 +67,7 @@ const Dashboard = () => {
           </Tabs>
         </motion.div>
       </main>
+      <Footer />
     </div>
   );
 };
