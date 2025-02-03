@@ -68,6 +68,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <a href="/" className="text-white hover:text-white/80">Home</a>
             <a href="/calculator" className="text-white hover:text-white/80">ROI Calculator</a>
+            <a href="/statistics" className="text-white hover:text-white/80">Statistics</a>
             <a href="/community" className="text-white hover:text-white/80">Community</a>
             <a href="/auth" className="text-white hover:text-white/80">QuackOS</a>
           </nav>

@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
-import Footer from "@/components/Footer";
+import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -42,7 +42,9 @@ const Dashboard = () => {
           <DesignSystemDemo />
         </motion.div>
       </main>
-      <Footer />
+      <div className="ml-[250px]">
+        <DashboardFooter />
+      </div>
     </div>
   );
 };
