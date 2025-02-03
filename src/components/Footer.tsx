@@ -1,35 +1,70 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Github, Star, Users } from "lucide-react";
 
-interface FooterProps {
-  logo: React.ReactNode;
-  brandName: string;
-  socialLinks: Array<{
+export interface FooterProps {
+  logo?: React.ReactNode;
+  brandName?: string;
+  socialLinks?: Array<{
     icon: React.ReactNode;
     href: string;
     label: string;
   }>;
-  mainLinks: Array<{
+  mainLinks?: Array<{
     href: string;
     label: string;
   }>;
-  legalLinks: Array<{
+  legalLinks?: Array<{
     href: string;
     label: string;
   }>;
-  copyright: {
+  copyright?: {
     text: string;
     license?: string;
   };
 }
 
+const defaultProps: FooterProps = {
+  logo: <img src="/lovable-uploads/84797c58-4f93-470b-b0d1-f07546eba52b.png" alt="Caabi" className="h-8 w-auto" />,
+  brandName: "Caabi Boutique Homes",
+  socialLinks: [
+    {
+      icon: <Github className="h-5 w-5" />,
+      href: "https://github.com/caabi",
+      label: "GitHub"
+    },
+    {
+      icon: <Star className="h-5 w-5" />,
+      href: "/statistics",
+      label: "Statistics"
+    },
+    {
+      icon: <Users className="h-5 w-5" />,
+      href: "/community",
+      label: "Community"
+    }
+  ],
+  mainLinks: [
+    { href: "/", label: "Caabi Boutique Homes" },
+    { href: "/community", label: "PropOsphere" },
+    { href: "/statistics", label: "Statistics" }
+  ],
+  legalLinks: [
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" }
+  ],
+  copyright: {
+    text: "© 2024 Caabi Boutique Homes. All rights reserved.",
+  }
+};
+
 export function Footer({
-  logo,
-  brandName,
-  socialLinks,
-  mainLinks,
-  legalLinks,
-  copyright,
+  logo = defaultProps.logo,
+  brandName = defaultProps.brandName,
+  socialLinks = defaultProps.socialLinks,
+  mainLinks = defaultProps.mainLinks,
+  legalLinks = defaultProps.legalLinks,
+  copyright = defaultProps.copyright,
 }: FooterProps) {
   return (
     <motion.footer

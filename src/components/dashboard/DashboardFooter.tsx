@@ -1,5 +1,5 @@
 import { Github, Star, Users } from "lucide-react";
-import { Footer } from "../Footer";
+import Footer from "../Footer";
 
 export const DashboardFooter = () => {
   const socialLinks = [
