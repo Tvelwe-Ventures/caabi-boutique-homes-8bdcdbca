@@ -35,8 +35,17 @@ export const DesktopNav = () => {
       <NavLink to="/calculator" className="text-white hover:text-white/80">
         Calculator
       </NavLink>
+      <NavLink to="/property-evaluation" className="text-white hover:text-white/80">
+        Property Evaluation
+      </NavLink>
+      <NavLink to="/investment-proposal" className="text-white hover:text-white/80">
+        Investment Proposal
+      </NavLink>
       <NavLink to="/dashboard" className="text-white hover:text-white/80">
         Dashboard
+      </NavLink>
+      <NavLink to="/community" className="text-white hover:text-white/80">
+        Community
       </NavLink>
       <Button
         variant="ghost"
