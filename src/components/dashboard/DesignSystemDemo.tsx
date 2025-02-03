@@ -13,6 +13,8 @@ import { StandardCard } from "@/components/ui/standard-card";
 import { BentoGrid } from "@/components/ui/bento-grid";
 import { ProjectStatusCard } from "@/components/ui/project-status-card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { DesignSystemSection } from "./design-system/DesignSystemSection";
 import { SidebarNewsCard } from "./design-system/SidebarNewsCard";
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
@@ -41,6 +43,78 @@ const mockNewsItems = [
 const DesignSystemDemo = () => {
   return (
     <div className="p-8 space-y-8">
+      {/* Original Bento Grid Section */}
+      <DesignSystemSection 
+        title="Bento Grid Layout" 
+        description="Flexible grid layout for displaying content in an engaging way."
+      >
+        <BentoGrid>
+          <StandardCard
+            icon={CreditCard}
+            title="Financial Overview"
+            description="Track your financial metrics and performance"
+          />
+          <StandardCard
+            icon={Calendar}
+            title="Calendar"
+            description="Schedule and manage appointments"
+          />
+          <ProjectStatusCard
+            title="Project Status"
+            status="In Progress"
+            progress={75}
+          />
+        </BentoGrid>
+      </DesignSystemSection>
+
+      {/* Original Button Section */}
+      <DesignSystemSection 
+        title="Buttons" 
+        description="Various button styles and states for different actions."
+      >
+        <div className="flex flex-wrap gap-4">
+          <Button>Default Button</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="destructive">Destructive</Button>
+          <Button variant="outline">Outline</Button>
+          <Button variant="ghost">Ghost</Button>
+        </div>
+      </DesignSystemSection>
+
+      {/* Original Card Section */}
+      <DesignSystemSection 
+        title="Cards" 
+        description="Container components for organizing content."
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Title</CardTitle>
+              <CardDescription>Card description goes here</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Card content and details</p>
+            </CardContent>
+            <CardFooter>
+              <Button>Action</Button>
+            </CardFooter>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Feature Card</CardTitle>
+              <CardDescription>Highlighted feature description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>Feature details and benefits</p>
+            </CardContent>
+            <CardFooter>
+              <Button variant="outline">Learn More</Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </DesignSystemSection>
+
+      {/* Information Cards Section (New) */}
       <DesignSystemSection 
         title="Information Cards" 
         description="Use these cards to display important updates and notifications to users."
@@ -68,6 +142,7 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
+      {/* Date Selection Section */}
       <DesignSystemSection 
         title="Date Selection" 
         description="Date pickers for selecting single dates or date ranges."
@@ -89,6 +164,7 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
+      {/* Navigation Elements Section */}
       <DesignSystemSection 
         title="Navigation Elements" 
         description="Components for user navigation and interaction."
@@ -112,6 +188,7 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
+      {/* Animations Section */}
       <DesignSystemSection 
         title="Animations" 
         description="Animation examples and guidelines for consistent motion design."
