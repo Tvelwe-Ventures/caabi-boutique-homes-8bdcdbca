@@ -119,7 +119,7 @@ const DesktopSidebar = ({
   return (
     <motion.div
       className={cn(
-        "fixed left-0 top-[76px] h-[calc(100vh-76px)] hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0 px-4 py-4",
+        "fixed left-0 top-[76px] h-[calc(100vh-76px)] hidden md:flex md:flex-col bg-neutral-100 w-[300px] flex-shrink-0 px-4 py-4",
         className
       )}
       animate={{
@@ -147,13 +147,13 @@ const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full fixed top-[76px] left-0 z-10"
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 w-full fixed top-[76px] left-0 z-10"
         )}
         {...props}
       >
         <div className="flex justify-end z-20 w-full">
           <Menu
-            className="text-neutral-800 dark:text-neutral-200 cursor-pointer"
+            className="text-neutral-800 cursor-pointer"
             onClick={() => setOpen(!open)}
           />
         </div>
@@ -168,12 +168,12 @@ const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-[calc(100vh-76px)] w-full left-0 top-[76px] bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col",
+                "fixed h-[calc(100vh-76px)] w-full left-0 top-[76px] bg-white p-10 z-[100] flex flex-col",
                 className
               )}
             >
               <div
-                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200 cursor-pointer"
+                className="absolute right-10 top-10 z-50 text-neutral-800 cursor-pointer"
                 onClick={() => setOpen(!open)}
               >
                 <X />
@@ -197,7 +197,7 @@ export const DashboardSidebar = () => {
               <Link
                 key={item.title}
                 to={item.href}
-                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200"
               >
                 <item.icon className="h-5 w-5" />
                 <span>{item.title}</span>
@@ -211,7 +211,7 @@ export const DashboardSidebar = () => {
               <Link
                 key={item.title}
                 to={item.href}
-                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200"
               >
                 <item.icon className="h-5 w-5" />
                 <span>{item.title}</span>
