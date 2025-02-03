@@ -11,6 +11,15 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 
+const transition = {
+  type: "spring",
+  mass: 0.5,
+  damping: 11.5,
+  stiffness: 100,
+  restDelta: 0.001,
+  restSpeed: 0.001,
+};
+
 const menuItems = [
   {
     title: "Financial Management",
@@ -36,6 +45,7 @@ const menuItems = [
 
 export const DashboardSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
 
   return (
     <motion.div 
@@ -46,20 +56,40 @@ export const DashboardSidebar = () => {
       }`}
     >
       <div className="flex flex-col h-full">
-        <div className="flex-1 py-6">
+        <nav
+          onMouseLeave={() => setActiveItem(null)}
+          className="relative flex-1 py-6"
+        >
           {menuItems.map((item) => (
-            <Link
+            <div
               key={item.title}
-              to={item.path}
-              className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 transition-colors"
+              onMouseEnter={() => setActiveItem(item.title)}
+              className="relative"
             >
-              <item.icon className="h-5 w-5 min-w-[20px]" />
-              {!isCollapsed && (
-                <span className="ml-3 text-sm font-medium">{item.title}</span>
+              <Link
+                to={item.path}
+                className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 transition-colors"
+              >
+                <item.icon className="h-5 w-5 min-w-[20px]" />
+                {!isCollapsed && (
+                  <span className="ml-3 text-sm font-medium">{item.title}</span>
+                )}
+              </Link>
+              {activeItem === item.title && !isCollapsed && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={transition}
+                  className="absolute left-full top-0 ml-2 bg-white rounded-lg shadow-lg border border-gray-200 p-4 w-48"
+                >
+                  <div className="text-sm text-gray-600">
+                    Additional options for {item.title}
+                  </div>
+                </motion.div>
               )}
-            </Link>
+            </div>
           ))}
-        </div>
+        </nav>
         
         <Button
           variant="ghost"
