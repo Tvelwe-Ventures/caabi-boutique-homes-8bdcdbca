@@ -13,7 +13,9 @@ const Hero = () => {
     "/lovable-uploads/d2b589ed-e60c-4ce2-aa36-237d64b2a62e.png",
     "/lovable-uploads/7991a2c3-27fc-4d0e-a270-d195af276951.png",
     "/lovable-uploads/20ef23e7-7914-4739-8e09-59c7660417c8.png",
-    "/lovable-uploads/d5623907-02e5-4601-8db4-e7614ef6f391.png"
+    "/lovable-uploads/d5623907-02e5-4601-8db4-e7614ef6f391.png",
+    "/lovable-uploads/c5902c9f-a64c-4de1-9b6d-761cb47d05d8.png", // New dining room image
+    "/lovable-uploads/fcea24d8-44c8-4a75-9f8c-329a416f9fa8.png"  // New living room image
   ];
 
   useEffect(() => {
