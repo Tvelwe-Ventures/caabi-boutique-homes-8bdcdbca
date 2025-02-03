@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 import Chat from "@/components/Chat";
 import Community from "@/components/Community";
+import Dashboard from "@/pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="/community-guidelines" element={<CommunityGuidelines />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/dashboard" element={<Dashboard />} />
           </Routes>
           
           {/* Global Feedback Component */}
