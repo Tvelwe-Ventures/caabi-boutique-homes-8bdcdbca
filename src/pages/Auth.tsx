@@ -31,7 +31,7 @@ const Auth = () => {
         toast({
           title: "Error",
           description: error.message,
-          variant: "error",
+          variant: "destructive",
         });
       } else {
         toast({
@@ -52,7 +52,7 @@ const Auth = () => {
         toast({
           title: "Error signing up",
           description: error.message,
-          variant: "error",
+          variant: "destructive",
         });
       } else {
         toast({
@@ -72,7 +72,7 @@ const Auth = () => {
         toast({
           title: "Error signing in",
           description: error.message,
-          variant: "error",
+          variant: "destructive",
         });
       } else {
         console.log("Login successful");
