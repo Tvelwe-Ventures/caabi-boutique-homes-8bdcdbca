@@ -7,11 +7,39 @@ import {
   User,
   ChevronRight,
   Search,
-  Menu
+  Menu,
+  Clock,
+  GitBranch,
+  Github,
+  MessageSquare,
+  Star,
+  Users,
+  CheckCircle2
 } from "lucide-react";
 import { StandardCard } from "@/components/ui/standard-card";
+import { BentoGrid } from "@/components/ui/bento-grid";
+import { ProjectStatusCard } from "@/components/ui/project-status-card";
+import { Badge } from "@/components/ui/badge";
 
 const DesignSystemDemo = () => {
+  const mockProjectData = {
+    title: "Design System",
+    progress: 75,
+    dueDate: "Dec 31, 2024",
+    contributors: [
+      { name: "Alice", image: "/placeholder.svg" },
+      { name: "Bob", image: "/placeholder.svg" },
+      { name: "Charlie", image: "/placeholder.svg" }
+    ],
+    tasks: [
+      { title: "Setup Components", completed: true },
+      { title: "Documentation", completed: false },
+      { title: "Testing", completed: false }
+    ],
+    githubStars: 128,
+    openIssues: 5
+  };
+
   return (
     <div className="p-8 space-y-8">
       {/* Typography Section */}
@@ -47,6 +75,68 @@ const DesignSystemDemo = () => {
           <div className="space-y-2">
             <div className="h-20 bg-gradient-to-br from-secondary to-secondary-light rounded-lg"></div>
             <p className="text-sm font-medium">Secondary Gradient</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Bento Grid Section */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold font-bricolage">Bento Grid Layout</h2>
+        <BentoGrid className="grid-cols-1 md:grid-cols-3 gap-4">
+          <StandardCard
+            icon={CreditCard}
+            title="Financial Overview"
+            description="Track your financial metrics and performance"
+            className="glass-card md:col-span-2 row-span-1"
+          />
+          <StandardCard
+            icon={Calendar}
+            title="Upcoming Events"
+            description="View your scheduled appointments"
+            className="glass-card"
+          />
+          <StandardCard
+            icon={Bell}
+            title="Notifications"
+            description="Stay updated with latest alerts"
+            className="glass-card md:col-span-1 row-span-1"
+          />
+          <StandardCard
+            icon={User}
+            title="Team Members"
+            description="Manage your team and permissions"
+            className="glass-card md:col-span-2"
+          />
+        </BentoGrid>
+      </section>
+
+      {/* Expandable Card Section */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold font-bricolage">Expandable Cards</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <ProjectStatusCard {...mockProjectData} />
+            <div className="p-4 bg-secondary/10 rounded-lg">
+              <h3 className="font-medium mb-2">Usage Guidelines</h3>
+              <ul className="list-disc list-inside space-y-2 text-sm text-gray-600">
+                <li>Use for complex content that needs progressive disclosure</li>
+                <li>Ideal for project status, task details, and nested information</li>
+                <li>Include clear visual indicators for expandable state</li>
+                <li>Maintain consistent animation timing across the application</li>
+              </ul>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="p-4 bg-primary/10 rounded-lg">
+              <h3 className="font-medium mb-2">Component Features</h3>
+              <ul className="list-disc list-inside space-y-2 text-sm text-gray-600">
+                <li>Smooth height animation using Framer Motion</li>
+                <li>Progress indicator with color states</li>
+                <li>Contributor avatars with tooltips</li>
+                <li>Responsive layout and touch-friendly</li>
+                <li>Status badges and icon integration</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
