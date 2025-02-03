@@ -1,109 +1,203 @@
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
+  Menu, 
+  X,
   CreditCard, 
   Users, 
   LineChart, 
   Settings,
-  ChevronLeft,
-  ChevronRight
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
-const transition = {
-  type: "spring",
-  mass: 0.5,
-  damping: 11.5,
-  stiffness: 100,
-  restDelta: 0.001,
-  restSpeed: 0.001,
-};
+interface Links {
+  label: string;
+  href: string;
+  icon: React.JSX.Element;
+}
 
-const menuItems = [
+const menuItems: Links[] = [
   {
-    title: "Financial Management",
-    icon: CreditCard,
-    path: "/dashboard/financial"
+    label: "Financial Management",
+    href: "/dashboard/financial",
+    icon: <CreditCard className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
   },
   {
-    title: "Shareholder Analytics",
-    icon: Users,
-    path: "/dashboard/shareholders"
+    label: "Shareholder Analytics",
+    href: "/dashboard/shareholders",
+    icon: <Users className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
   },
   {
-    title: "Property Performance",
-    icon: LineChart,
-    path: "/dashboard/performance"
+    label: "Property Performance",
+    href: "/dashboard/performance",
+    icon: <LineChart className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
   },
   {
-    title: "Service Management",
-    icon: Settings,
-    path: "/dashboard/services"
+    label: "Service Management",
+    href: "/dashboard/services",
+    icon: <Settings className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
   }
 ];
 
-export const DashboardSidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+interface SidebarContextProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  animate: boolean;
+}
+
+const SidebarContext = createContext<SidebarContextProps | undefined>(undefined);
+
+const useSidebar = () => {
+  const context = useContext(SidebarContext);
+  if (!context) {
+    throw new Error("useSidebar must be used within a SidebarProvider");
+  }
+  return context;
+};
+
+const SidebarProvider = ({
+  children,
+  open: openProp,
+  setOpen: setOpenProp,
+  animate = true,
+}: {
+  children: React.ReactNode;
+  open?: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  animate?: boolean;
+}) => {
+  const [openState, setOpenState] = useState(false);
+  const open = openProp !== undefined ? openProp : openState;
+  const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
 
   return (
-    <motion.div 
-      initial={{ x: -250 }}
-      animate={{ x: 0 }}
-      className={`fixed left-0 top-[76px] h-[calc(100vh-76px)] bg-white shadow-lg transition-all duration-300 ${
-        isCollapsed ? "w-[60px]" : "w-[250px]"
-      }`}
+    <SidebarContext.Provider value={{ open, setOpen, animate }}>
+      {children}
+    </SidebarContext.Provider>
+  );
+};
+
+const SidebarLink = ({ link, className }: { link: Links; className?: string }) => {
+  const { open, animate } = useSidebar();
+  
+  return (
+    <Link
+      to={link.href}
+      className={cn(
+        "flex items-center justify-start gap-2 group/sidebar py-2",
+        className
+      )}
     >
-      <div className="flex flex-col h-full">
-        <nav
-          onMouseLeave={() => setActiveItem(null)}
-          className="relative flex-1 py-6"
-        >
-          {menuItems.map((item) => (
-            <div
-              key={item.title}
-              onMouseEnter={() => setActiveItem(item.title)}
-              className="relative"
-            >
-              <Link
-                to={item.path}
-                className="flex items-center px-4 py-3 text-gray-700 hover:bg-gray-100 transition-colors"
-              >
-                <item.icon className="h-5 w-5 min-w-[20px]" />
-                {!isCollapsed && (
-                  <span className="ml-3 text-sm font-medium">{item.title}</span>
-                )}
-              </Link>
-              {activeItem === item.title && !isCollapsed && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.85, y: 10 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={transition}
-                  className="absolute left-full top-0 ml-2 bg-white rounded-lg shadow-lg border border-gray-200 p-4 w-48"
-                >
-                  <div className="text-sm text-gray-600">
-                    Additional options for {item.title}
-                  </div>
-                </motion.div>
-              )}
-            </div>
-          ))}
-        </nav>
-        
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-md rounded-full"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-4 w-4" />
-          ) : (
-            <ChevronLeft className="h-4 w-4" />
-          )}
-        </Button>
-      </div>
+      {link.icon}
+      <motion.span
+        animate={{
+          display: animate ? (open ? "inline-block" : "none") : "inline-block",
+          opacity: animate ? (open ? 1 : 0) : 1,
+        }}
+        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+      >
+        {link.label}
+      </motion.span>
+    </Link>
+  );
+};
+
+const DesktopSidebar = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof motion.div>) => {
+  const { open, setOpen, animate } = useSidebar();
+  
+  return (
+    <motion.div
+      className={cn(
+        "fixed left-0 top-[76px] h-[calc(100vh-76px)] hidden md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0 px-4 py-4",
+        className
+      )}
+      animate={{
+        width: animate ? (open ? "300px" : "60px") : "300px",
+      }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      {...props}
+    >
+      {children}
     </motion.div>
+  );
+};
+
+const MobileSidebar = ({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<"div">) => {
+  const { open, setOpen } = useSidebar();
+  
+  return (
+    <>
+      <div
+        className={cn(
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-neutral-100 dark:bg-neutral-800 w-full fixed top-[76px] left-0 z-10"
+        )}
+        {...props}
+      >
+        <div className="flex justify-end z-20 w-full">
+          <Menu
+            className="text-neutral-800 dark:text-neutral-200 cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+        </div>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ x: "-100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "-100%", opacity: 0 }}
+              transition={{
+                duration: 0.3,
+                ease: "easeInOut",
+              }}
+              className={cn(
+                "fixed h-[calc(100vh-76px)] w-full left-0 top-[76px] bg-white dark:bg-neutral-900 p-10 z-[100] flex flex-col",
+                className
+              )}
+            >
+              <div
+                className="absolute right-10 top-10 z-50 text-neutral-800 dark:text-neutral-200 cursor-pointer"
+                onClick={() => setOpen(!open)}
+              >
+                <X />
+              </div>
+              {children}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
+  );
+};
+
+export const DashboardSidebar = () => {
+  return (
+    <SidebarProvider>
+      <>
+        <DesktopSidebar>
+          <nav className="flex-1 space-y-2">
+            {menuItems.map((item) => (
+              <SidebarLink key={item.label} link={item} />
+            ))}
+          </nav>
+        </DesktopSidebar>
+        <MobileSidebar>
+          <nav className="flex-1 space-y-4">
+            {menuItems.map((item) => (
+              <SidebarLink key={item.label} link={item} />
+            ))}
+          </nav>
+        </MobileSidebar>
+      </>
+    </SidebarProvider>
   );
 };
