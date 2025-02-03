@@ -6,6 +6,7 @@ import { ChatMessage } from "./chat/ChatMessage";
 import { ChatInput } from "./chat/ChatInput";
 import { UseCaseSelector, USE_CASES } from "./chat/UseCaseSelector";
 import { useChatMessages } from "./chat/useChatMessages";
+import { useLocation } from "react-router-dom";
 
 const getSystemPrompt = (useCase: string) => {
   const prompts: Record<string, string> = {
@@ -20,12 +21,44 @@ const getSystemPrompt = (useCase: string) => {
   return prompts[useCase] || prompts.general;
 };
 
+const getPageSpecificSuggestions = (pathname: string) => {
+  const suggestions: Record<string, string[]> = {
+    "/": [
+      "Tell me more about PropOsphere's services",
+      "How can I start investing in real estate?",
+      "What are the benefits of short-term rentals?",
+    ],
+    "/calculator": [
+      "Help me understand the ROI calculation",
+      "What factors affect my investment returns?",
+      "Can you explain the mortgage terms?",
+    ],
+    "/property-evaluation": [
+      "What makes a good short-term rental property?",
+      "How do you estimate rental income?",
+      "What are the key metrics for property evaluation?",
+    ],
+    "/investment": [
+      "What investment strategies do you recommend?",
+      "How can I diversify my real estate portfolio?",
+      "What are the current market trends?",
+    ],
+    "/statistics": [
+      "Help me interpret these market statistics",
+      "What do these numbers mean for investors?",
+      "How does this compare to market averages?",
+    ],
+  };
+  return suggestions[pathname] || suggestions["/"];
+};
+
 const Chat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedUseCase, setSelectedUseCase] = useState("general");
   const { toast } = useToast();
   const { messages, fetchMessages } = useChatMessages();
+  const location = useLocation();
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,24 +66,12 @@ const Chat = () => {
 
     setIsLoading(true);
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        toast({
-          title: "Error",
-          description: "You must be logged in to send messages",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      // Save user message
+      // Save message without requiring authentication
       const { error: insertError } = await supabase
         .from("chat_messages")
         .insert([{ 
           content: newMessage, 
           is_ai: false,
-          user_id: user.id 
         }]);
 
       if (insertError) throw insertError;
@@ -83,7 +104,6 @@ const Chat = () => {
         .insert([{ 
           content: aiResponse, 
           is_ai: true,
-          user_id: user.id 
         }]);
 
       if (aiInsertError) throw aiInsertError;
@@ -102,12 +122,30 @@ const Chat = () => {
     }
   };
 
+  const suggestions = getPageSpecificSuggestions(location.pathname);
+
   return (
     <div className="flex flex-col h-full">
       <UseCaseSelector value={selectedUseCase} onChange={setSelectedUseCase} />
       
       <ScrollArea className="flex-1 p-4">
         <div className="space-y-4">
+          {messages.length === 0 && (
+            <div className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                Welcome! Here are some suggestions based on your current page:
+              </p>
+              {suggestions.map((suggestion, index) => (
+                <button
+                  key={index}
+                  className="block w-full text-left p-2 rounded-lg bg-muted/50 hover:bg-muted text-sm"
+                  onClick={() => setNewMessage(suggestion)}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          )}
           {messages.map((message) => (
             <ChatMessage
               key={message.id}
