@@ -10,33 +10,29 @@ import {
   Settings,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ExpandableTabs } from "@/components/ui/expandable-tabs";
+import { Gravity, MatterBody } from "@/components/ui/gravity";
 
-interface Links {
-  label: string;
-  href: string;
-  icon: React.JSX.Element;
-}
-
-const menuItems: Links[] = [
+const menuItems = [
   {
-    label: "Financial Management",
+    title: "Financial Management",
     href: "/dashboard/financial",
-    icon: <CreditCard className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+    icon: CreditCard
   },
   {
-    label: "Shareholder Analytics",
+    title: "Shareholder Analytics",
     href: "/dashboard/shareholders",
-    icon: <Users className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+    icon: Users
   },
   {
-    label: "Property Performance",
+    title: "Property Performance",
     href: "/dashboard/performance",
-    icon: <LineChart className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+    icon: LineChart
   },
   {
-    label: "Service Management",
+    title: "Service Management",
     href: "/dashboard/services",
-    icon: <Settings className="h-5 w-5 text-neutral-700 dark:text-neutral-200" />
+    icon: Settings
   }
 ];
 
@@ -78,28 +74,38 @@ const SidebarProvider = ({
   );
 };
 
-const SidebarLink = ({ link, className }: { link: Links; className?: string }) => {
-  const { open, animate } = useSidebar();
-  
+const NavigationTabs = () => {
+  const handleTabChange = (index: number | null) => {
+    if (index !== null) {
+      window.location.href = menuItems[index].href;
+    }
+  };
+
   return (
-    <Link
-      to={link.href}
-      className={cn(
-        "flex items-center justify-start gap-2 group/sidebar py-2",
-        className
-      )}
-    >
-      {link.icon}
-      <motion.span
-        animate={{
-          display: animate ? (open ? "inline-block" : "none") : "inline-block",
-          opacity: animate ? (open ? 1 : 0) : 1,
-        }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
-      >
-        {link.label}
-      </motion.span>
-    </Link>
+    <ExpandableTabs
+      tabs={menuItems}
+      onChange={handleTabChange}
+      className="mb-4"
+    />
+  );
+};
+
+const GravityIcons = () => {
+  return (
+    <Gravity className="h-32 relative mb-4" debug={false}>
+      {menuItems.map((item, index) => (
+        <MatterBody
+          key={item.title}
+          x={`${(index + 1) * 20}%`}
+          y="0%"
+          bodyType="circle"
+        >
+          <div className="p-2 bg-primary rounded-full text-white">
+            <item.icon size={24} />
+          </div>
+        </MatterBody>
+      ))}
+    </Gravity>
   );
 };
 
@@ -123,6 +129,8 @@ const DesktopSidebar = ({
       onMouseLeave={() => setOpen(false)}
       {...props}
     >
+      <NavigationTabs />
+      <GravityIcons />
       {children}
     </motion.div>
   );
@@ -186,14 +194,28 @@ export const DashboardSidebar = () => {
         <DesktopSidebar>
           <nav className="flex-1 space-y-2">
             {menuItems.map((item) => (
-              <SidebarLink key={item.label} link={item} />
+              <Link
+                key={item.title}
+                to={item.href}
+                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700"
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.title}</span>
+              </Link>
             ))}
           </nav>
         </DesktopSidebar>
         <MobileSidebar>
           <nav className="flex-1 space-y-4">
             {menuItems.map((item) => (
-              <SidebarLink key={item.label} link={item} />
+              <Link
+                key={item.title}
+                to={item.href}
+                className="flex items-center space-x-2 p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700"
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.title}</span>
+              </Link>
             ))}
           </nav>
         </MobileSidebar>
