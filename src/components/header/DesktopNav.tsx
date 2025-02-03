@@ -1,169 +1,52 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { NavLink } from "./NavLink";
-import { useState } from "react";
-import { Calculator, Building2, FileSpreadsheet, ChevronDown, BarChart3, Users } from "lucide-react";
-
-type NavItem = {
-  id: number;
-  label: string;
-  subMenus?: {
-    title: string;
-    items: {
-      label: string;
-      description: string;
-      icon: React.ElementType;
-      link: string;
-    }[];
-  }[];
-  link?: string;
-  icon?: React.ElementType;
-};
-
-const navItems: NavItem[] = [
-  {
-    id: 1,
-    label: "Investment Tools",
-    subMenus: [
-      {
-        title: "Analysis Tools",
-        items: [
-          {
-            label: "ROI Calculator",
-            description: "Calculate your return on investment",
-            icon: Calculator,
-            link: "/calculator"
-          },
-          {
-            label: "Property Evaluation",
-            description: "Evaluate property potential",
-            icon: Building2,
-            link: "/property-evaluation"
-          },
-          {
-            label: "Investment Proposal",
-            description: "Create investment proposals",
-            icon: FileSpreadsheet,
-            link: "/investment"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 2,
-    label: "Statistics",
-    link: "/statistics",
-    icon: BarChart3
-  },
-  {
-    id: 3,
-    label: "Community",
-    link: "/community",
-    icon: Users
-  }
-];
+import { ThemeToggle } from "../ThemeToggle";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/components/ui/use-toast";
+import { LogOut } from "lucide-react";
 
 export const DesktopNav = () => {
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [isHover, setIsHover] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleHover = (menuLabel: string | null) => {
-    setOpenMenu(menuLabel);
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Failed to sign out. Please try again.",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Success",
+        description: "Successfully signed out!",
+      });
+      navigate("/");
+    }
   };
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="hidden md:flex items-center space-x-6"
-    >
-      <ul className="relative flex items-center space-x-2">
-        {navItems.map((navItem) => (
-          <li
-            key={navItem.label}
-            className="relative"
-            onMouseEnter={() => handleHover(navItem.label)}
-            onMouseLeave={() => handleHover(null)}
-          >
-            {navItem.link ? (
-              <NavLink to={navItem.link} className="py-1.5 px-4 rounded-full hover:bg-primary-light/10 flex items-center gap-2">
-                {navItem.icon && <navItem.icon className="h-4 w-4" />}
-                {navItem.label}
-              </NavLink>
-            ) : (
-              <button
-                className="text-sm py-1.5 px-4 flex cursor-pointer group transition-colors duration-300 items-center justify-center gap-1 text-white/90 hover:text-white relative rounded-full"
-                onMouseEnter={() => setIsHover(navItem.id)}
-                onMouseLeave={() => setIsHover(null)}
-              >
-                <span>{navItem.label}</span>
-                {navItem.subMenus && (
-                  <ChevronDown
-                    className={`h-4 w-4 group-hover:rotate-180 duration-300 transition-transform
-                      ${openMenu === navItem.label ? "rotate-180" : ""}`}
-                  />
-                )}
-                {(isHover === navItem.id || openMenu === navItem.label) && (
-                  <motion.div
-                    layoutId="hover-bg"
-                    className="absolute inset-0 size-full bg-primary-light/10"
-                    style={{ borderRadius: 99 }}
-                  />
-                )}
-              </button>
-            )}
-
-            <AnimatePresence>
-              {openMenu === navItem.label && navItem.subMenus && (
-                <div className="w-auto absolute left-0 top-full pt-2">
-                  <motion.div
-                    className="bg-white border border-gray-200 p-4 w-max shadow-lg"
-                    style={{ borderRadius: 16 }}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
-                    <div className="w-fit shrink-0 flex space-x-9 overflow-hidden">
-                      {navItem.subMenus.map((sub) => (
-                        <motion.div layout className="w-full" key={sub.title}>
-                          <h3 className="mb-4 text-sm font-medium text-black">
-                            {sub.title}
-                          </h3>
-                          <ul className="space-y-6">
-                            {sub.items.map((item) => {
-                              const Icon = item.icon;
-                              return (
-                                <li key={item.label}>
-                                  <NavLink
-                                    to={item.link}
-                                    className="flex items-start space-x-3 group"
-                                  >
-                                    <div className="border border-gray-200 text-black rounded-md flex items-center justify-center size-9 shrink-0 group-hover:bg-primary/10 group-hover:text-primary transition-colors duration-300">
-                                      <Icon className="h-5 w-5 flex-none" />
-                                    </div>
-                                    <div className="leading-5 w-max">
-                                      <p className="text-sm font-medium text-black shrink-0 group-hover:text-primary">
-                                        {item.label}
-                                      </p>
-                                      <p className="text-xs text-black shrink-0 group-hover:text-primary/80 transition-colors duration-300">
-                                        {item.description}
-                                      </p>
-                                    </div>
-                                  </NavLink>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
-              )}
-            </AnimatePresence>
-          </li>
-        ))}
-      </ul>
-    </motion.nav>
+    <nav className="hidden md:flex items-center gap-6">
+      <NavLink to="/" className="text-white hover:text-white/80">
+        Home
+      </NavLink>
+      <NavLink to="/calculator" className="text-white hover:text-white/80">
+        Calculator
+      </NavLink>
+      <NavLink to="/dashboard" className="text-white hover:text-white/80">
+        Dashboard
+      </NavLink>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={handleLogout}
+        className="text-white hover:text-white/80"
+      >
+        <LogOut className="h-5 w-5" />
+      </Button>
+      <ThemeToggle />
+    </nav>
   );
 };

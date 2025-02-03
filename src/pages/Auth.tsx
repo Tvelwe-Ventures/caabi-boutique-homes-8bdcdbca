@@ -19,6 +19,7 @@ const Auth = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log("Attempting authentication...");
     
     if (isForgotPassword) {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -26,6 +27,7 @@ const Auth = () => {
       });
 
       if (error) {
+        console.error("Password reset error:", error);
         toast({
           title: "Error",
           description: error.message,
@@ -45,6 +47,7 @@ const Auth = () => {
       });
 
       if (error) {
+        console.error("Signup error:", error);
         toast({
           title: "Error signing up",
           description: error.message,
@@ -63,17 +66,19 @@ const Auth = () => {
       });
 
       if (error) {
+        console.error("Login error:", error);
         toast({
           title: "Error signing in",
           description: error.message,
           variant: "destructive",
         });
       } else {
+        console.log("Login successful");
         toast({
           title: "Success",
           description: "Successfully signed in!",
         });
-        navigate("/community");
+        navigate("/dashboard");
       }
     }
     setLoading(false);
@@ -89,14 +94,8 @@ const Auth = () => {
         >
           <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl space-y-6">
             <div className="flex flex-col items-center space-y-1">
-              <div className="w-72 h-20 relative">
-                <img 
-                  src="/lovable-uploads/4076ac3a-dc4c-4f13-b6af-c754577ef171.png" 
-                  alt="PropOsphere" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <span className="text-base text-gray-500">by Caabi</span>
+              <h1 className="text-3xl font-bold text-gray-900">QuackOS</h1>
+              <span className="text-base text-gray-500">Property & Revenue Management System</span>
             </div>
             
             {!isForgotPassword && (
