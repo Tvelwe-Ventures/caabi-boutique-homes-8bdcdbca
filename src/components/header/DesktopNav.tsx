@@ -36,8 +36,8 @@ export const DesktopNav = () => {
 
   return (
     <nav className="hidden md:flex items-center gap-6">
-      <NavLink to="/auth" className="text-white hover:text-white/80 text-lg font-semibold">
-        QuackOS
+      <NavLink to="/" className="text-white hover:text-white/80">
+        Home
       </NavLink>
       
       <NavigationMenu>
@@ -66,6 +66,13 @@ export const DesktopNav = () => {
       <NavLink to="/community" className="text-white hover:text-white/80">
         Community
       </NavLink>
+
+      <div className="flex-1"></div>
+      
+      <NavLink to="/auth" className="text-white hover:text-white/80 text-lg font-semibold">
+        QuackOS
+      </NavLink>
+
       <Button
         variant="ghost"
         size="icon"

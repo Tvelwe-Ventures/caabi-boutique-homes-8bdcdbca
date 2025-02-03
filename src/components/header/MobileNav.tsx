@@ -1,7 +1,7 @@
 import { NavLink } from "./NavLink";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { Menu, Calculator, Building2, FileSpreadsheet, Users, LogOut } from "lucide-react";
+import { Menu, Calculator, Building2, FileSpreadsheet, Users, Home, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -37,10 +37,11 @@ export const MobileNav = () => {
       <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-white">
         <nav className="flex flex-col space-y-4 mt-8">
           <NavLink 
-            to="/auth" 
-            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 text-lg font-semibold"
+            to="/" 
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100"
           >
-            QuackOS
+            <Home className="h-4 w-4" />
+            <span>Home</span>
           </NavLink>
 
           <div className="px-4 py-2 text-sm font-medium text-gray-500">Investment Tools</div>
@@ -74,6 +75,15 @@ export const MobileNav = () => {
           >
             <Users className="h-4 w-4" />
             <span>Community</span>
+          </NavLink>
+
+          <div className="border-t border-gray-200 my-2"></div>
+
+          <NavLink 
+            to="/auth" 
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100 text-lg font-semibold"
+          >
+            QuackOS
           </NavLink>
 
           <Button
