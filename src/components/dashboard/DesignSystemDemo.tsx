@@ -40,6 +40,18 @@ const mockNewsItems = [
   },
 ];
 
+const mockContributors = [
+  { name: "John Doe", image: "/placeholder.svg" },
+  { name: "Jane Smith", image: "/placeholder.svg" },
+  { name: "Mike Johnson", image: "/placeholder.svg" },
+];
+
+const mockTasks = [
+  { title: "Design Review", completed: true },
+  { title: "Frontend Implementation", completed: true },
+  { title: "Testing Phase", completed: false },
+];
+
 const DesignSystemDemo = () => {
   return (
     <div className="p-8 space-y-8">
@@ -61,13 +73,16 @@ const DesignSystemDemo = () => {
           />
           <ProjectStatusCard
             title="Project Status"
-            status="In Progress"
             progress={75}
+            dueDate="2024-03-01"
+            contributors={mockContributors}
+            tasks={mockTasks}
+            githubStars={128}
+            openIssues={5}
           />
         </BentoGrid>
       </DesignSystemSection>
 
-      {/* Original Button Section */}
       <DesignSystemSection 
         title="Buttons" 
         description="Various button styles and states for different actions."
@@ -81,7 +96,6 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
-      {/* Original Card Section */}
       <DesignSystemSection 
         title="Cards" 
         description="Container components for organizing content."
@@ -114,7 +128,6 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
-      {/* Information Cards Section (New) */}
       <DesignSystemSection 
         title="Information Cards" 
         description="Use these cards to display important updates and notifications to users."
@@ -142,7 +155,6 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
-      {/* Date Selection Section */}
       <DesignSystemSection 
         title="Date Selection" 
         description="Date pickers for selecting single dates or date ranges."
@@ -164,7 +176,6 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
-      {/* Navigation Elements Section */}
       <DesignSystemSection 
         title="Navigation Elements" 
         description="Components for user navigation and interaction."
@@ -188,7 +199,6 @@ const DesignSystemDemo = () => {
         </div>
       </DesignSystemSection>
 
-      {/* Animations Section */}
       <DesignSystemSection 
         title="Animations" 
         description="Animation examples and guidelines for consistent motion design."
