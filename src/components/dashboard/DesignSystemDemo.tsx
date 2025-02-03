@@ -6,6 +6,9 @@ import { NavigationSection } from "./design-system/NavigationSection";
 import { AnimationSection } from "./design-system/AnimationSection";
 import { InformationCardsSection } from "./design-system/InformationCardsSection";
 import { TypographySection } from "./design-system/TypographySection";
+import { GradientsSection } from "./design-system/GradientsSection";
+import { IconsSection } from "./design-system/IconsSection";
+import { TimelineSection } from "./design-system/TimelineSection";
 
 const DesignSystemDemo = () => {
   return (
@@ -19,10 +22,13 @@ const DesignSystemDemo = () => {
 
       <div className="space-y-16">
         <TypographySection />
+        <GradientsSection />
+        <IconsSection />
         <BentoSection />
         <ButtonsSection />
         <CardsSection />
         <InformationCardsSection />
+        <TimelineSection />
         <DateSelectionSection />
         <NavigationSection />
         <AnimationSection />
