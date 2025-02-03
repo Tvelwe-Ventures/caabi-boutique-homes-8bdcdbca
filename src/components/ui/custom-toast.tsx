@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Check, AlertCircle, X } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
 
 interface CustomToastProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -44,44 +44,42 @@ export function CustomToast({
       {...props}
     >
       <div className="flex items-center justify-between px-4 py-2">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={variant}
-            className="flex items-center gap-2 text-foreground"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            {variant === "success" && (
-              <div className="p-0.5 bg-emerald-500/10 dark:bg-emerald-500/25 rounded-[99px] shadow-sm border border-emerald-500/20 dark:border-emerald-500/25 justify-center items-center gap-1.5 flex overflow-hidden">
-                <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-500" />
-              </div>
-            )}
-            {variant === "error" && (
-              <div className="p-0.5 bg-red-500/10 dark:bg-red-500/25 rounded-[99px] shadow-sm border border-red-500/20 dark:border-red-500/25 justify-center items-center gap-1.5 flex overflow-hidden">
-                <AlertCircle className="w-3.5 h-3.5 text-red-600 dark:text-red-500" />
-              </div>
-            )}
-            {variant === "default" && (
-              <div className="text-foreground/80">
-                <AlertCircle className="w-4 h-4" />
-              </div>
-            )}
-            <div className="flex flex-col">
-              {title && (
-                <div className="text-[13px] font-medium leading-tight">
-                  {title}
-                </div>
-              )}
-              {description && (
-                <div className="text-[13px] text-muted-foreground">
-                  {description}
-                </div>
-              )}
+        <motion.div
+          key={variant}
+          className="flex items-center gap-2 text-foreground"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {variant === "success" && (
+            <div className="p-0.5 bg-emerald-500/10 dark:bg-emerald-500/25 rounded-[99px] shadow-sm border border-emerald-500/20 dark:border-emerald-500/25 justify-center items-center gap-1.5 flex overflow-hidden">
+              <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-500" />
             </div>
-          </motion.div>
-        </AnimatePresence>
+          )}
+          {variant === "error" && (
+            <div className="p-0.5 bg-red-500/10 dark:bg-red-500/25 rounded-[99px] shadow-sm border border-red-500/20 dark:border-red-500/25 justify-center items-center gap-1.5 flex overflow-hidden">
+              <AlertCircle className="w-3.5 h-3.5 text-red-600 dark:text-red-500" />
+            </div>
+          )}
+          {variant === "default" && (
+            <div className="text-foreground/80">
+              <AlertCircle className="w-4 h-4" />
+            </div>
+          )}
+          <div className="flex flex-col">
+            {title && (
+              <div className="text-[13px] font-medium leading-tight">
+                {title}
+              </div>
+            )}
+            {description && (
+              <div className="text-[13px] text-muted-foreground">
+                {description}
+              </div>
+            )}
+          </div>
+        </motion.div>
         {onClose && (
           <button
             onClick={onClose}
