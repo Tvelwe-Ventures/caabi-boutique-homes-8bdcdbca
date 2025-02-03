@@ -16,7 +16,7 @@ export const WebsiteFeedback = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -32,6 +32,7 @@ export const WebsiteFeedback = () => {
       toast({
         title: "Thank you for your feedback!",
         description: "We appreciate your input and will review it carefully.",
+        variant: "default",
       });
 
       // Reset form

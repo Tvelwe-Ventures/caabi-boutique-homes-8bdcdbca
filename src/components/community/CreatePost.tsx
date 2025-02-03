@@ -127,6 +127,7 @@ export const CreatePost = ({ onPostCreated }: { onPostCreated: () => void }) => 
     toast({
       title: "Success",
       description: "Post created successfully",
+      variant: "default",
     });
     onPostCreated();
   };
