@@ -1,34 +1,23 @@
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React from "react";
+import { cn } from "@/lib/utils";
 
-interface BentoGridProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BentoGridProps {
   children: React.ReactNode;
+  className?: string;
 }
 
-export const BentoGrid = React.forwardRef<HTMLDivElement, BentoGridProps>(
-  ({ className, children, ...props }, ref) => {
-    return (
-      <motion.div
-        ref={ref}
-        className={cn(
-          "grid w-full gap-4 auto-rows-[minmax(200px,auto)]",
-          className
-        )}
-        {...props}
-      >
-        {React.Children.map(children, (child, i) => (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-          >
-            {child}
-          </motion.div>
-        ))}
-      </motion.div>
-    );
-  }
-);
-
-BentoGrid.displayName = "BentoGrid";
+export function BentoGrid({ children, className }: BentoGridProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className={cn(
+        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4",
+        className
+      )}
+    >
+      {children}
+    </motion.div>
+  );
+}
