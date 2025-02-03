@@ -31,12 +31,13 @@ const Auth = () => {
         toast({
           title: "Error",
           description: error.message,
-          variant: "destructive",
+          variant: "error",
         });
       } else {
         toast({
           title: "Success",
           description: "Password reset instructions have been sent to your email.",
+          variant: "default",
         });
         setIsForgotPassword(false);
       }
@@ -51,12 +52,13 @@ const Auth = () => {
         toast({
           title: "Error signing up",
           description: error.message,
-          variant: "destructive",
+          variant: "error",
         });
       } else {
         toast({
           title: "Success",
           description: "Please check your email for the confirmation link.",
+          variant: "default",
         });
       }
     } else {
@@ -70,13 +72,14 @@ const Auth = () => {
         toast({
           title: "Error signing in",
           description: error.message,
-          variant: "destructive",
+          variant: "error",
         });
       } else {
         console.log("Login successful");
         toast({
           title: "Success",
           description: "Successfully signed in!",
+          variant: "default",
         });
         navigate("/dashboard");
       }
@@ -94,7 +97,11 @@ const Auth = () => {
         >
           <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl space-y-6">
             <div className="flex flex-col items-center space-y-1">
-              <h1 className="text-3xl font-bold text-gray-900">QuackOS</h1>
+              <img 
+                src="/lovable-uploads/a2eddfc3-d21a-49c6-95bf-0ebb79dfb55c.png" 
+                alt="QuackOS" 
+                className="h-12 mb-2"
+              />
               <span className="text-base text-gray-500">Property & Revenue Management System</span>
             </div>
             
