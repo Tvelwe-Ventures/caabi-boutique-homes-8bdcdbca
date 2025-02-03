@@ -1,6 +1,6 @@
 import { DesignSystemSection } from "./DesignSystemSection";
 import { Gravity, MatterBody } from "@/components/ui/gravity";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp } from "lucide-react";
+import { Circle, Square, Hexagon, Triangle } from "lucide-react";
 
 export const GravitySection = () => {
   return (
@@ -11,34 +11,35 @@ export const GravitySection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="p-6 bg-white rounded-lg border">
           <h3 className="text-lg font-medium mb-4">Loading State</h3>
-          <Gravity className="h-32 relative" debug={false}>
+          <Gravity className="h-48 relative" debug={false}>
             <MatterBody x="30%" y="0%" bodyType="circle">
-              <div className="p-2 bg-primary rounded-full text-white animate-pulse">
-                <ArrowUp size={24} />
+              <div className="p-3 bg-primary rounded-full text-white animate-pulse flex items-center justify-center min-w-[80px] min-h-[80px]">
+                <span>Loading</span>
               </div>
             </MatterBody>
-            <MatterBody x="50%" y="0%" bodyType="circle">
-              <div className="p-2 bg-primary rounded-full text-white animate-pulse">
-                <ArrowDown size={24} />
+            <MatterBody x="50%" y="0%" bodyType="rectangle">
+              <div className="p-3 bg-primary rounded-lg text-white animate-pulse flex items-center justify-center min-w-[80px] min-h-[80px]">
+                <span>Please</span>
               </div>
             </MatterBody>
             <MatterBody x="70%" y="0%" bodyType="circle">
-              <div className="p-2 bg-primary rounded-full text-white animate-pulse">
-                <ArrowRight size={24} />
+              <div className="p-3 bg-primary rounded-full text-white animate-pulse flex items-center justify-center min-w-[80px] min-h-[80px]">
+                <span>Wait</span>
               </div>
             </MatterBody>
           </Gravity>
           <p className="text-sm text-gray-600 mt-4">
-            Physics-based loading animation with interactive elements
+            Physics-based loading animation with interactive elements that settle at the bottom
           </p>
         </div>
 
         <div className="p-6 bg-white rounded-lg border">
           <h3 className="text-lg font-medium mb-4">Empty State</h3>
-          <Gravity className="h-32 relative" debug={false}>
-            <MatterBody x="50%" y="0%" bodyType="circle">
-              <div className="p-3 bg-secondary/20 rounded-full">
-                <ArrowLeft size={24} className="text-secondary-dark" />
+          <Gravity className="h-48 relative" debug={false}>
+            <MatterBody x="50%" y="0%" bodyType="rectangle">
+              <div className="p-4 bg-secondary/20 rounded-lg flex flex-col items-center justify-center min-w-[120px] min-h-[120px]">
+                <Square className="w-8 h-8 text-secondary-dark mb-2" />
+                <span className="text-sm text-secondary-dark">No Data</span>
               </div>
             </MatterBody>
           </Gravity>
@@ -49,16 +50,22 @@ export const GravitySection = () => {
 
         <div className="p-6 bg-white rounded-lg border">
           <h3 className="text-lg font-medium mb-4">Interactive Elements</h3>
-          <Gravity className="h-32 relative" debug={false}>
-            {[ArrowUp, ArrowDown, ArrowLeft, ArrowRight].map((Icon, index) => (
+          <Gravity className="h-48 relative" debug={false}>
+            {[
+              { Icon: Circle, text: "Drag", shape: "circle" },
+              { Icon: Square, text: "And", shape: "rectangle" },
+              { Icon: Hexagon, text: "Drop", shape: "circle" },
+              { Icon: Triangle, text: "Me", shape: "circle" }
+            ].map((item, index) => (
               <MatterBody
                 key={index}
                 x={`${(index + 1) * 20}%`}
                 y="0%"
-                bodyType="circle"
+                bodyType={item.shape}
               >
-                <div className="p-2 bg-primary-light hover:bg-primary transition-colors rounded-full text-white cursor-grab active:cursor-grabbing">
-                  <Icon size={24} />
+                <div className="p-3 bg-primary-light hover:bg-primary transition-colors rounded-lg text-white cursor-grab active:cursor-grabbing flex flex-col items-center justify-center min-w-[80px] min-h-[80px]">
+                  <item.Icon className="w-6 h-6 mb-1" />
+                  <span className="text-sm">{item.text}</span>
                 </div>
               </MatterBody>
             ))}
@@ -75,6 +82,8 @@ export const GravitySection = () => {
             <li>Empty states should guide users to take action</li>
             <li>Interactive elements should provide clear feedback</li>
             <li>Maintain consistent physics properties across similar components</li>
+            <li>Elements will naturally settle at the bottom due to gravity</li>
+            <li>Use appropriate shapes and text to convey meaning</li>
           </ul>
         </div>
       </div>
