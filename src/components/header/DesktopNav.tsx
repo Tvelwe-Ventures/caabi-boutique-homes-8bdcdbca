@@ -5,6 +5,13 @@ import { ThemeToggle } from "../ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LogOut } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 export const DesktopNav = () => {
   const navigate = useNavigate();
@@ -32,15 +39,30 @@ export const DesktopNav = () => {
       <NavLink to="/" className="text-white hover:text-white/80">
         Home
       </NavLink>
-      <NavLink to="/calculator" className="text-white hover:text-white/80">
-        Calculator
-      </NavLink>
-      <NavLink to="/property-evaluation" className="text-white hover:text-white/80">
-        Property Evaluation
-      </NavLink>
-      <NavLink to="/investment-proposal" className="text-white hover:text-white/80">
-        Investment Proposal
-      </NavLink>
+      
+      <NavigationMenu>
+        <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="text-white hover:text-white/80 bg-transparent">
+              Investment Tools
+            </NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <div className="grid gap-3 p-4 w-[200px]">
+                <NavLink to="/calculator" className="hover:bg-accent rounded-md p-2">
+                  ROI Calculator
+                </NavLink>
+                <NavLink to="/property-evaluation" className="hover:bg-accent rounded-md p-2">
+                  Property Evaluation
+                </NavLink>
+                <NavLink to="/investment-proposal" className="hover:bg-accent rounded-md p-2">
+                  Investment Proposal
+                </NavLink>
+              </div>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+
       <NavLink to="/dashboard" className="text-white hover:text-white/80">
         Dashboard
       </NavLink>
