@@ -6,8 +6,9 @@ import { menuItems } from "./menuItems";
 
 export const DesktopSidebar = ({
   className,
-  ...props
-}: React.ComponentProps<"div">) => {
+}: {
+  className?: string;
+}) => {
   const { open, setOpen } = useSidebar();
   
   return (
@@ -21,7 +22,6 @@ export const DesktopSidebar = ({
       }}
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
-      {...props}
     >
       <nav className="flex-1 space-y-2">
         {menuItems.map((item) => {
