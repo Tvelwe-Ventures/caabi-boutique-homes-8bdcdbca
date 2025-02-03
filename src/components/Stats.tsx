@@ -3,6 +3,9 @@ import { useInView } from "react-intersection-observer";
 import CountUp from "react-countup";
 import { Home, Star, Heart, DollarSign } from "lucide-react";
 import { StandardCard } from "./ui/standard-card";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "./ui/use-toast";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -10,7 +13,8 @@ const Stats = () => {
     threshold: 0.2,
   });
 
-  const stats = [
+  const { toast } = useToast();
+  const [stats, setStats] = useState([
     { 
       value: 88, 
       suffix: "%", 
@@ -43,7 +47,76 @@ const Stats = () => {
       icon: DollarSign,
       className: "md:col-span-2 lg:col-span-1"
     }
-  ];
+  ]);
+
+  useEffect(() => {
+    // Initial fetch of stats
+    const fetchStats = async () => {
+      try {
+        const { data: evaluations, error } = await supabase
+          .from('property_evaluations')
+          .select('estimated_revenue, estimated_occupancy, average_daily_rate')
+          .order('created_at', { ascending: false })
+          .limit(100);
+
+        if (error) throw error;
+
+        if (evaluations && evaluations.length > 0) {
+          // Calculate averages
+          const avgOccupancy = evaluations.reduce((acc, curr) => acc + Number(curr.estimated_occupancy), 0) / evaluations.length;
+          const avgRevenue = evaluations.reduce((acc, curr) => acc + Number(curr.estimated_revenue), 0) / evaluations.length;
+          const avgDailyRate = evaluations.reduce((acc, curr) => acc + Number(curr.average_daily_rate), 0) / evaluations.length;
+
+          // Update stats with real data
+          setStats(currentStats => 
+            currentStats.map(stat => {
+              if (stat.label === "Average Occupancy Rate") {
+                return { ...stat, value: Math.round(avgOccupancy) };
+              }
+              if (stat.label === "Higher Revenue") {
+                return { ...stat, value: Math.round((avgRevenue / 50000 - 1) * 100) }; // Comparing to baseline of 50k
+              }
+              return stat;
+            })
+          );
+        }
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+      }
+    };
+
+    fetchStats();
+
+    // Subscribe to real-time updates
+    const channel = supabase
+      .channel('property_stats')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'property_evaluations'
+        },
+        async (payload) => {
+          console.log('Real-time update received:', payload);
+          
+          // Fetch updated stats after any change
+          await fetchStats();
+          
+          // Show toast notification
+          toast({
+            title: "Statistics Updated",
+            description: "Real-time data has been refreshed",
+            variant: "success",
+          });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [toast]);
 
   return (
     <section ref={ref} className="relative py-20 overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white">
