@@ -33,7 +33,7 @@ export const DashboardFooter = () => {
 
   return (
     <Footer
-      logo={<img src="/lovable-uploads/84797c58-4f93-470b-b0d1-f07546eba52b.png" alt="QuackOS" className="h-8 w-auto" />}
+      logo={<img src="/lovable-uploads/6ebca0aa-680c-4f81-af6c-65d297c5c9a5.png" alt="QuackOS" className="h-8 w-auto" />}
       brandName="QuackOS"
       socialLinks={socialLinks}
       mainLinks={mainLinks}
