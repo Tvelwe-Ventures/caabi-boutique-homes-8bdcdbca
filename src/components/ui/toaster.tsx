@@ -16,7 +16,7 @@ export function Toaster() {
             key={id}
             title={title?.toString()}
             description={description?.toString()}
-            variant={props.variant === "destructive" ? "error" : "default"}
+            variant={props.variant === "destructive" ? "error" : props.variant === "default" ? "default" : "error"}
             {...props}
           />
         )

@@ -2,10 +2,10 @@
 
 import * as React from "react"
 import { Check, AlertCircle, X } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, HTMLMotionProps } from "framer-motion"
 import { cn } from "@/lib/utils"
 
-interface CustomToastProps extends React.HTMLAttributes<HTMLDivElement> {
+interface CustomToastProps extends Omit<HTMLMotionProps<"div">, "children"> {
   title?: string
   description?: string
   variant?: "default" | "success" | "error"
