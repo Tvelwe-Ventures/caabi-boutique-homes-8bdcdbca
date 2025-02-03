@@ -1,66 +1,107 @@
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-const Footer = () => {
+interface FooterProps {
+  logo: React.ReactNode;
+  brandName: string;
+  socialLinks: Array<{
+    icon: React.ReactNode;
+    href: string;
+    label: string;
+  }>;
+  mainLinks: Array<{
+    href: string;
+    label: string;
+  }>;
+  legalLinks: Array<{
+    href: string;
+    label: string;
+  }>;
+  copyright: {
+    text: string;
+    license?: string;
+  };
+}
+
+export function Footer({
+  logo,
+  brandName,
+  socialLinks,
+  mainLinks,
+  legalLinks,
+  copyright,
+}: FooterProps) {
   return (
-    <motion.footer 
+    <motion.footer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-gray-100 py-8 mt-20"
+      className="pb-6 pt-16 lg:pb-8 lg:pt-24"
     >
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900">About Us</h3>
-            <p className="text-sm text-gray-900">
-              Caabi Boutique Homes specializes in luxury short-term rentals in Dubai,
-              offering premium properties and exceptional service.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="text-gray-900 hover:text-primary transition-colors">Home</Link></li>
-              <li><Link to="/calculator" className="text-gray-900 hover:text-primary transition-colors">ROI Calculator</Link></li>
-              <li><Link to="/investment" className="text-gray-900 hover:text-primary transition-colors">Investment Proposal</Link></li>
-              <li><Link to="/privacy" className="text-gray-900 hover:text-primary transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-gray-900 hover:text-primary transition-colors">Terms & Conditions</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900">Contact</h3>
-            <ul className="space-y-2 text-sm text-gray-900">
-              <li>Dubai, UAE</li>
-              <li>Email: info@caabi.com</li>
-              <li>Phone: +971 XX XXX XXXX</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-900 hover:text-primary transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-900 hover:text-primary transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-900 hover:text-primary transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-900 hover:text-primary transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
+      <div className="px-4 lg:px-8">
+        <div className="md:flex md:items-start md:justify-between">
+          <a
+            href="/"
+            className="flex items-center gap-x-2"
+            aria-label={brandName}
+          >
+            {logo}
+            <span className="font-bold text-xl">{brandName}</span>
+          </a>
+          <ul className="flex list-none mt-6 md:mt-0 space-x-3">
+            {socialLinks.map((link, i) => (
+              <li key={i}>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="h-10 w-10 rounded-full"
+                  asChild
+                >
+                  <a href={link.href} target="_blank" aria-label={link.label}>
+                    {link.icon}
+                  </a>
+                </Button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <div className="mt-8 pt-8 border-t border-gray-200 text-center text-xs text-gray-900">
-          <p>&copy; {new Date().getFullYear()} Caabi Boutique Homes. All rights reserved.</p>
+        <div className="border-t mt-6 pt-6 md:mt-4 md:pt-8 lg:grid lg:grid-cols-10">
+          <nav className="lg:mt-0 lg:col-[4/11]">
+            <ul className="list-none flex flex-wrap -my-1 -mx-2 lg:justify-end">
+              {mainLinks.map((link, i) => (
+                <li key={i} className="my-1 mx-2 shrink-0">
+                  <a
+                    href={link.href}
+                    className="text-sm text-primary underline-offset-4 hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <div className="mt-6 lg:mt-0 lg:col-[4/11]">
+            <ul className="list-none flex flex-wrap -my-1 -mx-3 lg:justify-end">
+              {legalLinks.map((link, i) => (
+                <li key={i} className="my-1 mx-3 shrink-0">
+                  <a
+                    href={link.href}
+                    className="text-sm text-muted-foreground underline-offset-4 hover:underline"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mt-6 text-sm leading-6 text-muted-foreground whitespace-nowrap lg:mt-0 lg:row-[1/3] lg:col-[1/4]">
+            <div>{copyright.text}</div>
+            {copyright.license && <div>{copyright.license}</div>}
+          </div>
         </div>
       </div>
     </motion.footer>
   );
-};
+}
 
 export default Footer;
