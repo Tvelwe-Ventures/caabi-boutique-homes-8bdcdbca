@@ -5,7 +5,7 @@ import { Home, Star, Heart, DollarSign } from "lucide-react";
 import { StandardCard } from "./ui/standard-card";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "./ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const Stats = () => {
   const [ref, inView] = useInView({
@@ -107,7 +107,7 @@ const Stats = () => {
           toast({
             title: "Statistics Updated",
             description: "Real-time data has been refreshed",
-            variant: "success",
+            variant: "default",
           });
         }
       )

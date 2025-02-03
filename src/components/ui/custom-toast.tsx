@@ -4,7 +4,6 @@ import * as React from "react"
 import { Check, AlertCircle, X } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Spinner } from "./spinner"
 
 interface CustomToastProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string

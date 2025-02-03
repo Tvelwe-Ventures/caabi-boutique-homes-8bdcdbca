@@ -1,10 +1,6 @@
 import { useToast } from "@/hooks/use-toast"
 import {
-  Toast,
-  ToastClose,
-  ToastDescription,
   ToastProvider,
-  ToastTitle,
   ToastViewport,
 } from "@/components/ui/toast"
 import { CustomToast } from "./custom-toast"
@@ -18,9 +14,9 @@ export function Toaster() {
         return (
           <CustomToast
             key={id}
-            title={title}
-            description={description}
-            variant={props.variant === "destructive" ? "error" : props.variant === "default" ? "success" : "default"}
+            title={title?.toString()}
+            description={description?.toString()}
+            variant={props.variant === "destructive" ? "error" : "default"}
             {...props}
           />
         )
