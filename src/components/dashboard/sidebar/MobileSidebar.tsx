@@ -55,6 +55,13 @@ export const MobileSidebar = ({
                 );
               })}
             </nav>
+            <div className="mt-auto pt-6 border-t">
+              <img 
+                src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png" 
+                alt="QuackOS" 
+                className="h-8 w-auto mx-auto"
+              />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

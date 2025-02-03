@@ -8,7 +8,7 @@ export const Logo = () => {
   return (
     <Link to={isQuackOSRoute ? "/dashboard" : "/"}>
       <motion.img
-        src={isQuackOSRoute ? "/lovable-uploads/84797c58-4f93-470b-b0d1-f07546eba52b.png" : "/lovable-uploads/8d2c4f1d-4dfc-4201-81c1-a9ac1aa8de36.png"}
+        src={isQuackOSRoute ? "/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png" : "/lovable-uploads/8d2c4f1d-4dfc-4201-81c1-a9ac1aa8de36.png"}
         alt={isQuackOSRoute ? "QuackOS" : "Caabi Boutique Homes"}
         className="h-8 md:h-12 w-auto"
         initial={{ opacity: 0, scale: 0.8 }}

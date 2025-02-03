@@ -47,6 +47,16 @@ export const DesktopSidebar = ({
           );
         })}
       </nav>
+      <div className="mt-auto pt-4 border-t">
+        <motion.img 
+          src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png" 
+          alt="QuackOS"
+          className="h-8 w-auto mx-auto"
+          animate={{
+            opacity: open ? 1 : 0,
+          }}
+        />
+      </div>
     </motion.div>
   );
 };
