@@ -74,10 +74,10 @@ export function ExpandableTabs({
           return <Separator key={`separator-${index}`} />;
         }
 
-        const Icon = tab.icon;
+        const TabIcon = (tab as Tab).icon;
         return (
           <motion.button
-            key={tab.title}
+            key={(tab as Tab).title}
             variants={buttonVariants}
             initial={false}
             animate="animate"
@@ -91,7 +91,7 @@ export function ExpandableTabs({
                 : "text-muted-foreground hover:bg-muted hover:text-foreground"
             )}
           >
-            <Icon size={20} />
+            <TabIcon size={20} />
             <AnimatePresence initial={false}>
               {selected === index && (
                 <motion.span
@@ -100,9 +100,9 @@ export function ExpandableTabs({
                   animate="animate"
                   exit="exit"
                   transition={transition}
-                  className="overflow-hidden"
+                  className="overflow-hidden whitespace-nowrap"
                 >
-                  {tab.title}
+                  {(tab as Tab).title}
                 </motion.span>
               )}
             </AnimatePresence>
