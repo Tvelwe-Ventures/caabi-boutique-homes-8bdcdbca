@@ -272,6 +272,69 @@ export type Database = {
         }
         Relationships: []
       }
+      properties: {
+        Row: {
+          area_sqft: number
+          bathrooms: number
+          bedrooms: number
+          created_at: string
+          current_value: number
+          id: string
+          is_furnished: boolean | null
+          last_renovation_date: string | null
+          location: string
+          maintenance_status: string | null
+          manager_id: string | null
+          monthly_rent: number
+          name: string
+          occupancy_rate: number | null
+          owner_id: string | null
+          property_type: Database["public"]["Enums"]["property_type"]
+          purchase_price: number
+          updated_at: string
+        }
+        Insert: {
+          area_sqft: number
+          bathrooms: number
+          bedrooms: number
+          created_at?: string
+          current_value: number
+          id?: string
+          is_furnished?: boolean | null
+          last_renovation_date?: string | null
+          location: string
+          maintenance_status?: string | null
+          manager_id?: string | null
+          monthly_rent: number
+          name: string
+          occupancy_rate?: number | null
+          owner_id?: string | null
+          property_type: Database["public"]["Enums"]["property_type"]
+          purchase_price: number
+          updated_at?: string
+        }
+        Update: {
+          area_sqft?: number
+          bathrooms?: number
+          bedrooms?: number
+          created_at?: string
+          current_value?: number
+          id?: string
+          is_furnished?: boolean | null
+          last_renovation_date?: string | null
+          location?: string
+          maintenance_status?: string | null
+          manager_id?: string | null
+          monthly_rent?: number
+          name?: string
+          occupancy_rate?: number | null
+          owner_id?: string | null
+          property_type?: Database["public"]["Enums"]["property_type"]
+          purchase_price?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       property_evaluations: {
         Row: {
           average_daily_rate: number | null
@@ -327,6 +390,47 @@ export type Database = {
             columns: ["lead_id"]
             isOneToOne: false
             referencedRelation: "property_leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      property_expenses: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          description: string | null
+          expense_date: string
+          id: string
+          property_id: string | null
+          receipt_url: string | null
+        }
+        Insert: {
+          amount: number
+          category: string
+          created_at?: string
+          description?: string | null
+          expense_date: string
+          id?: string
+          property_id?: string | null
+          receipt_url?: string | null
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          description?: string | null
+          expense_date?: string
+          id?: string
+          property_id?: string | null
+          receipt_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_expenses_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
             referencedColumns: ["id"]
           },
         ]
@@ -515,6 +619,7 @@ export type Database = {
     }
     Enums: {
       feedback_type: "stay" | "suggestion" | "general"
+      property_type: "apartment" | "villa" | "townhouse" | "penthouse"
       report_type: "spam" | "harassment" | "inappropriate" | "other"
       user_role: "user" | "moderator" | "admin"
     }
