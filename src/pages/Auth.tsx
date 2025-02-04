@@ -98,8 +98,8 @@ const Auth = () => {
           <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl space-y-6">
             <div className="flex flex-col items-center space-y-1">
               <img 
-                src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png" 
-                alt="PropOS" 
+                src="/lovable-uploads/b837db34-8f03-4d51-b7c3-72d79997c3cd.png" 
+                alt="Quack OS" 
                 className="h-12 mb-2"
               />
               <span className="text-base text-gray-500">Property & Revenue Management System</span>
