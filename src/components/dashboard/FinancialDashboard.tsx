@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Building2, TrendingUp, DollarSign, Percent, Home, Plus, FileText, Settings, Clock } from "lucide-react";
@@ -13,6 +12,7 @@ import { Button } from "../ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { ActivityCard } from "../ui/activity-card";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
+import PortfolioMap from "./PortfolioMap";
 
 interface FinancialMetrics {
   totalRevenue: number;
@@ -159,6 +159,14 @@ const FinancialDashboard = () => {
           onToggleGoal={(id) => console.log('Toggle goal', id)}
           onViewDetails={() => console.log('View property management details')}
         />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        <PortfolioMap />
       </motion.div>
 
       <motion.div
