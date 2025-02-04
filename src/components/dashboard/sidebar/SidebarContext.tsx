@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 interface SidebarContextProps {
   open: boolean;
@@ -23,15 +23,41 @@ interface SidebarProviderProps {
   animate?: boolean;
 }
 
+const SIDEBAR_STATE_KEY = "sidebar-state";
+
 export const SidebarProvider = ({
   children,
   open: openProp,
   setOpen: setOpenProp,
   animate = true,
 }: SidebarProviderProps) => {
-  const [openState, setOpenState] = useState(false);
+  const [openState, setOpenState] = useState(() => {
+    const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
+    return savedState ? JSON.parse(savedState) : true;
+  });
+  
   const open = openProp !== undefined ? openProp : openState;
-  const setOpen = setOpenProp !== undefined ? setOpenProp : setOpenState;
+  const setOpen = (value: boolean | ((prev: boolean) => boolean)) => {
+    const newValue = typeof value === 'function' ? value(open) : value;
+    if (setOpenProp) {
+      setOpenProp(newValue);
+    } else {
+      setOpenState(newValue);
+    }
+    localStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(newValue));
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === 'b') {
+        e.preventDefault();
+        setOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <SidebarContext.Provider value={{ open, setOpen, animate }}>

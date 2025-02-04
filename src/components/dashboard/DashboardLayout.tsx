@@ -1,16 +1,16 @@
-import { Outlet } from "react-router-dom";
+import { SidebarProvider } from "./sidebar/SidebarContext";
 import { DesktopSidebar } from "./sidebar/DesktopSidebar";
 import { MobileSidebar } from "./sidebar/MobileSidebar";
-import { SidebarProvider } from "./sidebar/SidebarContext";
+import { Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen flex w-full">
         <DesktopSidebar />
         <MobileSidebar />
-        <main className="lg:pl-[300px] pt-[76px]">
-          <div className="container mx-auto px-4">
+        <main className="flex-1 md:pl-[300px] transition-all duration-300 ease-in-out">
+          <div className="container py-6 space-y-6">
             <Outlet />
           </div>
         </main>
