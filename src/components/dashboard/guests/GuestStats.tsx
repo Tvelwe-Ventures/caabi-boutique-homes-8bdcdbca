@@ -1,5 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Star, UserCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface GuestStatsProps {
   totalGuests: number;
@@ -12,26 +13,26 @@ export const GuestStats = ({ totalGuests, averageRating, repeatGuests }: GuestSt
     {
       label: 'Total Guests',
       value: totalGuests,
+      subValue: '+12%',
       icon: Users,
-      color: 'text-blue-500',
-      trend: '+12%',
-      trendColor: 'text-green-500',
+      color: 'text-primary',
+      bgColor: 'bg-primary/10',
     },
     {
       label: 'Average Rating',
       value: `${averageRating}/5.0`,
+      subValue: '+5%',
       icon: Star,
       color: 'text-yellow-500',
-      trend: '+5%',
-      trendColor: 'text-green-500',
+      bgColor: 'bg-yellow-50',
     },
     {
       label: 'Repeat Guests',
       value: repeatGuests,
+      subValue: '+18%',
       icon: UserCheck,
       color: 'text-green-500',
-      trend: '+18%',
-      trendColor: 'text-green-500',
+      bgColor: 'bg-green-50',
     },
   ];
 
@@ -40,22 +41,48 @@ export const GuestStats = ({ totalGuests, averageRating, repeatGuests }: GuestSt
       {stats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <Card key={index} className="hover:shadow-lg transition-shadow duration-200">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                  <p className="text-sm text-gray-500">{stat.label}</p>
-                  <div className="flex items-center space-x-2">
-                    <p className="text-2xl font-bold">{stat.value}</p>
-                    <span className={`text-sm ${stat.trendColor}`}>{stat.trend}</span>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: index * 0.1 }}
+          >
+            <Card className="overflow-hidden transition-all duration-200 hover:shadow-md">
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between">
+                  <div className="space-y-1">
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {stat.label}
+                    </p>
+                    <div className="flex items-baseline space-x-2">
+                      <p className="text-2xl font-semibold tracking-tight">
+                        {stat.value}
+                      </p>
+                      <span className="text-sm font-medium text-green-600">
+                        {stat.subValue}
+                      </span>
+                    </div>
+                  </div>
+                  <div className={`p-3 rounded-full ${stat.bgColor}`}>
+                    <Icon className={`h-5 w-5 ${stat.color}`} />
                   </div>
                 </div>
-                <div className={`p-4 rounded-full bg-gray-50 ${stat.color}`}>
-                  <Icon className="h-6 w-6" />
+                
+                <div className="mt-4">
+                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary rounded-full transition-all duration-500"
+                      style={{ 
+                        width: typeof stat.value === 'number' 
+                          ? `${Math.min((stat.value / (stat.label === 'Average Rating' ? 5 : 1500)) * 100, 100)}%`
+                          : '70%'
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
         );
       })}
     </div>
