@@ -18,8 +18,7 @@ export const useSidebar = () => {
 
 interface SidebarProviderProps {
   children: React.ReactNode;
-  open?: boolean;
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  defaultOpen?: boolean;
   animate?: boolean;
 }
 
@@ -27,41 +26,29 @@ const SIDEBAR_STATE_KEY = "sidebar-state";
 
 export const SidebarProvider = ({
   children,
-  open: openProp,
-  setOpen: setOpenProp,
+  defaultOpen = true,
   animate = true,
 }: SidebarProviderProps) => {
-  const [openState, setOpenState] = useState(() => {
+  const [open, setOpen] = useState(() => {
     const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
-    return savedState ? JSON.parse(savedState) : true;
+    return savedState ? JSON.parse(savedState) : defaultOpen;
   });
-  
-  const open = openProp !== undefined ? openProp : openState;
-  const setOpen = (value: boolean | ((prev: boolean) => boolean)) => {
-    const newValue = typeof value === 'function' ? value(open) : value;
-    if (setOpenProp) {
-      setOpenProp(newValue);
-    } else {
-      setOpenState(newValue);
-    }
-    localStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(newValue));
-  };
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === 'b') {
-        e.preventDefault();
-        setOpen(prev => !prev);
-      }
-    };
+    localStorage.setItem(SIDEBAR_STATE_KEY, JSON.stringify(open));
+  }, [open]);
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+  useEffect(() => {
+    const handleToggle = () => setOpen(prev => !prev);
+    document.addEventListener('toggle-sidebar', handleToggle);
+    return () => document.removeEventListener('toggle-sidebar', handleToggle);
   }, []);
 
   return (
     <SidebarContext.Provider value={{ open, setOpen, animate }}>
-      {children}
+      <div className="group" data-state={open ? "expanded" : "collapsed"}>
+        {children}
+      </div>
     </SidebarContext.Provider>
   );
 };
