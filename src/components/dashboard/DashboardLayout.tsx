@@ -1,38 +1,81 @@
-import { SidebarProvider } from "./sidebar/SidebarContext";
-import { DesktopSidebar } from "./sidebar/DesktopSidebar";
-import { MobileSidebar } from "./sidebar/MobileSidebar";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
-import { useMediaQuery } from "@/hooks/use-mobile";
+import { cn } from "@/lib/utils";
+import { LayoutDashboard, UserCog, Settings, LogOut } from "lucide-react";
+import { 
+  Sidebar, 
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem
+} from "@/components/ui/sidebar";
+
+const menuItems = [
+  {
+    label: "Dashboard",
+    href: "/",
+    icon: LayoutDashboard
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+    icon: UserCog
+  },
+  {
+    label: "Settings",
+    href: "/settings",
+    icon: Settings
+  },
+  {
+    label: "Logout",
+    href: "/auth",
+    icon: LogOut
+  }
+];
 
 const DashboardLayout = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
-
-  // Handle keyboard shortcut
-  useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === 'b') {
-        e.preventDefault();
-        document.dispatchEvent(new CustomEvent('toggle-sidebar'));
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, []);
+  const [open, setOpen] = useState(true);
 
   return (
-    <SidebarProvider defaultOpen={!isMobile}>
-      <div className="min-h-screen flex w-full">
-        <DesktopSidebar />
-        <MobileSidebar />
-        <main className="flex-1 transition-all duration-300 ease-in-out md:pl-[80px] md:group-data-[state=expanded]:pl-[300px]">
-          <div className="container py-6 space-y-6">
-            <Outlet />
-          </div>
-        </main>
-      </div>
-    </SidebarProvider>
+    <div className="min-h-screen flex w-full bg-background">
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarContent>
+          <SidebarHeader className="p-4">
+            <div className={cn(
+              "flex items-center gap-2 transition-all duration-200",
+              !open && "justify-center"
+            )}>
+              <div className="h-8 w-8 rounded-lg bg-primary flex-shrink-0" />
+              {open && (
+                <span className="font-semibold text-lg">QuackOS</span>
+              )}
+            </div>
+          </SidebarHeader>
+          <SidebarMenu>
+            {menuItems.map((item, index) => (
+              <SidebarMenuItem key={index}>
+                <SidebarMenuButton asChild>
+                  <a href={item.href} className="flex items-center gap-3 px-4 py-2">
+                    <item.icon className="h-5 w-5" />
+                    {open && <span>{item.label}</span>}
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarContent>
+      </Sidebar>
+      
+      <main className={cn(
+        "flex-1 transition-all duration-300",
+        open ? "pl-[250px]" : "pl-[80px]"
+      )}>
+        <div className="container py-6 space-y-6">
+          <Outlet />
+        </div>
+      </main>
+    </div>
   );
 };
 
