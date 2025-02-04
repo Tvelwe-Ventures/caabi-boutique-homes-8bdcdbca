@@ -9,7 +9,6 @@ import { TypographySection } from "./design-system/TypographySection";
 import { GradientsSection } from "./design-system/GradientsSection";
 import { IconsSection } from "./design-system/IconsSection";
 import { TimelineSection } from "./design-system/TimelineSection";
-import { GravitySection } from "./design-system/GravitySection";
 
 const DesignSystemDemo = () => {
   return (
@@ -25,7 +24,6 @@ const DesignSystemDemo = () => {
         <TypographySection />
         <GradientsSection />
         <IconsSection />
-        <GravitySection />
         <BentoSection />
         <ButtonsSection />
         <CardsSection />
