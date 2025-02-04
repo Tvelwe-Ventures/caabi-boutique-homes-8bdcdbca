@@ -67,11 +67,7 @@ const FinancialDashboard = () => {
 
   return (
     <div className="space-y-8 p-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div>
         <h1 className="text-3xl font-bold mb-6">Financial Dashboard</h1>
         
         {/* Top Level Metrics */}
@@ -94,7 +90,7 @@ const FinancialDashboard = () => {
             <PropertyPerformance />
           </div>
         </CardSpotlight>
-      </motion.div>
+      </div>
     </div>
   );
 };
