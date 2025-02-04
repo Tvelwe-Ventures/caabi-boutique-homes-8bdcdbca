@@ -1,72 +1,49 @@
-import { motion } from "framer-motion";
+import { Card } from "./card";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
-import { ReactNode } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./tooltip";
 
 interface StandardCardProps {
-  icon?: LucideIcon;
-  title: string | ReactNode;
-  description: string;
-  subtitle?: string;
-  action?: {
-    label: string;
-    onClick?: () => void;
-  };
+  icon?: any;
+  title?: React.ReactNode;
+  description?: string;
   className?: string;
-  children?: ReactNode;
+  tooltip?: string;
 }
 
 export function StandardCard({
   icon: Icon,
   title,
   description,
-  subtitle,
-  action,
   className,
-  children,
+  tooltip,
 }: StandardCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={cn(
-        "group relative overflow-hidden rounded-2xl bg-white/95 backdrop-blur-sm border border-primary/10 shadow-sm hover:shadow-md transition-all duration-300",
-        className
-      )}
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-light/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      
-      <div className="relative z-10 p-8 space-y-4">
-        {children}
-        
-        {Icon && !children && (
-          <div className="mb-4 inline-flex rounded-xl bg-primary/10 p-3">
-            <Icon className="h-6 w-6 text-primary" />
-          </div>
-        )}
-        
-        <h3 className="text-xl font-semibold text-gray-900">
-          {title}
-        </h3>
-        
-        <p className="text-gray-700">
-          {description}
-        </p>
-
-        {subtitle && (
-          <p className="text-sm text-gray-600">
-            {subtitle}
-          </p>
-        )}
-
-        {action && (
-          <div className="pt-2 flex items-center space-x-2 text-primary hover:text-primary-dark transition-colors cursor-pointer" onClick={action.onClick}>
-            <span className="text-sm font-medium">{action.label}</span>
-            <span className="text-sm">→</span>
-          </div>
-        )}
-      </div>
-    </motion.div>
+  const CardContent = (
+    <Card className={cn("p-6 flex flex-col items-center text-center", className)}>
+      {Icon && <Icon className="h-8 w-8 mb-4 text-primary" />}
+      {title && <h3 className="text-2xl font-semibold mb-2">{title}</h3>}
+      {description && <p className="text-sm text-gray-500">{description}</p>}
+    </Card>
   );
+
+  if (tooltip) {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {CardContent}
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>{tooltip}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
+
+  return CardContent;
 }
