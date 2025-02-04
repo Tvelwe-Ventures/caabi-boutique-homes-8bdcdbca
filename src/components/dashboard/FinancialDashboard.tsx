@@ -1,4 +1,4 @@
-import { Home } from "lucide-react";
+import { Home, Plus, FileText, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { Button } from "../ui/button";
