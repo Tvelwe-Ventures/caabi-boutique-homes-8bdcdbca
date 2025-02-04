@@ -40,7 +40,9 @@ const Header = () => {
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Logo />
+            <div className="pl-16 md:pl-20"> {/* Added padding to align with sidebar */}
+              <Logo />
+            </div>
             <Button
               variant="ghost"
               size="icon"

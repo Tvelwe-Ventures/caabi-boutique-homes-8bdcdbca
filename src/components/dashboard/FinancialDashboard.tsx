@@ -23,13 +23,12 @@ const FinancialDashboard = () => {
       
       if (error) throw error;
 
-      // Calculate metrics from properties data
       const totalRevenue = properties?.reduce((sum, prop) => sum + Number(prop.monthly_rent), 0) || 0;
       const avgOccupancy = properties?.reduce((sum, prop) => sum + Number(prop.occupancy_rate), 0) / (properties?.length || 1);
       
       const metrics: FinancialMetrics = {
-        totalRevenue: totalRevenue * 12, // Annualized revenue
-        averageDailyRate: (totalRevenue / 30), // Simple daily rate calculation
+        totalRevenue: totalRevenue * 12,
+        averageDailyRate: (totalRevenue / 30),
         occupancyRate: avgOccupancy,
         revPAR: (totalRevenue / 30) * (avgOccupancy / 100)
       };
@@ -68,7 +67,8 @@ const FinancialDashboard = () => {
   return (
     <div className="space-y-8 p-8">
       <div>
-        <h1 className="text-3xl font-bold mb-6">Financial Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-2">QuackBoard - Unified Data Hub</h1>
+        <p className="text-gray-600 mb-6">Your centralized dashboard for comprehensive business insights</p>
         
         {/* Top Level Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
