@@ -3,7 +3,7 @@ import { useNavigate, Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
-import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
+import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import FinancialDashboard from "@/components/dashboard/FinancialDashboard";
@@ -34,17 +34,14 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <DashboardSidebar />
-      <main className="lg:pl-[250px] pt-24">
-        <Routes>
+      <Routes>
+        <Route element={<DashboardLayout />}>
           <Route index element={<FinancialDashboard />} />
           <Route path="design-system" element={<DesignSystemDemo />} />
           <Route path="docs" element={<Documentation />} />
-        </Routes>
-      </main>
-      <div className="lg:pl-[250px]">
-        <DashboardFooter />
-      </div>
+        </Route>
+      </Routes>
+      <DashboardFooter />
     </div>
   );
 };
