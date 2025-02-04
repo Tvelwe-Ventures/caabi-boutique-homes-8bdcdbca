@@ -1,4 +1,4 @@
-```typescript
+
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Building2, TrendingUp, DollarSign, Percent, Home, Plus, FileText, Settings, Clock } from "lucide-react";
@@ -77,7 +77,6 @@ const FinancialDashboard = () => {
     { icon: Settings, label: "Settings" }
   ];
 
-  // Sample activity data with property management metrics
   const activityMetrics = [
     { label: "Move", value: "92", trend: 92, unit: "min" },
     { label: "Exercise", value: "85", trend: 85, unit: "min" },
@@ -92,7 +91,6 @@ const FinancialDashboard = () => {
 
   return (
     <div className="space-y-8 p-8">
-      {/* Breadcrumb Navigation */}
       <Breadcrumb>
         <BreadcrumbItem>
           <BreadcrumbLink href="/dashboard">
@@ -104,7 +102,6 @@ const FinancialDashboard = () => {
         </BreadcrumbItem>
       </Breadcrumb>
 
-      {/* Header with Quick Actions */}
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold mb-2">QuackBoard - Unified Data Hub</h1>
@@ -128,7 +125,6 @@ const FinancialDashboard = () => {
         </div>
       </div>
         
-      {/* Financial Metrics */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -161,7 +157,6 @@ const FinancialDashboard = () => {
         />
       </motion.div>
 
-      {/* Guest Insights */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -188,7 +183,6 @@ const FinancialDashboard = () => {
         </div>
       </motion.div>
 
-      {/* Property Performance */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -201,7 +195,6 @@ const FinancialDashboard = () => {
         </CardSpotlight>
       </motion.div>
 
-      {/* Community Engagement */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -218,4 +211,3 @@ const FinancialDashboard = () => {
 };
 
 export default FinancialDashboard;
-```
