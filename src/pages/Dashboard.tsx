@@ -35,8 +35,14 @@ const Dashboard = () => {
       <Routes>
         <Route element={<DashboardLayout />}>
           <Route index element={<FinancialDashboard />} />
+          <Route path="financial-management" element={<FinancialDashboard />} />
+          <Route path="guest-management" element={<FinancialDashboard />} />
+          <Route path="shareholder-analytics" element={<FinancialDashboard />} />
+          <Route path="property-performance" element={<FinancialDashboard />} />
+          <Route path="service-management" element={<FinancialDashboard />} />
           <Route path="design-system" element={<DesignSystemDemo />} />
           <Route path="docs" element={<Documentation />} />
+          <Route path="help" element={<Documentation />} />
         </Route>
       </Routes>
       <DashboardFooter />

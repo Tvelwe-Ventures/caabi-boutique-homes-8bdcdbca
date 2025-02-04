@@ -1,34 +1,35 @@
+
 import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, DollarSign, UserCheck } from "lucide-react";
 
 export const menuItems = [
   {
-    title: "Financial Dashboard",
+    title: "QuackBoard",
     href: "/dashboard",
     icon: DollarSign
   },
   {
     title: "Financial Management",
-    href: "/dashboard/financial",
+    href: "/dashboard/financial-management",
     icon: CreditCard
   },
   {
     title: "Guest Management",
-    href: "/dashboard/guests",
+    href: "/dashboard/guest-management",
     icon: UserCheck
   },
   {
     title: "Shareholder Analytics",
-    href: "/dashboard/shareholders",
+    href: "/dashboard/shareholder-analytics",
     icon: Users
   },
   {
     title: "Property Performance",
-    href: "/dashboard/performance",
+    href: "/dashboard/property-performance",
     icon: LineChart
   },
   {
     title: "Service Management",
-    href: "/dashboard/services",
+    href: "/dashboard/service-management",
     icon: Settings
   },
   {
