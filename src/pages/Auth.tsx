@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -100,7 +99,7 @@ const Auth = () => {
             <div className="flex flex-col items-center space-y-1">
               <img 
                 src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png" 
-                alt="QuackBoard" 
+                alt="PropOS" 
                 className="h-12 mb-2"
               />
               <span className="text-base text-gray-500">Property & Revenue Management System</span>
