@@ -91,6 +91,14 @@ export default {
         grid: {
           "0%": { transform: "translateY(0)" },
           "100%": { transform: "translateY(calc(var(--cell-size) * -1))" }
+        },
+        "meteor": {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
+          "70%": { opacity: "1" },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: "0"
+          },
         }
       },
       animation: {
@@ -100,7 +108,8 @@ export default {
         "fade-up": "fade-up 0.5s ease-out forwards",
         shimmer: "shimmer 2s infinite",
         "text-flow": "text-flow 8s linear infinite",
-        grid: "grid 20s linear infinite"
+        grid: "grid 20s linear infinite",
+        "meteor-effect": "meteor 5s linear infinite",
       },
     },
   },
