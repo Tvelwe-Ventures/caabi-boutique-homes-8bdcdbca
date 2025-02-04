@@ -9,7 +9,7 @@ const DashboardLayout = () => {
       <div className="min-h-screen flex w-full">
         <DesktopSidebar />
         <MobileSidebar />
-        <main className="flex-1 md:pl-[300px] transition-all duration-300 ease-in-out">
+        <main className="flex-1 transition-all duration-300 ease-in-out md:pl-[80px] md:group-data-[state=expanded]:pl-[300px]">
           <div className="container py-6 space-y-6">
             <Outlet />
           </div>
