@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 
@@ -9,7 +10,8 @@ interface GuestTypeDistributionProps {
 }
 
 export const GuestTypeDistribution = ({ data }: GuestTypeDistributionProps) => {
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  // Using colors from our design system
+  const COLORS = ['#9b87f5', '#7E69AB', '#6E59A5', '#D6BCFA'];
 
   return (
     <Card className="hover:shadow-lg transition-shadow duration-200">
