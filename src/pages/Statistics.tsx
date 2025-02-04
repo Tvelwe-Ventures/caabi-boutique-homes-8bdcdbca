@@ -8,8 +8,8 @@ import { MessageSquare } from "lucide-react";
 import Chat from "@/components/Chat";
 import MarketPriceMap from "@/components/charts/MarketPriceMap";
 import PriceIndexTrend from "@/components/charts/PriceIndexTrend";
-import MarketMetrics from "@/components/charts/MarketMetrics";
 import MarketKPIs from "@/components/stats/MarketKPIs";
+import LocationMap from "@/components/maps/LocationMap";
 
 const Statistics = () => {
   return (
@@ -35,6 +35,10 @@ const Statistics = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-6">Key Performance Indicators</h2>
               <MarketKPIs />
+            </section>
+
+            <section>
+              <LocationMap />
             </section>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
