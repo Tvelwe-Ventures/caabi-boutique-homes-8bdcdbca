@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Building2, TrendingUp, DollarSign, Percent } from "lucide-react";
 import { StandardCard } from "../ui/standard-card";
 import { CardSpotlight } from "../ui/card-spotlight";
-import { PropertyPerformance } from "../PropertyPerformance";
+import PropertyPerformance from "../PropertyPerformance";
 import { supabase } from "@/integrations/supabase/client";
 
 interface FinancialMetrics {
