@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { StandardCard } from "@/components/ui/standard-card";
+import { useEffect, useState } from "react";
 import { Building2, TrendingUp, Home, Activity } from "lucide-react";
-import { renderCanvas } from "@/components/ui/canvas";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { WebsiteFeedback } from "@/components/WebsiteFeedback";
@@ -12,111 +9,168 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
 import Chat from "@/components/Chat";
+import MarketPriceMap from "@/components/charts/MarketPriceMap";
+import PriceIndexTrend from "@/components/charts/PriceIndexTrend";
+import MarketMetrics from "@/components/charts/MarketMetrics";
+import { useToast } from "@/hooks/use-toast";
 
 const Statistics = () => {
+  const { toast } = useToast();
+  const [marketData, setMarketData] = useState({
+    pricePoints: [],
+    priceIndices: [],
+    metrics: [
+      {
+        title: "Average Price/sqft",
+        value: "Loading...",
+        change: "0%",
+        icon: Building2,
+        description: "Year-over-year change"
+      },
+      {
+        title: "Monthly Transactions",
+        value: "Loading...",
+        change: "0%",
+        icon: TrendingUp,
+        description: "Month-over-month change"
+      },
+      {
+        title: "Properties Listed",
+        value: "Loading...",
+        change: "0%",
+        icon: Home,
+        description: "Active listings"
+      },
+      {
+        title: "Market Activity",
+        value: "Loading...",
+        change: "0%",
+        icon: Activity,
+        description: "Buyer interest"
+      }
+    ]
+  });
+
   useEffect(() => {
-    renderCanvas();
+    const fetchMarketData = async () => {
+      try {
+        const { data: indicators, error } = await supabase
+          .from('uae_market_indicators')
+          .select('*')
+          .order('time_period', { ascending: false });
+
+        if (error) throw error;
+
+        if (indicators) {
+          console.log('Fetched market indicators:', indicators);
+          
+          // Process the data for different visualizations
+          const pricePoints = indicators
+            .filter(i => i.indicator_type === 'price_per_sqft')
+            .map(i => ({
+              location: i.location,
+              price: i.value,
+              volume: Math.random() * 100 // This should be replaced with actual transaction volume data
+            }));
+
+          const priceIndices = indicators
+            .filter(i => i.indicator_type === 'price_index')
+            .reduce((acc, curr) => {
+              const period = new Date(curr.time_period).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+              if (!acc.find(item => item.period === period)) {
+                acc.push({
+                  period,
+                  apartment: indicators.find(i => i.time_period === curr.time_period && i.property_type === 'apartment')?.value || 0,
+                  villa: indicators.find(i => i.time_period === curr.time_period && i.property_type === 'villa')?.value || 0,
+                  office: indicators.find(i => i.time_period === curr.time_period && i.property_type === 'office')?.value || 0
+                });
+              }
+              return acc;
+            }, []);
+
+          // Update metrics with real data
+          const latestIndicators = indicators.reduce((acc, curr) => {
+            if (!acc[curr.indicator_type] || new Date(curr.time_period) > new Date(acc[curr.indicator_type].time_period)) {
+              acc[curr.indicator_type] = curr;
+            }
+            return acc;
+          }, {});
+
+          const updatedMetrics = marketData.metrics.map(metric => {
+            // Update each metric based on the latest indicators
+            // This is a simplified example - you should adapt this to your actual data structure
+            return {
+              ...metric,
+              value: latestIndicators[metric.title.toLowerCase()]?.value.toLocaleString() || metric.value,
+              change: `${((latestIndicators[metric.title.toLowerCase()]?.value || 0) * 100).toFixed(1)}%`
+            };
+          });
+
+          setMarketData({
+            pricePoints,
+            priceIndices,
+            metrics: updatedMetrics
+          });
+
+          toast({
+            title: "Market Data Updated",
+            description: "Latest real estate market data has been loaded",
+            variant: "default",
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching market data:', error);
+        toast({
+          title: "Error",
+          description: "Failed to load market data",
+          variant: "destructive",
+        });
+      }
+    };
+
+    fetchMarketData();
+
+    // Set up real-time subscription
+    const subscription = supabase
+      .channel('market_data_changes')
+      .on('postgres_changes', 
+        { event: '*', schema: 'public', table: 'uae_market_indicators' },
+        () => {
+          console.log('Market data changed, refreshing...');
+          fetchMarketData();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
-
-  // Sample data - Replace with actual API data
-  const priceData = [
-    { month: "Jan 2024", price: 1250 },
-    { month: "Feb 2024", price: 1280 },
-    { month: "Mar 2024", price: 1300 },
-    { month: "Apr 2024", price: 1340 },
-    { month: "May 2024", price: 1360 },
-    { month: "Jun 2024", price: 1400 },
-  ];
-
-  const transactionData = [
-    { area: "Downtown Dubai", transactions: 450 },
-    { area: "Dubai Marina", transactions: 380 },
-    { area: "Palm Jumeirah", transactions: 320 },
-    { area: "Business Bay", transactions: 280 },
-    { area: "JBR", transactions: 250 },
-  ];
-
-  const distributionData = [
-    { month: "Jan 2024", apartments: 65, villas: 35 },
-    { month: "Feb 2024", apartments: 68, villas: 32 },
-    { month: "Mar 2024", apartments: 62, villas: 38 },
-    { month: "Apr 2024", apartments: 64, villas: 36 },
-    { month: "May 2024", apartments: 66, villas: 34 },
-    { month: "Jun 2024", apartments: 63, villas: 37 },
-  ];
-
-  const stats = [
-    {
-      title: "Average Price/sqft",
-      value: "AED 1,400",
-      change: "+5.2%",
-      icon: Building2,
-      description: "Year-over-year increase"
-    },
-    {
-      title: "Monthly Transactions",
-      value: "2,850",
-      change: "+12.3%",
-      icon: TrendingUp,
-      description: "Compared to last month"
-    },
-    {
-      title: "Properties Listed",
-      value: "15,420",
-      change: "+8.7%",
-      icon: Home,
-      description: "Active listings"
-    },
-    {
-      title: "Market Activity",
-      value: "High",
-      change: "+3.5%",
-      icon: Activity,
-      description: "Buyer interest"
-    }
-  ];
 
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-white pt-20">
-        {/* Hero Section with Canvas Animation */}
-        <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-          <canvas
-            className="absolute inset-0 w-full h-full"
-            id="canvas"
-          />
-          <div className="relative z-10 text-center px-4">
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="text-4xl md:text-6xl font-bold text-gray-900 mb-4"
-            >
-              Market Performance and Statistics
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-2xl mx-auto"
-            >
-              Key performance metrics to help you make informed decisions
-            </motion.p>
-          </div>
-        </section>
-
+      <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white pt-20">
         <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {stats.map((stat, index) => (
-              <StandardCard
-                key={index}
-                icon={stat.icon}
-                title={stat.value}
-                description={stat.title}
-                className="card-hover-animation"
-              />
-            ))}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+              UAE Real Estate Market Insights
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Comprehensive analysis of the UAE property market trends and statistics
+            </p>
+          </motion.div>
+
+          <MarketMetrics metrics={marketData.metrics} />
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <MarketPriceMap data={marketData.pricePoints} />
+            <PriceIndexTrend data={marketData.priceIndices} />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
@@ -210,7 +264,6 @@ const Statistics = () => {
       <Footer />
       <WebsiteFeedback />
       
-      {/* Floating Chat Dialog */}
       <Dialog>
         <DialogTrigger asChild>
           <Button

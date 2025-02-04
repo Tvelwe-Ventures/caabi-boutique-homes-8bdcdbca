@@ -628,6 +628,45 @@ export type Database = {
         }
         Relationships: []
       }
+      uae_market_indicators: {
+        Row: {
+          created_at: string
+          id: string
+          indicator_type: string
+          location: string
+          property_type: string | null
+          segment: string | null
+          time_period: string
+          unit: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          indicator_type: string
+          location: string
+          property_type?: string | null
+          segment?: string | null
+          time_period: string
+          unit: string
+          updated_at?: string
+          value: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          indicator_type?: string
+          location?: string
+          property_type?: string | null
+          segment?: string | null
+          time_period?: string
+          unit?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
       user_follows: {
         Row: {
           created_at: string
