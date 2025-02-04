@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ScrollArea } from "./ui/scroll-area";
@@ -76,21 +77,15 @@ const Chat = () => {
 
       if (insertError) throw insertError;
 
-      // Get AI response
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      // Get AI response from edge function
+      const { data, error } = await supabase.functions.invoke("chat", {
         body: JSON.stringify({
           message: newMessage,
           systemPrompt: getSystemPrompt(selectedUseCase),
         }),
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
+      
+      if (error) throw error;
       
       if (!data || !data.choices || !data.choices[0] || !data.choices[0].message) {
         throw new Error("Invalid response format from AI service");
