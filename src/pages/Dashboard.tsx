@@ -1,8 +1,7 @@
+
 import { useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
-import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
-import Header from "@/components/Header";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
@@ -33,7 +32,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
       <Routes>
         <Route element={<DashboardLayout />}>
           <Route index element={<FinancialDashboard />} />

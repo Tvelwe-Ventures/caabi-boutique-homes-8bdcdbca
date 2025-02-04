@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -7,14 +8,14 @@ const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
 
   return (
-    <div className="min-h-screen flex w-full bg-background">
+    <div className="min-h-screen flex w-full bg-gray-50">
       <div className={cn(
-        "fixed top-0 left-0 h-screen bg-card border-r shadow-sm transition-all duration-300",
-        open ? "w-[250px]" : "w-[80px]"
+        "fixed top-0 left-0 h-screen border-r shadow-sm transition-all duration-300",
+        open ? "w-[240px]" : "w-[70px]"
       )}>
         <button
           onClick={() => setOpen(!open)}
-          className="absolute -right-3 top-6 z-40 rounded-full border bg-background p-1 shadow-sm"
+          className="absolute -right-3 top-6 z-40 rounded-full border bg-white p-1 shadow-sm hover:bg-gray-50"
         >
           <svg
             className={cn("h-4 w-4 transition-transform", open && "rotate-180")}
@@ -34,7 +35,7 @@ const DashboardLayout = () => {
       
       <main className={cn(
         "flex-1 transition-all duration-300",
-        open ? "ml-[250px]" : "ml-[80px]"
+        open ? "ml-[240px]" : "ml-[70px]"
       )}>
         <div className="container py-6 space-y-6">
           <Outlet />

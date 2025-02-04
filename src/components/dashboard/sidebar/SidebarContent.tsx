@@ -1,7 +1,7 @@
 
 import { cn } from "@/lib/utils";
 import { menuItems } from "./menuItems";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 
 interface SidebarContentProps {
@@ -9,10 +9,12 @@ interface SidebarContentProps {
 }
 
 export const SidebarContent = ({ open }: SidebarContentProps) => {
+  const location = useLocation();
+  
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white">
       <div className={cn(
-        "flex items-center gap-2 p-4 transition-all duration-200",
+        "flex items-center gap-2 p-6 transition-all duration-200",
         !open && "justify-center"
       )}>
         <img 
@@ -31,17 +33,35 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
         )}
       </div>
 
-      <nav className="flex-1 px-2 py-4">
-        {menuItems.map((item, index) => (
-          <Link
-            key={index}
-            to={item.href}
-            className="flex items-center gap-3 px-4 py-2 rounded-md hover:bg-accent/50 transition-colors"
-          >
-            <item.icon className="h-5 w-5" />
-            {open && <span>{item.title}</span>}
-          </Link>
-        ))}
+      <nav className="flex-1 px-3 py-4">
+        {menuItems.map((item, index) => {
+          const isActive = location.pathname === item.href;
+          return (
+            <Link
+              key={index}
+              to={item.href}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2 rounded-lg mb-1 transition-colors",
+                "hover:bg-gray-100",
+                isActive && "bg-gray-100 text-primary font-medium",
+                !open && "justify-center"
+              )}
+            >
+              <item.icon className={cn(
+                "h-5 w-5",
+                isActive ? "text-primary" : "text-gray-500"
+              )} />
+              {open && (
+                <span className={cn(
+                  "text-sm",
+                  isActive ? "text-primary" : "text-gray-600"
+                )}>
+                  {item.title}
+                </span>
+              )}
+            </Link>
+          );
+        })}
       </nav>
     </div>
   );
