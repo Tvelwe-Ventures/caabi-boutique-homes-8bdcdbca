@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
@@ -10,6 +10,7 @@ export const MobileSidebar = ({
   ...props
 }: React.ComponentProps<"div">) => {
   const { open, setOpen } = useSidebar();
+  const location = useLocation();
   
   return (
     <div
@@ -42,15 +43,21 @@ export const MobileSidebar = ({
             <nav className="flex-1 space-y-4 mt-6">
               {menuItems.map((item) => {
                 const Icon = item.icon;
+                const isActive = location.pathname === item.href;
                 return (
                   <Link
                     key={item.title}
                     to={item.href}
-                    className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                    className={cn(
+                      "flex items-center space-x-3 p-2 rounded-lg transition-colors",
+                      isActive 
+                        ? "bg-primary text-white" 
+                        : "hover:bg-gray-100 text-gray-600"
+                    )}
                     onClick={() => setOpen(false)}
                   >
-                    <Icon className="h-5 w-5 text-gray-600" />
-                    <span className="text-gray-600">{item.title}</span>
+                    <Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-gray-600")} />
+                    <span>{item.title}</span>
                   </Link>
                 );
               })}

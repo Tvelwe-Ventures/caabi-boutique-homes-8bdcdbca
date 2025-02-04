@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "./SidebarContext";
 import { menuItems } from "./menuItems";
@@ -10,6 +10,7 @@ export const DesktopSidebar = ({
   className?: string;
 }) => {
   const { open, setOpen } = useSidebar();
+  const location = useLocation();
   
   return (
     <motion.div
@@ -26,20 +27,32 @@ export const DesktopSidebar = ({
       <nav className="flex-1 space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
+          const isActive = location.pathname === item.href;
           return (
             <Link
               key={item.title}
               to={item.href}
-              className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors group"
+              className={cn(
+                "flex items-center space-x-2 p-2 rounded-lg transition-colors group",
+                isActive 
+                  ? "bg-primary text-white" 
+                  : "hover:bg-gray-100 text-gray-600"
+              )}
             >
-              <Icon className="h-5 w-5 text-gray-600 group-hover:text-primary" />
+              <Icon className={cn(
+                "h-5 w-5",
+                isActive ? "text-white" : "text-gray-600 group-hover:text-primary"
+              )} />
               <motion.span
                 initial={false}
                 animate={{
                   opacity: open ? 1 : 0,
                   width: open ? "auto" : 0,
                 }}
-                className="text-sm text-gray-600 whitespace-nowrap overflow-hidden"
+                className={cn(
+                  "text-sm whitespace-nowrap overflow-hidden",
+                  isActive ? "text-white" : "text-gray-600"
+                )}
               >
                 {item.title}
               </motion.span>
