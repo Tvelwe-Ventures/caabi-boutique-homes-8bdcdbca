@@ -7,6 +7,7 @@ import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import FinancialDashboard from "@/components/dashboard/FinancialDashboard";
+import Documentation from "@/pages/docs/Documentation";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Dashboard = () => {
         <Routes>
           <Route index element={<FinancialDashboard />} />
           <Route path="design-system" element={<DesignSystemDemo />} />
+          <Route path="docs" element={<Documentation />} />
         </Routes>
       </main>
       <div className="lg:pl-[250px]">
