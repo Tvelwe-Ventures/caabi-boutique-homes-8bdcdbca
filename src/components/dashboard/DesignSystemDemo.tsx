@@ -11,6 +11,7 @@ import { GradientsSection } from "./design-system/GradientsSection";
 import { IconsSection } from "./design-system/IconsSection";
 import { TimelineSection } from "./design-system/TimelineSection";
 import { DataDisplaySection } from "./design-system/DataDisplaySection";
+import { AnimatedComponentsSection } from "./design-system/AnimatedComponentsSection";
 
 const DesignSystemDemo = () => {
   return (
@@ -36,6 +37,7 @@ const DesignSystemDemo = () => {
         <DateSelectionSection />
         <NavigationSection />
         <AnimationSection />
+        <AnimatedComponentsSection />
       </div>
     </div>
   );
