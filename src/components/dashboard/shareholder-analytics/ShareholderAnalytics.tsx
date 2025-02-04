@@ -1,7 +1,7 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, PieChart, BarChart, DollarSign } from "lucide-react";
 import { StandardCard } from "@/components/ui/standard-card";
+import PropertyDistribution from "./PropertyDistribution";
 
 const ShareholderAnalytics = () => {
   const metrics = [
@@ -50,14 +50,7 @@ const ShareholderAnalytics = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Investment Distribution</CardTitle>
-          </CardHeader>
-          <CardContent>
-            Distribution chart coming soon...
-          </CardContent>
-        </Card>
+        <PropertyDistribution />
         <Card>
           <CardHeader>
             <CardTitle>Historical Returns</CardTitle>
