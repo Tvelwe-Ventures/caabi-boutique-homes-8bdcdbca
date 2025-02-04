@@ -1,10 +1,8 @@
-
 import { useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
-import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
 import FinancialDashboard from "@/components/dashboard/FinancialDashboard";
 import FinancialManagement from "@/components/dashboard/financial-management/FinancialManagement";
 import GuestManagement from "@/components/dashboard/guest-management/GuestManagement";
@@ -49,7 +47,6 @@ const Dashboard = () => {
           <Route path="help" element={<Documentation />} />
         </Route>
       </Routes>
-      <DashboardFooter />
     </div>
   );
 };
