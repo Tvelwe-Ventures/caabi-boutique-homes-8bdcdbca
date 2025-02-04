@@ -76,17 +76,17 @@ const FinancialDashboard = () => {
     { icon: Settings, label: "Settings" }
   ];
 
-  // Sample activity data
+  // Sample activity data with property management metrics
   const activityMetrics = [
-    { label: "Move", value: "85", trend: 85, unit: "cal" },
-    { label: "Exercise", value: "92", trend: 92, unit: "min" },
-    { label: "Stand", value: "78", trend: 78, unit: "hrs" }
+    { label: "Move", value: "92", trend: 92, unit: "min" }, // Time spent on property visits
+    { label: "Exercise", value: "85", trend: 85, unit: "min" }, // Time spent on maintenance checks
+    { label: "Stand", value: "12", trend: 78, unit: "hrs" } // Time spent on tenant meetings
   ];
 
   const sampleGoals = [
-    { id: "1", title: "Review monthly reports", isCompleted: true },
-    { id: "2", title: "Update property listings", isCompleted: false },
-    { id: "3", title: "Schedule maintenance", isCompleted: false }
+    { id: "1", title: "Complete monthly financial reports", isCompleted: true },
+    { id: "2", title: "Schedule property inspections", isCompleted: false },
+    { id: "3", title: "Review tenant applications", isCompleted: false }
   ];
 
   return (
@@ -150,13 +150,13 @@ const FinancialDashboard = () => {
         </div>
         
         <ActivityCard
-          title="Daily Progress"
-          category="Property Management"
+          title="Property Management"
+          category="Daily Tasks & Goals"
           metrics={activityMetrics}
           dailyGoals={sampleGoals}
-          onAddGoal={() => console.log('Add goal')}
+          onAddGoal={() => console.log('Add property management goal')}
           onToggleGoal={(id) => console.log('Toggle goal', id)}
-          onViewDetails={() => console.log('View details')}
+          onViewDetails={() => console.log('View property management details')}
         />
       </motion.div>
 
