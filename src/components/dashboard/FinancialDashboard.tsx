@@ -10,6 +10,7 @@ import { GuestTypeDistribution } from "./guests/GuestTypeDistribution";
 import { CommunityStats } from "../community/CommunityStats";
 import { Button } from "../ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
+import { ActivityCard } from "../ui/activity-card";
 
 interface FinancialMetrics {
   totalRevenue: number;
@@ -75,6 +76,19 @@ const FinancialDashboard = () => {
     { icon: Settings, label: "Settings" }
   ];
 
+  // Sample activity data
+  const activityMetrics = [
+    { label: "Move", value: "85", trend: 85, unit: "cal" },
+    { label: "Exercise", value: "92", trend: 92, unit: "min" },
+    { label: "Stand", value: "78", trend: 78, unit: "hrs" }
+  ];
+
+  const sampleGoals = [
+    { id: "1", title: "Review monthly reports", isCompleted: true },
+    { id: "2", title: "Update property listings", isCompleted: false },
+    { id: "3", title: "Schedule maintenance", isCompleted: false }
+  ];
+
   return (
     <div className="space-y-8 p-8">
       {/* Breadcrumb Navigation */}
@@ -118,20 +132,32 @@ const FinancialDashboard = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-gray-50 rounded-lg p-6"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
-        <h2 className="text-2xl font-semibold mb-4">Financial Overview</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {topMetrics.map((metric, index) => (
-            <StandardCard
-              key={index}
-              icon={metric.icon}
-              title={metric.value}
-              description={metric.title}
-              className="hover:shadow-lg transition-shadow bg-white"
-            />
-          ))}
+        <div className="space-y-6">
+          <h2 className="text-2xl font-semibold">Financial Overview</h2>
+          <div className="grid grid-cols-2 gap-6">
+            {topMetrics.slice(0, 4).map((metric, index) => (
+              <StandardCard
+                key={index}
+                icon={metric.icon}
+                title={metric.value}
+                description={metric.title}
+                className="hover:shadow-lg transition-shadow bg-white"
+              />
+            ))}
+          </div>
         </div>
+        
+        <ActivityCard
+          title="Daily Progress"
+          category="Property Management"
+          metrics={activityMetrics}
+          dailyGoals={sampleGoals}
+          onAddGoal={() => console.log('Add goal')}
+          onToggleGoal={(id) => console.log('Toggle goal', id)}
+          onViewDetails={() => console.log('View details')}
+        />
       </motion.div>
 
       {/* Guest Insights */}
