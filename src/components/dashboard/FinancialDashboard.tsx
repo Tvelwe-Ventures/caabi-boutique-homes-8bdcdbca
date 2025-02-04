@@ -13,6 +13,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { ActivityCard } from "../ui/activity-card";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 import PortfolioMap from "./PortfolioMap";
+import { DataIntegrationBeams } from "./DataIntegrationBeams";
 
 interface FinancialMetrics {
   totalRevenue: number;
@@ -127,6 +128,11 @@ const FinancialDashboard = () => {
             </Button>
           ))}
         </div>
+      </div>
+
+      <div className="relative min-h-[300px] bg-gradient-to-b from-gray-50 to-white rounded-lg p-6 shadow-sm">
+        <h2 className="text-xl font-semibold mb-4">Real-time Data Integration</h2>
+        <DataIntegrationBeams />
       </div>
         
       <motion.div
