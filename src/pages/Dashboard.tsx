@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Routes, Route } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import { DashboardSidebar } from "@/components/dashboard/DashboardSidebar";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 import { DashboardFooter } from "@/components/dashboard/DashboardFooter";
+import FinancialDashboard from "@/components/dashboard/FinancialDashboard";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -33,16 +34,13 @@ const Dashboard = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <DashboardSidebar />
-      <main className="ml-[250px] pt-24">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <DesignSystemDemo />
-        </motion.div>
+      <main className="lg:pl-[250px] pt-24">
+        <Routes>
+          <Route index element={<FinancialDashboard />} />
+          <Route path="design-system" element={<DesignSystemDemo />} />
+        </Routes>
       </main>
-      <div className="ml-[250px]">
+      <div className="lg:pl-[250px]">
         <DashboardFooter />
       </div>
     </div>
