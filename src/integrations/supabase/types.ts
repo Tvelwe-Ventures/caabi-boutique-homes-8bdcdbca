@@ -447,6 +447,48 @@ export type Database = {
           },
         ]
       }
+      property_investments: {
+        Row: {
+          created_at: string
+          id: string
+          investment_amount: number
+          ownership_percentage: number
+          property_id: string
+          shareholder_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          investment_amount: number
+          ownership_percentage: number
+          property_id: string
+          shareholder_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          investment_amount?: number
+          ownership_percentage?: number
+          property_id?: string
+          shareholder_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_investments_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "property_investments_shareholder_id_fkey"
+            columns: ["shareholder_id"]
+            isOneToOne: false
+            referencedRelation: "shareholders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       property_leads: {
         Row: {
           created_at: string
@@ -553,6 +595,39 @@ export type Database = {
           },
         ]
       }
+      shareholders: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          is_active: boolean | null
+          ownership_percentage: number
+          role: Database["public"]["Enums"]["investment_role"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          ownership_percentage: number
+          role: Database["public"]["Enums"]["investment_role"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          ownership_percentage?: number
+          role?: Database["public"]["Enums"]["investment_role"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       user_follows: {
         Row: {
           created_at: string
@@ -658,6 +733,7 @@ export type Database = {
     }
     Enums: {
       feedback_type: "stay" | "suggestion" | "general"
+      investment_role: "founder" | "coo" | "investor"
       property_type: "apartment" | "villa" | "townhouse" | "penthouse"
       report_type: "spam" | "harassment" | "inappropriate" | "other"
       user_role: "user" | "moderator" | "admin"
