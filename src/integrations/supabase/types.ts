@@ -279,12 +279,16 @@ export type Database = {
           bedrooms: number
           created_at: string
           current_value: number
+          external_id: string | null
+          external_source: string | null
           id: string
           is_furnished: boolean | null
           last_renovation_date: string | null
+          last_sync_at: string | null
           location: string
           maintenance_status: string | null
           manager_id: string | null
+          market_rate: number | null
           monthly_rent: number
           name: string
           occupancy_rate: number | null
@@ -299,12 +303,16 @@ export type Database = {
           bedrooms: number
           created_at?: string
           current_value: number
+          external_id?: string | null
+          external_source?: string | null
           id?: string
           is_furnished?: boolean | null
           last_renovation_date?: string | null
+          last_sync_at?: string | null
           location: string
           maintenance_status?: string | null
           manager_id?: string | null
+          market_rate?: number | null
           monthly_rent: number
           name: string
           occupancy_rate?: number | null
@@ -319,12 +327,16 @@ export type Database = {
           bedrooms?: number
           created_at?: string
           current_value?: number
+          external_id?: string | null
+          external_source?: string | null
           id?: string
           is_furnished?: boolean | null
           last_renovation_date?: string | null
+          last_sync_at?: string | null
           location?: string
           maintenance_status?: string | null
           manager_id?: string | null
+          market_rate?: number | null
           monthly_rent?: number
           name?: string
           occupancy_rate?: number | null

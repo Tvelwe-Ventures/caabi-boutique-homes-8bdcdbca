@@ -12,6 +12,7 @@ import { CommunityStats } from "../community/CommunityStats";
 import { Button } from "../ui/button";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { ActivityCard } from "../ui/activity-card";
+import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 
 interface FinancialMetrics {
   totalRevenue: number;
@@ -21,12 +22,15 @@ interface FinancialMetrics {
 }
 
 const FinancialDashboard = () => {
+  // Enable real-time subscription
+  usePropertiesSubscription();
+
   const { data: metrics, isLoading } = useQuery({
     queryKey: ['financial-metrics'],
     queryFn: async () => {
       const { data: properties, error } = await supabase
         .from('properties')
-        .select('monthly_rent, occupancy_rate');
+        .select('monthly_rent, occupancy_rate, market_rate');
       
       if (error) throw error;
 
