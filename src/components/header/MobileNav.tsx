@@ -68,6 +68,14 @@ export const MobileNav = () => {
               <span>Investment Proposal</span>
             </NavLink>
           </div>
+
+          <NavLink 
+            to="/statistics" 
+            className="flex items-center gap-2 px-4 py-2 rounded-md hover:bg-gray-100"
+          >
+            <Users className="h-4 w-4" />
+            <span>Statistics</span>
+          </NavLink>
           
           <NavLink 
             to="/community" 

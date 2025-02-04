@@ -63,6 +63,10 @@ export const DesktopNav = () => {
         </NavigationMenuList>
       </NavigationMenu>
 
+      <NavLink to="/statistics" className="text-white hover:text-white/80">
+        Statistics
+      </NavLink>
+
       <NavLink to="/community" className="text-white hover:text-white/80">
         Community
       </NavLink>

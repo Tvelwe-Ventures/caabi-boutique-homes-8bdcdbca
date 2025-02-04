@@ -6,6 +6,8 @@ import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+import { DesktopNav } from "./header/DesktopNav";
+import { MobileNav } from "./header/MobileNav";
 
 const Header = () => {
   const location = useLocation();
@@ -40,7 +42,7 @@ const Header = () => {
       >
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="pl-16 md:pl-20"> {/* Added padding to align with sidebar */}
+            <div className="pl-16 md:pl-20">
               <Logo />
             </div>
             <Button
@@ -67,13 +69,8 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Logo />
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="/" className="text-white hover:text-white/80">Home</a>
-            <a href="/calculator" className="text-white hover:text-white/80">ROI Calculator</a>
-            <a href="/statistics" className="text-white hover:text-white/80">Statistics</a>
-            <a href="/community" className="text-white hover:text-white/80">Community</a>
-            <a href="/auth" className="text-white hover:text-white/80">QuackOS</a>
-          </nav>
+          <DesktopNav />
+          <MobileNav />
         </div>
       </div>
     </motion.header>
