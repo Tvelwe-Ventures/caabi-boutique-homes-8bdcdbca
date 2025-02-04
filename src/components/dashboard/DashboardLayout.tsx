@@ -1,8 +1,8 @@
-
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SidebarContent } from "./sidebar/SidebarContent";
+import { DashboardFooter } from "./DashboardFooter";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
@@ -34,12 +34,13 @@ const DashboardLayout = () => {
       </div>
       
       <main className={cn(
-        "flex-1 transition-all duration-300",
+        "flex-1 transition-all duration-300 flex flex-col",
         open ? "ml-[240px]" : "ml-[70px]"
       )}>
-        <div className="container py-6 space-y-6">
+        <div className="container py-6 space-y-6 flex-1">
           <Outlet />
         </div>
+        <DashboardFooter />
       </main>
     </div>
   );

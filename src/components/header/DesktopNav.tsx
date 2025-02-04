@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "./NavLink";
-import { ThemeToggle } from "../ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { LogOut } from "lucide-react";
@@ -85,7 +84,6 @@ export const DesktopNav = () => {
       >
         <LogOut className="h-5 w-5" />
       </Button>
-      <ThemeToggle />
     </nav>
   );
 };
