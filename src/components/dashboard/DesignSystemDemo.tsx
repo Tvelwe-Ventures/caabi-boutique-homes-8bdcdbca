@@ -1,6 +1,7 @@
 import { BentoSection } from "./design-system/BentoSection";
 import { ButtonsSection } from "./design-system/ButtonsSection";
 import { CardsSection } from "./design-system/CardsSection";
+import { ChartSection } from "./design-system/ChartSection";
 import { DateSelectionSection } from "./design-system/DateSelectionSection";
 import { NavigationSection } from "./design-system/NavigationSection";
 import { AnimationSection } from "./design-system/AnimationSection";
@@ -25,6 +26,7 @@ const DesignSystemDemo = () => {
         <TypographySection />
         <GradientsSection />
         <IconsSection />
+        <ChartSection />
         <DataDisplaySection />
         <BentoSection />
         <ButtonsSection />
