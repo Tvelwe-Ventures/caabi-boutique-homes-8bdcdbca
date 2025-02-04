@@ -1,6 +1,11 @@
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, DollarSign } from "lucide-react";
 
 export const menuItems = [
+  {
+    title: "Financial Dashboard",
+    href: "/dashboard",
+    icon: DollarSign
+  },
   {
     title: "Financial Management",
     href: "/dashboard/financial",
