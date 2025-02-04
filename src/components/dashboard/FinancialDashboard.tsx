@@ -78,9 +78,9 @@ const FinancialDashboard = () => {
   ];
 
   const activityMetrics = [
-    { label: "Move", value: "92", trend: 92, unit: "min" },
-    { label: "Exercise", value: "85", trend: 85, unit: "min" },
-    { label: "Stand", value: "12", trend: 78, unit: "hrs" }
+    { label: "Move", value: "92", trend: 92, unit: "min" as const },
+    { label: "Exercise", value: "85", trend: 85, unit: "min" as const },
+    { label: "Stand", value: "12", trend: 78, unit: "hrs" as const }
   ];
 
   const sampleGoals = [
