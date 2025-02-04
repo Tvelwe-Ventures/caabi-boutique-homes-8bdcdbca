@@ -1,4 +1,4 @@
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, DollarSign } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, DollarSign, UserCheck } from "lucide-react";
 
 export const menuItems = [
   {
@@ -10,6 +10,11 @@ export const menuItems = [
     title: "Financial Management",
     href: "/dashboard/financial",
     icon: CreditCard
+  },
+  {
+    title: "Guest Management",
+    href: "/dashboard/guests",
+    icon: UserCheck
   },
   {
     title: "Shareholder Analytics",
