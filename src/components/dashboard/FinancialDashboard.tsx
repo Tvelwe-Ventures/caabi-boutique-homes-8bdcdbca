@@ -1,3 +1,4 @@
+```typescript
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Building2, TrendingUp, DollarSign, Percent, Home, Plus, FileText, Settings, Clock } from "lucide-react";
@@ -78,9 +79,9 @@ const FinancialDashboard = () => {
 
   // Sample activity data with property management metrics
   const activityMetrics = [
-    { label: "Move", value: "92", trend: 92, unit: "min" }, // Time spent on property visits
-    { label: "Exercise", value: "85", trend: 85, unit: "min" }, // Time spent on maintenance checks
-    { label: "Stand", value: "12", trend: 78, unit: "hrs" } // Time spent on tenant meetings
+    { label: "Move", value: "92", trend: 92, unit: "min" },
+    { label: "Exercise", value: "85", trend: 85, unit: "min" },
+    { label: "Stand", value: "12", trend: 78, unit: "hrs" }
   ];
 
   const sampleGoals = [
@@ -217,3 +218,4 @@ const FinancialDashboard = () => {
 };
 
 export default FinancialDashboard;
+```

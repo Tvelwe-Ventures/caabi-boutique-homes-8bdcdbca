@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tool, Clock, CheckCircle, AlertCircle } from "lucide-react";
+import { Wrench, Clock, CheckCircle, AlertCircle } from "lucide-react";
 import { StandardCard } from "@/components/ui/standard-card";
 
 const ServiceManagement = () => {
@@ -8,7 +8,7 @@ const ServiceManagement = () => {
     {
       title: "Active Requests",
       value: "24",
-      icon: Tool,
+      icon: Wrench,
       description: "Current service requests"
     },
     {
