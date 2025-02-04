@@ -5,6 +5,9 @@ import { StandardCard } from "../ui/standard-card";
 import { CardSpotlight } from "../ui/card-spotlight";
 import PropertyPerformance from "../PropertyPerformance";
 import { supabase } from "@/integrations/supabase/client";
+import { GuestStats } from "./guests/GuestStats";
+import { GuestTypeDistribution } from "./guests/GuestTypeDistribution";
+import { CommunityStats } from "../community/CommunityStats";
 
 interface FinancialMetrics {
   totalRevenue: number;
@@ -64,32 +67,86 @@ const FinancialDashboard = () => {
     }
   ];
 
+  // Mock data for guest type distribution
+  const guestTypeData = [
+    { name: 'Business', value: 30 },
+    { name: 'Leisure', value: 45 },
+    { name: 'Long-term', value: 15 },
+    { name: 'Group', value: 10 }
+  ];
+
   return (
     <div className="space-y-8 p-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">QuackBoard - Unified Data Hub</h1>
         <p className="text-gray-600 mb-6">Your centralized dashboard for comprehensive business insights</p>
         
-        {/* Top Level Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {topMetrics.map((metric, index) => (
-            <StandardCard
-              key={index}
-              icon={metric.icon}
-              title={metric.value}
-              description={metric.title}
-              className="hover:shadow-lg transition-shadow"
-            />
-          ))}
-        </div>
-
-        {/* Property Performance Section */}
-        <CardSpotlight className="mb-8">
-          <div className="p-6">
-            <h2 className="text-2xl font-semibold mb-6">Property Performance</h2>
-            <PropertyPerformance />
+        {/* Financial Metrics */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-2xl font-semibold mb-4">Financial Overview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {topMetrics.map((metric, index) => (
+              <StandardCard
+                key={index}
+                icon={metric.icon}
+                title={metric.value}
+                description={metric.title}
+                className="hover:shadow-lg transition-shadow"
+              />
+            ))}
           </div>
-        </CardSpotlight>
+        </motion.div>
+
+        {/* Guest Insights */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-semibold mb-4">Guest Insights</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <CardSpotlight>
+              <GuestStats
+                totalGuests={1250}
+                averageRating={4.8}
+                repeatGuests={280}
+              />
+            </CardSpotlight>
+            <CardSpotlight>
+              <GuestTypeDistribution data={guestTypeData} />
+            </CardSpotlight>
+          </div>
+        </motion.div>
+
+        {/* Property Performance */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-semibold mb-4">Property Performance</h2>
+          <CardSpotlight>
+            <PropertyPerformance />
+          </CardSpotlight>
+        </motion.div>
+
+        {/* Community Engagement */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
+          <h2 className="text-2xl font-semibold mb-4">Community Engagement</h2>
+          <CardSpotlight>
+            <CommunityStats />
+          </CardSpotlight>
+        </motion.div>
       </div>
     </div>
   );
