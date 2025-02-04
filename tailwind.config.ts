@@ -99,7 +99,23 @@ export default {
             transform: "rotate(215deg) translateX(-500px)",
             opacity: "0"
           },
-        }
+        },
+        orbit: {
+          "0%": {
+            transform: "rotate(0deg) translateX(var(--radius)px) rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(360deg) translateX(var(--radius)px) rotate(-360deg)",
+          },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        "marquee-vertical": {
+          "0%": { transform: "translateY(0%)" },
+          "100%": { transform: "translateY(-100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -110,6 +126,9 @@ export default {
         "text-flow": "text-flow 8s linear infinite",
         grid: "grid 20s linear infinite",
         "meteor-effect": "meteor 5s linear infinite",
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+        marquee: "marquee var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
     },
   },
