@@ -2,7 +2,6 @@
 import { cn } from "@/lib/utils";
 import { menuItems } from "./menuItems";
 import { Link, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
 
 interface SidebarContentProps {
   open: boolean;
@@ -14,23 +13,17 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
   return (
     <div className="flex flex-col h-full bg-white">
       <div className={cn(
-        "flex items-center gap-2 p-6 transition-all duration-200",
-        !open && "justify-center"
+        "flex items-center p-6 transition-all duration-200",
+        !open ? "justify-center" : "px-6"
       )}>
         <img 
-          src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png"
-          alt="QuackBoard"
-          className="h-8 w-8"
+          src="/lovable-uploads/5535b049-16de-4d80-b816-8fdeb93c5d60.png"
+          alt="QuackOS"
+          className={cn(
+            "transition-all duration-300",
+            open ? "w-32" : "w-8"
+          )}
         />
-        {open && (
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="font-semibold text-lg"
-          >
-            QuackOS
-          </motion.span>
-        )}
       </div>
 
       <nav className="flex-1 px-3 py-4">
