@@ -97,8 +97,6 @@ const Statistics = () => {
           }, {});
 
           const updatedMetrics = marketData.metrics.map(metric => {
-            // Update each metric based on the latest indicators
-            // This is a simplified example - you should adapt this to your actual data structure
             return {
               ...metric,
               value: latestIndicators[metric.title.toLowerCase()]?.value.toLocaleString() || metric.value,
@@ -172,93 +170,6 @@ const Statistics = () => {
             <MarketPriceMap data={marketData.pricePoints} />
             <PriceIndexTrend data={marketData.priceIndices} />
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <CardSpotlight className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Average Price Trends (AED/sqft)</h3>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={priceData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="month" stroke="#94a3b8" />
-                    <YAxis stroke="#94a3b8" />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "white",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "0.5rem",
-                      }}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="price"
-                      stroke="#8380CA"
-                      strokeWidth={2}
-                      dot={{ fill: "#8380CA" }}
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </CardSpotlight>
-
-            <CardSpotlight className="p-6">
-              <h3 className="text-xl font-semibold mb-4">Top Areas by Transactions</h3>
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={transactionData} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis type="number" stroke="#94a3b8" />
-                    <YAxis dataKey="area" type="category" stroke="#94a3b8" width={100} />
-                    <Tooltip
-                      contentStyle={{
-                        backgroundColor: "white",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "0.5rem",
-                      }}
-                    />
-                    <Bar dataKey="transactions" fill="#8380CA" radius={[0, 4, 4, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </CardSpotlight>
-          </div>
-
-          <CardSpotlight className="p-6 mb-8">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-semibold">Property Type Distribution</h3>
-              <p className="text-sm text-gray-500">Source: DXB Interact</p>
-            </div>
-            <div className="h-[300px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={distributionData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                  <XAxis dataKey="month" stroke="#94a3b8" />
-                  <YAxis stroke="#94a3b8" />
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: "white",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "0.5rem",
-                    }}
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="apartments"
-                    stackId="1"
-                    stroke="#8380CA"
-                    fill="#8380CA"
-                  />
-                  <Area
-                    type="monotone"
-                    dataKey="villas"
-                    stackId="1"
-                    stroke="#B2D1E3"
-                    fill="#B2D1E3"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
-            </div>
-          </CardSpotlight>
         </div>
       </div>
       <Footer />

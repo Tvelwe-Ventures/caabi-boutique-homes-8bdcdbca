@@ -24,9 +24,9 @@ const PriceIndexTrend = ({ data }: { data: PriceIndex[] }) => {
                   return (
                     <div className="bg-white p-4 shadow-lg rounded-lg border">
                       <p className="font-semibold">{label}</p>
-                      {payload.map((entry, index) => (
+                      {payload.map((entry: any, index: number) => (
                         <p key={index} style={{ color: entry.color }}>
-                          {entry.name}: {entry.value.toFixed(2)}
+                          {entry.name}: {entry.value?.toFixed(2)}
                         </p>
                       ))}
                     </div>
