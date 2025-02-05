@@ -1,4 +1,5 @@
-import { Home, Plus, FileText, Settings } from "lucide-react";
+
+import { Plus, FileText, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { Button } from "../ui/button";
@@ -11,7 +12,6 @@ import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 
 const FinancialDashboard = () => {
-  // Enable real-time subscription
   usePropertiesSubscription();
 
   const quickActions = [
@@ -22,21 +22,14 @@ const FinancialDashboard = () => {
 
   return (
     <div className="space-y-8 p-8">
-      <Breadcrumb>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="/dashboard">
-            <Home className="h-4 w-4" />
-          </BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbItem>
-          <BreadcrumbLink>QuackBoard</BreadcrumbLink>
-        </BreadcrumbItem>
-      </Breadcrumb>
-
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold mb-2">QuackBoard - Unified Data Hub</h1>
-          <p className="text-gray-600">Your centralized dashboard for comprehensive business insights</p>
+          <img 
+            src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
+            alt="QuacaBoard" 
+            className="h-8 mb-4"
+          />
+          <h2 className="text-lg text-gray-600">Your centralized dashboard for comprehensive business insights</h2>
         </div>
         <div className="flex gap-3">
           {quickActions.map((action, index) => (
@@ -52,7 +45,7 @@ const FinancialDashboard = () => {
         </div>
       </div>
 
-      <div className="relative min-h-[300px] bg-gradient-to-b from-gray-50 to-white rounded-lg p-6 shadow-sm">
+      <div className="relative min-h-[400px] bg-white rounded-lg p-6 shadow-sm">
         <h2 className="text-xl font-semibold mb-4">Real-time Data Integration</h2>
         <DataIntegrationBeams />
       </div>
@@ -80,6 +73,15 @@ const FinancialDashboard = () => {
 
       <GuestInsights />
       <CommunitySection />
+      
+      <footer className="mt-12 text-center">
+        <img 
+          src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
+          alt="QuacaBoard" 
+          className="h-6 mx-auto mb-4"
+        />
+        <p className="text-sm text-gray-500">© 2024 QuacaBoard. All rights reserved.</p>
+      </footer>
     </div>
   );
 };
