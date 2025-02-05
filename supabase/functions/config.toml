@@ -1,0 +1,5 @@
+
+project_id = "wwzxgeemuiopimnjbooo"
+
+[functions.price-labs]
+verify_jwt = true
