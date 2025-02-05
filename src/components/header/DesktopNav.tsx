@@ -73,7 +73,7 @@ export const DesktopNav = () => {
       <div className="flex-1" />
       
       <NavLink to="/auth" className="text-white hover:text-white/80 text-lg font-semibold">
-        QuackOS
+        QuacQOS
       </NavLink>
 
       <Button

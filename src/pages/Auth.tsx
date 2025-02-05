@@ -98,7 +98,7 @@ const Auth = () => {
             <div className="flex flex-col items-center space-y-1">
               <img 
                 src="/lovable-uploads/b837db34-8f03-4d51-b7c3-72d79997c3cd.png" 
-                alt="Quack OS" 
+                alt="QuacQOS" 
                 className="h-12 mb-2"
               />
               <span className="text-base text-gray-500">Property & Revenue Management System</span>

@@ -3,7 +3,7 @@ import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, 
 
 export const menuItems = [
   {
-    title: "QuackBoard",
+    title: "QuacQBoard",
     href: "/dashboard",
     icon: Bird
   },
@@ -33,7 +33,7 @@ export const menuItems = [
     icon: Settings
   },
   {
-    title: "QuackOS Design System",
+    title: "QuacQOS Design System",
     href: "/dashboard/design-system",
     icon: Palette
   },
