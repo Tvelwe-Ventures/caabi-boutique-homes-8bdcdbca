@@ -1,21 +1,21 @@
 
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, DollarSign, UserCheck } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Bird } from "lucide-react";
 
 export const menuItems = [
   {
     title: "QuackBoard",
     href: "/dashboard",
-    icon: DollarSign
+    icon: Bird
   },
   {
-    title: "Financial Management",
+    title: "Finance & Revenue Management",
     href: "/dashboard/financial-management",
     icon: CreditCard
   },
   {
     title: "Guest Management",
     href: "/dashboard/guest-management",
-    icon: UserCheck
+    icon: Users
   },
   {
     title: "Shareholder Analytics",

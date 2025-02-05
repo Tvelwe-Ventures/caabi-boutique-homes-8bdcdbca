@@ -17,7 +17,7 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
         !open ? "justify-center" : "px-6"
       )}>
         <img 
-          src="/lovable-uploads/5535b049-16de-4d80-b816-8fdeb93c5d60.png"
+          src="/lovable-uploads/b477e5aa-58ac-4fd9-81f6-ec609db8fb38.png"
           alt="QuackOS"
           className={cn(
             "transition-all duration-300",
