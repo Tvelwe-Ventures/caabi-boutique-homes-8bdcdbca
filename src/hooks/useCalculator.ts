@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabaseClient";
+import { supabase } from "@/integrations/supabase/client";
 import { CalculatorSettings } from "@/components/calculator/types";
 
 export const useCalculator = () => {
