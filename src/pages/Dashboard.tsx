@@ -11,6 +11,7 @@ import ShareholderAnalytics from "@/components/dashboard/shareholder-analytics/S
 import PropertyPerformance from "@/components/dashboard/PortfolioPerformance";
 import ServiceManagement from "@/components/dashboard/service-management/ServiceManagement";
 import Documentation from "@/pages/docs/Documentation";
+import { DashboardTour } from "@/components/dashboard/onboarding/DashboardTour";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <DashboardTour />
       <Routes>
         <Route element={<DashboardLayout />}>
           <Route index element={<FinancialDashboard />} />
