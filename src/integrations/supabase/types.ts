@@ -191,6 +191,36 @@ export type Database = {
         }
         Relationships: []
       }
+      page_analytics: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          id: string
+          path: string
+          session_end: string | null
+          session_start: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          path: string
+          session_end?: string | null
+          session_start: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          id?: string
+          path?: string
+          session_end?: string | null
+          session_start?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       post_categories: {
         Row: {
           category_id: string
