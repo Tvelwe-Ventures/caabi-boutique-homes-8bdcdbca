@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { FeyButton } from "@/components/ui/fey-button";
@@ -16,75 +16,74 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // Add session check on mount
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate('/dashboard');
+      }
+    };
+    checkSession();
+  }, [navigate]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     console.log("Attempting authentication...");
     
-    if (isForgotPassword) {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth`,
-      });
-
-      if (error) {
-        console.error("Password reset error:", error);
-        toast({
-          title: "Error",
-          description: error.message,
-          variant: "destructive",
+    try {
+      if (isForgotPassword) {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/auth`,
         });
-      } else {
+
+        if (error) throw error;
+        
         toast({
           title: "Success",
           description: "Password reset instructions have been sent to your email.",
-          variant: "default",
         });
         setIsForgotPassword(false);
-      }
-    } else if (isSignUp) {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-
-      if (error) {
-        console.error("Signup error:", error);
-        toast({
-          title: "Error signing up",
-          description: error.message,
-          variant: "destructive",
+      } else if (isSignUp) {
+        const { error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/dashboard`
+          }
         });
-      } else {
+
+        if (error) throw error;
+        
         toast({
           title: "Success",
           description: "Please check your email for the confirmation link.",
-          variant: "default",
-        });
-      }
-    } else {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        console.error("Login error:", error);
-        toast({
-          title: "Error signing in",
-          description: error.message,
-          variant: "destructive",
         });
       } else {
-        console.log("Login successful");
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+
         toast({
           title: "Success",
           description: "Successfully signed in!",
-          variant: "default",
         });
         navigate("/dashboard");
       }
+    } catch (error: any) {
+      console.error("Login error:", error);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
