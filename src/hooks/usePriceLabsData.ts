@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import type { PriceLabsMarketData, PriceLabsPropertyData, PriceLabsRecommendation } from "@/types/pricelabs";
 
 interface PriceLabsParams {
-  endpoint: 'market-data' | 'property-data' | 'recommendations';
+  endpoint: 'market-data' | 'listings' | 'neighborhood-data' | 'reservation-data';
   params?: Record<string, string>;
 }
 
@@ -43,14 +43,14 @@ export function useMarketData(params?: Record<string, string>) {
 
 export function usePropertyData(params?: Record<string, string>) {
   return usePriceLabsData<PriceLabsPropertyData>({
-    endpoint: 'property-data',
+    endpoint: 'listings',
     params
   });
 }
 
 export function usePriceRecommendations(params?: Record<string, string>) {
   return usePriceLabsData<PriceLabsRecommendation>({
-    endpoint: 'recommendations',
+    endpoint: 'neighborhood-data',
     params
   });
 }

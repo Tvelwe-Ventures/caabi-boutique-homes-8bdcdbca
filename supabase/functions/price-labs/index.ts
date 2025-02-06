@@ -16,15 +16,63 @@ serve(async (req) => {
   }
 
   try {
-    const { endpoint, params } = await req.json();
+    const { endpoint } = await req.json();
     
-    console.log(`Fetching Price Labs data for endpoint: ${endpoint}, params:`, params);
+    console.log(`Processing PriceLabs request for endpoint: ${endpoint}`);
     
-    const queryParams = new URLSearchParams(params).toString();
-    const url = `${PRICE_LABS_BASE_URL}/${endpoint}${queryParams ? `?${queryParams}` : ''}`;
+    let url;
+    switch (endpoint) {
+      case 'listings':
+        url = `${PRICE_LABS_BASE_URL}/v1/listings`;
+        break;
+      case 'neighborhood-data':
+        url = `${PRICE_LABS_BASE_URL}/v1/neighborhood_data`;
+        break;
+      case 'reservation-data':
+        url = `${PRICE_LABS_BASE_URL}/v1/reservation_data`;
+        break;
+      case 'market-data':
+        // This is a combination of neighborhood and reservation data
+        const [neighborhoodData, reservationData] = await Promise.all([
+          fetch(`${PRICE_LABS_BASE_URL}/v1/neighborhood_data`, {
+            headers: {
+              'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(res => res.json()),
+          fetch(`${PRICE_LABS_BASE_URL}/v1/reservation_data`, {
+            headers: {
+              'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(res => res.json())
+        ]);
+
+        // Combine and process the data
+        const marketData = {
+          revenue: reservationData.total_revenue || 0,
+          occupancy: neighborhoodData.occupancy_rate || 0,
+          adr: neighborhoodData.average_daily_rate || 0,
+          revpar: (neighborhoodData.average_daily_rate * (neighborhoodData.occupancy_rate / 100)) || 0,
+          active_listings: neighborhoodData.active_listings || 0,
+          avg_booking_value: reservationData.average_booking_value || 0,
+          avg_booking_window: reservationData.average_booking_window || 0,
+          avg_length_of_stay: reservationData.average_length_of_stay || 0,
+        };
+
+        return new Response(JSON.stringify(marketData), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+
+      default:
+        throw new Error(`Unknown endpoint: ${endpoint}`);
+    }
+
+    if (!url) {
+      throw new Error('Invalid endpoint specified');
+    }
 
     const response = await fetch(url, {
-      method: 'GET',
       headers: {
         'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
         'Content-Type': 'application/json',
@@ -32,8 +80,7 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      const error = await response.text();
-      console.error(`PriceLabs API error: ${error}`);
+      console.error(`PriceLabs API error: ${response.status} - ${await response.text()}`);
       throw new Error(`PriceLabs API error: ${response.status}`);
     }
 
