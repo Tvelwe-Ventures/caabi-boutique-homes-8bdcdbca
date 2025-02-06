@@ -15,6 +15,7 @@ import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Chat from "@/components/Chat";
+import MarketKPIs from "@/components/stats/MarketKPIs";
 
 const Index = () => {
   return (
@@ -31,6 +32,7 @@ const Index = () => {
       <Services />
       <Portfolio />
       <Stats />
+      <MarketKPIs />
       <PropertyPerformance />
       <WhyShortTerm />
       <Feedback />
