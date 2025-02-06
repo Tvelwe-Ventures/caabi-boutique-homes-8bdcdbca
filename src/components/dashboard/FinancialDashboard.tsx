@@ -8,7 +8,7 @@ import { GuestInsights } from "./financial/GuestInsights";
 import { CommunitySection } from "./financial/CommunitySection";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
-import { WebsiteFeedback } from "../WebsiteFeedback";
+import { QuacqFeedback } from "./QuacqFeedback";
 
 const FinancialDashboard = () => {
   usePropertiesSubscription();
@@ -41,7 +41,7 @@ const FinancialDashboard = () => {
               {action.label}
             </Button>
           ))}
-          <WebsiteFeedback />
+          <QuacqFeedback />
         </div>
       </div>
 

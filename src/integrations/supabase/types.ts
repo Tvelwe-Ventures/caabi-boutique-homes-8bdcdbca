@@ -558,6 +558,39 @@ export type Database = {
         }
         Relationships: []
       }
+      quacq_feedback: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          image_url: string | null
+          status: string | null
+          type: Database["public"]["Enums"]["quacq_feedback_type"]
+          updated_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          status?: string | null
+          type: Database["public"]["Enums"]["quacq_feedback_type"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          image_url?: string | null
+          status?: string | null
+          type?: Database["public"]["Enums"]["quacq_feedback_type"]
+          updated_at?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       reactions: {
         Row: {
           created_at: string
@@ -828,6 +861,7 @@ export type Database = {
       feedback_type: "stay" | "suggestion" | "general"
       investment_role: "founder" | "coo" | "investor"
       property_type: "apartment" | "villa" | "townhouse" | "penthouse"
+      quacq_feedback_type: "general" | "bug" | "feature"
       report_type: "spam" | "harassment" | "inappropriate" | "other"
       user_role: "user" | "moderator" | "admin"
     }
