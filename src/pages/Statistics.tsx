@@ -10,8 +10,15 @@ import MarketPriceMap from "@/components/charts/MarketPriceMap";
 import PriceIndexTrend from "@/components/charts/PriceIndexTrend";
 import MarketKPIs from "@/components/stats/MarketKPIs";
 import LocationMap from "@/components/maps/LocationMap";
+import { useMarketData } from "@/hooks/usePriceLabsData";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Statistics = () => {
+  const { data: marketData, isLoading } = useMarketData();
+
+  console.log("PriceLabs market data:", marketData);
+
   return (
     <>
       <Header />
@@ -34,7 +41,18 @@ const Statistics = () => {
           <div className="space-y-8">
             <section>
               <h2 className="text-2xl font-semibold mb-6">Key Performance Indicators</h2>
-              <MarketKPIs />
+              {isLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[...Array(8)].map((_, i) => (
+                    <Card key={i} className="p-6">
+                      <Skeleton className="h-4 w-1/2 mb-4" />
+                      <Skeleton className="h-8 w-3/4" />
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <MarketKPIs />
+              )}
             </section>
 
             <section>
@@ -42,8 +60,8 @@ const Statistics = () => {
             </section>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <MarketPriceMap data={[]} />
-              <PriceIndexTrend data={[]} />
+              <MarketPriceMap data={marketData?.priceData || []} />
+              <PriceIndexTrend data={marketData?.trendData || []} />
             </div>
           </div>
         </div>
