@@ -4,9 +4,9 @@ import { useMarketData } from "@/hooks/usePriceLabsData";
 import { DollarSign, Calendar, Users, Percent, Clock, Home } from "lucide-react";
 
 export const useMarketKPIs = () => {
-  const { data: marketData, isLoading: isPriceLabsLoading } = useMarketData();
+  const { data: marketData, isLoading: isPriceLabsLoading, error: priceLabsError } = useMarketData();
   
-  const { data: indicators, isLoading: isIndicatorsLoading } = useQuery({
+  const { data: indicators, isLoading: isIndicatorsLoading, error: indicatorsError } = useQuery({
     queryKey: ['market-kpis'],
     queryFn: async () => {
       console.log("Fetching UAE market indicators...");
@@ -24,6 +24,13 @@ export const useMarketKPIs = () => {
       console.log("UAE market indicators received:", data);
       return data;
     }
+  });
+
+  // Log PriceLabs data status
+  console.log("PriceLabs data status:", {
+    isLoading: isPriceLabsLoading,
+    error: priceLabsError,
+    data: marketData
   });
 
   // Calculate metrics from both PriceLabs and UAE market indicators
@@ -94,6 +101,7 @@ export const useMarketKPIs = () => {
   return {
     kpiData,
     isLoading: isPriceLabsLoading || isIndicatorsLoading,
-    marketData
+    marketData,
+    error: priceLabsError || indicatorsError
   };
 };
