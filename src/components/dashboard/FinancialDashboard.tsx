@@ -1,7 +1,5 @@
-
 import { Plus, FileText, Settings } from "lucide-react";
 import { motion } from "framer-motion";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "../ui/breadcrumb";
 import { Button } from "../ui/button";
 import { DataIntegrationBeams } from "./DataIntegrationBeams";
 import { FinancialMetrics } from "./financial/FinancialMetrics";
@@ -10,6 +8,7 @@ import { GuestInsights } from "./financial/GuestInsights";
 import { CommunitySection } from "./financial/CommunitySection";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
+import { WebsiteFeedback } from "../WebsiteFeedback";
 
 const FinancialDashboard = () => {
   usePropertiesSubscription();
@@ -31,7 +30,7 @@ const FinancialDashboard = () => {
           />
           <h2 className="text-lg text-gray-600">Your centralized dashboard for comprehensive business insights</h2>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center">
           {quickActions.map((action, index) => (
             <Button
               key={index}
@@ -42,6 +41,7 @@ const FinancialDashboard = () => {
               {action.label}
             </Button>
           ))}
+          <WebsiteFeedback />
         </div>
       </div>
 
