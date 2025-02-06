@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useMarketData } from "@/hooks/usePriceLabsData";
-import { DollarSign, Calendar, Users, Percent, Clock, Home } from "lucide-react";
+import { DollarSign, Calendar, Users, Percent, Clock, Home, Activity, TrendingUp } from "lucide-react";
 
 export const useMarketKPIs = () => {
   const { data: marketData, isLoading: isPriceLabsLoading, error: priceLabsError } = useMarketData();
@@ -26,18 +26,19 @@ export const useMarketKPIs = () => {
     }
   });
 
-  // Log PriceLabs data status
-  console.log("PriceLabs data status:", {
+  // Log combined market data status
+  console.log("Combined market data status:", {
     isLoading: isPriceLabsLoading,
     error: priceLabsError,
-    data: marketData
+    marketData,
+    indicators
   });
 
-  // Calculate metrics from both PriceLabs and UAE market indicators
+  // Calculate metrics from both sources
   const revenue = marketData?.revenue || indicators?.find(i => i.indicator_type === 'transaction_value')?.value || 0;
   const occupancy = marketData?.occupancy || indicators?.find(i => i.indicator_type === 'occupancy_rate')?.value || 0;
   const adr = marketData?.adr || indicators?.find(i => i.indicator_type === 'average_price')?.value || 0;
-  const activeListings = marketData?.active_listings || indicators?.find(i => i.indicator_type === 'off_plan_sales')?.value || 0;
+  const activeListings = marketData?.active_listings || indicators?.find(i => i.indicator_type === 'active_listings')?.value || 0;
 
   const kpiData = [
     {
@@ -76,22 +77,22 @@ export const useMarketKPIs = () => {
       tooltip: "Number of active property listings"
     },
     {
-      title: "Avg. Booking Value",
-      value: marketData?.avg_booking_value?.toFixed(0) || "819",
-      change: "+7.8%",
-      icon: DollarSign,
-      tooltip: "Average booking value"
+      title: "Market Demand",
+      value: marketData?.market_demand?.toUpperCase() || "MEDIUM",
+      change: "+2.1%",
+      icon: Activity,
+      tooltip: "Current market demand level"
     },
     {
       title: "Booking Window",
-      value: marketData?.avg_booking_window?.toFixed(0) || "16",
+      value: `${marketData?.avg_booking_window?.toFixed(0) || "16"} days`,
       change: "-2.1",
       icon: Clock,
       tooltip: "Average days between booking and check-in"
     },
     {
       title: "Length of Stay",
-      value: marketData?.avg_length_of_stay?.toFixed(1) || "3",
+      value: `${marketData?.avg_length_of_stay?.toFixed(1) || "3"} days`,
       change: "+0.5",
       icon: Users,
       tooltip: "Average length of stay in days"

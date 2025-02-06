@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import { Building2, TrendingUp, Home, Activity } from "lucide-react";
+import { Building2, TrendingUp, Home, Activity, Calendar, Users, DollarSign, Percent } from "lucide-react";
 import { StandardCard } from "../ui/standard-card";
 
 interface MarketMetric {
   title: string;
   value: string;
-  change: string;
+  change?: string;
   icon: any;
   description: string;
 }
@@ -22,7 +22,18 @@ const MarketMetrics = ({ metrics }: { metrics: MarketMetric[] }) => {
         >
           <StandardCard
             icon={metric.icon}
-            title={metric.value}
+            title={
+              <div className="flex items-center gap-2">
+                <span>{metric.value}</span>
+                {metric.change && (
+                  <span className={`text-sm ${
+                    metric.change.startsWith('-') ? 'text-red-500' : 'text-green-500'
+                  }`}>
+                    {metric.change}
+                  </span>
+                )}
+              </div>
+            }
             description={metric.title}
             className="hover:shadow-lg transition-shadow duration-200"
           />

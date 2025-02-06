@@ -2,7 +2,9 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const PRICE_LABS_API_KEY = Deno.env.get('PRICE_LABS_API_KEY')!;
+const HOSTAWAY_API_KEY = Deno.env.get('HOSTAWAY_API_KEY')!;
 const PRICE_LABS_BASE_URL = 'https://api.pricelabs.co/v1';
+const HOSTAWAY_BASE_URL = 'https://api.hostaway.com/v1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -18,7 +20,7 @@ serve(async (req) => {
   try {
     const { endpoint } = await req.json();
     
-    console.log(`Processing PriceLabs request for endpoint: ${endpoint}`);
+    console.log(`Processing market data request for endpoint: ${endpoint}`);
     
     let url;
     switch (endpoint) {
@@ -32,17 +34,25 @@ serve(async (req) => {
         url = `${PRICE_LABS_BASE_URL}/v1/reservation_data`;
         break;
       case 'market-data':
-        // This is a combination of neighborhood and reservation data
-        const [neighborhoodData, reservationData] = await Promise.all([
+        // Fetch data from both PriceLabs and Hostaway
+        const [priceLabsNeighborhood, priceLabsReservation, hostawayData] = await Promise.all([
           fetch(`${PRICE_LABS_BASE_URL}/v1/neighborhood_data`, {
             headers: {
               'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
               'Content-Type': 'application/json',
             },
           }).then(res => res.json()),
+          
           fetch(`${PRICE_LABS_BASE_URL}/v1/reservation_data`, {
             headers: {
               'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(res => res.json()),
+          
+          fetch(`${HOSTAWAY_BASE_URL}/market-data`, {
+            headers: {
+              'Authorization': `Bearer ${HOSTAWAY_API_KEY}`,
               'Content-Type': 'application/json',
             },
           }).then(res => res.json())
@@ -50,15 +60,20 @@ serve(async (req) => {
 
         // Combine and process the data
         const marketData = {
-          revenue: reservationData.total_revenue || 0,
-          occupancy: neighborhoodData.occupancy_rate || 0,
-          adr: neighborhoodData.average_daily_rate || 0,
-          revpar: (neighborhoodData.average_daily_rate * (neighborhoodData.occupancy_rate / 100)) || 0,
-          active_listings: neighborhoodData.active_listings || 0,
-          avg_booking_value: reservationData.average_booking_value || 0,
-          avg_booking_window: reservationData.average_booking_window || 0,
-          avg_length_of_stay: reservationData.average_length_of_stay || 0,
+          revenue: priceLabsReservation.total_revenue || 0,
+          occupancy: priceLabsNeighborhood.occupancy_rate || hostawayData?.occupancy_rate || 0,
+          adr: priceLabsNeighborhood.average_daily_rate || hostawayData?.average_daily_rate || 0,
+          revpar: (priceLabsNeighborhood.average_daily_rate * (priceLabsNeighborhood.occupancy_rate / 100)) || 0,
+          active_listings: priceLabsNeighborhood.active_listings || hostawayData?.active_listings || 0,
+          avg_booking_value: priceLabsReservation.average_booking_value || hostawayData?.average_booking_value || 0,
+          avg_booking_window: priceLabsReservation.average_booking_window || hostawayData?.average_lead_time || 0,
+          avg_length_of_stay: priceLabsReservation.average_length_of_stay || hostawayData?.average_length_of_stay || 0,
+          market_demand: hostawayData?.market_demand || 'medium',
+          competitor_pricing: hostawayData?.competitor_pricing || [],
+          seasonal_trends: hostawayData?.seasonal_trends || []
         };
+
+        console.log('Combined market data:', marketData);
 
         return new Response(JSON.stringify(marketData), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -80,12 +95,12 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      console.error(`PriceLabs API error: ${response.status} - ${await response.text()}`);
-      throw new Error(`PriceLabs API error: ${response.status}`);
+      console.error(`API error: ${response.status} - ${await response.text()}`);
+      throw new Error(`API error: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(`PriceLabs API response received for ${endpoint}`);
+    console.log(`API response received for ${endpoint}`);
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
