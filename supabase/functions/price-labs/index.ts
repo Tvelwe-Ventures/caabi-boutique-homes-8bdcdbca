@@ -1,3 +1,4 @@
+
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
@@ -18,8 +19,12 @@ serve(async (req) => {
   }
 
   try {
+    if (!PRICE_LABS_API_KEY || !HOSTAWAY_API_KEY) {
+      console.error('Missing required API keys');
+      throw new Error('Configuration error: Missing API keys');
+    }
+
     const { endpoint } = await req.json();
-    
     console.log(`Processing market data request for endpoint: ${endpoint}`);
     
     let url;
@@ -42,8 +47,12 @@ serve(async (req) => {
                 'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
                 'Content-Type': 'application/json',
               },
-            }).then(res => {
-              if (!res.ok) throw new Error(`PriceLabs neighborhood API error: ${res.status}`);
+            }).then(async res => {
+              if (!res.ok) {
+                const errorText = await res.text();
+                console.error(`PriceLabs neighborhood API error: ${res.status}`, errorText);
+                throw new Error(`PriceLabs neighborhood API error: ${res.status}`);
+              }
               return res.json();
             }),
             
@@ -52,8 +61,12 @@ serve(async (req) => {
                 'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
                 'Content-Type': 'application/json',
               },
-            }).then(res => {
-              if (!res.ok) throw new Error(`PriceLabs reservation API error: ${res.status}`);
+            }).then(async res => {
+              if (!res.ok) {
+                const errorText = await res.text();
+                console.error(`PriceLabs reservation API error: ${res.status}`, errorText);
+                throw new Error(`PriceLabs reservation API error: ${res.status}`);
+              }
               return res.json();
             }),
             
@@ -62,8 +75,12 @@ serve(async (req) => {
                 'Authorization': `Bearer ${HOSTAWAY_API_KEY}`,
                 'Content-Type': 'application/json',
               },
-            }).then(res => {
-              if (!res.ok) throw new Error(`Hostaway API error: ${res.status}`);
+            }).then(async res => {
+              if (!res.ok) {
+                const errorText = await res.text();
+                console.error(`Hostaway API error: ${res.status}`, errorText);
+                throw new Error(`Hostaway API error: ${res.status}`);
+              }
               return res.json();
             })
           ]);
@@ -92,7 +109,13 @@ serve(async (req) => {
           });
         } catch (error) {
           console.error('Error fetching market data:', error);
-          throw error;
+          return new Response(
+            JSON.stringify({ error: error.message }),
+            { 
+              status: 500, 
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+            }
+          );
         }
 
       default:
@@ -111,7 +134,8 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      console.error(`API error: ${response.status} - ${await response.text()}`);
+      const errorText = await response.text();
+      console.error(`API error: ${response.status} - ${errorText}`);
       throw new Error(`API error: ${response.status}`);
     }
 
@@ -124,9 +148,12 @@ serve(async (req) => {
 
   } catch (error) {
     console.error('Error in price-labs function:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: error.message }), 
+      { 
+        status: 500,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      }
+    );
   }
 });
