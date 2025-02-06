@@ -12,6 +12,7 @@ import { IconsSection } from "./design-system/IconsSection";
 import { TimelineSection } from "./design-system/TimelineSection";
 import { DataDisplaySection } from "./design-system/DataDisplaySection";
 import { AnimatedComponentsSection } from "./design-system/AnimatedComponentsSection";
+import { AnimatedCardsSection } from "./design-system/AnimatedCards";
 
 const DesignSystemDemo = () => {
   return (
@@ -32,6 +33,7 @@ const DesignSystemDemo = () => {
         <BentoSection />
         <ButtonsSection />
         <CardsSection />
+        <AnimatedCardsSection />
         <InformationCardsSection />
         <TimelineSection />
         <DateSelectionSection />
