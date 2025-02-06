@@ -11,8 +11,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import LocationMap from "@/components/maps/LocationMap";
+import { format } from 'date-fns';
 
-// Types for UAE market data
 interface MarketIndicator {
   indicator_type: string;
   location: string;
@@ -22,6 +22,13 @@ interface MarketIndicator {
   property_type?: string;
   segment?: string;
 }
+
+const formatIndicatorName = (name: string) => {
+  return name
+    .split('_')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
 
 const Statistics = () => {
   const { data: marketData, isLoading } = useQuery({
@@ -43,31 +50,26 @@ const Statistics = () => {
     }
   });
 
-  const renderMarketKPIs = () => {
-    if (!marketData) return null;
-
-    const latestIndicators = marketData.reduce((acc, indicator) => {
-      if (!acc[indicator.indicator_type] || 
-          new Date(indicator.time_period) > new Date(acc[indicator.indicator_type].time_period)) {
-        acc[indicator.indicator_type] = indicator;
-      }
-      return acc;
-    }, {} as Record<string, MarketIndicator>);
-
-    return Object.values(latestIndicators).map((indicator, index) => (
-      <Card key={index} className="p-6">
-        <h3 className="text-lg font-semibold mb-2">{indicator.indicator_type}</h3>
-        <p className="text-2xl font-bold">
-          {indicator.value.toLocaleString()} {indicator.unit}
-        </p>
-        <p className="text-sm text-gray-500 mt-2">
-          {indicator.location}
-          {indicator.property_type && ` • ${indicator.property_type}`}
-          {indicator.segment && ` • ${indicator.segment}`}
-        </p>
-      </Card>
-    ));
-  };
+  const renderMarketIndicator = (indicator: MarketIndicator) => (
+    <Card className="p-6 hover:shadow-lg transition-shadow duration-200">
+      <h3 className="text-lg font-semibold mb-2 text-gray-800">
+        {formatIndicatorName(indicator.indicator_type)}
+      </h3>
+      <p className="text-3xl font-bold text-primary mb-2">
+        {indicator.value.toLocaleString()}{' '}
+        <span className="text-lg font-normal text-gray-600">{indicator.unit}</span>
+      </p>
+      <div className="text-sm text-gray-500 space-y-1">
+        {indicator.property_type && indicator.property_type !== 'All' && (
+          <p>Property Type: {indicator.property_type}</p>
+        )}
+        {indicator.segment && indicator.segment !== 'All' && (
+          <p>Segment: {indicator.segment}</p>
+        )}
+        <p>Last Updated: {format(new Date(indicator.time_period), 'MMM d, yyyy')}</p>
+      </div>
+    </Card>
+  );
 
   return (
     <>
@@ -88,7 +90,7 @@ const Statistics = () => {
             </p>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-12">
             <section>
               <h2 className="text-2xl font-semibold mb-6">Key Market Indicators</h2>
               {isLoading ? (
@@ -96,18 +98,28 @@ const Statistics = () => {
                   {[...Array(8)].map((_, i) => (
                     <Card key={i} className="p-6">
                       <Skeleton className="h-4 w-1/2 mb-4" />
-                      <Skeleton className="h-8 w-3/4" />
+                      <Skeleton className="h-8 w-3/4 mb-2" />
+                      <Skeleton className="h-4 w-1/3" />
                     </Card>
                   ))}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {renderMarketKPIs()}
+                  {marketData?.map((indicator, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.1 }}
+                    >
+                      {renderMarketIndicator(indicator)}
+                    </motion.div>
+                  ))}
                 </div>
               )}
             </section>
 
-            <section>
+            <section className="mt-12">
               <LocationMap />
             </section>
           </div>
