@@ -1,9 +1,14 @@
 export interface PriceLabsMarketData {
   market_id: string;
   location: string;
-  occupancy_rate: number;
-  average_daily_rate: number;
-  revenue_potential: number;
+  revenue: number;
+  occupancy: number;
+  adr: number;
+  revpar: number;
+  active_listings: number;
+  avg_booking_value: number;
+  avg_booking_window: number;
+  avg_length_of_stay: number;
   demand_score: number;
   seasonality_factor: number;
   competitor_count: number;
