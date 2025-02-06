@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Card } from "../ui/card";
-import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { FeyButton } from "../ui/fey-button";
+import { Card } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { MessageSquare, Bug, Flag } from "lucide-react";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
 
 export const QuacqFeedback = () => {
   const [content, setContent] = useState("");
@@ -58,13 +58,16 @@ export const QuacqFeedback = () => {
       toast({
         title: "Thank you for your feedback!",
         description: "We appreciate your input and will review it carefully.",
+        variant: "default",
       });
 
+      // Reset form
       setContent("");
       setType("general");
       setImage(null);
       
-      const closeButton = document.querySelector('[data-sheet-close]') as HTMLButtonElement;
+      // Close the dialog after successful submission
+      const closeButton = document.querySelector('[data-dialog-close]') as HTMLButtonElement;
       if (closeButton) {
         closeButton.click();
       }
@@ -90,65 +93,61 @@ export const QuacqFeedback = () => {
     }
   };
 
-  const FeedbackForm = () => (
-    <Card className="p-6 bg-white/90 backdrop-blur-sm shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-primary-dark">QuacQOS Feedback</h2>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <Label htmlFor="type">Feedback Type</Label>
-          <Select value={type} onValueChange={(value: "general" | "bug" | "feature") => setType(value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select feedback type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="general">General Feedback</SelectItem>
-              <SelectItem value="bug">Bug Report</SelectItem>
-              <SelectItem value="feature">Feature Request</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="content">Your Feedback</Label>
-          <Textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Please share your thoughts..."
-            className="min-h-[150px] resize-none"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="image">Screenshot or Image (optional)</Label>
-          <Input
-            id="image"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="cursor-pointer"
-          />
-        </div>
-
-        <FeyButton type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Submitting..." : "Submit Feedback"}
-        </FeyButton>
-      </form>
-    </Card>
-  );
-
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <FeyButton variant="outline" className="flex items-center gap-2">
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button className="flex items-center gap-2">
           {getIcon()}
           <span>Feedback</span>
-        </FeyButton>
-      </SheetTrigger>
-      <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
-        <FeedbackForm />
-      </SheetContent>
-    </Sheet>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-lg">
+        <Card className="p-6">
+          <h2 className="text-2xl font-bold mb-6">QuacqOS Feedback</h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="type">Feedback Type</Label>
+              <Select value={type} onValueChange={(value: "general" | "bug" | "feature") => setType(value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select feedback type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="general">General Feedback</SelectItem>
+                  <SelectItem value="bug">Bug Report</SelectItem>
+                  <SelectItem value="feature">Feature Request</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="content">Your Feedback</Label>
+              <Textarea
+                id="content"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                placeholder="Please share your thoughts..."
+                className="min-h-[150px] resize-none"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="image">Screenshot or Image (optional)</Label>
+              <Input
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="cursor-pointer"
+              />
+            </div>
+
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting ? "Submitting..." : "Submit Feedback"}
+            </Button>
+          </form>
+        </Card>
+      </DialogContent>
+    </Dialog>
   );
 };

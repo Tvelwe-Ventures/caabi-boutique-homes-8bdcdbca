@@ -12,7 +12,7 @@ import { Input } from "./ui/input";
 
 export const WebsiteFeedback = () => {
   const [content, setContent] = useState("");
-  const [type, setType] = useState<"general" | "bug" | "feature">("general");
+  const [type, setType] = useState<"general" | "stay" | "suggestion">("general");
   const [image, setImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -84,9 +84,9 @@ export const WebsiteFeedback = () => {
 
   const getIcon = () => {
     switch (type) {
-      case "bug":
+      case "stay":
         return <Bug className="w-4 h-4" />;
-      case "feature":
+      case "suggestion":
         return <Flag className="w-4 h-4" />;
       default:
         return <MessageSquare className="w-4 h-4" />;
@@ -99,14 +99,14 @@ export const WebsiteFeedback = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="type">Feedback Type</Label>
-          <Select value={type} onValueChange={(value: "general" | "bug" | "feature") => setType(value)}>
+          <Select value={type} onValueChange={(value: "general" | "stay" | "suggestion") => setType(value)}>
             <SelectTrigger>
               <SelectValue placeholder="Select feedback type" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="general">General Feedback</SelectItem>
-              <SelectItem value="bug">Bug Report</SelectItem>
-              <SelectItem value="feature">Feature Request</SelectItem>
+              <SelectItem value="stay">Stay Experience</SelectItem>
+              <SelectItem value="suggestion">Suggestion</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -144,7 +144,7 @@ export const WebsiteFeedback = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <FeyButton variant="outline" className="flex items-center gap-2">
+        <FeyButton className="flex items-center gap-2">
           {getIcon()}
           <span>Feedback</span>
         </FeyButton>
