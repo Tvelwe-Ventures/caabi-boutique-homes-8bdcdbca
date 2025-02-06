@@ -12,6 +12,7 @@ export interface PriceLabsMarketData {
   demand_score: number;
   seasonality_factor: number;
   competitor_count: number;
+  market_demand?: string;  // Added this optional property
   updated_at: string;
 }
 
