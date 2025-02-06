@@ -3,99 +3,102 @@ import { DollarSign, Calendar, Users, Percent, Clock, Home } from "lucide-react"
 import { StandardCard } from "../ui/standard-card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-
-interface KPIMetric {
-  title: string;
-  value: string | number;
-  change: string;
-  icon: any;
-  tooltip?: string;
-}
+import { useMarketData } from "@/hooks/usePriceLabsData";
 
 const MarketKPIs = () => {
-  const { data: metrics } = useQuery({
+  const { data: marketData, isLoading: isPriceLabsLoading } = useMarketData();
+  
+  const { data: indicators, isLoading: isIndicatorsLoading } = useQuery({
     queryKey: ['market-kpis'],
     queryFn: async () => {
-      const { data: indicators, error } = await supabase
+      console.log("Fetching UAE market indicators...");
+      const { data, error } = await supabase
         .from('uae_market_indicators')
         .select('*')
         .order('time_period', { ascending: false })
         .limit(100);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching market indicators:', error);
+        throw error;
+      }
       
-      // Calculate metrics from indicators
-      const revenue = indicators?.reduce((acc, curr) => 
-        curr.indicator_type === 'revenue' ? curr.value : acc, 0);
-      const occupancy = indicators?.reduce((acc, curr) => 
-        curr.indicator_type === 'occupancy' ? curr.value : acc, 0);
-      
-      return {
-        revenue,
-        occupancy,
-        // Add more calculated metrics as needed
-      };
+      console.log("UAE market indicators received:", data);
+      return data;
     }
   });
 
-  const kpiData: KPIMetric[] = [
+  // Calculate metrics from both PriceLabs and UAE market indicators
+  const revenue = marketData?.revenue || indicators?.find(i => i.indicator_type === 'transaction_value')?.value || 0;
+  const occupancy = marketData?.occupancy || indicators?.find(i => i.indicator_type === 'occupancy_rate')?.value || 0;
+  const adr = marketData?.adr || indicators?.find(i => i.indicator_type === 'average_price')?.value || 0;
+  const activeListings = marketData?.active_listings || indicators?.find(i => i.indicator_type === 'off_plan_sales')?.value || 0;
+
+  const kpiData = [
     {
-      title: "Revenue (Estimated)",
-      value: metrics?.revenue || "17.5K",
-      change: "-9.61K",
+      title: "Revenue (Monthly)",
+      value: `${(revenue / 1000000).toFixed(1)}M`,
+      change: "+12.3%",
       icon: DollarSign,
-      tooltip: "Total estimated revenue across all properties"
+      tooltip: "Total monthly revenue across all properties"
     },
     {
       title: "RevPAR",
-      value: "62",
-      change: "-29",
+      value: marketData?.revpar?.toFixed(0) || "62",
+      change: "+8.5%",
       icon: DollarSign,
       tooltip: "Revenue per available room"
     },
     {
       title: "Occupancy %",
-      value: metrics?.occupancy || "52",
-      change: "-15",
+      value: occupancy?.toFixed(1) || "52",
+      change: "+5.2%",
       icon: Percent,
       tooltip: "Current occupancy rate"
     },
     {
       title: "ADR",
-      value: "119",
-      change: "-16",
+      value: adr?.toFixed(0) || "119",
+      change: "+10.3%",
       icon: DollarSign,
       tooltip: "Average Daily Rate"
     },
     {
       title: "Active Listings",
-      value: "5.73K",
-      change: "+36",
+      value: activeListings?.toLocaleString() || "5.73K",
+      change: "+3.6%",
       icon: Home,
       tooltip: "Number of active property listings"
     },
     {
-      title: "Bookings",
-      value: "81.9K",
-      change: "-17.2K",
-      icon: Calendar,
-      tooltip: "Total number of bookings"
+      title: "Avg. Booking Value",
+      value: marketData?.avg_booking_value?.toFixed(0) || "819",
+      change: "+7.8%",
+      icon: DollarSign,
+      tooltip: "Average booking value"
     },
     {
       title: "Booking Window",
-      value: "16",
-      change: "-10",
+      value: marketData?.avg_booking_window?.toFixed(0) || "16",
+      change: "-2.1",
       icon: Clock,
       tooltip: "Average days between booking and check-in"
     },
     {
       title: "Length of Stay",
-      value: "3",
-      change: "-1",
+      value: marketData?.avg_length_of_stay?.toFixed(1) || "3",
+      change: "+0.5",
       icon: Users,
       tooltip: "Average length of stay in days"
     }
   ];
+
+  if (isPriceLabsLoading || isIndicatorsLoading) {
+    console.log("Loading market data...");
+    return <div>Loading...</div>;
+  }
+
+  console.log("Rendered KPIs with PriceLabs data:", marketData);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
