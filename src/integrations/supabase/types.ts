@@ -166,41 +166,71 @@ export type Database = {
       }
       financial_metrics: {
         Row: {
+          avg_daily_rate: number | null
+          booking_pace: number | null
+          competitive_index: number | null
           created_at: string | null
+          data_source: string | null
           expense_amount: number | null
           expense_category: string | null
+          forecast_revenue: number | null
           id: string
+          last_sync_hostaway: string | null
+          last_sync_pricelabs: string | null
+          market_demand_score: number | null
           month: string
           monthly_revenue: number
           net_operating_income: number
+          occupancy_rate: number | null
           operating_expenses: number
           property_id: string | null
+          revpar: number | null
           source: string | null
           updated_at: string | null
         }
         Insert: {
+          avg_daily_rate?: number | null
+          booking_pace?: number | null
+          competitive_index?: number | null
           created_at?: string | null
+          data_source?: string | null
           expense_amount?: number | null
           expense_category?: string | null
+          forecast_revenue?: number | null
           id?: string
+          last_sync_hostaway?: string | null
+          last_sync_pricelabs?: string | null
+          market_demand_score?: number | null
           month: string
           monthly_revenue?: number
           net_operating_income?: number
+          occupancy_rate?: number | null
           operating_expenses?: number
           property_id?: string | null
+          revpar?: number | null
           source?: string | null
           updated_at?: string | null
         }
         Update: {
+          avg_daily_rate?: number | null
+          booking_pace?: number | null
+          competitive_index?: number | null
           created_at?: string | null
+          data_source?: string | null
           expense_amount?: number | null
           expense_category?: string | null
+          forecast_revenue?: number | null
           id?: string
+          last_sync_hostaway?: string | null
+          last_sync_pricelabs?: string | null
+          market_demand_score?: number | null
           month?: string
           monthly_revenue?: number
           net_operating_income?: number
+          occupancy_rate?: number | null
           operating_expenses?: number
           property_id?: string | null
+          revpar?: number | null
           source?: string | null
           updated_at?: string | null
         }

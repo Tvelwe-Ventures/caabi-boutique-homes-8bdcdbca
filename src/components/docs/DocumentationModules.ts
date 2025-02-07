@@ -29,14 +29,14 @@ export const documentationModules: Module[] = [
   {
     title: "Finance & Revenue Management",
     icon: DollarSign,
-    description: "Comprehensive financial analytics and revenue optimization",
+    description: "Real-time financial analytics and integrated revenue optimization platform",
     features: [
-      "Real-time PriceLabs integration",
-      "Hostaway revenue tracking",
-      "Dynamic pricing optimization",
-      "Market-driven rate adjustments",
-      "Financial performance analytics",
-      "Revenue forecasting tools"
+      "Live PriceLabs market insights integration",
+      "Hostaway revenue and booking analytics",
+      "Dynamic pricing recommendations",
+      "Advanced financial health monitoring",
+      "Multi-channel performance tracking",
+      "Comprehensive revenue forecasting"
     ]
   },
   {
