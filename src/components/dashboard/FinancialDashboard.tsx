@@ -3,7 +3,6 @@ import { Plus, FileText, Settings, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { FinancialMetrics } from "./financial/FinancialMetrics";
-import { PropertyManagement } from "./financial/PropertyManagement";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 
@@ -14,7 +13,7 @@ const FinancialDashboard = () => {
     { icon: Plus, label: "Add Property" },
     { icon: FileText, label: "Create Report" },
     { icon: Settings, label: "Settings" },
-    { icon: MessageCircle, label: "System Feedback", variant: "outline", className: "text-muted-foreground" }
+    { icon: MessageCircle, label: "System Feedback", variant: "secondary" as const, className: "text-muted-foreground" }
   ];
 
   return (
@@ -48,33 +47,15 @@ const FinancialDashboard = () => {
         </div>
       </div>
 
-      {/* Revenue Analytics Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="space-y-6"
-      >
-        <h2 className="text-xl font-semibold">Revenue Analytics</h2>
-        <div className="grid grid-cols-1 gap-6">
-          {/* Revenue metrics will be rendered here */}
-        </div>
-      </motion.div>
-
       {/* Financial Overview Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+        className="space-y-6"
       >
-        <div className="lg:col-span-2 space-y-6">
-          <h2 className="text-xl font-semibold">Financial Overview</h2>
-          <FinancialMetrics />
-        </div>
-        <div>
-          <PropertyManagement />
-        </div>
+        <h2 className="text-xl font-semibold">Financial Overview</h2>
+        <FinancialMetrics />
       </motion.div>
 
       {/* Portfolio Properties Section */}
@@ -85,7 +66,7 @@ const FinancialDashboard = () => {
         className="space-y-4"
       >
         <h2 className="text-xl font-semibold">Portfolio Properties</h2>
-        <div className="h-[400px] rounded-lg overflow-hidden">
+        <div className="h-[400px] rounded-lg overflow-hidden border bg-card">
           <PortfolioMap />
         </div>
       </motion.div>
