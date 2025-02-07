@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import {
   Select,
@@ -9,8 +8,9 @@ import {
   SelectValue,
 } from "./ui/select";
 import { CalculatorInputs } from "./calculator/types";
-import { Building2, MapPin, Bed, Coins, Calculator, CreditCard } from "lucide-react";
+import { Building2, MapPin, Bed, Coins, CreditCard } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { ButtonColorful } from "./ui/button-colorful";
 
 interface CalculatorFormProps {
   onCalculate: (inputs: CalculatorInputs) => void;
@@ -25,7 +25,7 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
     location: "downtown",
     bedrooms: 1,
     area: 800,
-    maxGuests: 2, // Added maxGuests property
+    maxGuests: 2,
   });
 
   const [purchaseInputs, setPurchaseInputs] = useState({
@@ -185,16 +185,14 @@ export const CalculatorForm = ({ onCalculate }: CalculatorFormProps) => {
             </div>
           </div>
         </TabsContent>
+
       </Tabs>
 
       <div className="flex justify-center gap-4">
-        <Button 
+        <ButtonColorful 
           onClick={handleCalculate} 
-          className="bg-primary hover:bg-primary-dark text-white font-semibold px-8"
-        >
-          <Calculator className="w-4 h-4 mr-2" />
-          Calculate ROI
-        </Button>
+          label="Calculate ROI"
+        />
       </div>
     </div>
   );
