@@ -9,6 +9,7 @@ import { ForeignInvestor } from "@/components/property-evaluation/ForeignInvesto
 import { EvaluationForm } from "@/components/property-evaluation/EvaluationForm";
 import { InvestmentSummary } from "@/components/property-evaluation/InvestmentSummary";
 import { CashflowAnalysis } from "@/components/property-evaluation/CashflowAnalysis";
+import { Button } from "@/components/ui/button";
 
 const PropertyEvaluation = () => {
   return (
@@ -25,6 +26,22 @@ const PropertyEvaluation = () => {
         />
 
         <div className="container mx-auto px-4 py-12">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+            <Button 
+              className="bg-[#9b87f5] hover:bg-[#7E69AB] text-white px-8 py-6 text-lg font-semibold"
+              size="lg"
+            >
+              Evaluate My Property
+            </Button>
+            <Button 
+              className="bg-[#7E69AB] hover:bg-[#9b87f5] text-white px-8 py-6 text-lg font-semibold"
+              size="lg"
+            >
+              Investment Simulator
+            </Button>
+          </div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -36,12 +53,15 @@ const PropertyEvaluation = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 mt-12">
-            <MarketBenchmarks />
+            <div className="col-span-1 lg:col-span-2">
+              <MarketBenchmarks />
+            </div>
             <ForeignInvestor />
-            <InvestmentSimulator />
           </div>
 
-          <EvaluationForm />
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl p-8 shadow-lg">
+            <EvaluationForm />
+          </div>
         </div>
       </main>
       <Footer />

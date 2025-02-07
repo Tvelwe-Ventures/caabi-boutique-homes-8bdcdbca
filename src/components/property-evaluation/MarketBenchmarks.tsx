@@ -1,3 +1,4 @@
+
 import { Info } from "lucide-react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -9,7 +10,7 @@ interface BenchmarkProps {
 }
 
 const Benchmark = ({ label, value, info }: BenchmarkProps) => (
-  <div className="flex items-center justify-between p-2 border-b last:border-b-0">
+  <div className="flex items-center justify-between p-4 bg-white/50 rounded-lg mb-3 last:mb-0">
     <div className="flex items-center gap-2">
       {label}
       {info && (
@@ -25,14 +26,14 @@ const Benchmark = ({ label, value, info }: BenchmarkProps) => (
         </TooltipProvider>
       )}
     </div>
-    <span className="font-semibold">{value}</span>
+    <span className="font-semibold text-[#7E69AB]">{value}</span>
   </div>
 );
 
 export const MarketBenchmarks = () => {
   return (
-    <CardSpotlight className="p-6">
-      <h3 className="text-xl font-semibold mb-4">Property Market Benchmarks</h3>
+    <CardSpotlight className="p-6 bg-gradient-to-br from-white/90 to-[#F5E6FA]/20">
+      <h3 className="text-xl font-semibold mb-6 text-gray-900">Property Market Benchmarks</h3>
       <div className="space-y-2">
         <Benchmark 
           label="Price per Sqm" 
