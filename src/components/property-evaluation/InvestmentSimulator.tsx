@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatCurrency } from "@/lib/utils";
 import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
+import { Building2, DollarSign, Percent, Calendar } from "lucide-react";
 
 export const InvestmentSimulator = () => {
   const [investment, setInvestment] = useState(2000000);
   const [period, setPeriod] = useState(5);
-  const [type, setType] = useState("long-term");
+  const [type, setType] = useState("short-term");
+  const [occupancyRate, setOccupancyRate] = useState(85);
+  const [appreciationRate, setAppreciationRate] = useState(5);
+  const [monthlyRent, setMonthlyRent] = useState(15000);
 
   const calculateReturns = () => {
-    // Simplified calculation - replace with actual logic
     const annualReturn = type === "long-term" ? 0.08 : 0.12;
     const totalReturn = investment * Math.pow(1 + annualReturn, period);
     const profit = totalReturn - investment;
@@ -27,10 +31,10 @@ export const InvestmentSimulator = () => {
   const generateChartData = () => {
     const data = [];
     const annualReturn = type === "long-term" ? 0.08 : 0.12;
-    const appreciation = 0.05; // 5% annual appreciation
+    const appreciation = appreciationRate / 100;
     
     for (let month = 0; month <= period * 12; month++) {
-      const rentalReturn = investment * (Math.pow(1 + annualReturn/12, month) - 1);
+      const rentalReturn = (monthlyRent * 12 * (occupancyRate / 100)) * (month / 12);
       const propertyAppreciation = investment * (Math.pow(1 + appreciation/12, month) - 1);
       
       data.push({
@@ -48,22 +52,35 @@ export const InvestmentSimulator = () => {
   const chartData = generateChartData();
 
   return (
-    <CardSpotlight className="p-6">
-      <h3 className="text-xl font-semibold mb-4">Investment Simulator</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">Initial Investment</label>
+    <CardSpotlight className="p-6 space-y-8">
+      <div>
+        <h3 className="text-2xl font-semibold mb-2">Investment Simulator</h3>
+        <p className="text-muted-foreground">
+          Simulate your potential returns based on market data and historical performance
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <DollarSign className="w-4 h-4 text-primary" />
+            Investment Amount (AED)
+          </Label>
           <Input
             type="number"
             value={investment}
             onChange={(e) => setInvestment(Number(e.target.value))}
-            className="w-full"
+            className="bg-white/50 border-primary/20"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Investment Type</label>
+
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Building2 className="w-4 h-4 text-primary" />
+            Investment Type
+          </Label>
           <Select value={type} onValueChange={setType}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white/50 border-primary/20">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -72,10 +89,14 @@ export const InvestmentSimulator = () => {
             </SelectContent>
           </Select>
         </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Period (Years)</label>
+
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Calendar className="w-4 h-4 text-primary" />
+            Investment Period (Years)
+          </Label>
           <Select value={period.toString()} onValueChange={(v) => setPeriod(Number(v))}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white/50 border-primary/20">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -86,6 +107,49 @@ export const InvestmentSimulator = () => {
               ))}
             </SelectContent>
           </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <DollarSign className="w-4 h-4 text-primary" />
+            Monthly Rent (AED)
+          </Label>
+          <Input
+            type="number"
+            value={monthlyRent}
+            onChange={(e) => setMonthlyRent(Number(e.target.value))}
+            className="bg-white/50 border-primary/20"
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Percent className="w-4 h-4 text-primary" />
+            Expected Occupancy Rate (%)
+          </Label>
+          <Input
+            type="number"
+            value={occupancyRate}
+            onChange={(e) => setOccupancyRate(Number(e.target.value))}
+            className="bg-white/50 border-primary/20"
+            min={0}
+            max={100}
+          />
+        </div>
+
+        <div className="space-y-2">
+          <Label className="flex items-center gap-2">
+            <Percent className="w-4 h-4 text-primary" />
+            Property Appreciation Rate (%)
+          </Label>
+          <Input
+            type="number"
+            value={appreciationRate}
+            onChange={(e) => setAppreciationRate(Number(e.target.value))}
+            className="bg-white/50 border-primary/20"
+            min={0}
+            max={100}
+          />
         </div>
       </div>
 
