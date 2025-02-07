@@ -17,6 +17,7 @@ export type Database = {
           created_at: string | null
           external_booking_id: string | null
           guest_id: string | null
+          guest_status: Database["public"]["Enums"]["guest_status"] | null
           id: string
           number_of_guests: number | null
           property_id: string | null
@@ -32,6 +33,7 @@ export type Database = {
           created_at?: string | null
           external_booking_id?: string | null
           guest_id?: string | null
+          guest_status?: Database["public"]["Enums"]["guest_status"] | null
           id?: string
           number_of_guests?: number | null
           property_id?: string | null
@@ -47,6 +49,7 @@ export type Database = {
           created_at?: string | null
           external_booking_id?: string | null
           guest_id?: string | null
+          guest_status?: Database["public"]["Enums"]["guest_status"] | null
           id?: string
           number_of_guests?: number | null
           property_id?: string | null
@@ -1176,6 +1179,7 @@ export type Database = {
     Enums: {
       booking_status: "confirmed" | "pending" | "cancelled" | "completed"
       feedback_type: "stay" | "suggestion" | "general"
+      guest_status: "confirmed" | "pending" | "cancelled" | "completed"
       investment_role: "founder" | "coo" | "investor"
       property_type: "apartment" | "villa" | "townhouse" | "penthouse"
       quacq_feedback_type: "general" | "bug" | "feature"
