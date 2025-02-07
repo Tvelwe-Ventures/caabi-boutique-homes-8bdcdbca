@@ -8,9 +8,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
 import RevenueMetrics from "@/components/charts/RevenueMetrics";
 import { formatCurrency } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const FinanceAndRevenueManagement = () => {
   const { toast } = useToast();
+  const isMobile = useIsMobile();
 
   const { data: metrics, isLoading } = useQuery({
     queryKey: ['financial-metrics'],
@@ -110,32 +112,32 @@ const FinanceAndRevenueManagement = () => {
   ];
 
   return (
-    <div className="p-8 space-y-8 bg-background">
+    <div className="p-4 md:p-8 space-y-6 md:space-y-8 bg-background min-h-screen">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="flex flex-col gap-4"
       >
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Finance & Revenue Management</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold mb-2">Finance & Revenue Management</h1>
+            <p className="text-sm md:text-base text-muted-foreground">
               Comprehensive financial overview and revenue optimization tools
             </p>
           </div>
-          <div className="flex gap-2">
-            <Card className="bg-accent/10 p-2">
+          <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+            <Card className="bg-accent/10 p-2 w-full md:w-auto">
               <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
-              <p className="text-sm font-medium">
+              <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_pricelabs 
                   ? new Date(metrics.last_sync_pricelabs).toLocaleString() 
                   : 'Never'}
               </p>
             </Card>
-            <Card className="bg-accent/10 p-2">
+            <Card className="bg-accent/10 p-2 w-full md:w-auto">
               <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
-              <p className="text-sm font-medium">
+              <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_hostaway 
                   ? new Date(metrics.last_sync_hostaway).toLocaleString() 
                   : 'Never'}
@@ -145,22 +147,23 @@ const FinanceAndRevenueManagement = () => {
         </div>
 
         {/* Performance Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {summaryMetrics.map((metric, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="w-full"
             >
               <StandardCard
                 icon={metric.icon}
                 title={
                   <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl font-semibold">{metric.value}</span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-lg md:text-xl font-semibold">{metric.value}</span>
                       <span 
-                        className={`text-sm ${
+                        className={`text-xs md:text-sm ${
                           metric.trendType === "positive" ? "text-green-500" : "text-red-500"
                         }`}
                       >
@@ -171,28 +174,29 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-shadow duration-200 bg-card"
+                className="hover:shadow-lg transition-shadow duration-200 bg-card h-full"
               />
             </motion.div>
           ))}
         </div>
 
         {/* Operational Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {operationalMetrics.map((metric, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="w-full"
             >
               <StandardCard
                 icon={metric.icon}
                 title={
-                  <div className="flex items-center gap-2">
-                    <span className="text-xl font-semibold">{metric.value}</span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-lg md:text-xl font-semibold">{metric.value}</span>
                     <span 
-                      className={`text-sm ${
+                      className={`text-xs md:text-sm ${
                         metric.trendType === "positive" ? "text-green-500" : "text-red-500"
                       }`}
                     >
@@ -201,20 +205,24 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-shadow duration-200 bg-card"
+                className="hover:shadow-lg transition-shadow duration-200 bg-card h-full"
               />
             </motion.div>
           ))}
         </div>
 
-        {/* Revenue Charts */}
-        <RevenueMetrics />
+        {/* Revenue Charts - Responsive container */}
+        <div className="w-full overflow-x-auto">
+          <div className="min-w-[768px] md:min-w-full">
+            <RevenueMetrics />
+          </div>
+        </div>
 
         {/* Integration Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Card className="bg-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <DollarSign className="h-5 w-5" />
                 PriceLabs Insights
               </CardTitle>
@@ -239,7 +247,7 @@ const FinanceAndRevenueManagement = () => {
 
           <Card className="bg-card">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <BarChart3 className="h-5 w-5" />
                 Hostaway Analytics
               </CardTitle>
@@ -262,9 +270,9 @@ const FinanceAndRevenueManagement = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-card">
+          <Card className="bg-card md:col-span-2 lg:col-span-1">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-lg">
                 <Activity className="h-5 w-5" />
                 Financial Health
               </CardTitle>
