@@ -10,7 +10,13 @@ import {
   Globe,
   MessageSquare,
   Brain,
-  LayoutDashboard
+  LayoutDashboard,
+  AlertTriangle,
+  TrendingUp,
+  Star,
+  BarChart,
+  Activity,
+  Shield
 } from "lucide-react";
 
 const modules = [
@@ -26,91 +32,124 @@ const modules = [
     ]
   },
   {
-    title: "Property Management",
-    icon: Building2,
-    description: "Manage your properties, track maintenance, and handle bookings",
+    title: "Revenue Optimization",
+    icon: TrendingUp,
+    description: "Dynamic pricing intelligence and revenue maximization tools",
     features: [
-      "Property listing management",
-      "Maintenance tracking",
-      "Occupancy management",
-      "Revenue tracking"
-    ]
-  },
-  {
-    title: "Financial Analytics",
-    icon: LineChart,
-    description: "Track financial performance and analyze revenue streams",
-    features: [
-      "Revenue analytics",
-      "Expense tracking",
-      "ROI calculations",
-      "Financial forecasting"
+      "Market rate comparison across platforms",
+      "Automatic price alerts for local events",
+      "Occupancy-based pricing strategies",
+      "Competition monitoring and alerts"
     ]
   },
   {
     title: "Guest Management",
     icon: Users,
-    description: "Handle guest communications and booking management",
+    description: "Comprehensive guest relationship and experience management",
     features: [
-      "Booking management",
-      "Guest communications",
-      "Review management",
-      "Guest profiles"
+      "Cross-platform guest tracking",
+      "Booking pattern analysis",
+      "Personalized experience creation",
+      "VIP guest identification system"
     ]
   },
   {
-    title: "Channel Integration",
-    icon: Globe,
-    description: "Manage listings across multiple booking platforms",
-    features: [
-      "Airbnb integration",
-      "Booking.com sync",
-      "PriceLabs connection",
-      "Unified calendar"
-    ]
-  },
-  {
-    title: "Calendar & Scheduling",
-    icon: Calendar,
-    description: "Coordinate bookings, cleaning, and maintenance schedules",
-    features: [
-      "Unified booking calendar",
-      "Cleaning schedule",
-      "Maintenance planning",
-      "Availability management"
-    ]
-  },
-  {
-    title: "AI Assistant",
-    icon: Brain,
-    description: "Get intelligent insights and recommendations",
-    features: [
-      "Market analysis",
-      "Pricing optimization",
-      "Performance insights",
-      "Trend predictions"
-    ]
-  },
-  {
-    title: "Communication Hub",
-    icon: MessageSquare,
-    description: "Centralize all your communication channels",
-    features: [
-      "Guest messaging",
-      "Team communication",
-      "Automated responses",
-      "Message templates"
-    ]
-  },
-  {
-    title: "Settings & Configuration",
+    title: "Operational Efficiency",
     icon: Settings,
-    description: "Manage system settings and integrations",
+    description: "Smart operational management and service provider accountability",
     features: [
-      "User management",
-      "API configurations",
-      "Notification settings",
-      "System preferences"
+      "Automated task management system",
+      "Smart cleaning schedule optimization",
+      "Predictive maintenance tracking",
+      "Supply inventory management"
+    ]
+  },
+  {
+    title: "Market Intelligence",
+    icon: LineChart,
+    description: "Advanced analytics and market insights",
+    features: [
+      "Cross-platform booking trends",
+      "Market demand forecasting",
+      "Seasonal pattern analysis",
+      "Revenue potential calculator"
+    ]
+  },
+  {
+    title: "Business Growth",
+    icon: BarChart,
+    description: "Portfolio optimization and growth opportunities",
+    features: [
+      "Property performance comparison",
+      "Investment opportunity scoring",
+      "ROI analysis by property type",
+      "Data-driven expansion recommendations"
+    ]
+  },
+  {
+    title: "Risk Management",
+    icon: Shield,
+    description: "Proactive risk monitoring and alerts",
+    features: [
+      "Occupancy rate monitoring",
+      "Price deviation detection",
+      "Booking pattern anomalies",
+      "Market trend shift alerts"
+    ]
+  },
+  {
+    title: "Smart Alerts",
+    icon: AlertTriangle,
+    description: "Automated alert system for critical metrics",
+    features: [
+      "Price optimization opportunities",
+      "Booking pace monitoring",
+      "Competitor price changes",
+      "High-demand period alerts"
+    ]
+  },
+  {
+    title: "Revenue Maximizer",
+    icon: Brain,
+    description: "AI-powered revenue optimization tools",
+    features: [
+      "Smart pricing recommendations",
+      "Demand forecasting calendar",
+      "Event impact analysis",
+      "Stay length optimization"
+    ]
+  },
+  {
+    title: "Guest Experience",
+    icon: Star,
+    description: "Enhanced guest experience management",
+    features: [
+      "Smart communication system",
+      "Amenity recommendations",
+      "Review management automation",
+      "Loyalty program tracking"
+    ]
+  },
+  {
+    title: "Market Position",
+    icon: Activity,
+    description: "Comprehensive market position analysis",
+    features: [
+      "Competitive set analysis",
+      "Market share calculation",
+      "Performance benchmarking",
+      "Revenue gap analysis"
+    ]
+  },
+  {
+    title: "Performance Optimizer",
+    icon: Globe,
+    description: "Property performance optimization tools",
+    features: [
+      "Property scoring system",
+      "Improvement recommendations",
+      "Upgrade ROI calculator",
+      "Occupancy optimization"
     ]
   }
 ];
