@@ -27,12 +27,12 @@ export const DataIntegrationBeams = () => {
   };
 
   const platformLogos = {
-    gitlab: "/lovable-uploads/25e147fd-5401-45c7-b101-00978ff92876.png",
-    booking: "B.",
-    airbnb: "/lovable-uploads/25e147fd-5401-45c7-b101-00978ff92876.png",
-    host: "/lovable-uploads/25e147fd-5401-45c7-b101-00978ff92876.png",
-    palm: "/lovable-uploads/25e147fd-5401-45c7-b101-00978ff92876.png",
-    analytics: "/lovable-uploads/25e147fd-5401-45c7-b101-00978ff92876.png"
+    gitlab: "/lovable-uploads/ee5517ba-19b4-4c59-b6b4-418ffa17e89e.png",
+    booking: "/lovable-uploads/bcac5dee-e73a-4549-9bfa-c14d064c0790.png",
+    airbnb: "/lovable-uploads/c67c5439-06f3-4f71-9507-a3876b858ae4.png",
+    host: "/lovable-uploads/8f7a11d9-3d0e-4047-aa16-f25a77f559c1.png",
+    palm: "/lovable-uploads/6b33931a-6e07-4d55-a4d0-dd6e06d1d816.png",
+    analytics: "/lovable-uploads/6b33931a-6e07-4d55-a4d0-dd6e06d1d816.png"
   };
 
   return (
@@ -60,12 +60,12 @@ export const DataIntegrationBeams = () => {
 
       {/* Platform Nodes */}
       {[
-        { ref: gitlabRef, logo: platformLogos.gitlab, position: "left-[20%] top-[30%]", color: "from-red-500/80 to-red-600/80" },
-        { ref: bookingRef, logo: platformLogos.booking, position: "right-[20%] top-[30%]", color: "from-blue-500/80 to-blue-600/80" },
-        { ref: airbnbRef, logo: platformLogos.airbnb, position: "left-[30%] bottom-[30%]", color: "from-[#FF5A5F]/80 to-[#FF385C]/80" },
-        { ref: hostRef, logo: platformLogos.host, position: "right-[30%] bottom-[30%]", color: "from-orange-500/80 to-orange-600/80" },
-        { ref: palmRef, logo: platformLogos.palm, position: "left-[15%] top-[50%]", color: "from-green-500/80 to-green-600/80" },
-        { ref: analyticsRef, logo: platformLogos.analytics, position: "right-[15%] top-[50%]", color: "from-emerald-500/80 to-emerald-600/80" }
+        { ref: gitlabRef, logo: platformLogos.gitlab, position: "left-[20%] top-[30%]", color: "from-[#FC6D26]/80 to-[#E24329]/80", name: "GitLab" },
+        { ref: bookingRef, logo: platformLogos.booking, position: "right-[20%] top-[30%]", color: "from-[#003580]/80 to-[#003580]/80", name: "Booking.com" },
+        { ref: airbnbRef, logo: platformLogos.airbnb, position: "left-[30%] bottom-[30%]", color: "from-[#00A4B4]/80 to-[#00A4B4]/80", name: "Airbnb" },
+        { ref: hostRef, logo: platformLogos.host, position: "right-[30%] bottom-[30%]", color: "from-[#FF5A1F]/80 to-[#FF5A1F]/80", name: "HostAway" },
+        { ref: palmRef, logo: platformLogos.palm, position: "left-[15%] top-[50%]", color: "from-[#00875A]/80 to-[#00875A]/80", name: "PalM" },
+        { ref: analyticsRef, logo: platformLogos.analytics, position: "right-[15%] top-[50%]", color: "from-[#00875A]/80 to-[#00875A]/80", name: "Analytics" }
       ].map((platform, index) => (
         <motion.div
           key={index}
@@ -75,11 +75,7 @@ export const DataIntegrationBeams = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: index * 0.2 }}
         >
-          {typeof platform.logo === 'string' && platform.logo.endsWith('.png') ? (
-            <img src={platform.logo} alt="Platform" className="w-10 h-10 object-contain" />
-          ) : (
-            <span className="text-white font-bold text-xl">{platform.logo}</span>
-          )}
+          <img src={platform.logo} alt={platform.name} className="w-10 h-10 object-contain" />
           <div className="absolute inset-0 rounded-xl bg-white/20 animate-pulse" />
         </motion.div>
       ))}
