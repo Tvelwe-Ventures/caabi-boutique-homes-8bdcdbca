@@ -68,20 +68,21 @@ const Portfolio = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {properties.map((property, index) => (
-            <StandardCard
-              key={index}
-              title={property.title}
-              description={property.description}
-              className="h-full"
-            >
-              <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
-                <img
-                  src={property.image}
-                  alt={property.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-            </StandardCard>
+            <div key={index} className="flex">
+              <StandardCard
+                title={property.title}
+                description={property.description}
+                className="flex-1 flex flex-col"
+              >
+                <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+              </StandardCard>
+            </div>
           ))}
         </div>
       </div>
