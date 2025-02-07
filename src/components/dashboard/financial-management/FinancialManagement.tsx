@@ -34,7 +34,6 @@ const FinanceAndRevenueManagement = () => {
         throw error;
       }
 
-      // Provide default values if no data is found
       const defaultMetrics = {
         monthly_revenue: 0,
         operating_expenses: 0,
