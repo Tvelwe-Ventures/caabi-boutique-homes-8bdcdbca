@@ -1,8 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import Footer from "./Footer";
-import InvestmentChart from "./calculator/InvestmentChart";
-import ReturnMetrics from "./calculator/ReturnMetrics";
-import ImportantNotes from "./calculator/ImportantNotes";
 import { useCalculator } from "@/hooks/useCalculator";
 import { HeroSection } from "./ui/hero-section";
 import Header from "./Header";
@@ -12,6 +9,9 @@ import { CalculatorResults } from "./calculator/CalculatorResults";
 import { useState } from "react";
 import { CalculatorInputs } from "./calculator/types";
 import { calculateROI } from "./calculator/calculatorUtils";
+import InvestmentChart from "./calculator/InvestmentChart";
+import ReturnMetrics from "./calculator/ReturnMetrics";
+import ImportantNotes from "./calculator/ImportantNotes";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -30,9 +30,6 @@ const Calculator = () => {
   const [calculatorResults, setCalculatorResults] = useState<any>(null);
   const {
     investmentAmount,
-    annualReturn,
-    appreciation,
-    handleValueChange,
     generateChartData
   } = useCalculator();
 
