@@ -14,7 +14,7 @@ export const InvestmentSimulator = () => {
   const [investment, setInvestment] = useState(2000000);
   const [period, setPeriod] = useState(5);
   const [financingType, setFinancingType] = useState("cash");
-  const [usageType, setUsageType] = useState("short-term");
+  const [usageType, setUsageType] = useState("long-term");
   const [occupancyRate, setOccupancyRate] = useState(85);
   const [appreciationRate, setAppreciationRate] = useState(5);
   const [monthlyRent, setMonthlyRent] = useState(15000);
@@ -88,6 +88,8 @@ export const InvestmentSimulator = () => {
           setMonthlyRent={setMonthlyRent}
           appreciationRate={appreciationRate}
           setAppreciationRate={setAppreciationRate}
+          financingType={financingType}
+          setFinancingType={setFinancingType}
         />
       </Tabs>
 
