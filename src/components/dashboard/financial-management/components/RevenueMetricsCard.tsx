@@ -47,24 +47,32 @@ export const RevenueMetricsCard = ({
 
         <div className="space-y-4">
           {value !== undefined && (
-            <p className="text-3xl font-bold text-primary">
-              {loading ? "..." : formatCurrency(value)}
-              <span className="text-sm font-normal text-muted-foreground ml-2">
+            <div className="space-y-1">
+              <p className="text-3xl font-bold text-primary">
+                {loading ? "..." : formatCurrency(value)}
+              </p>
+              <p className="text-sm text-muted-foreground">
                 per month
-              </span>
-            </p>
+              </p>
+            </div>
           )}
           
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-muted-foreground">Performance</span>
-              <span className="font-medium">{progress}%</span>
+              <span className={`font-medium px-2 py-0.5 rounded-full ${
+                progress >= 0 
+                  ? "bg-green-100 text-green-700" 
+                  : "bg-red-100 text-red-700"
+              }`}>
+                {progress >= 0 ? "+" : ""}{progress}%
+              </span>
             </div>
             <Progress value={progress} className="h-2" />
           </div>
 
-          <div className="flex justify-between text-sm text-muted-foreground">
-            <span>Last updated: {lastUpdated}</span>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Last updated: {lastUpdated}</span>
             {issues > 0 && (
               <span className="text-amber-600 font-medium">Action needed</span>
             )}
