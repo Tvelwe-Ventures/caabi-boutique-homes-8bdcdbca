@@ -8,6 +8,7 @@ import { SummaryMetrics } from "./components/SummaryMetrics";
 import { OperationalMetrics } from "./components/OperationalMetrics";
 import { IntegrationMetrics } from "./components/IntegrationMetrics";
 import { RevenueMetricsGrid } from "./RevenueMetricsGrid";
+import { DataFlowVisualization } from "./components/DataFlowVisualization";
 
 const FinanceAndRevenueManagement = () => {
   const { toast } = useToast();
@@ -86,6 +87,9 @@ const FinanceAndRevenueManagement = () => {
               </Card>
             </div>
           </div>
+
+          {/* Data Flow Visualization */}
+          <DataFlowVisualization />
 
           {/* Revenue Metrics Grid */}
           <RevenueMetricsGrid />
