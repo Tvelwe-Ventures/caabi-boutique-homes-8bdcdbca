@@ -1,8 +1,10 @@
+
 import { DollarSign, TrendingUp, Building2, Percent } from "lucide-react";
 import { StandardCard } from "@/components/ui/standard-card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
+import { formatCurrency } from "@/lib/utils";
 
 export const FinancialMetrics = () => {
   const { data: metrics, isLoading } = useQuery({
@@ -14,14 +16,25 @@ export const FinancialMetrics = () => {
       
       if (error) throw error;
 
-      const totalRevenue = properties?.reduce((sum, prop) => sum + Number(prop.monthly_rent), 0) || 0;
-      const avgOccupancy = properties?.reduce((sum, prop) => sum + Number(prop.occupancy_rate), 0) / (properties?.length || 1);
+      // Ensure we have properties before calculating
+      if (!properties || properties.length === 0) {
+        return {
+          totalRevenue: 0,
+          averageDailyRate: 0,
+          occupancyRate: 0,
+          revPAR: 0
+        };
+      }
+
+      const totalRevenue = properties.reduce((sum, prop) => sum + (Number(prop.monthly_rent) || 0), 0);
+      const avgOccupancy = properties.reduce((sum, prop) => sum + (Number(prop.occupancy_rate) || 0), 0) / properties.length;
+      const averageDailyRate = totalRevenue / 30;
       
       return {
-        totalRevenue: totalRevenue * 12,
-        averageDailyRate: (totalRevenue / 30),
+        totalRevenue: totalRevenue * 12, // Annualized
+        averageDailyRate,
         occupancyRate: avgOccupancy,
-        revPAR: (totalRevenue / 30) * (avgOccupancy / 100)
+        revPAR: averageDailyRate * (avgOccupancy / 100)
       };
     }
   });
@@ -29,25 +42,25 @@ export const FinancialMetrics = () => {
   const topMetrics = [
     {
       title: "Annual Revenue",
-      value: metrics ? `AED ${metrics.totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : "Loading...",
+      value: isLoading ? "Loading..." : formatCurrency(metrics?.totalRevenue || 0),
       icon: DollarSign,
       description: "Total annual revenue across all properties"
     },
     {
       title: "Average Daily Rate",
-      value: metrics ? `AED ${metrics.averageDailyRate.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : "Loading...",
+      value: isLoading ? "Loading..." : formatCurrency(metrics?.averageDailyRate || 0),
       icon: TrendingUp,
       description: "Average daily rate per property"
     },
     {
       title: "Occupancy Rate",
-      value: metrics ? `${metrics.occupancyRate.toFixed(1)}%` : "Loading...",
+      value: isLoading ? "Loading..." : `${(metrics?.occupancyRate || 0).toFixed(1)}%`,
       icon: Building2,
       description: "Average occupancy across properties"
     },
     {
       title: "RevPAR",
-      value: metrics ? `AED ${metrics.revPAR.toLocaleString(undefined, { maximumFractionDigits: 0 })}` : "Loading...",
+      value: isLoading ? "Loading..." : formatCurrency(metrics?.revPAR || 0),
       icon: Percent,
       description: "Revenue per available room"
     }
