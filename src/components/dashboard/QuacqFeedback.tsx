@@ -96,14 +96,18 @@ export const QuacqFeedback = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="gap-2 text-primary hover:text-primary-dark hover:bg-primary/5"
+        >
           <MessageSquare className="h-4 w-4" />
           <span>System Feedback</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
-        <Card className="p-6">
-          <h2 className="text-2xl font-bold mb-6">QuacQOS Feedback</h2>
+        <Card className="p-6 bg-white/90 backdrop-blur-sm">
+          <h2 className="text-2xl font-bold mb-6 text-primary-dark">QuacQOS Feedback</h2>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="type">Feedback Type</Label>

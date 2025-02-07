@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -18,6 +19,8 @@ import Chat from "@/components/Chat";
 import MarketKPIs from "@/components/stats/MarketKPIs";
 
 const Index = () => {
+  const isInDashboard = window.location.pathname.includes('dashboard');
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -37,7 +40,7 @@ const Index = () => {
       <WhyShortTerm />
       <Feedback />
       <Footer />
-      <WebsiteFeedback />
+      {!isInDashboard && <WebsiteFeedback />}
       
       {/* Floating Chat Dialog */}
       <Dialog>
