@@ -6,6 +6,7 @@ import { Input } from "./ui/input";
 import { FeyButton } from "./ui/fey-button";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, File } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
@@ -32,29 +33,36 @@ export const DataUpload = () => {
 
     try {
       const formData = new FormData();
-      Array.from(files).forEach((file, index) => {
-        formData.append(`file${index}`, file);
+      Array.from(files).forEach((file) => {
+        formData.append('files', file);
       });
 
-      const response = await fetch('https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/import-data', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
-        },
+      const { data, error } = await supabase.functions.invoke('import-data', {
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to import data');
+      if (error) {
+        throw error;
       }
 
-      const result = await response.json();
-      
-      toast({
-        title: "Success!",
-        description: `${files.length} file(s) have been uploaded successfully`,
-        variant: "default",
-      });
+      if (data.results) {
+        const successCount = data.results.filter((r: any) => r.status === 'success').length;
+        const errorCount = data.results.filter((r: any) => r.status === 'error').length;
+
+        if (errorCount > 0) {
+          toast({
+            title: "Partial Success",
+            description: `Successfully processed ${successCount} file(s). ${errorCount} file(s) had errors.`,
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Success!",
+            description: `Successfully processed ${successCount} file(s)`,
+            variant: "default",
+          });
+        }
+      }
       
       setFiles(null);
       // Reset the file input
