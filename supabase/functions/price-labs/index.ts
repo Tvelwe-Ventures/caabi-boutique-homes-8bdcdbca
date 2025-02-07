@@ -25,12 +25,11 @@ serve(async (req) => {
     }
 
     const { endpoint, params } = await req.json();
-    console.log(`Processing market data request for endpoint: ${endpoint}`, params);
+    console.log(`Processing request for endpoint: ${endpoint}`, { params });
     
     let url;
     let requestParams = new URLSearchParams();
     
-    // Add common parameters if provided
     if (params) {
       Object.entries(params).forEach(([key, value]) => {
         requestParams.append(key, value as string);
@@ -40,65 +39,75 @@ serve(async (req) => {
     switch (endpoint) {
       case 'listings':
         url = `${PRICE_LABS_BASE_URL}/listings`;
+        console.log('Fetching PriceLabs listings data');
         break;
       case 'neighborhood-data':
         url = `${PRICE_LABS_BASE_URL}/market_stats`;
         if (!params?.market_id) {
-          requestParams.append('market_id', 'dubai'); // Default market
+          requestParams.append('market_id', 'dubai');
         }
+        console.log('Fetching PriceLabs neighborhood data');
         break;
       case 'reservation-data':
         url = `${PRICE_LABS_BASE_URL}/reservations`;
+        console.log('Fetching PriceLabs reservation data');
         break;
       case 'market-data':
         try {
+          console.log('Starting market data fetch from multiple sources');
           const marketId = params?.market_id || 'dubai';
-          // Fetch data from both PriceLabs and Hostaway
-          const [priceLabsMarketStats, priceLabsReservations, hostawayData] = await Promise.all([
-            fetch(`${PRICE_LABS_BASE_URL}/market_stats?market_id=${marketId}`, {
-              headers: {
-                'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
-                'Content-Type': 'application/json',
-              },
-            }).then(async res => {
-              if (!res.ok) {
-                const errorText = await res.text();
-                console.error(`PriceLabs market stats API error: ${res.status}`, errorText);
-                throw new Error(`PriceLabs market stats API error: ${res.status}`);
-              }
-              return res.json();
-            }),
-            
-            fetch(`${PRICE_LABS_BASE_URL}/reservations`, {
-              headers: {
-                'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
-                'Content-Type': 'application/json',
-              },
-            }).then(async res => {
-              if (!res.ok) {
-                const errorText = await res.text();
-                console.error(`PriceLabs reservations API error: ${res.status}`, errorText);
-                throw new Error(`PriceLabs reservations API error: ${res.status}`);
-              }
-              return res.json();
-            }),
-            
-            fetch(`${HOSTAWAY_BASE_URL}/market-data`, {
-              headers: {
-                'Authorization': `Bearer ${HOSTAWAY_API_KEY}`,
-                'Content-Type': 'application/json',
-              },
-            }).then(async res => {
-              if (!res.ok) {
-                const errorText = await res.text();
-                console.error(`Hostaway API error: ${res.status}`, errorText);
-                throw new Error(`Hostaway API error: ${res.status}`);
-              }
-              return res.json();
-            })
-          ]);
+          
+          console.log('Fetching PriceLabs market stats...');
+          const priceLabsMarketStats = await fetch(`${PRICE_LABS_BASE_URL}/market_stats?market_id=${marketId}`, {
+            headers: {
+              'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(async res => {
+            if (!res.ok) {
+              const errorText = await res.text();
+              console.error(`PriceLabs market stats API error: ${res.status}`, errorText);
+              throw new Error(`PriceLabs market stats API error: ${res.status}`);
+            }
+            const data = await res.json();
+            console.log('PriceLabs market stats received:', data);
+            return data;
+          });
+          
+          console.log('Fetching PriceLabs reservations...');
+          const priceLabsReservations = await fetch(`${PRICE_LABS_BASE_URL}/reservations`, {
+            headers: {
+              'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(async res => {
+            if (!res.ok) {
+              const errorText = await res.text();
+              console.error(`PriceLabs reservations API error: ${res.status}`, errorText);
+              throw new Error(`PriceLabs reservations API error: ${res.status}`);
+            }
+            const data = await res.json();
+            console.log('PriceLabs reservations received:', data);
+            return data;
+          });
+          
+          console.log('Fetching Hostaway data...');
+          const hostawayData = await fetch(`${HOSTAWAY_BASE_URL}/market-data`, {
+            headers: {
+              'Authorization': `Bearer ${HOSTAWAY_API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+          }).then(async res => {
+            if (!res.ok) {
+              const errorText = await res.text();
+              console.error(`Hostaway API error: ${res.status}`, errorText);
+              throw new Error(`Hostaway API error: ${res.status}`);
+            }
+            const data = await res.json();
+            console.log('Hostaway data received:', data);
+            return data;
+          });
 
-          // Combine and process the data
           const marketData = {
             market_id: marketId,
             revenue: priceLabsReservations.total_revenue || 0,
