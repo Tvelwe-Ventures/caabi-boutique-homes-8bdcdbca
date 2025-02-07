@@ -344,6 +344,7 @@ export type Database = {
           average_rating: number | null
           created_at: string | null
           email: string | null
+          feedback_text: string[] | null
           first_name: string
           id: string
           last_name: string
@@ -351,6 +352,7 @@ export type Database = {
           nationality: string | null
           phone: string | null
           preferred_language: string | null
+          ratings: Json | null
           total_stays: number | null
           updated_at: string | null
         }
@@ -358,6 +360,7 @@ export type Database = {
           average_rating?: number | null
           created_at?: string | null
           email?: string | null
+          feedback_text?: string[] | null
           first_name: string
           id?: string
           last_name: string
@@ -365,6 +368,7 @@ export type Database = {
           nationality?: string | null
           phone?: string | null
           preferred_language?: string | null
+          ratings?: Json | null
           total_stays?: number | null
           updated_at?: string | null
         }
@@ -372,6 +376,7 @@ export type Database = {
           average_rating?: number | null
           created_at?: string | null
           email?: string | null
+          feedback_text?: string[] | null
           first_name?: string
           id?: string
           last_name?: string
@@ -379,6 +384,7 @@ export type Database = {
           nationality?: string | null
           phone?: string | null
           preferred_language?: string | null
+          ratings?: Json | null
           total_stays?: number | null
           updated_at?: string | null
         }
@@ -527,6 +533,7 @@ export type Database = {
           area_sqft: number
           bathrooms: number
           bedrooms: number
+          bookings_count: number | null
           created_at: string
           current_value: number
           external_id: string | null
@@ -545,12 +552,14 @@ export type Database = {
           owner_id: string | null
           property_type: Database["public"]["Enums"]["property_type"]
           purchase_price: number
+          revenue_ytd: number | null
           updated_at: string
         }
         Insert: {
           area_sqft: number
           bathrooms: number
           bedrooms: number
+          bookings_count?: number | null
           created_at?: string
           current_value: number
           external_id?: string | null
@@ -569,12 +578,14 @@ export type Database = {
           owner_id?: string | null
           property_type: Database["public"]["Enums"]["property_type"]
           purchase_price: number
+          revenue_ytd?: number | null
           updated_at?: string
         }
         Update: {
           area_sqft?: number
           bathrooms?: number
           bedrooms?: number
+          bookings_count?: number | null
           created_at?: string
           current_value?: number
           external_id?: string | null
@@ -593,6 +604,7 @@ export type Database = {
           owner_id?: string | null
           property_type?: Database["public"]["Enums"]["property_type"]
           purchase_price?: number
+          revenue_ytd?: number | null
           updated_at?: string
         }
         Relationships: []
