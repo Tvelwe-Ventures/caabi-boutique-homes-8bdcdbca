@@ -5,7 +5,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { FeyButton } from "./ui/fey-button";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, FileJson } from "lucide-react";
+import { Upload, FileJson, FileSpreadsheet } from "lucide-react";
 
 export const DataUpload = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -22,16 +22,16 @@ export const DataUpload = () => {
     if (!file) {
       toast({
         title: "No file selected",
-        description: "Please select a JSON file to upload",
+        description: "Please select a JSON or CSV file to upload",
         variant: "destructive",
       });
       return;
     }
 
-    if (!file.name.endsWith('.json')) {
+    if (!file.name.endsWith('.json') && !file.name.endsWith('.csv')) {
       toast({
         title: "Invalid file type",
-        description: "Please upload a JSON file",
+        description: "Please upload a JSON or CSV file",
         variant: "destructive",
       });
       return;
@@ -40,48 +40,79 @@ export const DataUpload = () => {
     setIsUploading(true);
 
     try {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        try {
-          const importData = JSON.parse(e.target?.result as string);
-          
-          const response = await fetch('https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/import-data', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
-            },
-            body: JSON.stringify({ data: importData }),
-          });
+      if (file.name.endsWith('.json')) {
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const importData = JSON.parse(e.target?.result as string);
+            
+            const response = await fetch('https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/import-data', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+              },
+              body: JSON.stringify({ data: importData }),
+            });
 
-          if (!response.ok) {
-            throw new Error('Failed to import data');
+            if (!response.ok) {
+              throw new Error('Failed to import data');
+            }
+
+            const result = await response.json();
+            
+            toast({
+              title: "Success!",
+              description: "Your data has been imported successfully",
+              variant: "default",
+            });
+            
+            setFile(null);
+            // Reset the file input
+            const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+            if (fileInput) fileInput.value = '';
+            
+          } catch (error) {
+            console.error('Error parsing or importing data:', error);
+            toast({
+              title: "Error",
+              description: "Failed to import data. Please check your file format.",
+              variant: "destructive",
+            });
           }
+        };
 
-          const result = await response.json();
-          
-          toast({
-            title: "Success!",
-            description: "Your data has been imported successfully",
-            variant: "default",
-          });
-          
-          setFile(null);
-          // Reset the file input
-          const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
-          if (fileInput) fileInput.value = '';
-          
-        } catch (error) {
-          console.error('Error parsing or importing data:', error);
-          toast({
-            title: "Error",
-            description: "Failed to import data. Please check your JSON format.",
-            variant: "destructive",
-          });
+        reader.readAsText(file);
+      } else {
+        // Handle CSV file
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/import-data', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to import data');
         }
-      };
 
-      reader.readAsText(file);
+        const result = await response.json();
+        
+        toast({
+          title: "Success!",
+          description: "Your data has been imported successfully",
+          variant: "default",
+        });
+        
+        setFile(null);
+        // Reset the file input
+        const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
+        if (fileInput) fileInput.value = '';
+      }
     } catch (error) {
       console.error('Error reading file:', error);
       toast({
@@ -98,21 +129,24 @@ export const DataUpload = () => {
     <Card className="p-6 bg-white/90 backdrop-blur-sm shadow-lg max-w-md mx-auto">
       <div className="space-y-6">
         <div className="flex items-center gap-2">
-          <FileJson className="w-5 h-5 text-primary" />
+          <div className="flex gap-1">
+            <FileJson className="w-5 h-5 text-primary" />
+            <FileSpreadsheet className="w-5 h-5 text-primary" />
+          </div>
           <h2 className="text-2xl font-bold text-primary-dark">Import Data</h2>
         </div>
         
         <div className="space-y-2">
-          <Label htmlFor="file">Select JSON File</Label>
+          <Label htmlFor="file">Select File</Label>
           <Input
             id="file"
             type="file"
-            accept=".json"
+            accept=".json,.csv"
             onChange={handleFileChange}
             className="cursor-pointer"
           />
           <p className="text-sm text-muted-foreground">
-            Upload a JSON file containing your booking and guest data
+            Upload a JSON or CSV file containing your booking and guest data
           </p>
         </div>
 
