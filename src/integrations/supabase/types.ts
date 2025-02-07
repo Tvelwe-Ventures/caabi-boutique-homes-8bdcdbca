@@ -164,6 +164,56 @@ export type Database = {
           },
         ]
       }
+      financial_metrics: {
+        Row: {
+          created_at: string | null
+          expense_amount: number | null
+          expense_category: string | null
+          id: string
+          month: string
+          monthly_revenue: number
+          net_operating_income: number
+          operating_expenses: number
+          property_id: string | null
+          source: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          expense_amount?: number | null
+          expense_category?: string | null
+          id?: string
+          month: string
+          monthly_revenue?: number
+          net_operating_income?: number
+          operating_expenses?: number
+          property_id?: string | null
+          source?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          expense_amount?: number | null
+          expense_category?: string | null
+          id?: string
+          month?: string
+          monthly_revenue?: number
+          net_operating_income?: number
+          operating_expenses?: number
+          property_id?: string | null
+          source?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "financial_metrics_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       notifications: {
         Row: {
           content: string
