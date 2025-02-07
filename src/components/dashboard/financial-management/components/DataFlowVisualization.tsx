@@ -3,8 +3,18 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ArrowRight, Database, Server, Cloud } from 'lucide-react';
 
+interface ActiveFlows {
+  hostaway: boolean;
+  pricelabs: boolean;
+  realestate: boolean;
+}
+
 const DataFlowVisualization = () => {
-  const [activeFlows, setActiveFlows] = useState({});
+  const [activeFlows, setActiveFlows] = useState<ActiveFlows>({
+    hostaway: false,
+    pricelabs: false,
+    realestate: false
+  });
   
   useEffect(() => {
     const interval = setInterval(() => {
