@@ -7,6 +7,8 @@ import { MarketBenchmarks } from "@/components/property-evaluation/MarketBenchma
 import { InvestmentSimulator } from "@/components/property-evaluation/InvestmentSimulator";
 import { ForeignInvestor } from "@/components/property-evaluation/ForeignInvestor";
 import { EvaluationForm } from "@/components/property-evaluation/EvaluationForm";
+import { InvestmentSummary } from "@/components/property-evaluation/InvestmentSummary";
+import { CashflowAnalysis } from "@/components/property-evaluation/CashflowAnalysis";
 
 const PropertyEvaluation = () => {
   return (
@@ -23,7 +25,17 @@ const PropertyEvaluation = () => {
         />
 
         <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-8"
+          >
+            <InvestmentSummary />
+            <CashflowAnalysis />
+          </motion.div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 mt-12">
             <MarketBenchmarks />
             <ForeignInvestor />
             <InvestmentSimulator />
