@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartLegend, ChartTooltip } from "@/components/ui/chart"
 import { AreaChart, Area, XAxis, YAxis } from "recharts"
@@ -30,38 +31,40 @@ const chartConfig = {
 
 export function ChartSection() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Charts</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        <div className="h-[300px]">
-          <ChartContainer config={chartConfig}>
-            <AreaChart data={data}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <ChartTooltip />
-              <ChartLegend />
-              <Area
-                type="monotone"
-                dataKey="revenue"
-                stackId="1"
-                stroke="var(--color-revenue)"
-                fill="var(--color-revenue)"
-                fillOpacity={0.2}
-              />
-              <Area
-                type="monotone"
-                dataKey="expenses"
-                stackId="1"
-                stroke="var(--color-expenses)"
-                fill="var(--color-expenses)"
-                fillOpacity={0.2}
-              />
-            </AreaChart>
-          </ChartContainer>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="mb-24">
+      <Card>
+        <CardHeader>
+          <CardTitle>Charts</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="h-[300px]">
+            <ChartContainer config={chartConfig}>
+              <AreaChart data={data}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <ChartTooltip />
+                <ChartLegend />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stackId="1"
+                  stroke="var(--color-revenue)"
+                  fill="var(--color-revenue)"
+                  fillOpacity={0.2}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="expenses"
+                  stackId="1"
+                  stroke="var(--color-expenses)"
+                  fill="var(--color-expenses)"
+                  fillOpacity={0.2}
+                />
+              </AreaChart>
+            </ChartContainer>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

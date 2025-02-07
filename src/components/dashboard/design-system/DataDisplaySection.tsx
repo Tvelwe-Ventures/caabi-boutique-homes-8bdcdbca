@@ -1,4 +1,5 @@
-import { Check, Clock, ArrowUpRight, ArrowDownRight } from "lucide-react"
+
+import { Check, Clock } from "lucide-react"
 import { DesignSystemSection } from "./DesignSystemSection"
 import { StatusBadge } from "@/components/ui/status-badge"
 import { BadgeDelta } from "@/components/ui/badge-delta"
@@ -17,6 +18,7 @@ export const DataDisplaySection = () => {
     <DesignSystemSection
       title="Data Display"
       description="Components for displaying data in various formats"
+      className="mt-24"
     >
       <div className="space-y-8">
         <div className="space-y-4">
