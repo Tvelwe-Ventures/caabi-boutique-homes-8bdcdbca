@@ -7,6 +7,11 @@ import { useCalculator } from "@/hooks/useCalculator";
 import { HeroSection } from "./ui/hero-section";
 import Header from "./Header";
 import { motion } from "framer-motion";
+import { CalculatorForm } from "./calculator/CalculatorForm";
+import { CalculatorResults } from "./calculator/CalculatorResults";
+import { useState } from "react";
+import { CalculatorInputs } from "./calculator/types";
+import { calculateROI } from "./calculator/calculatorUtils";
 
 export const MARKET_DATA = {
   averageRentalYield: 9.9,
@@ -22,6 +27,7 @@ export const MARKET_DATA = {
 };
 
 const Calculator = () => {
+  const [calculatorResults, setCalculatorResults] = useState<any>(null);
   const {
     investmentAmount,
     annualReturn,
@@ -29,6 +35,12 @@ const Calculator = () => {
     handleValueChange,
     generateChartData
   } = useCalculator();
+
+  const handleCalculate = (inputs: CalculatorInputs) => {
+    console.log('Calculating ROI with inputs:', inputs);
+    const results = calculateROI(inputs);
+    setCalculatorResults(results);
+  };
 
   const chartData = generateChartData();
   const totalReturn = chartData[chartData.length - 1].total;
@@ -52,7 +64,7 @@ const Calculator = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto space-y-8"
           >
             <Card className="p-4 md:p-6">
               <CardHeader className="space-y-2">
@@ -62,6 +74,12 @@ const Calculator = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6 md:space-y-8">
+                <CalculatorForm onCalculate={handleCalculate} />
+                
+                {calculatorResults && (
+                  <CalculatorResults results={calculatorResults} />
+                )}
+
                 <div className="w-full overflow-x-auto">
                   <InvestmentChart data={chartData} />
                 </div>

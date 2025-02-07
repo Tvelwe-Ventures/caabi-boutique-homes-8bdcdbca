@@ -17,15 +17,19 @@ export const useCalculator = () => {
         console.log('Fetching calculator settings...');
         const session = await supabase.auth.getSession();
         
-        // If no session, return null without making the request
         if (!session.data.session) {
-          console.log('No authenticated session, skipping settings fetch');
-          return null;
+          console.log('No authenticated session, using default settings');
+          return {
+            investment_amount: 1000000,
+            annual_return: 9.9,
+            appreciation: 5.65
+          };
         }
 
         const { data, error } = await supabase
           .from('calculator_settings')
           .select('*')
+          .eq('user_id', session.data.session.user.id)
           .maybeSingle();
         
         if (error) {
@@ -34,10 +38,18 @@ export const useCalculator = () => {
         }
         
         console.log('Successfully fetched settings:', data);
-        return data as CalculatorSettings;
+        return data || {
+          investment_amount: 1000000,
+          annual_return: 9.9,
+          appreciation: 5.65
+        };
       } catch (error) {
         console.error('Failed to fetch calculator settings:', error);
-        return null;
+        return {
+          investment_amount: 1000000,
+          annual_return: 9.9,
+          appreciation: 5.65
+        };
       }
     },
     retry: 1,
@@ -57,7 +69,6 @@ export const useCalculator = () => {
       console.log('Saving calculator settings...');
       const session = await supabase.auth.getSession();
       
-      // If no session, show a message about local-only changes
       if (!session.data.session) {
         toast({
           title: "Note",
@@ -73,6 +84,7 @@ export const useCalculator = () => {
           investment_amount: investmentAmount,
           annual_return: annualReturn,
           appreciation: appreciation,
+          user_id: session.data.session.user.id
         });
       
       if (error) {
