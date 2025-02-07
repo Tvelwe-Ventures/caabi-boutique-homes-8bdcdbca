@@ -46,7 +46,9 @@ const PropertyEvaluation = () => {
                 <div className="col-span-1 lg:col-span-2">
                   <MarketBenchmarks />
                 </div>
-                <ForeignInvestor />
+                <div>
+                  <ForeignInvestor />
+                </div>
               </div>
             </motion.div>
           )}
@@ -63,3 +65,4 @@ const PropertyEvaluation = () => {
 };
 
 export default PropertyEvaluation;
+
