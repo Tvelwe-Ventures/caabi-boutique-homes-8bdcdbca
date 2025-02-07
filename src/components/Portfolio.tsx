@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { StandardCard } from "./ui/standard-card";
 import { Particles } from "./ui/particles";
@@ -8,36 +7,26 @@ const properties = [
     image: "/lovable-uploads/147ce66e-9e92-42a5-86bd-23aca1487925.png",
     title: "The Burj Khalifa Suite",
     description: "Luxury in Downtown",
-    rating: 5.0,
-    reviews: 10
   },
   {
     image: "/lovable-uploads/a210a040-aa99-4aad-a7d0-7d2b08ad0e58.png",
     title: "Downtown Oasis",
     description: "Chic Luxury In the Heart of Dubai",
-    rating: 5.0,
-    reviews: 26
   },
   {
     image: "/lovable-uploads/a436f37f-a68e-4c2f-93c0-96307cb42f16.png",
     title: "The Skyline Suite",
     description: "Luxury Downtown Retreat",
-    rating: 4.75,
-    reviews: 16
   },
   {
     image: "/lovable-uploads/d817b3ef-28fe-41c1-99bc-aa78607b4cae.png",
     title: "Chic Downtown Suite",
     description: "Luxury in the Heart of Dubai",
-    rating: 4.9,
-    reviews: 22
   },
   {
     image: "/lovable-uploads/d427a985-0bc2-49f1-90e9-75b050fc5687.png",
     title: "The Downtown Cinema Suite",
     description: "Steps from Dubai Mall",
-    rating: 5.0,
-    reviews: 8
   }
 ];
 
@@ -68,23 +57,24 @@ const Portfolio = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {properties.map((property, index) => (
-            <StandardCard
-              key={index}
-              title={property.title}
-              description={property.description}
-              className="h-full"
-              subtitle={`${property.rating} ★ (${property.reviews} reviews)`}
-            >
-              <div className="relative aspect-[4/3] w-full -mt-8 -mx-8">
-                <div className="absolute inset-0 overflow-hidden rounded-t-xl">
+            <div key={index} className="flex flex-col">
+              <h3 className="text-xl font-semibold mb-4">{property.title}</h3>
+              <StandardCard
+                className="h-full p-0 overflow-hidden"
+                description={property.description}
+              >
+                <div className="w-full aspect-[4/3] overflow-hidden">
                   <img
                     src={property.image}
                     alt={property.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
-              </div>
-            </StandardCard>
+                <div className="p-6">
+                  <p className="text-gray-600">{property.description}</p>
+                </div>
+              </StandardCard>
+            </div>
           ))}
         </div>
       </div>
