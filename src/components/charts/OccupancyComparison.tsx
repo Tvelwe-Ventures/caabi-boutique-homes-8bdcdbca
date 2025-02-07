@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Tooltip, CartesianGrid } from 'recharts';
 import { CardSpotlight } from "../ui/card-spotlight";
@@ -29,7 +30,7 @@ const OccupancyComparison = () => {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl font-bold mb-4">
-              Dubai's short-let<br />
+              Dubai's short-term<br />
               <span className="text-[#8380CA]">occupancy level</span>
             </h2>
             <p className="text-gray-600 mb-6">
@@ -48,19 +49,21 @@ const OccupancyComparison = () => {
             <BarChart
               data={data}
               margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
-              layout="vertical"
+              layout="horizontal"
             >
               <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
               <XAxis 
-                type="number" 
-                domain={[0, 60]} 
-                tickFormatter={(value) => `${value}%`}
-              />
-              <YAxis 
-                type="category" 
-                dataKey="name" 
-                width={100}
+                dataKey="name"
+                angle={-45}
+                textAnchor="end"
+                height={60}
+                interval={0}
                 tick={{ fontSize: 12 }}
+              />
+              <YAxis
+                type="number"
+                domain={[0, 60]}
+                tickFormatter={(value) => `${value}%`}
               />
               <Tooltip
                 content={({ active, payload, label }) => {
@@ -79,15 +82,15 @@ const OccupancyComparison = () => {
               />
               <Bar
                 dataKey="value"
-                radius={[0, 4, 4, 0]}
-                barSize={20}
+                radius={[4, 4, 0, 0]}
+                barSize={30}
               >
                 {data.map((entry, index) => (
                   <motion.rect
                     key={`bar-${index}`}
-                    fill={entry.color}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
+                    fill={entry.name === 'Dubai' ? '#8380CA' : '#E6E6FA'}
+                    initial={{ scaleY: 0 }}
+                    animate={{ scaleY: 1 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   />
                 ))}
