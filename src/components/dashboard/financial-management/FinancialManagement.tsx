@@ -21,7 +21,7 @@ const FinanceAndRevenueManagement = () => {
         .select('*')
         .order('month', { ascending: false })
         .limit(1)
-        .single(); // Add this to ensure we get a single object, not an array
+        .single();
 
       if (error) {
         toast({
