@@ -1224,7 +1224,18 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      revenue_analytics: {
+        Row: {
+          average_daily_rate: number | null
+          daily_revenue: number | null
+          date: string | null
+          month: number | null
+          occupancy_rate: number | null
+          property_name: string | null
+          year: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

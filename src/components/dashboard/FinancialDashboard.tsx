@@ -9,6 +9,7 @@ import { CommunitySection } from "./financial/CommunitySection";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 import { QuacqFeedback } from "./QuacqFeedback";
+import RevenueMetrics from "./charts/RevenueMetrics";
 
 const FinancialDashboard = () => {
   usePropertiesSubscription();
@@ -49,13 +50,16 @@ const FinancialDashboard = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        className="grid grid-cols-1 gap-6"
       >
-        <div className="space-y-6">
-          <h2 className="text-2xl font-semibold text-[#1A1F2C]">Financial Overview</h2>
-          <FinancialMetrics />
+        <RevenueMetrics />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-6">
+            <h2 className="text-2xl font-semibold text-[#1A1F2C]">Financial Overview</h2>
+            <FinancialMetrics />
+          </div>
+          <PropertyManagement />
         </div>
-        <PropertyManagement />
       </motion.div>
 
       <motion.div
