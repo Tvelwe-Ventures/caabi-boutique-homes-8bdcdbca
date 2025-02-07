@@ -14,91 +14,91 @@ const LocationMap = () => {
   const [error, setError] = useState<string | null>(null);
   const [mapToken, setMapToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const initializeMap = async () => {
-      if (!mapContainer.current) return;
+  const initializeMap = async () => {
+    if (!mapContainer.current) return;
 
-      try {
-        console.log('Fetching Mapbox token...');
-        const { data, error } = await supabase.functions.invoke('get-mapbox-token');
-        
-        if (error) {
-          console.error('Error fetching Mapbox token:', error);
-          setError('Failed to load map configuration');
-          setLoading(false);
-          return;
-        }
-
-        if (!data?.secret) {
-          console.error('No Mapbox token found');
-          setError('Map configuration not found');
-          setLoading(false);
-          return;
-        }
-
-        console.log('Mapbox token retrieved successfully');
-        mapboxgl.accessToken = data.secret;
-        setMapToken(data.secret);
-        
-        map.current = new mapboxgl.Map({
-          container: mapContainer.current,
-          style: 'mapbox://styles/mapbox/light-v11',
-          center: [55.2708, 25.2048], // Dubai coordinates
-          zoom: 11,
-          pitch: 45,
-          bearing: -17.6,
-          antialias: true
-        });
-
-        map.current.on('style.load', () => {
-          if (!map.current) return;
-
-          // Add 3D building layer
-          map.current.addLayer({
-            'id': '3d-buildings',
-            'source': 'composite',
-            'source-layer': 'building',
-            'filter': ['==', 'extrude', 'true'],
-            'type': 'fill-extrusion',
-            'minzoom': 12,
-            'paint': {
-              'fill-extrusion-color': '#9b87f5',
-              'fill-extrusion-height': ['get', 'height'],
-              'fill-extrusion-opacity': 0.6,
-              'fill-extrusion-base': ['get', 'min_height']
-            }
-          });
-
-          // Add atmosphere
-          map.current.setFog({
-            'color': 'white',
-            'high-color': 'rgb(200, 200, 225)',
-            'horizon-blend': 0.2,
-            'space-color': '#D6BCFA',
-            'star-intensity': 0.6
-          });
-
-          setLoading(false);
-        });
-
-        // Add navigation controls
-        map.current.addControl(
-          new mapboxgl.NavigationControl({
-            visualizePitch: true,
-          }),
-          'top-right'
-        );
-
-        // Add scale control
-        map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right');
-
-      } catch (error) {
-        console.error('Error initializing map:', error);
-        setError('Failed to initialize map');
+    try {
+      console.log('Fetching Mapbox token...');
+      const { data, error } = await supabase.functions.invoke('get-mapbox-token');
+      
+      if (error) {
+        console.error('Error fetching Mapbox token:', error);
+        setError('Failed to load map configuration');
         setLoading(false);
+        return;
       }
-    };
 
+      if (!data?.secret) {
+        console.error('No Mapbox token found');
+        setError('Map configuration not found');
+        setLoading(false);
+        return;
+      }
+
+      console.log('Mapbox token retrieved successfully');
+      mapboxgl.accessToken = data.secret;
+      setMapToken(data.secret);
+      
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: 'mapbox://styles/mapbox/light-v11',
+        center: [55.2708, 25.2048], // Dubai coordinates
+        zoom: 11,
+        pitch: 45,
+        bearing: -17.6,
+        antialias: true
+      });
+
+      map.current.on('style.load', () => {
+        if (!map.current) return;
+
+        // Add 3D building layer
+        map.current.addLayer({
+          'id': '3d-buildings',
+          'source': 'composite',
+          'source-layer': 'building',
+          'filter': ['==', 'extrude', 'true'],
+          'type': 'fill-extrusion',
+          'minzoom': 12,
+          'paint': {
+            'fill-extrusion-color': '#9b87f5',
+            'fill-extrusion-height': ['get', 'height'],
+            'fill-extrusion-opacity': 0.6,
+            'fill-extrusion-base': ['get', 'min_height']
+          }
+        });
+
+        // Add atmosphere
+        map.current.setFog({
+          'color': 'white',
+          'high-color': 'rgb(200, 200, 225)',
+          'horizon-blend': 0.2,
+          'space-color': '#D6BCFA',
+          'star-intensity': 0.6
+        });
+
+        setLoading(false);
+      });
+
+      // Add navigation controls
+      map.current.addControl(
+        new mapboxgl.NavigationControl({
+          visualizePitch: true,
+        }),
+        'top-right'
+      );
+
+      // Add scale control
+      map.current.addControl(new mapboxgl.ScaleControl(), 'bottom-right');
+
+    } catch (error) {
+      console.error('Error initializing map:', error);
+      setError('Failed to initialize map');
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     initializeMap();
 
     return () => {
