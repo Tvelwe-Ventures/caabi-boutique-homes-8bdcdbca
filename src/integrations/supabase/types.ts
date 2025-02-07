@@ -220,6 +220,42 @@ export type Database = {
           },
         ]
       }
+      dubai_market_metrics: {
+        Row: {
+          area: string | null
+          change_percentage: number | null
+          created_at: string | null
+          id: string
+          metric_type: string
+          period: string
+          property_type: string | null
+          updated_at: string | null
+          value: number
+        }
+        Insert: {
+          area?: string | null
+          change_percentage?: number | null
+          created_at?: string | null
+          id?: string
+          metric_type: string
+          period: string
+          property_type?: string | null
+          updated_at?: string | null
+          value: number
+        }
+        Update: {
+          area?: string | null
+          change_percentage?: number | null
+          created_at?: string | null
+          id?: string
+          metric_type?: string
+          period?: string
+          property_type?: string | null
+          updated_at?: string | null
+          value?: number
+        }
+        Relationships: []
+      }
       financial_metrics: {
         Row: {
           avg_daily_rate: number | null

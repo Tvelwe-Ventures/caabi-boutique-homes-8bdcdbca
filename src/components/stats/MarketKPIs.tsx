@@ -1,3 +1,4 @@
+
 import { KPICard } from "./KPICard";
 import { useMarketKPIs } from "@/hooks/useMarketKPIs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -8,7 +9,13 @@ const MarketKPIs = () => {
 
   if (isLoading) {
     console.log("Loading market data...");
-    return <div>Loading...</div>;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="h-32 bg-muted animate-pulse rounded-xl" />
+        ))}
+      </div>
+    );
   }
 
   if (error) {
@@ -24,7 +31,7 @@ const MarketKPIs = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {kpiData.map((metric, index) => (
         <KPICard
           key={index}
@@ -34,6 +41,7 @@ const MarketKPIs = () => {
           change={metric.change}
           icon={metric.icon}
           tooltip={metric.tooltip}
+          variant={metric.variant}
         />
       ))}
     </div>
