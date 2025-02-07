@@ -9,6 +9,62 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          booking_source: string | null
+          check_in_date: string
+          check_out_date: string
+          created_at: string | null
+          external_booking_id: string | null
+          guest_id: string | null
+          id: string
+          number_of_guests: number | null
+          property_id: string | null
+          special_requests: string | null
+          status: Database["public"]["Enums"]["booking_status"] | null
+          total_amount: number
+          updated_at: string | null
+        }
+        Insert: {
+          booking_source?: string | null
+          check_in_date: string
+          check_out_date: string
+          created_at?: string | null
+          external_booking_id?: string | null
+          guest_id?: string | null
+          id?: string
+          number_of_guests?: number | null
+          property_id?: string | null
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
+          total_amount: number
+          updated_at?: string | null
+        }
+        Update: {
+          booking_source?: string | null
+          check_in_date?: string
+          check_out_date?: string
+          created_at?: string | null
+          external_booking_id?: string | null
+          guest_id?: string | null
+          id?: string
+          number_of_guests?: number | null
+          property_id?: string | null
+          special_requests?: string | null
+          status?: Database["public"]["Enums"]["booking_status"] | null
+          total_amount?: number
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       buy_rent_settings: {
         Row: {
           created_at: string
@@ -243,6 +299,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      guests: {
+        Row: {
+          average_rating: number | null
+          created_at: string | null
+          email: string | null
+          first_name: string
+          id: string
+          last_name: string
+          last_stay_date: string | null
+          nationality: string | null
+          phone: string | null
+          preferred_language: string | null
+          total_stays: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          average_rating?: number | null
+          created_at?: string | null
+          email?: string | null
+          first_name: string
+          id?: string
+          last_name: string
+          last_stay_date?: string | null
+          nationality?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          total_stays?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          average_rating?: number | null
+          created_at?: string | null
+          email?: string | null
+          first_name?: string
+          id?: string
+          last_name?: string
+          last_stay_date?: string | null
+          nationality?: string | null
+          phone?: string | null
+          preferred_language?: string | null
+          total_stays?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       notifications: {
         Row: {
@@ -938,6 +1039,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      booking_status: "confirmed" | "pending" | "cancelled" | "completed"
       feedback_type: "stay" | "suggestion" | "general"
       investment_role: "founder" | "coo" | "investor"
       property_type: "apartment" | "villa" | "townhouse" | "penthouse"
