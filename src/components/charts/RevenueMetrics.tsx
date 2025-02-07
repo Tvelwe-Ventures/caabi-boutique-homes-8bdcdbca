@@ -1,9 +1,9 @@
+
 import { motion } from "framer-motion";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { CardSpotlight } from "../ui/card-spotlight";
 
 const data = [
-  { city: 'AirDXB', adr: 215.76, revenue: 73239.73, size: 66 },
   { city: 'New York', adr: 267.1, revenue: 63369.48, size: 80 },
   { city: 'London', adr: 232.91, revenue: 55257.90, size: 76 },
   { city: 'Singapore', adr: 181.69, revenue: 35771.68, size: 85 },
@@ -28,7 +28,7 @@ const RevenueMetrics = () => {
         <h2 className="text-3xl font-bold mb-6">Global Revenue Comparison</h2>
         <div className="h-[500px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 70 }}>
+            <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 70 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
                 dataKey="city" 
@@ -37,12 +37,57 @@ const RevenueMetrics = () => {
                 height={70}
                 interval={0}
               />
-              <YAxis yAxisId="left" orientation="left" stroke="#8884d8" label={{ value: 'Revenue (USD)', angle: -90, position: 'insideLeft' }} />
-              <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" label={{ value: 'ADR (USD)', angle: 90, position: 'insideRight' }} />
-              <Tooltip />
-              <Bar yAxisId="left" dataKey="revenue" fill="#8884d8" name="12m Revenue" />
-              <Bar yAxisId="right" dataKey="adr" fill="#82ca9d" name="ADR" />
-            </BarChart>
+              <YAxis 
+                yAxisId="left" 
+                orientation="left" 
+                stroke="#9b87f5" 
+                label={{ value: 'Revenue (USD)', angle: -90, position: 'insideLeft' }} 
+              />
+              <YAxis 
+                yAxisId="right" 
+                orientation="right" 
+                stroke="#7E69AB" 
+                label={{ value: 'ADR (USD)', angle: 90, position: 'insideRight' }} 
+              />
+              <Tooltip 
+                content={({ active, payload, label }) => {
+                  if (active && payload && payload.length) {
+                    return (
+                      <div className="bg-white p-4 border rounded-lg shadow-lg">
+                        <p className="font-semibold mb-2">{label}</p>
+                        <p className="text-sm">
+                          <span className="inline-block w-3 h-3 rounded-full bg-[#9b87f5] mr-2" />
+                          Revenue: ${payload[0].value?.toLocaleString()}
+                        </p>
+                        <p className="text-sm">
+                          <span className="inline-block w-3 h-3 rounded-full bg-[#7E69AB] mr-2" />
+                          ADR: ${payload[1].value?.toLocaleString()}
+                        </p>
+                      </div>
+                    );
+                  }
+                  return null;
+                }}
+              />
+              <Line 
+                yAxisId="left"
+                type="monotone" 
+                dataKey="revenue" 
+                stroke="#9b87f5" 
+                strokeWidth={2}
+                dot={{ fill: "#9b87f5" }}
+                name="Revenue" 
+              />
+              <Line 
+                yAxisId="right"
+                type="monotone" 
+                dataKey="adr" 
+                stroke="#7E69AB" 
+                strokeWidth={2}
+                dot={{ fill: "#7E69AB" }}
+                name="ADR" 
+              />
+            </LineChart>
           </ResponsiveContainer>
         </div>
       </motion.div>
