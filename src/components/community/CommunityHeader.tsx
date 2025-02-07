@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -44,7 +45,7 @@ export const CommunityHeader = ({ searchQuery, setSearchQuery }: CommunityHeader
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center">
           <img 
-            src="/lovable-uploads/05a25d35-9cba-4184-8637-313d262535f1.png" 
+            src="/lovable-uploads/05a25d35-9cba-4184-8637-313d262535f1.png"
             alt="PropOSphere" 
             className="h-8 md:h-12 w-auto"
           />
