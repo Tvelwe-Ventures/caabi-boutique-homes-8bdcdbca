@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, CreditCard, DollarSign, LineChart, TrendingUp, Activity, BadgeDollarSign, BarChart3, Percent } from "lucide-react";
@@ -6,7 +5,6 @@ import { StandardCard } from "@/components/ui/standard-card";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
-import RevenueMetrics from "@/components/charts/RevenueMetrics";
 import { formatCurrency } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -221,14 +219,7 @@ const FinanceAndRevenueManagement = () => {
           ))}
         </div>
 
-        {/* Revenue Charts - Responsive container with enhanced styling */}
-        <div className="w-full overflow-x-auto bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 p-4">
-          <div className="min-w-[768px] md:min-w-full">
-            <RevenueMetrics />
-          </div>
-        </div>
-
-        {/* Integration Cards with Enhanced Design */}
+        {/* Integration Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 border-purple-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]">
             <CardHeader>
