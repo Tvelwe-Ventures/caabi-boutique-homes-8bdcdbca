@@ -1,7 +1,7 @@
+
 import { Plus, FileText, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
-import { DataIntegrationBeams } from "./DataIntegrationBeams";
 import { FinancialMetrics } from "./financial/FinancialMetrics";
 import { PropertyManagement } from "./financial/PropertyManagement";
 import { GuestInsights } from "./financial/GuestInsights";
@@ -44,11 +44,6 @@ const FinancialDashboard = () => {
           <QuacqFeedback />
         </div>
       </div>
-
-      <div className="relative min-h-[400px] bg-white rounded-lg p-6 shadow-sm">
-        <h2 className="text-xl font-semibold mb-4">Real-time Data Integration</h2>
-        <DataIntegrationBeams />
-      </div>
         
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -57,7 +52,7 @@ const FinancialDashboard = () => {
         className="grid grid-cols-1 md:grid-cols-2 gap-6"
       >
         <div className="space-y-6">
-          <h2 className="text-2xl font-semibold">Financial Overview</h2>
+          <h2 className="text-2xl font-semibold text-[#1A1F2C]">Financial Overview</h2>
           <FinancialMetrics />
         </div>
         <PropertyManagement />
