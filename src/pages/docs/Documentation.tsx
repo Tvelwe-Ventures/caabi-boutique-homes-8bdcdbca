@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -8,10 +9,22 @@ import {
   Settings,
   Globe,
   MessageSquare,
-  Brain
+  Brain,
+  LayoutDashboard
 } from "lucide-react";
 
 const modules = [
+  {
+    title: "Dashboard Overview",
+    icon: LayoutDashboard,
+    description: "Comprehensive dashboard with real-time insights",
+    features: [
+      "Real-time data integration visualization",
+      "Financial metrics (Revenue, ADR, RevPAR)",
+      "Market KPIs from multiple sources",
+      "Interactive property portfolio map"
+    ]
+  },
   {
     title: "Property Management",
     icon: Building2,
