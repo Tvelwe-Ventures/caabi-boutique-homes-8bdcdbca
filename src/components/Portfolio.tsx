@@ -1,7 +1,7 @@
+
 import { motion } from "framer-motion";
 import { StandardCard } from "./ui/standard-card";
 import { Particles } from "./ui/particles";
-import { Star } from "lucide-react";
 
 const properties = [
   {
@@ -73,10 +73,6 @@ const Portfolio = () => {
               title={property.title}
               description={property.description}
               className="h-full"
-              icon={Star}
-              action={{
-                label: `${property.rating} (${property.reviews} reviews)`
-              }}
             >
               <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
                 <img
