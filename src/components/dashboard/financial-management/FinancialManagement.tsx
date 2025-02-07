@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -7,6 +6,7 @@ import { motion } from "framer-motion";
 import { SummaryMetrics } from "./components/SummaryMetrics";
 import { OperationalMetrics } from "./components/OperationalMetrics";
 import { IntegrationMetrics } from "./components/IntegrationMetrics";
+import { RevenueMetricsGrid } from "./RevenueMetricsGrid";
 
 const FinanceAndRevenueManagement = () => {
   const { toast } = useToast();
@@ -88,13 +88,12 @@ const FinanceAndRevenueManagement = () => {
             </div>
           </div>
 
-          {/* Performance Metrics */}
+          {/* New Revenue Metrics Grid */}
+          <RevenueMetricsGrid />
+
+          {/* Keep existing metrics */}
           <SummaryMetrics metrics={metrics} isLoading={isLoading} />
-
-          {/* Operational Metrics */}
           <OperationalMetrics metrics={metrics} isLoading={isLoading} />
-
-          {/* Integration Cards */}
           <IntegrationMetrics metrics={metrics} />
         </motion.div>
       </div>
