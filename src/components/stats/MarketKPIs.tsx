@@ -30,6 +30,19 @@ const MarketKPIs = () => {
     );
   }
 
+  const getVariant = (index: number): "default" | "gradient" | "outlined" => {
+    switch (index % 3) {
+      case 0:
+        return "default";
+      case 1:
+        return "gradient";
+      case 2:
+        return "outlined";
+      default:
+        return "default";
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {kpiData.map((metric, index) => (
@@ -41,7 +54,7 @@ const MarketKPIs = () => {
           change={metric.change}
           icon={metric.icon}
           tooltip={metric.tooltip}
-          variant={metric.variant}
+          variant={getVariant(index)}
         />
       ))}
     </div>
