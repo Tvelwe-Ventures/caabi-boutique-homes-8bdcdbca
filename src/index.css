@@ -135,6 +135,15 @@
   }
 }
 
+@keyframes orbit {
+  from {
+    transform: rotate(0deg) translateX(var(--radius, 100)px) rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg) translateX(var(--radius, 100)px) rotate(-360deg);
+  }
+}
+
 @layer utilities {
   .animate-first {
     animation: first 25s infinite linear;
@@ -150,5 +159,8 @@
   }
   .animate-fifth {
     animation: fifth 45s infinite linear;
+  }
+  .animate-orbit {
+    animation: orbit calc(var(--duration, 20) * 1s) linear infinite;
   }
 }
