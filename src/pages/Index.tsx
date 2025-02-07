@@ -19,8 +19,6 @@ import Chat from "@/components/Chat";
 import MarketKPIs from "@/components/stats/MarketKPIs";
 
 const Index = () => {
-  const isInDashboard = window.location.pathname.includes('dashboard');
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -40,7 +38,7 @@ const Index = () => {
       <WhyShortTerm />
       <Feedback />
       <Footer />
-      {!isInDashboard && <WebsiteFeedback />}
+      <WebsiteFeedback />
       
       {/* Floating Chat Dialog */}
       <Dialog>

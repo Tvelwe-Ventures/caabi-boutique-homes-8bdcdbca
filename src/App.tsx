@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -11,7 +12,6 @@ import Terms from "@/pages/Terms";
 import Privacy from "@/pages/Privacy";
 import CommunityGuidelines from "@/pages/CommunityGuidelines";
 import Statistics from "@/pages/Statistics";
-import { WebsiteFeedback } from "@/components/WebsiteFeedback";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MessageSquare } from "lucide-react";
@@ -40,9 +40,6 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/dashboard/*" element={<Dashboard />} />
           </Routes>
-          
-          {/* Global Feedback Component */}
-          <WebsiteFeedback />
           
           {/* Global Chat Dialog */}
           <Dialog>

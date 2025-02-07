@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card } from "./ui/card";
 import { Label } from "./ui/label";
@@ -9,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { MessageSquare, Bug, Flag } from "lucide-react";
 import { Input } from "./ui/input";
+import { useLocation } from "react-router-dom";
 
 export const WebsiteFeedback = () => {
   const [content, setContent] = useState("");
@@ -16,6 +18,12 @@ export const WebsiteFeedback = () => {
   const [image, setImage] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+  const location = useLocation();
+
+  // Don't render if we're in the dashboard
+  if (location.pathname.includes('dashboard')) {
+    return null;
+  }
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -144,9 +152,11 @@ export const WebsiteFeedback = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <FeyButton className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex items-center gap-2">
+        <FeyButton 
+          className="fixed right-0 top-1/2 -translate-y-1/2 z-50 rotate-90 origin-right translate-x-[60%] hover:translate-x-[55%] transition-transform shadow-lg p-2 text-sm"
+        >
           {getIcon()}
-          <span>Feedback</span>
+          <span className="ml-2">Feedback</span>
         </FeyButton>
       </SheetTrigger>
       <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
