@@ -91,30 +91,22 @@ const PropertyEvaluation = () => {
 
       console.log("Evaluation created successfully:", evaluation);
 
-      // Send email with evaluation report
-      const response = await fetch(
-        "https://wwzxgeemuiopimnjbooo.supabase.co/functions/v1/send-evaluation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            firstName: formData.firstName,
-            lastName: formData.lastName,
-            email: formData.email,
-            location: formData.location,
-            propertyType: formData.propertyType,
-            bedrooms: formData.bedrooms,
-            estimatedRevenue,
-            estimatedOccupancy,
-            averageDailyRate,
-          }),
-        }
-      );
+      // Send email with evaluation report using the edge function
+      const { error: functionError } = await supabase.functions.invoke('send-evaluation', {
+        body: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          location: formData.location,
+          propertyType: formData.propertyType,
+          bedrooms: formData.bedrooms,
+          estimatedRevenue,
+          estimatedOccupancy,
+          averageDailyRate,
+        },
+      });
 
-      if (!response.ok) {
+      if (functionError) {
         throw new Error("Failed to send evaluation email");
       }
 
