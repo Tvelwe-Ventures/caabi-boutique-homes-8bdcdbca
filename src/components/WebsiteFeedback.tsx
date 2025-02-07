@@ -144,7 +144,7 @@ export const WebsiteFeedback = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <FeyButton className="flex items-center gap-2">
+        <FeyButton className="fixed right-6 top-1/2 -translate-y-1/2 z-50 flex items-center gap-2">
           {getIcon()}
           <span>Feedback</span>
         </FeyButton>

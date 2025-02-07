@@ -1,8 +1,10 @@
+
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SidebarContent } from "./sidebar/SidebarContent";
 import { DashboardFooter } from "./DashboardFooter";
+import { QuacqFeedback } from "./QuacqFeedback";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
@@ -37,7 +39,12 @@ const DashboardLayout = () => {
         "flex-1 transition-all duration-300 flex flex-col",
         open ? "ml-[240px]" : "ml-[70px]"
       )}>
-        <div className="container py-6 space-y-6 flex-1">
+        <div className="fixed top-0 right-0 left-0 z-10 bg-white border-b px-4 py-2 flex justify-end items-center">
+          <div className="ml-auto flex items-center gap-4">
+            <QuacqFeedback />
+          </div>
+        </div>
+        <div className="container py-6 space-y-6 flex-1 mt-14">
           <Outlet />
         </div>
         <DashboardFooter />
