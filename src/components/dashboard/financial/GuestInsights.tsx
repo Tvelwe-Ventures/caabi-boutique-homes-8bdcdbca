@@ -9,24 +9,21 @@ export const GuestInsights = () => {
   const { data: guestData, isLoading } = useQuery({
     queryKey: ['guest-metrics'],
     queryFn: async () => {
-      console.log("Fetching guest metrics...");
       const { data: guests, error } = await supabase
         .from('guests')
         .select('*');
 
       if (error) {
-        console.error("Error fetching guest data:", error);
         throw error;
       }
-
-      console.log("Retrieved guest data:", guests);
       
       return {
         totalGuests: guests?.length || 0,
         averageRating: guests?.reduce((acc, guest) => acc + (guest.average_rating || 0), 0) / (guests?.length || 1),
         repeatGuests: guests?.filter(guest => guest.total_stays > 1).length || 0
       };
-    }
+    },
+    staleTime: 5 * 60 * 1000 // Consider data fresh for 5 minutes
   });
 
   const metrics = [
