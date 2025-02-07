@@ -658,6 +658,60 @@ export type Database = {
           },
         ]
       }
+      property_investment_simulations: {
+        Row: {
+          annual_mortgage_payment: number | null
+          annual_operating_expenses: number | null
+          annual_operating_income: number | null
+          created_at: string
+          down_payment: number | null
+          financing_type: string
+          holding_period: number
+          id: string
+          investment_amount: number
+          mortgage_amount: number | null
+          property_size: number | null
+          transaction_costs: number | null
+          updated_at: string
+          usage_type: string
+          user_id: string | null
+        }
+        Insert: {
+          annual_mortgage_payment?: number | null
+          annual_operating_expenses?: number | null
+          annual_operating_income?: number | null
+          created_at?: string
+          down_payment?: number | null
+          financing_type: string
+          holding_period: number
+          id?: string
+          investment_amount: number
+          mortgage_amount?: number | null
+          property_size?: number | null
+          transaction_costs?: number | null
+          updated_at?: string
+          usage_type: string
+          user_id?: string | null
+        }
+        Update: {
+          annual_mortgage_payment?: number | null
+          annual_operating_expenses?: number | null
+          annual_operating_income?: number | null
+          created_at?: string
+          down_payment?: number | null
+          financing_type?: string
+          holding_period?: number
+          id?: string
+          investment_amount?: number
+          mortgage_amount?: number | null
+          property_size?: number | null
+          transaction_costs?: number | null
+          updated_at?: string
+          usage_type?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       property_investments: {
         Row: {
           created_at: string
@@ -736,6 +790,51 @@ export type Database = {
           source?: string | null
           status?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      property_market_benchmarks: {
+        Row: {
+          annual_appreciation_long: number | null
+          annual_appreciation_short: number | null
+          cap_rate: number | null
+          created_at: string
+          data_confidence: string | null
+          gross_rental_yield: number | null
+          id: string
+          location: string
+          market_risk: string | null
+          price_per_sqm: number | null
+          transaction_costs: number | null
+          updated_at: string
+        }
+        Insert: {
+          annual_appreciation_long?: number | null
+          annual_appreciation_short?: number | null
+          cap_rate?: number | null
+          created_at?: string
+          data_confidence?: string | null
+          gross_rental_yield?: number | null
+          id?: string
+          location: string
+          market_risk?: string | null
+          price_per_sqm?: number | null
+          transaction_costs?: number | null
+          updated_at?: string
+        }
+        Update: {
+          annual_appreciation_long?: number | null
+          annual_appreciation_short?: number | null
+          cap_rate?: number | null
+          created_at?: string
+          data_confidence?: string | null
+          gross_rental_yield?: number | null
+          id?: string
+          location?: string
+          market_risk?: string | null
+          price_per_sqm?: number | null
+          transaction_costs?: number | null
+          updated_at?: string
         }
         Relationships: []
       }

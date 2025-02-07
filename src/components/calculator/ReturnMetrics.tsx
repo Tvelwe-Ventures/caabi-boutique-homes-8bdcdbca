@@ -1,5 +1,7 @@
+
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { formatCurrency } from "@/lib/utils";
+import { BadgeDelta } from "../ui/badge-delta";
 
 interface ReturnMetricsProps {
   totalReturn: number;
@@ -9,29 +11,49 @@ interface ReturnMetricsProps {
 
 const ReturnMetrics = ({ totalReturn, totalROIPercentage, annualReturn }: ReturnMetricsProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Card className="bg-white shadow-sm border border-gray-100">
         <CardHeader>
-          <CardTitle className="text-lg text-gray-600">Total Return</CardTitle>
-          <p className="text-2xl font-bold text-primary">
-            {formatCurrency(totalReturn)}
-          </p>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm font-medium text-gray-600">Total Return</CardTitle>
+            <BadgeDelta deltaType="increase" />
+          </div>
+          <div className="mt-2">
+            <p className="text-2xl font-semibold text-gray-900">
+              {formatCurrency(totalReturn)}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">
+              {parseFloat(totalROIPercentage) > 0 ? '+' : ''}{totalROIPercentage}% all time
+            </p>
+          </div>
         </CardHeader>
       </Card>
       
-      <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
+      <Card className="bg-white shadow-sm border border-gray-100">
         <CardHeader>
-          <CardTitle className="text-lg text-gray-600">Total ROI</CardTitle>
-          <p className="text-2xl font-bold text-primary">{totalROIPercentage}%</p>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm font-medium text-gray-600">ROI</CardTitle>
+            <BadgeDelta deltaType="increase" />
+          </div>
+          <div className="mt-2">
+            <p className="text-2xl font-semibold text-gray-900">{totalROIPercentage}%</p>
+            <p className="text-sm text-gray-500 mt-1">Total return on investment</p>
+          </div>
         </CardHeader>
       </Card>
       
-      <Card className="bg-gradient-to-br from-primary/5 to-transparent border-primary/20">
+      <Card className="bg-white shadow-sm border border-gray-100">
         <CardHeader>
-          <CardTitle className="text-lg text-gray-600">Annual Return</CardTitle>
-          <p className="text-2xl font-bold text-primary">
-            {formatCurrency(annualReturn)}/year
-          </p>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-sm font-medium text-gray-600">Annual Return</CardTitle>
+            <BadgeDelta deltaType="increase" />
+          </div>
+          <div className="mt-2">
+            <p className="text-2xl font-semibold text-gray-900">
+              {formatCurrency(annualReturn)}
+            </p>
+            <p className="text-sm text-gray-500 mt-1">Per year</p>
+          </div>
         </CardHeader>
       </Card>
     </div>
