@@ -121,13 +121,15 @@ const FinanceAndRevenueManagement = () => {
       >
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">Finance & Revenue Management</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-primary-light">
+              Finance & Revenue Management
+            </h1>
             <p className="text-sm md:text-base text-muted-foreground">
               Comprehensive financial overview and revenue optimization tools
             </p>
           </div>
           <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-            <Card className="bg-accent/10 p-2 w-full md:w-auto">
+            <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-2 w-full md:w-auto border border-purple-100 dark:border-gray-700">
               <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
               <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_pricelabs 
@@ -135,7 +137,7 @@ const FinanceAndRevenueManagement = () => {
                   : 'Never'}
               </p>
             </Card>
-            <Card className="bg-accent/10 p-2 w-full md:w-auto">
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 p-2 w-full md:w-auto border border-blue-100 dark:border-gray-700">
               <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
               <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_hostaway 
@@ -161,10 +163,14 @@ const FinanceAndRevenueManagement = () => {
                 title={
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-lg md:text-xl font-semibold">{metric.value}</span>
+                      <span className="text-lg md:text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                        {metric.value}
+                      </span>
                       <span 
-                        className={`text-xs md:text-sm ${
-                          metric.trendType === "positive" ? "text-green-500" : "text-red-500"
+                        className={`text-xs md:text-sm px-2 py-0.5 rounded-full ${
+                          metric.trendType === "positive" 
+                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
+                            : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                         }`}
                       >
                         {metric.trend}
@@ -174,7 +180,7 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-shadow duration-200 bg-card h-full"
+                className="hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 border border-gray-100 dark:border-gray-800 hover:border-purple-100 dark:hover:border-purple-900/50 hover:translate-y-[-2px]"
               />
             </motion.div>
           ))}
@@ -194,10 +200,14 @@ const FinanceAndRevenueManagement = () => {
                 icon={metric.icon}
                 title={
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-lg md:text-xl font-semibold">{metric.value}</span>
+                    <span className="text-lg md:text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                      {metric.value}
+                    </span>
                     <span 
-                      className={`text-xs md:text-sm ${
-                        metric.trendType === "positive" ? "text-green-500" : "text-red-500"
+                      className={`text-xs md:text-sm px-2 py-0.5 rounded-full ${
+                        metric.trendType === "positive" 
+                          ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
+                          : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
                       }`}
                     >
                       {metric.trend}
@@ -205,39 +215,41 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-shadow duration-200 bg-card h-full"
+                className="hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 border border-gray-100 dark:border-gray-800 hover:border-purple-100 dark:hover:border-purple-900/50 hover:translate-y-[-2px]"
               />
             </motion.div>
           ))}
         </div>
 
-        {/* Revenue Charts - Responsive container */}
-        <div className="w-full overflow-x-auto">
+        {/* Revenue Charts - Responsive container with enhanced styling */}
+        <div className="w-full overflow-x-auto bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-800 p-4">
           <div className="min-w-[768px] md:min-w-full">
             <RevenueMetrics />
           </div>
         </div>
 
-        {/* Integration Cards */}
+        {/* Integration Cards with Enhanced Design */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Card className="bg-card">
+          <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 border-purple-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
-                <DollarSign className="h-5 w-5" />
-                PriceLabs Insights
+                <DollarSign className="h-5 w-5 text-primary" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                  PriceLabs Insights
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-4">
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Market Rate</span>
                   <span className="font-medium">AED 850/night</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Demand Score</span>
                   <span className="font-medium">85/100</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Price Recommendation</span>
                   <span className="font-medium text-green-500">+12% increase</span>
                 </li>
@@ -245,24 +257,26 @@ const FinanceAndRevenueManagement = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-card">
+          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-blue-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
-                <BarChart3 className="h-5 w-5" />
-                Hostaway Analytics
+                <BarChart3 className="h-5 w-5 text-primary" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                  Hostaway Analytics
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-4">
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Booking Pace</span>
                   <span className="font-medium">+23% MoM</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Channel Mix</span>
                   <span className="font-medium">Airbnb 65%</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">LOS Average</span>
                   <span className="font-medium">4.2 nights</span>
                 </li>
@@ -270,24 +284,26 @@ const FinanceAndRevenueManagement = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-card md:col-span-2 lg:col-span-1">
+          <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 border-indigo-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px] md:col-span-2 lg:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Activity className="h-5 w-5" />
-                Financial Health
+                <Activity className="h-5 w-5 text-primary" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                  Financial Health
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-4">
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Gross Margin</span>
                   <span className="font-medium">32%</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Cost per Booking</span>
                   <span className="font-medium">AED 125</span>
                 </li>
-                <li className="flex justify-between items-center">
+                <li className="flex justify-between items-center p-2 rounded-lg bg-white/50 dark:bg-gray-800/50">
                   <span className="text-sm text-muted-foreground">Revenue Growth</span>
                   <span className="font-medium text-green-500">+18% YoY</span>
                 </li>
