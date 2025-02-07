@@ -51,51 +51,53 @@ const FinanceAndRevenueManagement = () => {
   });
 
   return (
-    <div className="p-4 md:p-8 space-y-6 md:space-y-8 bg-white">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col gap-4"
-      >
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-500 to-primary-light">
-              Finance & Revenue Management
-            </h1>
-            <p className="text-sm md:text-base text-muted-foreground">
-              Comprehensive financial overview and revenue optimization tools
-            </p>
-          </div>
-          <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-            <Card className="glass-card p-2 w-full md:w-auto">
-              <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
-              <p className="text-sm font-medium truncate">
-                {metrics?.last_sync_pricelabs 
-                  ? new Date(metrics.last_sync_pricelabs).toLocaleString() 
-                  : 'Never'}
+    <div className="min-h-screen bg-white">
+      <div className="p-4 md:p-8 space-y-6 md:space-y-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col gap-4"
+        >
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold mb-2 animated-gradient-text">
+                Finance & Revenue Management
+              </h1>
+              <p className="text-sm md:text-base text-muted-foreground">
+                Comprehensive financial overview and revenue optimization tools
               </p>
-            </Card>
-            <Card className="glass-card p-2 w-full md:w-auto">
-              <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
-              <p className="text-sm font-medium truncate">
-                {metrics?.last_sync_hostaway 
-                  ? new Date(metrics.last_sync_hostaway).toLocaleString() 
-                  : 'Never'}
-              </p>
-            </Card>
+            </div>
+            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
+              <Card className="glass-card p-2 w-full md:w-auto">
+                <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
+                <p className="text-sm font-medium truncate">
+                  {metrics?.last_sync_pricelabs 
+                    ? new Date(metrics.last_sync_pricelabs).toLocaleString() 
+                    : 'Never'}
+                </p>
+              </Card>
+              <Card className="glass-card p-2 w-full md:w-auto">
+                <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
+                <p className="text-sm font-medium truncate">
+                  {metrics?.last_sync_hostaway 
+                    ? new Date(metrics.last_sync_hostaway).toLocaleString() 
+                    : 'Never'}
+                </p>
+              </Card>
+            </div>
           </div>
-        </div>
 
-        {/* Performance Metrics */}
-        <SummaryMetrics metrics={metrics} isLoading={isLoading} />
+          {/* Performance Metrics */}
+          <SummaryMetrics metrics={metrics} isLoading={isLoading} />
 
-        {/* Operational Metrics */}
-        <OperationalMetrics metrics={metrics} isLoading={isLoading} />
+          {/* Operational Metrics */}
+          <OperationalMetrics metrics={metrics} isLoading={isLoading} />
 
-        {/* Integration Cards */}
-        <IntegrationMetrics metrics={metrics} />
-      </motion.div>
+          {/* Integration Cards */}
+          <IntegrationMetrics metrics={metrics} />
+        </motion.div>
+      </div>
     </div>
   );
 };
