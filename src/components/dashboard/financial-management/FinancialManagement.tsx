@@ -16,14 +16,16 @@ const FinanceAndRevenueManagement = () => {
   const { data: metrics, isLoading } = useQuery({
     queryKey: ['financial-metrics'],
     queryFn: async () => {
+      console.log("Fetching financial metrics...");
       const { data, error } = await supabase
         .from('financial_metrics')
         .select('*')
         .order('month', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (error) {
+        console.error("Error fetching financial metrics:", error);
         toast({
           title: "Error fetching metrics",
           description: "Could not load financial metrics",
@@ -32,8 +34,22 @@ const FinanceAndRevenueManagement = () => {
         throw error;
       }
 
-      console.log("Latest financial metrics:", data);
-      return data;
+      // Provide default values if no data is found
+      const defaultMetrics = {
+        monthly_revenue: 0,
+        operating_expenses: 0,
+        net_operating_income: 0,
+        avg_daily_rate: 0,
+        revpar: 0,
+        occupancy_rate: 0,
+        market_demand_score: 0,
+        competitive_index: 0,
+        last_sync_pricelabs: null,
+        last_sync_hostaway: null
+      };
+
+      console.log("Retrieved financial metrics:", data || defaultMetrics);
+      return data || defaultMetrics;
     }
   });
 
