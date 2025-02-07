@@ -75,12 +75,14 @@ const Portfolio = () => {
               className="h-full"
               subtitle={`${property.rating} ★ (${property.reviews} reviews)`}
             >
-              <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
-                <img
-                  src={property.image}
-                  alt={property.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
+              <div className="relative aspect-[4/3] w-full -mt-8 -mx-8 mb-6">
+                <div className="absolute inset-0 overflow-hidden rounded-xl">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
               </div>
             </StandardCard>
           ))}
