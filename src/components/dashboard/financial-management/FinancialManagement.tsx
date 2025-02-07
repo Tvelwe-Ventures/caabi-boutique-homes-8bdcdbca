@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -32,7 +33,7 @@ const FinanceAndRevenueManagement = () => {
         throw error;
       }
 
-      const defaultMetrics = {
+      return data || {
         monthly_revenue: 0,
         operating_expenses: 0,
         net_operating_income: 0,
@@ -44,42 +45,39 @@ const FinanceAndRevenueManagement = () => {
         last_sync_pricelabs: null,
         last_sync_hostaway: null
       };
-
-      console.log("Retrieved financial metrics:", data || defaultMetrics);
-      return data || defaultMetrics;
     }
   });
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="p-4 md:p-8 space-y-6 md:space-y-8">
+    <div className="min-h-screen bg-background">
+      <div className="p-6 md:p-8 space-y-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-6"
         >
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2 animated-gradient-text">
+              <h1 className="text-2xl md:text-3xl font-bold mb-2">
                 Finance & Revenue Management
               </h1>
               <p className="text-sm md:text-base text-muted-foreground">
-                Comprehensive financial overview and revenue optimization tools
+                Track and optimize your portfolio's financial performance
               </p>
             </div>
-            <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-              <Card className="glass-card p-2 w-full md:w-auto">
+            <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+              <Card className="p-3 w-full md:w-auto bg-card">
                 <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
-                <p className="text-sm font-medium truncate">
+                <p className="text-sm font-medium">
                   {metrics?.last_sync_pricelabs 
                     ? new Date(metrics.last_sync_pricelabs).toLocaleString() 
                     : 'Never'}
                 </p>
               </Card>
-              <Card className="glass-card p-2 w-full md:w-auto">
+              <Card className="p-3 w-full md:w-auto bg-card">
                 <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
-                <p className="text-sm font-medium truncate">
+                <p className="text-sm font-medium">
                   {metrics?.last_sync_hostaway 
                     ? new Date(metrics.last_sync_hostaway).toLocaleString() 
                     : 'Never'}
@@ -88,12 +86,16 @@ const FinanceAndRevenueManagement = () => {
             </div>
           </div>
 
-          {/* New Revenue Metrics Grid */}
+          {/* Revenue Metrics Grid */}
           <RevenueMetricsGrid />
 
-          {/* Keep existing metrics */}
+          {/* Key Financial Metrics */}
           <SummaryMetrics metrics={metrics} isLoading={isLoading} />
+          
+          {/* Operational Performance */}
           <OperationalMetrics metrics={metrics} isLoading={isLoading} />
+          
+          {/* Integration Status */}
           <IntegrationMetrics metrics={metrics} />
         </motion.div>
       </div>
