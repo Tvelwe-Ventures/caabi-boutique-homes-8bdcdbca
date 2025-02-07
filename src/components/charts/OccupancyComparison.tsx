@@ -12,11 +12,11 @@ const data = [
   { name: 'Hong Kong', value: 33, color: '#E6E6FA' },
   { name: 'Monaco', value: 37, color: '#E6E6FA' },
   { name: 'Dubai', value: 43, color: '#8380CA' },
-  { name: 'Amsterdam', value: 48, color: '#D3D3D3' },
-  { name: 'Berlin', value: 44, color: '#D3D3D3' },
-  { name: 'Sydney', value: 47, color: '#D3D3D3' },
-  { name: 'Paris', value: 38, color: '#D3D3D3' },
-  { name: 'Los Angeles', value: 43, color: '#D3D3D3' },
+  { name: 'Amsterdam', value: 48, color: '#E6E6FA' },
+  { name: 'Berlin', value: 44, color: '#E6E6FA' },
+  { name: 'Sydney', value: 47, color: '#E6E6FA' },
+  { name: 'Paris', value: 38, color: '#E6E6FA' },
+  { name: 'Los Angeles', value: 43, color: '#E6E6FA' },
 ];
 
 const OccupancyComparison = () => {
@@ -84,6 +84,7 @@ const OccupancyComparison = () => {
                 dataKey="value"
                 radius={[4, 4, 0, 0]}
                 barSize={30}
+                fill="#E6E6FA"
               >
                 {data.map((entry, index) => (
                   <motion.rect
