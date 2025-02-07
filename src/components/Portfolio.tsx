@@ -75,8 +75,8 @@ const Portfolio = () => {
               className="h-full"
               subtitle={`${property.rating} ★ (${property.reviews} reviews)`}
             >
-              <div className="relative aspect-[4/3] w-full -mt-8 -mx-8 mb-6">
-                <div className="absolute inset-0 overflow-hidden rounded-xl">
+              <div className="relative aspect-[4/3] w-full -mt-8 -mx-8">
+                <div className="absolute inset-0 overflow-hidden rounded-t-xl">
                   <img
                     src={property.image}
                     alt={property.title}
