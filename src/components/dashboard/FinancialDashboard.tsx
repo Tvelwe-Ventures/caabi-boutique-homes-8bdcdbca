@@ -9,7 +9,7 @@ import { CommunitySection } from "./financial/CommunitySection";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
 import { QuacqFeedback } from "./QuacqFeedback";
-import RevenueMetrics from "./charts/RevenueMetrics";
+import RevenueMetrics from "@/components/charts/RevenueMetrics";
 
 const FinancialDashboard = () => {
   usePropertiesSubscription();
