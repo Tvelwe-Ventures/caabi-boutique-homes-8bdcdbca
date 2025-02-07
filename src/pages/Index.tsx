@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Chat from "@/components/Chat";
 import MarketKPIs from "@/components/stats/MarketKPIs";
-import DataUpload from "@/components/DataUpload";
 
 const Index = () => {
   const isInDashboard = window.location.pathname.includes('dashboard');
@@ -39,7 +38,6 @@ const Index = () => {
       <MarketKPIs />
       <PropertyPerformance />
       <WhyShortTerm />
-      <DataUpload />
       <Feedback />
       <Footer />
       {!isInDashboard && <WebsiteFeedback />}
