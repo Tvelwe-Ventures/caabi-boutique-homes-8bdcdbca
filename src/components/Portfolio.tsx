@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { StandardCard } from "./ui/standard-card";
 import { Particles } from "./ui/particles";
-import { Star } from "lucide-react";
 
 const properties = [
   {
@@ -73,15 +72,17 @@ const Portfolio = () => {
               key={index}
               title={property.title}
               description={property.description}
-              className="h-full"
-              subtitle={`${property.rating} ★ (${property.reviews} reviews)`}
+              className="w-full bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="aspect-[4/3] overflow-hidden rounded-xl -mt-8 -mx-8 mb-6">
+              <div className="aspect-[4/3] overflow-hidden rounded-t-lg -mt-6 -mx-6 mb-4">
                 <img
                   src={property.image}
                   alt={property.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full object-cover"
                 />
+              </div>
+              <div className="text-sm text-gray-500 mt-2">
+                {property.rating} ★ ({property.reviews} reviews)
               </div>
             </StandardCard>
           ))}
