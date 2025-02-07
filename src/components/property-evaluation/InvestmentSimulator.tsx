@@ -1,17 +1,14 @@
 
 import { useState } from "react";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { formatCurrency } from "@/lib/utils";
 import InvestmentChart from "@/components/calculator/InvestmentChart";
 import ReturnMetrics from "@/components/calculator/ReturnMetrics";
-import { Building2, Wallet, Calendar, Percent, Calculator } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { InvestmentDetails } from "./simulator/InvestmentDetails";
+import { calculateReturns, generateChartData } from "./simulator/SimulationUtils";
 
 export const InvestmentSimulator = () => {
   const [investment, setInvestment] = useState(2000000);
@@ -26,38 +23,6 @@ export const InvestmentSimulator = () => {
 
   const { toast } = useToast();
 
-  const calculateReturns = () => {
-    const annualReturn = usageType === "long-term" ? 0.08 : 0.12;
-    const totalReturn = investment * Math.pow(1 + annualReturn, period);
-    const profit = totalReturn - investment;
-    
-    return {
-      totalReturn,
-      profit,
-      annualReturn: annualReturn * 100
-    };
-  };
-
-  const generateChartData = () => {
-    const data = [];
-    const annualReturn = usageType === "long-term" ? 0.08 : 0.12;
-    const appreciation = appreciationRate / 100;
-    
-    for (let month = 0; month <= period * 12; month++) {
-      const rentalReturn = (monthlyRent * 12 * (occupancyRate / 100)) * (month / 12);
-      const propertyAppreciation = investment * (Math.pow(1 + appreciation/12, month) - 1);
-      
-      data.push({
-        month,
-        rental: rentalReturn,
-        appreciation: propertyAppreciation,
-        total: rentalReturn + propertyAppreciation
-      });
-    }
-    
-    return data;
-  };
-
   const handleSimulate = async () => {
     setLoading(true);
     try {
@@ -70,7 +35,7 @@ export const InvestmentSimulator = () => {
           holding_period: period,
           property_size: propertySize,
           annual_operating_income: monthlyRent * 12,
-          annual_operating_expenses: (monthlyRent * 12) * 0.3, // Assuming 30% operating expenses
+          annual_operating_expenses: (monthlyRent * 12) * 0.3,
         })
         .select()
         .single();
@@ -92,8 +57,8 @@ export const InvestmentSimulator = () => {
     }
   };
 
-  const returns = calculateReturns();
-  const chartData = generateChartData();
+  const returns = calculateReturns(investment, period, usageType);
+  const chartData = generateChartData(period, monthlyRent, occupancyRate, investment, appreciationRate, usageType);
 
   return (
     <CardSpotlight className="p-6 space-y-8">
@@ -110,96 +75,20 @@ export const InvestmentSimulator = () => {
           <TabsTrigger value="financing">Financing Options</TabsTrigger>
         </TabsList>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Wallet className="w-4 h-4 text-gray-500" />
-              Investment Amount (AED)
-            </Label>
-            <Input
-              type="number"
-              value={investment}
-              onChange={(e) => setInvestment(Number(e.target.value))}
-              className="bg-white border-gray-200"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-gray-500" />
-              Property Size (sqft)
-            </Label>
-            <Input
-              type="number"
-              value={propertySize}
-              onChange={(e) => setPropertySize(Number(e.target.value))}
-              className="bg-white border-gray-200"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-gray-500" />
-              Investment Period
-            </Label>
-            <Select value={period.toString()} onValueChange={(v) => setPeriod(Number(v))}>
-              <SelectTrigger className="bg-white border-gray-200">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {[1, 3, 5, 10].map((year) => (
-                  <SelectItem key={year} value={year.toString()}>
-                    {year} {year === 1 ? 'Year' : 'Years'}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-gray-500" />
-              Usage Type
-            </Label>
-            <Select value={usageType} onValueChange={setUsageType}>
-              <SelectTrigger className="bg-white border-gray-200">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="short-term">Short Term Rental</SelectItem>
-                <SelectItem value="long-term">Long Term Rental</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Calculator className="w-4 h-4 text-gray-500" />
-              Monthly Rent (AED)
-            </Label>
-            <Input
-              type="number"
-              value={monthlyRent}
-              onChange={(e) => setMonthlyRent(Number(e.target.value))}
-              className="bg-white border-gray-200"
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label className="flex items-center gap-2">
-              <Percent className="w-4 h-4 text-gray-500" />
-              Expected Appreciation (%)
-            </Label>
-            <Input
-              type="number"
-              value={appreciationRate}
-              onChange={(e) => setAppreciationRate(Number(e.target.value))}
-              className="bg-white border-gray-200"
-              min={0}
-              max={100}
-            />
-          </div>
-        </div>
+        <InvestmentDetails
+          investment={investment}
+          setInvestment={setInvestment}
+          propertySize={propertySize}
+          setPropertySize={setPropertySize}
+          period={period}
+          setPeriod={setPeriod}
+          usageType={usageType}
+          setUsageType={setUsageType}
+          monthlyRent={monthlyRent}
+          setMonthlyRent={setMonthlyRent}
+          appreciationRate={appreciationRate}
+          setAppreciationRate={setAppreciationRate}
+        />
       </Tabs>
 
       <div className="flex justify-center mt-8">
