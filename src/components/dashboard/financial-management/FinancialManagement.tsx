@@ -33,6 +33,7 @@ const FinanceAndRevenueManagement = () => {
         throw error;
       }
 
+      console.log("Financial metrics data:", data);
       return data || {
         monthly_revenue: 0,
         operating_expenses: 0,

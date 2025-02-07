@@ -9,14 +9,21 @@ export const RevenueMetricsGrid = () => {
   const { data: metrics, isLoading, error } = useQuery({
     queryKey: ['revenue-metrics'],
     queryFn: async () => {
+      console.log("Fetching revenue metrics...");
       const { data, error } = await supabase
         .from('property_revenue_metrics')
         .select('*')
         .order('date', { ascending: false })
-        .limit(1);
+        .limit(1)
+        .maybeSingle();
 
-      if (error) throw error;
-      return data[0];
+      if (error) {
+        console.error("Error fetching revenue metrics:", error);
+        throw error;
+      }
+
+      console.log("Revenue metrics data:", data);
+      return data;
     }
   });
 
@@ -33,24 +40,24 @@ export const RevenueMetricsGrid = () => {
 
   const revenueMetrics = [
     {
-      title: "Monthly Revenue",
+      title: "Daily Revenue",
       progress: 75,
       value: metrics?.daily_revenue || 0,
-      lastUpdated: "2 hours ago",
-      issues: 3
+      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
+      issues: 0
     },
     {
       title: "Occupancy Rate",
       progress: metrics?.occupancy_rate || 0,
-      lastUpdated: "1 hour ago",
-      issues: 2
+      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
+      issues: 0
     },
     {
       title: "Average Daily Rate",
       progress: 82,
       value: metrics?.average_daily_rate || 0,
-      lastUpdated: "30 minutes ago",
-      issues: 1
+      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
+      issues: 0
     }
   ];
 
