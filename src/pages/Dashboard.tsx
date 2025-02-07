@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 import FinancialDashboard from "@/components/dashboard/FinancialDashboard";
-import FinancialManagement from "@/components/dashboard/financial-management/FinancialManagement";
+import FinanceAndRevenueManagement from "@/components/dashboard/financial-management/FinancialManagement";
 import GuestManagement from "@/components/dashboard/guest-management/GuestManagement";
 import ShareholderAnalytics from "@/components/dashboard/shareholder-analytics/ShareholderAnalytics";
 import PropertyPerformance from "@/components/dashboard/PortfolioPerformance";
@@ -41,7 +41,7 @@ const Dashboard = () => {
       <Routes>
         <Route element={<DashboardLayout />}>
           <Route index element={<FinancialDashboard />} />
-          <Route path="financial-management" element={<FinancialManagement />} />
+          <Route path="financial-management" element={<FinanceAndRevenueManagement />} />
           <Route path="guest-management" element={<GuestManagement />} />
           <Route path="shareholder-analytics" element={<ShareholderAnalytics />} />
           <Route path="property-performance" element={<PropertyPerformance />} />

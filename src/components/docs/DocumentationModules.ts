@@ -13,7 +13,8 @@ import {
   Star,
   BarChart,
   Activity,
-  Shield
+  Shield,
+  DollarSign
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
@@ -25,6 +26,19 @@ interface Module {
 }
 
 export const documentationModules: Module[] = [
+  {
+    title: "Finance & Revenue Management",
+    icon: DollarSign,
+    description: "Comprehensive financial analytics and revenue optimization",
+    features: [
+      "Real-time PriceLabs integration",
+      "Hostaway revenue tracking",
+      "Dynamic pricing optimization",
+      "Market-driven rate adjustments",
+      "Financial performance analytics",
+      "Revenue forecasting tools"
+    ]
+  },
   {
     title: "Dashboard Overview",
     icon: LayoutDashboard,
