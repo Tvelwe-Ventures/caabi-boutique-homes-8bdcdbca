@@ -1,5 +1,5 @@
 
-import { InfoCircle } from "lucide-react";
+import { Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -15,7 +15,7 @@ const Metric = ({ label, value, valueColor = "text-gray-900", showInfo = false }
   <div>
     <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
       {label}
-      {showInfo && <InfoCircle className="w-4 h-4" />}
+      {showInfo && <Info className="w-4 h-4" />}
     </div>
     <div className={`text-xl font-semibold ${valueColor}`}>
       {value}
@@ -71,3 +71,4 @@ export const InvestmentSummary = () => {
     </Card>
   );
 };
+
