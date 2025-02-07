@@ -10,7 +10,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { InvestmentDetails } from "./simulator/InvestmentDetails";
 import { calculateReturns, generateChartData } from "./simulator/SimulationUtils";
 
-export const InvestmentSimulator = () => {
+interface InvestmentSimulatorProps {
+  onSimulationComplete: () => void;
+}
+
+export const InvestmentSimulator = ({ onSimulationComplete }: InvestmentSimulatorProps) => {
   const [investment, setInvestment] = useState(2000000);
   const [period, setPeriod] = useState(5);
   const [financingType, setFinancingType] = useState("cash");
@@ -46,6 +50,8 @@ export const InvestmentSimulator = () => {
         title: "Simulation saved successfully",
         description: "Your investment simulation has been saved and can be accessed later.",
       });
+      
+      onSimulationComplete();
     } catch (error: any) {
       toast({
         title: "Error saving simulation",
