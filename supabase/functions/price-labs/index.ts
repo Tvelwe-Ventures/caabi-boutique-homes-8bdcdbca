@@ -24,25 +24,38 @@ serve(async (req) => {
       throw new Error('Configuration error: Missing API keys');
     }
 
-    const { endpoint } = await req.json();
-    console.log(`Processing market data request for endpoint: ${endpoint}`);
+    const { endpoint, params } = await req.json();
+    console.log(`Processing market data request for endpoint: ${endpoint}`, params);
     
     let url;
+    let requestParams = new URLSearchParams();
+    
+    // Add common parameters if provided
+    if (params) {
+      Object.entries(params).forEach(([key, value]) => {
+        requestParams.append(key, value as string);
+      });
+    }
+
     switch (endpoint) {
       case 'listings':
         url = `${PRICE_LABS_BASE_URL}/listings`;
         break;
       case 'neighborhood-data':
-        url = `${PRICE_LABS_BASE_URL}/neighborhood_data`;
+        url = `${PRICE_LABS_BASE_URL}/market_stats`;
+        if (!params?.market_id) {
+          requestParams.append('market_id', 'dubai'); // Default market
+        }
         break;
       case 'reservation-data':
-        url = `${PRICE_LABS_BASE_URL}/reservation_data`;
+        url = `${PRICE_LABS_BASE_URL}/reservations`;
         break;
       case 'market-data':
         try {
+          const marketId = params?.market_id || 'dubai';
           // Fetch data from both PriceLabs and Hostaway
-          const [priceLabsNeighborhood, priceLabsReservation, hostawayData] = await Promise.all([
-            fetch(`${PRICE_LABS_BASE_URL}/neighborhood_data`, {
+          const [priceLabsMarketStats, priceLabsReservations, hostawayData] = await Promise.all([
+            fetch(`${PRICE_LABS_BASE_URL}/market_stats?market_id=${marketId}`, {
               headers: {
                 'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
                 'Content-Type': 'application/json',
@@ -50,13 +63,13 @@ serve(async (req) => {
             }).then(async res => {
               if (!res.ok) {
                 const errorText = await res.text();
-                console.error(`PriceLabs neighborhood API error: ${res.status}`, errorText);
-                throw new Error(`PriceLabs neighborhood API error: ${res.status}`);
+                console.error(`PriceLabs market stats API error: ${res.status}`, errorText);
+                throw new Error(`PriceLabs market stats API error: ${res.status}`);
               }
               return res.json();
             }),
             
-            fetch(`${PRICE_LABS_BASE_URL}/reservation_data`, {
+            fetch(`${PRICE_LABS_BASE_URL}/reservations`, {
               headers: {
                 'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
                 'Content-Type': 'application/json',
@@ -64,8 +77,8 @@ serve(async (req) => {
             }).then(async res => {
               if (!res.ok) {
                 const errorText = await res.text();
-                console.error(`PriceLabs reservation API error: ${res.status}`, errorText);
-                throw new Error(`PriceLabs reservation API error: ${res.status}`);
+                console.error(`PriceLabs reservations API error: ${res.status}`, errorText);
+                throw new Error(`PriceLabs reservations API error: ${res.status}`);
               }
               return res.json();
             }),
@@ -87,18 +100,19 @@ serve(async (req) => {
 
           // Combine and process the data
           const marketData = {
-            revenue: priceLabsReservation.total_revenue || 0,
-            occupancy: priceLabsNeighborhood.occupancy_rate || hostawayData?.occupancy_rate || 0,
-            adr: priceLabsNeighborhood.average_daily_rate || hostawayData?.average_daily_rate || 0,
-            revpar: (priceLabsNeighborhood.average_daily_rate * (priceLabsNeighborhood.occupancy_rate / 100)) || 0,
-            active_listings: priceLabsNeighborhood.active_listings || hostawayData?.active_listings || 0,
-            avg_booking_value: priceLabsReservation.average_booking_value || hostawayData?.average_booking_value || 0,
-            avg_booking_window: priceLabsReservation.average_booking_window || hostawayData?.average_lead_time || 0,
-            avg_length_of_stay: priceLabsReservation.average_length_of_stay || hostawayData?.average_length_of_stay || 0,
+            market_id: marketId,
+            revenue: priceLabsReservations.total_revenue || 0,
+            occupancy: priceLabsMarketStats.occupancy || hostawayData?.occupancy_rate || 0,
+            adr: priceLabsMarketStats.adr || hostawayData?.average_daily_rate || 0,
+            revpar: (priceLabsMarketStats.adr * (priceLabsMarketStats.occupancy / 100)) || 0,
+            active_listings: priceLabsMarketStats.active_listings || hostawayData?.active_listings || 0,
+            avg_booking_value: priceLabsReservations.avg_booking_value || hostawayData?.average_booking_value || 0,
+            avg_booking_window: priceLabsReservations.avg_lead_time || hostawayData?.average_lead_time || 0,
+            avg_length_of_stay: priceLabsReservations.avg_length_of_stay || hostawayData?.average_length_of_stay || 0,
             market_demand: hostawayData?.market_demand || 'medium',
-            demand_score: priceLabsNeighborhood.demand_score || 0,
-            seasonality_factor: priceLabsNeighborhood.seasonality_factor || 0,
-            competitor_count: priceLabsNeighborhood.competitor_count || 0,
+            demand_score: priceLabsMarketStats.demand_score || 0,
+            seasonality_factor: priceLabsMarketStats.seasonality || 0,
+            competitor_count: priceLabsMarketStats.competitors || 0,
             updated_at: new Date().toISOString()
           };
 
@@ -126,7 +140,10 @@ serve(async (req) => {
       throw new Error('Invalid endpoint specified');
     }
 
-    const response = await fetch(url, {
+    const finalUrl = `${url}${requestParams.toString() ? '?' + requestParams.toString() : ''}`;
+    console.log(`Making request to: ${finalUrl}`);
+
+    const response = await fetch(finalUrl, {
       headers: {
         'Authorization': `Bearer ${PRICE_LABS_API_KEY}`,
         'Content-Type': 'application/json',
@@ -140,7 +157,7 @@ serve(async (req) => {
     }
 
     const data = await response.json();
-    console.log(`API response received for ${endpoint}`);
+    console.log(`API response received for ${endpoint}:`, data);
 
     return new Response(JSON.stringify(data), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
