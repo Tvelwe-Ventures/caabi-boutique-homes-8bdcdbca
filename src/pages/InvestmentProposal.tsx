@@ -1,44 +1,31 @@
+
 import { motion } from "framer-motion";
-import { ArrowRight, Building2, TrendingUp, Users } from "lucide-react";
+import { ArrowRight, Building2, TrendingUp, Users, Calculator } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import OccupancyComparison from "@/components/charts/OccupancyComparison";
 import RevenueMetrics from "@/components/charts/RevenueMetrics";
 import CallToAction from "@/components/CallToAction";
+import PropertyPerformance from "@/components/PropertyPerformance";
 
 const InvestmentProposal = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       <main className="container mx-auto px-4 pb-12">
-        {/* Hero Section with Dubai Skyline */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative h-[60vh] mb-16 rounded-2xl overflow-hidden"
-        >
-          <motion.img
-            src="/lovable-uploads/f9449e44-5bd7-4a33-85c1-4daa76d02fe9.png"
-            alt="Dubai Skyline"
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-          />
-          <div className="absolute inset-0 bg-black/30" />
-          <div className="relative h-full flex items-center justify-center text-center z-10">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                Investment Opportunities
-              </h1>
-              <p className="text-lg text-white/90 max-w-2xl mx-auto">
-                Join us in revolutionizing the short-term rental market in Dubai with our proven business model and exceptional returns.
-              </p>
-            </div>
+        {/* Hero Section */}
+        <div className="text-center space-y-8 max-w-3xl mx-auto pt-20 pb-16">
+          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-8">
+            <Calculator className="w-8 h-8 text-primary" />
           </div>
-        </motion.div>
+          <h1 className="text-4xl font-bold tracking-tight text-gradient sm:text-6xl">
+            Investment Opportunities
+          </h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Join us in revolutionizing the short-term rental market in Dubai with our proven business model and exceptional returns.
+          </p>
+        </div>
 
         {/* Statistics Section */}
         <div className="space-y-12 mb-16">
@@ -53,17 +40,17 @@ const InvestmentProposal = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
         >
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card className="p-6 hover:shadow-lg transition-shadow bg-white">
             <TrendingUp className="w-12 h-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">High ROI</h3>
             <p className="text-gray-600">Consistently delivering above-market returns through our optimized rental strategy.</p>
           </Card>
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card className="p-6 hover:shadow-lg transition-shadow bg-white">
             <Building2 className="w-12 h-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Prime Locations</h3>
             <p className="text-gray-600">Strategic properties in Dubai's most sought-after neighborhoods.</p>
           </Card>
-          <Card className="p-6 hover:shadow-lg transition-shadow">
+          <Card className="p-6 hover:shadow-lg transition-shadow bg-white">
             <Users className="w-12 h-12 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Expert Management</h3>
             <p className="text-gray-600">Professional team handling all aspects of property management.</p>
@@ -116,6 +103,9 @@ const InvestmentProposal = () => {
           </div>
         </motion.section>
 
+        {/* Property Performance Section */}
+        <PropertyPerformance />
+
         {/* CTA Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -128,14 +118,14 @@ const InvestmentProposal = () => {
             <p className="text-gray-600 mb-6">
               Take the first step towards profitable property investment in Dubai.
             </p>
-            <button className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors">
+            <button className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">
               Schedule a Consultation
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </motion.div>
 
-        {/* New Call to Action Component */}
+        {/* Final Call to Action Component */}
         <CallToAction />
       </main>
       <Footer />

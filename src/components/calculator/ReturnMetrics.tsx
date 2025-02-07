@@ -16,7 +16,7 @@ const ReturnMetrics = ({ totalReturn, totalROIPercentage, annualReturn }: Return
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm font-medium text-gray-600">Total Return</CardTitle>
-            <BadgeDelta deltaType="increase" />
+            <BadgeDelta deltaType="increase" value={totalROIPercentage} />
           </div>
           <div className="mt-2">
             <p className="text-2xl font-semibold text-gray-900">
@@ -33,7 +33,7 @@ const ReturnMetrics = ({ totalReturn, totalROIPercentage, annualReturn }: Return
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm font-medium text-gray-600">ROI</CardTitle>
-            <BadgeDelta deltaType="increase" />
+            <BadgeDelta deltaType="increase" value={totalROIPercentage} />
           </div>
           <div className="mt-2">
             <p className="text-2xl font-semibold text-gray-900">{totalROIPercentage}%</p>
@@ -46,7 +46,7 @@ const ReturnMetrics = ({ totalReturn, totalROIPercentage, annualReturn }: Return
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm font-medium text-gray-600">Annual Return</CardTitle>
-            <BadgeDelta deltaType="increase" />
+            <BadgeDelta deltaType="increase" value={(parseFloat(totalROIPercentage) / 5).toFixed(1)} />
           </div>
           <div className="mt-2">
             <p className="text-2xl font-semibold text-gray-900">
