@@ -12,6 +12,7 @@ import PropertyPerformance from "@/components/dashboard/PortfolioPerformance";
 import ServiceManagement from "@/components/dashboard/service-management/ServiceManagement";
 import Documentation from "@/pages/docs/Documentation";
 import { DashboardTour } from "@/components/dashboard/onboarding/DashboardTour";
+import { DataUpload } from "@/components/DataUpload";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ const Dashboard = () => {
           <Route path="shareholder-analytics" element={<ShareholderAnalytics />} />
           <Route path="property-performance" element={<PropertyPerformance />} />
           <Route path="service-management" element={<ServiceManagement />} />
+          <Route path="data-import" element={<DataUpload />} />
           <Route path="design-system" element={<DesignSystemDemo />} />
           <Route path="docs" element={<Documentation />} />
           <Route path="help" element={<Documentation />} />

@@ -1,5 +1,5 @@
 
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Bird } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Bird, Upload } from "lucide-react";
 
 export const menuItems = [
   {
@@ -31,6 +31,11 @@ export const menuItems = [
     title: "Service Management",
     href: "/dashboard/service-management",
     icon: Settings
+  },
+  {
+    title: "Data Import",
+    href: "/dashboard/data-import",
+    icon: Upload
   },
   {
     title: "QuacQOS Design System",
