@@ -889,6 +889,47 @@ export type Database = {
         }
         Relationships: []
       }
+      property_revenue_metrics: {
+        Row: {
+          average_daily_rate: number | null
+          created_at: string | null
+          daily_revenue: number | null
+          date: string
+          id: string
+          occupancy_rate: number | null
+          property_id: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          average_daily_rate?: number | null
+          created_at?: string | null
+          daily_revenue?: number | null
+          date: string
+          id?: string
+          occupancy_rate?: number | null
+          property_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          average_daily_rate?: number | null
+          created_at?: string | null
+          daily_revenue?: number | null
+          date?: string
+          id?: string
+          occupancy_rate?: number | null
+          property_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_revenue_metrics_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quacq_feedback: {
         Row: {
           content: string
