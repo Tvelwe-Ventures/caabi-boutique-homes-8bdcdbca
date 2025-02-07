@@ -10,11 +10,15 @@ export const FinancialMetrics = () => {
   const { data: metrics, isLoading } = useQuery({
     queryKey: ['financial-metrics'],
     queryFn: async () => {
+      console.log("Fetching financial metrics...");
       const { data: properties, error } = await supabase
         .from('properties')
         .select('monthly_rent, occupancy_rate, market_rate');
       
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching properties:", error);
+        throw error;
+      }
 
       // Ensure we have properties before calculating
       if (!properties || properties.length === 0) {
@@ -28,7 +32,7 @@ export const FinancialMetrics = () => {
 
       const totalRevenue = properties.reduce((sum, prop) => sum + (Number(prop.monthly_rent) || 0), 0);
       const avgOccupancy = properties.reduce((sum, prop) => sum + (Number(prop.occupancy_rate) || 0), 0) / properties.length;
-      const averageDailyRate = totalRevenue / 30;
+      const averageDailyRate = totalRevenue / 30; // Daily rate
       
       return {
         totalRevenue: totalRevenue * 12, // Annualized
@@ -79,7 +83,7 @@ export const FinancialMetrics = () => {
           icon={metric.icon}
           title={metric.value}
           description={metric.title}
-          className="hover:shadow-lg transition-shadow bg-white"
+          className="glass-card hover:shadow-lg transition-shadow"
         />
       ))}
     </motion.div>
