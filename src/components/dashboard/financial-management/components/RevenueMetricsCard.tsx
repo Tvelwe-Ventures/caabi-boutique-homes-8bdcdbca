@@ -32,25 +32,33 @@ export const RevenueMetricsCard = ({
         <div className="flex justify-between items-start mb-4">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm mb-4">
-              In Progress
+              {loading ? "Loading..." : "Updated"}
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             </div>
-            <h3 className="text-xl font-semibold">{title}</h3>
+            <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
           </div>
-          <Flag className="text-muted-foreground" />
+          {issues > 0 && (
+            <div className="flex items-center gap-2 text-amber-600">
+              <Flag className="h-5 w-5" />
+              <span className="text-sm">{issues} alerts</span>
+            </div>
+          )}
         </div>
 
         <div className="space-y-4">
           {value !== undefined && (
-            <p className="text-2xl font-bold text-primary">
-              {formatCurrency(value)}
+            <p className="text-3xl font-bold text-primary">
+              {loading ? "..." : formatCurrency(value)}
+              <span className="text-sm font-normal text-muted-foreground ml-2">
+                per month
+              </span>
             </p>
           )}
           
           <div>
             <div className="flex justify-between text-sm mb-2">
-              <span>Progress</span>
-              <span>{progress}%</span>
+              <span className="text-muted-foreground">Performance</span>
+              <span className="font-medium">{progress}%</span>
             </div>
             <Progress value={progress} className="h-2" />
           </div>
@@ -58,7 +66,7 @@ export const RevenueMetricsCard = ({
           <div className="flex justify-between text-sm text-muted-foreground">
             <span>Last updated: {lastUpdated}</span>
             {issues > 0 && (
-              <span>{issues} open issues</span>
+              <span className="text-amber-600 font-medium">Action needed</span>
             )}
           </div>
         </div>

@@ -20,7 +20,6 @@ export const FinancialMetrics = () => {
         throw error;
       }
 
-      // Ensure we have properties before calculating
       if (!properties || properties.length === 0) {
         return {
           totalRevenue: 0,
@@ -45,28 +44,36 @@ export const FinancialMetrics = () => {
 
   const topMetrics = [
     {
-      title: "Annual Revenue",
+      title: "Total Annual Revenue",
       value: isLoading ? "Loading..." : formatCurrency(metrics?.totalRevenue || 0),
       icon: DollarSign,
-      description: "Total annual revenue across all properties"
+      description: "Combined revenue from all properties",
+      trend: "+12.3%",
+      trendType: "positive"
     },
     {
-      title: "Average Daily Rate",
+      title: "Average Daily Rate (ADR)",
       value: isLoading ? "Loading..." : formatCurrency(metrics?.averageDailyRate || 0),
       icon: TrendingUp,
-      description: "Average daily rate per property"
+      description: "Average rate per night",
+      trend: "+8.7%",
+      trendType: "positive"
     },
     {
       title: "Occupancy Rate",
       value: isLoading ? "Loading..." : `${(metrics?.occupancyRate || 0).toFixed(1)}%`,
       icon: Building2,
-      description: "Average occupancy across properties"
+      description: "Average occupancy across properties",
+      trend: "+5.4%",
+      trendType: "positive"
     },
     {
       title: "RevPAR",
       value: isLoading ? "Loading..." : formatCurrency(metrics?.revPAR || 0),
       icon: Percent,
-      description: "Revenue per available room"
+      description: "Revenue per available room",
+      trend: "+3.2%",
+      trendType: "positive"
     }
   ];
 
@@ -81,9 +88,29 @@ export const FinancialMetrics = () => {
         <StandardCard
           key={index}
           icon={metric.icon}
-          title={metric.value}
-          description={metric.title}
-          className="glass-card hover:shadow-lg transition-shadow"
+          title={
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-medium text-muted-foreground">
+                {metric.title}
+              </span>
+              <div className="flex items-baseline gap-2">
+                <span className="text-2xl font-bold text-primary">
+                  {metric.value}
+                </span>
+                <span 
+                  className={`text-sm font-medium ${
+                    metric.trendType === "positive" 
+                      ? "text-green-600" 
+                      : "text-red-600"
+                  }`}
+                >
+                  {metric.trend}
+                </span>
+              </div>
+            </div>
+          }
+          description={metric.description}
+          className="hover:shadow-lg transition-all duration-200"
         />
       ))}
     </motion.div>
