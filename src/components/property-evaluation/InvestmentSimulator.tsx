@@ -3,6 +3,8 @@ import { CardSpotlight } from "@/components/ui/card-spotlight";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { formatCurrency } from "@/lib/utils";
+import InvestmentChart from "@/components/calculator/InvestmentChart";
+import ReturnMetrics from "@/components/calculator/ReturnMetrics";
 
 export const InvestmentSimulator = () => {
   const [investment, setInvestment] = useState(2000000);
@@ -22,7 +24,28 @@ export const InvestmentSimulator = () => {
     };
   };
 
+  const generateChartData = () => {
+    const data = [];
+    const annualReturn = type === "long-term" ? 0.08 : 0.12;
+    const appreciation = 0.05; // 5% annual appreciation
+    
+    for (let month = 0; month <= period * 12; month++) {
+      const rentalReturn = investment * (Math.pow(1 + annualReturn/12, month) - 1);
+      const propertyAppreciation = investment * (Math.pow(1 + appreciation/12, month) - 1);
+      
+      data.push({
+        month,
+        rental: rentalReturn,
+        appreciation: propertyAppreciation,
+        total: rentalReturn + propertyAppreciation
+      });
+    }
+    
+    return data;
+  };
+
   const returns = calculateReturns();
+  const chartData = generateChartData();
 
   return (
     <CardSpotlight className="p-6">
@@ -66,20 +89,13 @@ export const InvestmentSimulator = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 bg-primary/5 rounded-lg">
-          <div className="text-sm text-muted-foreground">Total Return</div>
-          <div className="text-2xl font-semibold">{formatCurrency(returns.totalReturn)}</div>
-        </div>
-        <div className="p-4 bg-primary/5 rounded-lg">
-          <div className="text-sm text-muted-foreground">Total Profit</div>
-          <div className="text-2xl font-semibold">{formatCurrency(returns.profit)}</div>
-        </div>
-        <div className="p-4 bg-primary/5 rounded-lg">
-          <div className="text-sm text-muted-foreground">Annual Return</div>
-          <div className="text-2xl font-semibold">{returns.annualReturn.toFixed(1)}%</div>
-        </div>
-      </div>
+      <ReturnMetrics
+        totalReturn={returns.totalReturn}
+        totalROIPercentage={(returns.profit / investment * 100).toFixed(1)}
+        annualReturn={returns.profit / period}
+      />
+
+      <InvestmentChart data={chartData} />
     </CardSpotlight>
   );
 };
