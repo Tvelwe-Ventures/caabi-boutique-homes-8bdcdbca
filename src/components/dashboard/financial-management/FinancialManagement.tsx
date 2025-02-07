@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, CreditCard, DollarSign, LineChart, TrendingUp, Activity, BadgeDollarSign, BarChart3, Percent } from "lucide-react";
@@ -19,7 +20,8 @@ const FinanceAndRevenueManagement = () => {
         .from('financial_metrics')
         .select('*')
         .order('month', { ascending: false })
-        .limit(1);
+        .limit(1)
+        .single(); // Add this to ensure we get a single object, not an array
 
       if (error) {
         toast({
@@ -30,8 +32,8 @@ const FinanceAndRevenueManagement = () => {
         throw error;
       }
 
-      console.log("Latest financial metrics:", data?.[0]);
-      return data?.[0];
+      console.log("Latest financial metrics:", data);
+      return data;
     }
   });
 
@@ -110,7 +112,7 @@ const FinanceAndRevenueManagement = () => {
   ];
 
   return (
-    <div className="p-4 md:p-8 space-y-6 md:space-y-8 bg-background min-h-screen">
+    <div className="p-4 md:p-8 space-y-6 md:space-y-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -127,7 +129,7 @@ const FinanceAndRevenueManagement = () => {
             </p>
           </div>
           <div className="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-            <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 p-2 w-full md:w-auto border border-purple-100 dark:border-gray-700">
+            <Card className="glass-card p-2 w-full md:w-auto">
               <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
               <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_pricelabs 
@@ -135,7 +137,7 @@ const FinanceAndRevenueManagement = () => {
                   : 'Never'}
               </p>
             </Card>
-            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 p-2 w-full md:w-auto border border-blue-100 dark:border-gray-700">
+            <Card className="glass-card p-2 w-full md:w-auto">
               <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
               <p className="text-sm font-medium truncate">
                 {metrics?.last_sync_hostaway 
@@ -178,7 +180,7 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 border border-gray-100 dark:border-gray-800 hover:border-purple-100 dark:hover:border-purple-900/50 hover:translate-y-[-2px]"
+                className="glass-card hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]"
               />
             </motion.div>
           ))}
@@ -213,15 +215,15 @@ const FinanceAndRevenueManagement = () => {
                   </div>
                 }
                 description={metric.title}
-                className="hover:shadow-lg transition-all duration-200 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 border border-gray-100 dark:border-gray-800 hover:border-purple-100 dark:hover:border-purple-900/50 hover:translate-y-[-2px]"
+                className="glass-card hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]"
               />
             </motion.div>
           ))}
         </div>
 
         {/* Integration Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Card className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-gray-800 dark:to-gray-900 border-purple-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <DollarSign className="h-5 w-5 text-primary" />
@@ -248,7 +250,7 @@ const FinanceAndRevenueManagement = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-blue-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]">
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <BarChart3 className="h-5 w-5 text-primary" />
@@ -275,7 +277,7 @@ const FinanceAndRevenueManagement = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-gray-800 dark:to-gray-900 border-indigo-100 dark:border-gray-700 hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px] md:col-span-2 lg:col-span-1">
+          <Card className="glass-card">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Activity className="h-5 w-5 text-primary" />
