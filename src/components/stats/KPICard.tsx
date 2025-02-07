@@ -1,6 +1,8 @@
+
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
 import { StandardCard } from "../ui/standard-card";
+import { Badge } from "../ui/badge";
 
 interface KPICardProps {
   title: string;
@@ -9,9 +11,10 @@ interface KPICardProps {
   icon: LucideIcon;
   tooltip: string;
   index: number;
+  source?: "PriceLabs" | "Hostaway" | "Combined";
 }
 
-export const KPICard = ({ title, value, change, icon, tooltip, index }: KPICardProps) => {
+export const KPICard = ({ title, value, change, icon, tooltip, index, source }: KPICardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,11 +24,18 @@ export const KPICard = ({ title, value, change, icon, tooltip, index }: KPICardP
       <StandardCard
         icon={icon}
         title={
-          <div className="flex items-center gap-2">
-            <span>{value}</span>
-            <span className={`text-sm ${change.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>
-              {change}
-            </span>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <span>{value}</span>
+              <span className={`text-sm ${change.startsWith('-') ? 'text-red-500' : 'text-green-500'}`}>
+                {change}
+              </span>
+            </div>
+            {source && (
+              <Badge variant="outline" className="text-xs">
+                {source}
+              </Badge>
+            )}
           </div>
         }
         description={title}

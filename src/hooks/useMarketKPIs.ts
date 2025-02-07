@@ -1,3 +1,4 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useMarketData } from "@/hooks/usePriceLabsData";
@@ -26,7 +27,6 @@ export const useMarketKPIs = () => {
     }
   });
 
-  // Log combined market data status
   console.log("Combined market data status:", {
     isLoading: isPriceLabsLoading,
     error: priceLabsError,
@@ -34,7 +34,6 @@ export const useMarketKPIs = () => {
     indicators
   });
 
-  // Calculate metrics from both sources
   const revenue = marketData?.revenue || indicators?.find(i => i.indicator_type === 'transaction_value')?.value || 0;
   const occupancy = marketData?.occupancy || indicators?.find(i => i.indicator_type === 'occupancy_rate')?.value || 0;
   const adr = marketData?.adr || indicators?.find(i => i.indicator_type === 'average_price')?.value || 0;
@@ -46,56 +45,64 @@ export const useMarketKPIs = () => {
       value: `${(revenue / 1000000).toFixed(1)}M`,
       change: "+12.3%",
       icon: DollarSign,
-      tooltip: "Total monthly revenue across all properties"
+      tooltip: "Total monthly revenue across all properties",
+      source: "PriceLabs" as const
     },
     {
       title: "RevPAR",
       value: marketData?.revpar?.toFixed(0) || "62",
       change: "+8.5%",
       icon: DollarSign,
-      tooltip: "Revenue per available room"
+      tooltip: "Revenue per available room",
+      source: "Combined" as const
     },
     {
       title: "Occupancy %",
       value: occupancy?.toFixed(1) || "52",
       change: "+5.2%",
       icon: Percent,
-      tooltip: "Current occupancy rate"
+      tooltip: "Current occupancy rate",
+      source: "PriceLabs" as const
     },
     {
       title: "ADR",
       value: adr?.toFixed(0) || "119",
       change: "+10.3%",
       icon: DollarSign,
-      tooltip: "Average Daily Rate"
+      tooltip: "Average Daily Rate",
+      source: "PriceLabs" as const
     },
     {
       title: "Active Listings",
       value: activeListings?.toLocaleString() || "5.73K",
       change: "+3.6%",
       icon: Home,
-      tooltip: "Number of active property listings"
+      tooltip: "Number of active property listings",
+      source: "Hostaway" as const
     },
     {
       title: "Market Demand",
       value: marketData?.market_demand?.toUpperCase() || "MEDIUM",
       change: "+2.1%",
       icon: Activity,
-      tooltip: "Current market demand level"
+      tooltip: "Current market demand level",
+      source: "Hostaway" as const
     },
     {
       title: "Booking Window",
       value: `${marketData?.avg_booking_window?.toFixed(0) || "16"} days`,
       change: "-2.1",
       icon: Clock,
-      tooltip: "Average days between booking and check-in"
+      tooltip: "Average days between booking and check-in",
+      source: "PriceLabs" as const
     },
     {
       title: "Length of Stay",
       value: `${marketData?.avg_length_of_stay?.toFixed(1) || "3"} days`,
       change: "+0.5",
       icon: Users,
-      tooltip: "Average length of stay in days"
+      tooltip: "Average length of stay in days",
+      source: "PriceLabs" as const
     }
   ];
 
