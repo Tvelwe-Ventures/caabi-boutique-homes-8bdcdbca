@@ -1,4 +1,5 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from 'recharts';
 
 const data = [
   { month: 'Jan', shortTerm: 14000, longTerm: 7500 },
@@ -19,42 +20,62 @@ const RentalComparisonChart = () => {
   return (
     <div className="h-[400px]">
       <ResponsiveContainer width="100%" height="100%">
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient id="shortTermGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#9b87f5" stopOpacity={0.4}/>
+              <stop offset="95%" stopColor="#9b87f5" stopOpacity={0.1}/>
+            </linearGradient>
+            <linearGradient id="longTermGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#7E69AB" stopOpacity={0.4}/>
+              <stop offset="95%" stopColor="#7E69AB" stopOpacity={0.1}/>
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#F1F0FB" />
           <XAxis 
             dataKey="month" 
-            stroke="#888" 
+            stroke="#8E9196" 
             fontSize={12}
+            tickLine={false}
           />
           <YAxis 
-            stroke="#888" 
+            stroke="#8E9196" 
             fontSize={12}
+            tickLine={false}
             tickFormatter={(value) => `${value/1000}k`}
             label={{ 
-              value: 'Income (AED)', 
+              value: 'Revenue (AED)', 
               angle: -90, 
               position: 'insideLeft',
-              style: { textAnchor: 'middle' }
+              style: { fill: '#8E9196', textAnchor: 'middle' }
             }}
           />
-          <Tooltip />
-          <Line
+          <Tooltip 
+            contentStyle={{
+              backgroundColor: 'white',
+              border: '1px solid #F1F0FB',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+            }}
+            formatter={(value: number) => [`AED ${value.toLocaleString()}`, '']}
+          />
+          <Area
             type="monotone"
             dataKey="shortTerm"
-            stroke="#7E69AB"
+            stroke="#9b87f5"
             strokeWidth={2}
-            dot={{ fill: "#7E69AB" }}
+            fill="url(#shortTermGradient)"
             name="Short term letting"
           />
-          <Line
+          <Area
             type="monotone"
             dataKey="longTerm"
-            stroke="#FF6B6B"
+            stroke="#7E69AB"
             strokeWidth={2}
-            dot={{ fill: "#FF6B6B" }}
+            fill="url(#longTermGradient)"
             name="12 month tenancy"
           />
-        </LineChart>
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   );
