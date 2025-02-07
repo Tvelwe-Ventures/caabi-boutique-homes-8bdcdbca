@@ -1227,14 +1227,43 @@ export type Database = {
       revenue_analytics: {
         Row: {
           average_daily_rate: number | null
+          created_at: string | null
           daily_revenue: number | null
           date: string | null
-          month: number | null
+          id: string | null
           occupancy_rate: number | null
-          property_name: string | null
-          year: number | null
+          property_id: string | null
+          updated_at: string | null
         }
-        Relationships: []
+        Insert: {
+          average_daily_rate?: number | null
+          created_at?: string | null
+          daily_revenue?: number | null
+          date?: string | null
+          id?: string | null
+          occupancy_rate?: number | null
+          property_id?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          average_daily_rate?: number | null
+          created_at?: string | null
+          daily_revenue?: number | null
+          date?: string | null
+          id?: string | null
+          occupancy_rate?: number | null
+          property_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "property_revenue_metrics_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {
