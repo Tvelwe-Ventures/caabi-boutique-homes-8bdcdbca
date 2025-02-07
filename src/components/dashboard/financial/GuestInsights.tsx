@@ -1,33 +1,96 @@
+
 import { motion } from "framer-motion";
+import { User, Star, Users } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { CardSpotlight } from "@/components/ui/card-spotlight";
-import { GuestStats } from "../guests/GuestStats";
-import { GuestTypeDistribution } from "../guests/GuestTypeDistribution";
 
 export const GuestInsights = () => {
+  const { data: guestData, isLoading } = useQuery({
+    queryKey: ['guest-metrics'],
+    queryFn: async () => {
+      console.log("Fetching guest metrics...");
+      const { data: guests, error } = await supabase
+        .from('guests')
+        .select('*');
+
+      if (error) {
+        console.error("Error fetching guest data:", error);
+        throw error;
+      }
+
+      console.log("Retrieved guest data:", guests);
+      
+      return {
+        totalGuests: guests?.length || 0,
+        averageRating: guests?.reduce((acc, guest) => acc + (guest.average_rating || 0), 0) / (guests?.length || 1),
+        repeatGuests: guests?.filter(guest => guest.total_stays > 1).length || 0
+      };
+    }
+  });
+
+  const metrics = [
+    {
+      title: "Total Guests",
+      value: guestData?.totalGuests || 0,
+      change: "+12%",
+      icon: Users,
+      color: "bg-primary/10"
+    },
+    {
+      title: "Average Rating",
+      value: `${(guestData?.averageRating || 0).toFixed(1)}/5.0`,
+      change: "+5%",
+      icon: Star,
+      color: "bg-yellow-50"
+    },
+    {
+      title: "Repeat Guests",
+      value: guestData?.repeatGuests || 0,
+      change: "+18%",
+      icon: User,
+      color: "bg-green-50"
+    }
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="bg-gray-50 rounded-lg p-6"
+      transition={{ duration: 0.5 }}
+      className="space-y-6"
     >
-      <h2 className="text-2xl font-semibold mb-4">Guest Insights</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <CardSpotlight className="bg-white">
-          <GuestStats
-            totalGuests={1250}
-            averageRating={4.8}
-            repeatGuests={280}
-          />
-        </CardSpotlight>
-        <CardSpotlight className="bg-white">
-          <GuestTypeDistribution data={[
-            { name: 'Business', value: 30 },
-            { name: 'Leisure', value: 45 },
-            { name: 'Long-term', value: 15 },
-            { name: 'Group', value: 10 }
-          ]} />
-        </CardSpotlight>
+      <h2 className="text-2xl font-semibold text-gray-900">Guest Insights</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {metrics.map((metric, index) => (
+          <CardSpotlight 
+            key={metric.title}
+            className="p-6 bg-white/95 backdrop-blur-sm border border-gray-100 hover:border-gray-200 transition-all"
+          >
+            <div className="flex justify-between items-start">
+              <div className="space-y-1">
+                <p className="text-sm text-gray-500">{metric.title}</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-semibold">{metric.value}</span>
+                  <span className="text-sm font-medium text-green-600">
+                    {metric.change}
+                  </span>
+                </div>
+              </div>
+              <div className={`p-2 rounded-lg ${metric.color}`}>
+                <metric.icon className="w-5 h-5 text-primary" />
+              </div>
+            </div>
+            <div className="mt-4">
+              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-primary rounded-full transition-all duration-500"
+                  style={{ width: '70%' }}
+                />
+              </div>
+            </div>
+          </CardSpotlight>
+        ))}
       </div>
     </motion.div>
   );
