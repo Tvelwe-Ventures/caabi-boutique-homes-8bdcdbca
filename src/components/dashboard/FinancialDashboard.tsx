@@ -1,15 +1,11 @@
 
-import { Plus, FileText, Settings } from "lucide-react";
+import { Plus, FileText, Settings, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { FinancialMetrics } from "./financial/FinancialMetrics";
 import { PropertyManagement } from "./financial/PropertyManagement";
-import { GuestInsights } from "./financial/GuestInsights";
-import { CommunitySection } from "./financial/CommunitySection";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
-import { QuacqFeedback } from "./QuacqFeedback";
-import RevenueMetrics from "@/components/charts/RevenueMetrics";
 
 const FinancialDashboard = () => {
   usePropertiesSubscription();
@@ -17,69 +13,85 @@ const FinancialDashboard = () => {
   const quickActions = [
     { icon: Plus, label: "Add Property" },
     { icon: FileText, label: "Create Report" },
-    { icon: Settings, label: "Settings" }
+    { icon: Settings, label: "Settings" },
+    { icon: MessageCircle, label: "System Feedback", variant: "outline", className: "text-muted-foreground" }
   ];
 
   return (
-    <div className="space-y-8 p-8">
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <img 
-            src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
-            alt="QuacaBoard" 
-            className="h-8 mb-4"
-          />
-          <h2 className="text-lg text-gray-600">Your centralized dashboard for comprehensive business insights</h2>
+    <div className="p-6 space-y-8 max-w-[1600px] mx-auto">
+      {/* Header Section */}
+      <div className="flex justify-between items-center">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
+              alt="QuacaBoard" 
+              className="h-6"
+            />
+          </div>
+          <h2 className="text-sm text-muted-foreground">
+            Your centralized dashboard for comprehensive business insights
+          </h2>
         </div>
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3">
           {quickActions.map((action, index) => (
             <Button
               key={index}
-              variant="outline"
-              className="flex items-center gap-2"
+              variant={action.variant || "default"}
+              size="sm"
+              className={`flex items-center gap-2 ${action.className || ''}`}
             >
               <action.icon className="h-4 w-4" />
               {action.label}
             </Button>
           ))}
-          <QuacqFeedback />
         </div>
       </div>
-        
+
+      {/* Revenue Analytics Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 gap-6"
+        className="space-y-6"
       >
-        <RevenueMetrics />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold text-[#1A1F2C]">Financial Overview</h2>
-            <FinancialMetrics />
-          </div>
-          <PropertyManagement />
+        <h2 className="text-xl font-semibold">Revenue Analytics</h2>
+        <div className="grid grid-cols-1 gap-6">
+          {/* Revenue metrics will be rendered here */}
         </div>
       </motion.div>
 
+      {/* Financial Overview Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6"
       >
-        <PortfolioMap />
+        <div className="lg:col-span-2 space-y-6">
+          <h2 className="text-xl font-semibold">Financial Overview</h2>
+          <FinancialMetrics />
+        </div>
+        <div>
+          <PropertyManagement />
+        </div>
       </motion.div>
 
-      <GuestInsights />
-      <CommunitySection />
-      
-      <footer className="mt-12 text-center">
-        <img 
-          src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
-          alt="QuacaBoard" 
-          className="h-6 mx-auto mb-4"
-        />
-        <p className="text-sm text-gray-500">© 2024 QuacaBoard. All rights reserved.</p>
+      {/* Portfolio Properties Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="space-y-4"
+      >
+        <h2 className="text-xl font-semibold">Portfolio Properties</h2>
+        <div className="h-[400px] rounded-lg overflow-hidden">
+          <PortfolioMap />
+        </div>
+      </motion.div>
+
+      <footer className="mt-12 text-center text-sm text-muted-foreground">
+        <p>© 2024 QuacaBoard. All rights reserved.</p>
       </footer>
     </div>
   );
