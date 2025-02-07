@@ -51,7 +51,7 @@ const Calculator = () => {
           title="Investment Calculator"
           subtitle={{
             regular: "Calculate your potential ",
-            gradient: "returns in Dubai's property market",
+            gradient: "returns in Dubai's short term rental market",
           }}
           description="Our AI-powered calculator provides accurate revenue projections, occupancy rates, and ROI estimates based on Dubai's current market conditions."
         />
