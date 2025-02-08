@@ -57,16 +57,16 @@ export const RevenueMetricsGrid = () => {
               <div className="px-6 pt-6">
                 <div className="flex items-center gap-2">
                   <DollarSign className="h-5 w-5 text-[#8394CA]" />
-                  <h3 className="text-lg font-medium">Monthly Revenue</h3>
+                  <h3 className="text-lg font-medium">Revenue Growth</h3>
                 </div>
                 <p className="mt-2 text-3xl font-bold">${monthlyRevenue.toLocaleString()}</p>
-                <p className="text-sm text-muted-foreground">+12.3% from last month</p>
+                <p className="text-sm text-muted-foreground">Monthly Performance</p>
               </div>
               <div className="flex-1 p-6">
                 <CircleProgress
-                  title="Revenue Growth"
+                  title="Monthly Growth"
                   value="+12.3%"
-                  label="Monthly Growth"
+                  label="Revenue Growth"
                   progress={78}
                   color="#8394CA"
                 />
@@ -85,7 +85,7 @@ export const RevenueMetricsGrid = () => {
               <p className="mt-2 text-2xl font-bold">
                 ${metrics?.average_daily_rate.toLocaleString()}
               </p>
-              <p className="text-sm text-muted-foreground">+5.2% from last month</p>
+              <p className="text-sm text-muted-foreground">Daily Rate Performance</p>
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
                   <div className="h-full w-3/4 bg-[#8394CA] rounded-full"></div>
@@ -103,7 +103,7 @@ export const RevenueMetricsGrid = () => {
                 <h3 className="text-lg font-medium">RevPAR</h3>
               </div>
               <p className="mt-2 text-2xl font-bold">${revpar.toLocaleString()}</p>
-              <p className="text-sm text-muted-foreground">+8.7% from last month</p>
+              <p className="text-sm text-muted-foreground">Revenue Per Available Room</p>
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
                   <div className="h-full w-2/3 bg-[#8394CA] rounded-full"></div>
@@ -121,7 +121,7 @@ export const RevenueMetricsGrid = () => {
                 <h3 className="text-lg font-medium">Occupancy Rate</h3>
               </div>
               <p className="mt-2 text-2xl font-bold">{metrics?.occupancy_rate}%</p>
-              <p className="text-sm text-muted-foreground">+3.2% from last month</p>
+              <p className="text-sm text-muted-foreground">Current Occupancy</p>
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
                   <div 
@@ -137,3 +137,4 @@ export const RevenueMetricsGrid = () => {
     </div>
   );
 };
+
