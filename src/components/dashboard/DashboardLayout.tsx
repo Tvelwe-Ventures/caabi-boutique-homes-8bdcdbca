@@ -7,6 +7,7 @@ import { DashboardFooter } from "./DashboardFooter";
 import { useToast } from "@/components/ui/use-toast";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { QuackButton } from "@/components/ui/quack-button";
+import { QuacQOSAIAssistant } from "./QuacQOSAIAssistant";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
@@ -68,7 +69,8 @@ const DashboardLayout = () => {
         open ? "ml-[240px]" : "ml-[70px]"
       )}>
         <div className="container py-6 space-y-6 flex-1">
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-between items-center mb-4">
+            <QuacQOSAIAssistant />
             <QuackButton 
               enabled={soundEnabled}
               onToggle={toggleSound}
