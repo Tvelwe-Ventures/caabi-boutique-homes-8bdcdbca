@@ -33,38 +33,20 @@ interface MetricChartProps {
   title: string;
 }
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }: any) => {
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * RADIAN);
+const renderCustomizedLabel = ({ cy, index, name, value }: any) => {
+  const y = cy - 30 + (index * 20);
   
-  // Calculate x position to align all labels on the right side
-  const x = cx + 1.8 * outerRadius;
-  // Calculate y position for stacked labels
-  const y = cy - outerRadius + (index * 20);
-
   return (
-    <g>
-      {/* Connecting line */}
-      <path
-        d={`M ${cx + (outerRadius * Math.cos(-midAngle * RADIAN))},${cy + (outerRadius * Math.sin(-midAngle * RADIAN))} 
-           L ${x - 40},${y}`}
-        stroke="#9CA3AF"
-        fill="none"
-        strokeWidth="1"
-      />
-      {/* Label text */}
-      <text
-        x={x}
-        y={y}
-        fill="#374151"
-        textAnchor="start"
-        dominantBaseline="central"
-        fontSize="12"
-      >
-        {`${name} (${value}%)`}
-      </text>
-    </g>
+    <text
+      x={200}
+      y={y}
+      fill="#374151"
+      textAnchor="start"
+      dominantBaseline="central"
+      fontSize="12"
+    >
+      {`${name} (${value}%)`}
+    </text>
   );
 };
 
@@ -125,4 +107,3 @@ export const CircularMetrics = () => {
     </div>
   );
 };
-
