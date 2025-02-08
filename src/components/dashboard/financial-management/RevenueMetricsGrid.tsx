@@ -1,9 +1,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { RevenueMetricsCard } from "@/components/dashboard/financial-management/components/RevenueMetricsCard";
+import { KPICard } from "@/components/ui/kpi-card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, DollarSign, Users, Percent, TrendingUp } from "lucide-react";
 
 export const RevenueMetricsGrid = () => {
   const { data: metrics, isLoading, error } = useQuery({
@@ -40,34 +40,46 @@ export const RevenueMetricsGrid = () => {
 
   const revenueMetrics = [
     {
-      title: "Daily Revenue",
-      progress: 75,
-      value: metrics?.daily_revenue || 0,
-      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
-      issues: 0
-    },
-    {
-      title: "Occupancy Rate",
-      progress: metrics?.occupancy_rate || 0,
-      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
-      issues: 0
+      title: "Monthly Revenue",
+      value: metrics?.monthly_revenue ? `$${metrics.monthly_revenue.toLocaleString()}` : "$0",
+      change: "+12.3%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <DollarSign className="h-4 w-4 text-green-700" />
     },
     {
       title: "Average Daily Rate",
-      progress: 82,
-      value: metrics?.average_daily_rate || 0,
-      lastUpdated: metrics?.date ? new Date(metrics.date).toLocaleDateString() : "Never",
-      issues: 0
+      value: metrics?.avg_daily_rate ? `$${metrics.avg_daily_rate.toLocaleString()}` : "$0",
+      change: "+5.2%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <TrendingUp className="h-4 w-4 text-green-700" />
+    },
+    {
+      title: "RevPAR",
+      value: metrics?.revpar ? `$${metrics.revpar.toLocaleString()}` : "$0",
+      change: "+8.7%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <DollarSign className="h-4 w-4 text-green-700" />
+    },
+    {
+      title: "Occupancy Rate",
+      value: metrics?.occupancy_rate ? `${metrics.occupancy_rate}%` : "0%",
+      change: "+3.2%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <Percent className="h-4 w-4 text-green-700" />
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {revenueMetrics.map((metric, index) => (
-        <RevenueMetricsCard
+        <KPICard
           key={index}
           {...metric}
-          loading={isLoading}
+          variant="gradient"
         />
       ))}
     </div>

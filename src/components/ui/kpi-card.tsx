@@ -33,40 +33,51 @@ export const KPICard = ({
 
   const TrendIcon = getTrendIcon();
 
+  const getBadgeStyles = () => {
+    const baseStyles = "px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1";
+    
+    if (changeType === "positive") {
+      return "bg-green-50 text-green-700 dark:bg-green-500/20 dark:text-green-400";
+    }
+    if (changeType === "negative") {
+      return "bg-red-50 text-red-700 dark:bg-red-500/20 dark:text-red-400";
+    }
+    return "bg-yellow-50 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400";
+  };
+
   return (
     <Card className={cn(
-      "relative overflow-hidden",
-      variant === "gradient" && "bg-gradient-to-br from-card via-card to-muted/50",
+      "relative overflow-hidden p-6",
+      variant === "gradient" && "bg-gradient-to-br from-gray-900 to-gray-800 border-0",
       className
     )}>
-      <div className="p-6 flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <div className="flex justify-between items-start">
           {icon && (
             <div className={cn(
               "p-2 rounded-lg",
-              changeType === "positive" && "bg-green-100",
-              changeType === "negative" && "bg-red-100",
-              changeType === "neutral" && "bg-yellow-100"
+              variant === "gradient" ? "bg-gray-800" : "bg-gray-100"
             )}>
               {icon}
             </div>
           )}
-          <div className={cn(
-            "px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1",
-            changeType === "positive" && "bg-green-100 text-green-700",
-            changeType === "negative" && "bg-red-100 text-red-700",
-            changeType === "neutral" && "bg-yellow-100 text-yellow-700"
-          )}>
+          <div className={cn(getBadgeStyles())}>
             <TrendIcon className="h-3 w-3" />
             {change}
           </div>
         </div>
 
         <div>
-          <p className="text-sm font-medium text-muted-foreground mb-1">
+          <p className={cn(
+            "text-sm font-medium mb-1",
+            variant === "gradient" ? "text-gray-400" : "text-muted-foreground"
+          )}>
             {title}
           </p>
-          <p className="text-2xl font-semibold">
+          <p className={cn(
+            "text-2xl font-semibold",
+            variant === "gradient" ? "text-white" : "text-foreground"
+          )}>
             {value}
           </p>
         </div>
