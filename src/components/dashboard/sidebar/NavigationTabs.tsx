@@ -24,7 +24,7 @@ export const NavigationTabs = () => {
       tabs={menuItems.map(item => ({
         title: item.title,
         icon: typeof item.icon === 'function' ? item.icon : item.icon,
-        type: 'default' as const
+        type: 'link' as const
       }))}
       onChange={handleTabChange}
       className="mb-4"
