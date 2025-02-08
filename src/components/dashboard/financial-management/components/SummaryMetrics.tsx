@@ -11,7 +11,6 @@ interface SummaryMetricsProps {
   isLoading: boolean;
 }
 
-// Sample trend data - in a real app, this would come from your API
 const generateTrendData = (baseline: number, volatility: number = 0.1) => {
   return Array.from({ length: 7 }, (_, i) => ({
     day: i,
@@ -25,7 +24,7 @@ export const SummaryMetrics = ({ metrics, isLoading }: SummaryMetricsProps) => {
       title: "Monthly Revenue",
       value: metrics?.monthly_revenue ? formatCurrency(metrics.monthly_revenue) : "Loading...",
       icon: DollarSign,
-      description: "Total revenue this month",
+      description: "Combined revenue from all properties",
       trend: "+12.3%",
       trendType: "positive",
       helperText: "Combined revenue from all properties",
@@ -77,18 +76,26 @@ export const SummaryMetrics = ({ metrics, isLoading }: SummaryMetricsProps) => {
             icon={metric.icon}
             title={
               <div className="space-y-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-lg md:text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
-                    {metric.value}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-[#9b87f5]">
+                    {metric.title}
                   </span>
                   <span 
-                    className={`text-xs md:text-sm px-2 py-0.5 rounded-full ${
+                    className={`text-xs px-2 py-0.5 rounded-full ${
                       metric.trendType === "positive" 
-                        ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
-                        : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                        ? "bg-[#F2FCE2] text-green-700" 
+                        : "bg-red-50 text-red-700"
                     }`}
                   >
                     {metric.trend}
+                  </span>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <span className="text-2xl font-bold text-gray-900">
+                    {metric.value}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    {metric.description}
                   </span>
                 </div>
                 <div className="h-[40px] w-full">
@@ -110,10 +117,8 @@ export const SummaryMetrics = ({ metrics, isLoading }: SummaryMetricsProps) => {
                     </AreaChart>
                   </ResponsiveContainer>
                 </div>
-                <p className="text-xs text-muted-foreground">{metric.helperText}</p>
               </div>
             }
-            description={metric.title}
             className="glass-card hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]"
           />
         </motion.div>

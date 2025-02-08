@@ -59,23 +59,30 @@ export const OperationalMetrics = ({ metrics, isLoading }: OperationalMetricsPro
           <StandardCard
             icon={metric.icon}
             title={
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-lg md:text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-[#9b87f5]">
+                    {metric.title}
+                  </span>
+                  <span 
+                    className={`text-xs px-2 py-0.5 rounded-full ${
+                      metric.trendType === "positive" 
+                        ? "bg-[#F2FCE2] text-green-700" 
+                        : "bg-red-50 text-red-700"
+                    }`}
+                  >
+                    {metric.trend}
+                  </span>
+                </div>
+                <span className="text-2xl font-bold text-gray-900">
                   {metric.value}
                 </span>
-                <span 
-                  className={`text-xs md:text-sm px-2 py-0.5 rounded-full ${
-                    metric.trendType === "positive" 
-                      ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
-                      : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
-                  }`}
-                >
-                  {metric.trend}
+                <span className="text-sm text-gray-500">
+                  {metric.description}
                 </span>
               </div>
             }
-            description={metric.title}
-            className="glass-card hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]"
+            className="hover:shadow-lg transition-all duration-200 hover:translate-y-[-2px]"
           />
         </motion.div>
       ))}
