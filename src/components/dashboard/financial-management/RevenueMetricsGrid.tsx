@@ -53,7 +53,7 @@ export const RevenueMetricsGrid = () => {
       change: "+12.3%",
       changeType: "positive" as const,
       trendType: "up" as const,
-      icon: <DollarSign className="h-4 w-4 text-green-700" />
+      icon: <DollarSign className="h-4 w-4 text-green-600" />
     },
     {
       title: "Average Daily Rate",
@@ -61,7 +61,7 @@ export const RevenueMetricsGrid = () => {
       change: "+5.2%",
       changeType: "positive" as const,
       trendType: "up" as const,
-      icon: <TrendingUp className="h-4 w-4 text-green-700" />
+      icon: <TrendingUp className="h-4 w-4 text-green-600" />
     },
     {
       title: "RevPAR",
@@ -69,7 +69,7 @@ export const RevenueMetricsGrid = () => {
       change: "+8.7%",
       changeType: "positive" as const,
       trendType: "up" as const,
-      icon: <DollarSign className="h-4 w-4 text-green-700" />
+      icon: <DollarSign className="h-4 w-4 text-green-600" />
     },
     {
       title: "Occupancy Rate",
@@ -77,7 +77,7 @@ export const RevenueMetricsGrid = () => {
       change: "+3.2%",
       changeType: "positive" as const,
       trendType: "up" as const,
-      icon: <Percent className="h-4 w-4 text-green-700" />
+      icon: <Percent className="h-4 w-4 text-green-600" />
     }
   ];
 
@@ -87,7 +87,7 @@ export const RevenueMetricsGrid = () => {
         <KPICard
           key={index}
           {...metric}
-          variant="gradient"
+          variant="default"
         />
       ))}
     </div>

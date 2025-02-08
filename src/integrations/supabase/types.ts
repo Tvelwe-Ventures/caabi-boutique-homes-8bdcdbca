@@ -1004,8 +1004,10 @@ export type Database = {
           daily_revenue: number | null
           date: string
           id: string
+          monthly_revenue: number | null
           occupancy_rate: number | null
           property_id: string | null
+          revpar: number | null
           updated_at: string | null
         }
         Insert: {
@@ -1014,8 +1016,10 @@ export type Database = {
           daily_revenue?: number | null
           date: string
           id?: string
+          monthly_revenue?: number | null
           occupancy_rate?: number | null
           property_id?: string | null
+          revpar?: number | null
           updated_at?: string | null
         }
         Update: {
@@ -1024,8 +1028,10 @@ export type Database = {
           daily_revenue?: number | null
           date?: string
           id?: string
+          monthly_revenue?: number | null
           occupancy_rate?: number | null
           property_id?: string | null
+          revpar?: number | null
           updated_at?: string | null
         }
         Relationships: [

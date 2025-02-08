@@ -16,7 +16,7 @@ export const CircleProgress = ({ title, value, label, progress, color }: CircleP
   const offset = circumference - (progress / 100) * circumference;
 
   return (
-    <Card className="p-6 bg-gradient-to-br from-gray-900 to-gray-800">
+    <Card className="p-6 bg-white shadow-sm hover:shadow-md transition-all duration-200">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -32,7 +32,7 @@ export const CircleProgress = ({ title, value, label, progress, color }: CircleP
               stroke="currentColor"
               strokeWidth="8"
               fill="transparent"
-              className="text-gray-700"
+              className="text-gray-100"
             />
             <motion.circle
               cx="64"
@@ -47,12 +47,12 @@ export const CircleProgress = ({ title, value, label, progress, color }: CircleP
               transition={{ duration: 1, ease: "easeOut" }}
             />
           </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-            <span className="text-2xl font-bold">{value}</span>
-            <span className="text-sm text-gray-400">{label}</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-2xl font-bold text-gray-900">{value}</span>
+            <span className="text-sm text-gray-600">{label}</span>
           </div>
         </div>
-        <h3 className="mt-4 text-lg font-semibold text-white">{title}</h3>
+        <h3 className="mt-4 text-lg font-semibold text-gray-900">{title}</h3>
       </motion.div>
     </Card>
   );

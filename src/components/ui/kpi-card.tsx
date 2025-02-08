@@ -37,18 +37,19 @@ export const KPICard = ({
     const baseStyles = "px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1";
     
     if (changeType === "positive") {
-      return "bg-green-50 text-green-700 dark:bg-green-500/20 dark:text-green-400";
+      return "bg-green-50 text-green-700";
     }
     if (changeType === "negative") {
-      return "bg-red-50 text-red-700 dark:bg-red-500/20 dark:text-red-400";
+      return "bg-red-50 text-red-700";
     }
-    return "bg-yellow-50 text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400";
+    return "bg-yellow-50 text-yellow-700";
   };
 
   return (
     <Card className={cn(
       "relative overflow-hidden p-6",
-      variant === "gradient" && "bg-gradient-to-br from-gray-900 to-gray-800 border-0",
+      variant === "gradient" ? "bg-gradient-to-br from-gray-50 to-white shadow-sm" : "bg-white shadow-sm",
+      "hover:shadow-md transition-all duration-200",
       className
     )}>
       <div className="flex flex-col gap-4">
@@ -56,7 +57,7 @@ export const KPICard = ({
           {icon && (
             <div className={cn(
               "p-2 rounded-lg",
-              variant === "gradient" ? "bg-gray-800" : "bg-gray-100"
+              variant === "gradient" ? "bg-gray-50" : "bg-gray-50"
             )}>
               {icon}
             </div>
@@ -70,13 +71,13 @@ export const KPICard = ({
         <div>
           <p className={cn(
             "text-sm font-medium mb-1",
-            variant === "gradient" ? "text-gray-400" : "text-muted-foreground"
+            variant === "gradient" ? "text-gray-600" : "text-gray-600"
           )}>
             {title}
           </p>
           <p className={cn(
             "text-2xl font-semibold",
-            variant === "gradient" ? "text-white" : "text-foreground"
+            variant === "gradient" ? "text-gray-900" : "text-gray-900"
           )}>
             {value}
           </p>
