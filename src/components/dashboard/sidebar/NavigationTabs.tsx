@@ -8,6 +8,7 @@ interface TabItem {
   title: string;
   icon: LucideIcon | (() => JSX.Element);
   type: "tab";
+  href?: string;
 }
 
 export const NavigationTabs = () => {
@@ -22,7 +23,8 @@ export const NavigationTabs = () => {
   const tabs: TabItem[] = menuItems.map(item => ({
     title: item.title,
     icon: item.icon,
-    type: "tab"
+    type: "tab",
+    href: item.href
   }));
 
   return (

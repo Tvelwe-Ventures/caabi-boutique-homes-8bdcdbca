@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { Label } from "./ui/label";
@@ -8,10 +9,15 @@ import { Upload, File, ArrowUpToLine, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DataFlowVisualization from "./dashboard/financial-management/components/DataFlowVisualization";
 
+interface UploadItem {
+  status: string;
+  filename?: string;
+}
+
 export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [recentUploads, setRecentUploads] = useState<Array<{status: string}>>([]);
+  const [recentUploads, setRecentUploads] = useState<UploadItem[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -25,7 +31,10 @@ export const DataUpload = () => {
           table: 'data_exports'
         },
         (payload) => {
-          setRecentUploads(prev => [payload.new, ...prev].slice(0, 5));
+          setRecentUploads(prev => [{
+            status: payload.new.status,
+            filename: payload.new.filename
+          }, ...prev].slice(0, 5));
           toast({
             title: "New Export Activity",
             description: `Data export ${payload.new.status}`,
@@ -157,7 +166,7 @@ export const DataUpload = () => {
                   <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-white/50 dark:bg-white/5">
                     <div className="flex items-center gap-2">
                       <File className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                      <span className="text-sm font-medium">{upload.filename}</span>
+                      <span className="text-sm font-medium">{upload.filename || 'Unnamed file'}</span>
                     </div>
                     <span className={`text-xs px-2 py-1 rounded-full ${
                       upload.status === 'success' 
