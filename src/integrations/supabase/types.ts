@@ -302,6 +302,9 @@ export type Database = {
         Row: {
           avg_daily_rate: number | null
           booking_pace: number | null
+          booking_pace_30_days: number | null
+          booking_pace_60_days: number | null
+          booking_pace_90_days: number | null
           competitive_index: number | null
           created_at: string | null
           data_source: string | null
@@ -312,12 +315,16 @@ export type Database = {
           last_sync_hostaway: string | null
           last_sync_pricelabs: string | null
           market_demand_score: number | null
+          market_listed_price: number | null
+          market_occupancy: number | null
+          market_penetration_index: number | null
           month: string
           monthly_revenue: number
           net_operating_income: number
           occupancy_rate: number | null
           operating_expenses: number
           property_id: string | null
+          recommended_price: number | null
           revpar: number | null
           source: string | null
           updated_at: string | null
@@ -325,6 +332,9 @@ export type Database = {
         Insert: {
           avg_daily_rate?: number | null
           booking_pace?: number | null
+          booking_pace_30_days?: number | null
+          booking_pace_60_days?: number | null
+          booking_pace_90_days?: number | null
           competitive_index?: number | null
           created_at?: string | null
           data_source?: string | null
@@ -335,12 +345,16 @@ export type Database = {
           last_sync_hostaway?: string | null
           last_sync_pricelabs?: string | null
           market_demand_score?: number | null
+          market_listed_price?: number | null
+          market_occupancy?: number | null
+          market_penetration_index?: number | null
           month: string
           monthly_revenue?: number
           net_operating_income?: number
           occupancy_rate?: number | null
           operating_expenses?: number
           property_id?: string | null
+          recommended_price?: number | null
           revpar?: number | null
           source?: string | null
           updated_at?: string | null
@@ -348,6 +362,9 @@ export type Database = {
         Update: {
           avg_daily_rate?: number | null
           booking_pace?: number | null
+          booking_pace_30_days?: number | null
+          booking_pace_60_days?: number | null
+          booking_pace_90_days?: number | null
           competitive_index?: number | null
           created_at?: string | null
           data_source?: string | null
@@ -358,12 +375,16 @@ export type Database = {
           last_sync_hostaway?: string | null
           last_sync_pricelabs?: string | null
           market_demand_score?: number | null
+          market_listed_price?: number | null
+          market_occupancy?: number | null
+          market_penetration_index?: number | null
           month?: string
           monthly_revenue?: number
           net_operating_income?: number
           occupancy_rate?: number | null
           operating_expenses?: number
           property_id?: string | null
+          recommended_price?: number | null
           revpar?: number | null
           source?: string | null
           updated_at?: string | null

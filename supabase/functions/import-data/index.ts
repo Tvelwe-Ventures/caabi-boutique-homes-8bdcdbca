@@ -1,3 +1,4 @@
+
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
 
@@ -54,7 +55,6 @@ serve(async (req) => {
         try {
           parsedData = JSON.parse(fileContent);
         } catch (parseError) {
-          // If not JSON, try to parse as CSV or other format
           console.error('Error parsing JSON:', parseError);
           results.push({
             filename: file.name,
@@ -79,6 +79,13 @@ serve(async (req) => {
                 market_demand_score: metric.demand_score,
                 competitive_index: metric.comp_index,
                 forecast_revenue: metric.forecast,
+                market_occupancy: metric.market_occupancy || 0,
+                market_penetration_index: metric.market_penetration || 0,
+                booking_pace_30_days: metric.booking_pace_30d || 0,
+                booking_pace_60_days: metric.booking_pace_60d || 0,
+                booking_pace_90_days: metric.booking_pace_90d || 0,
+                recommended_price: metric.recommended_rate || 0,
+                market_listed_price: metric.market_rate || 0,
                 data_source: 'pricelabs',
                 last_sync_pricelabs: new Date().toISOString()
               }, {
