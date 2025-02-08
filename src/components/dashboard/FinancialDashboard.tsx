@@ -1,4 +1,3 @@
-
 import { Plus, FileText, Settings, MessageCircle, TrendingUp, Users, CreditCard, Activity } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
@@ -9,6 +8,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { FinancialMetrics } from "./financial/FinancialMetrics";
 import PortfolioMap from "./PortfolioMap";
 import { usePropertiesSubscription } from "@/hooks/usePropertiesSubscription";
+import { CircularMetrics } from "./CircularMetrics";
 
 const FinancialDashboard = () => {
   const { toast } = useToast();
@@ -103,6 +103,15 @@ const FinancialDashboard = () => {
         </div>
       </div>
 
+      {/* Circular Metrics Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <CircularMetrics />
+      </motion.div>
+
       {/* Integration Status Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -132,44 +141,6 @@ const FinancialDashboard = () => {
             </CardContent>
           </Card>
         ))}
-      </motion.div>
-
-      {/* Dashboard Metrics Grid */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-      >
-        {dashboardMetrics?.map((metric, index) => {
-          const MetricIcon = getMetricIcon(metric.icon);
-          return (
-            <Card key={metric.id} className="bg-card">
-              <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                <CardTitle className="text-sm font-medium">
-                  {metric.title}
-                </CardTitle>
-                <MetricIcon className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{metric.value}</div>
-                <div className="flex items-center mt-1">
-                  <span className={`text-sm ${
-                    (metric.change_percentage || 0) > 0 
-                      ? 'text-green-600' 
-                      : 'text-red-600'
-                  }`}>
-                    {metric.change_percentage > 0 ? '+' : ''}
-                    {metric.change_percentage}%
-                  </span>
-                  <span className="text-xs text-muted-foreground ml-2">
-                    vs last month
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
       </motion.div>
 
       {/* Financial Overview Section */}
