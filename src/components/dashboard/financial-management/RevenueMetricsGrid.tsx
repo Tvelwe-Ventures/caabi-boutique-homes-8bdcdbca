@@ -1,7 +1,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { RevenueMetricsCard } from "./components/RevenueMetricsCard";
+import { RevenueMetricsCard } from "@/components/dashboard/financial-management/components/RevenueMetricsCard";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle } from "lucide-react";
 
