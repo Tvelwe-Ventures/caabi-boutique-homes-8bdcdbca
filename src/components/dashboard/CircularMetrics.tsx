@@ -74,7 +74,7 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
       <CardTitle className="text-lg font-medium">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="h-[250px] relative"> {/* Increased height to accommodate labels */}
+      <div className="h-[300px] relative"> {/* Increased height further for better spacing */}
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -105,7 +105,7 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
 
 export const CircularMetrics = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <MetricChart
         data={revenueSourcesData}
         colors={COLORS.revenue}
@@ -121,6 +121,8 @@ export const CircularMetrics = () => {
         colors={COLORS.portfolio}
         title="Portfolio Allocation"
       />
+      <div className="hidden md:block" /> {/* Empty div for 2x2 grid alignment */}
     </div>
   );
 };
+
