@@ -2,31 +2,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell, Label } from "recharts";
 
-const trafficData = [
-  { name: "Search", value: 35 },
-  { name: "Direct", value: 25 },
-  { name: "Referral", value: 20 },
-  { name: "Social", value: 20 },
+const revenueSourcesData = [
+  { name: "Property Rentals", value: 45 },
+  { name: "Service Fees", value: 30 },
+  { name: "Management Fees", value: 25 },
 ];
 
-const deviceData = [
-  { name: "Mobile", value: 45 },
-  { name: "Desktop", value: 35 },
-  { name: "Tablet", value: 20 },
+const expenseDistributionData = [
+  { name: "Operations", value: 40 },
+  { name: "Maintenance", value: 35 },
+  { name: "Marketing", value: 25 },
 ];
 
-const browserData = [
-  { name: "Chrome", value: 45 },
-  { name: "Safari", value: 30 },
-  { name: "Firefox", value: 15 },
-  { name: "Edge", value: 10 },
+const portfolioAllocationData = [
+  { name: "Residential", value: 50 },
+  { name: "Commercial", value: 30 },
+  { name: "Vacation", value: 20 },
 ];
 
-// Soft pastel colors matching the design
+// Professional financial color scheme
 const COLORS = {
-  traffic: ['#FFD975', '#FFE5A3', '#FFF2D1', '#FFFAF0'],
-  device: ['#7ED49F', '#A5E4BE', '#C9F0D9'],
-  browser: ['#FF8B8B', '#FFB3B3', '#FFD1D1', '#FFEAEA'],
+  revenue: ['#4CAF50', '#81C784', '#A5D6A7'],
+  expense: ['#FF7043', '#FFB74D', '#FFCC80'],
+  portfolio: ['#42A5F5', '#64B5F6', '#90CAF9'],
 };
 
 interface MetricChartProps {
@@ -91,19 +89,19 @@ export const CircularMetrics = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <MetricChart
-        data={trafficData}
-        colors={COLORS.traffic}
-        title="Traffic Sources"
+        data={revenueSourcesData}
+        colors={COLORS.revenue}
+        title="Revenue Sources"
       />
       <MetricChart
-        data={deviceData}
-        colors={COLORS.device}
-        title="Device Usage"
+        data={expenseDistributionData}
+        colors={COLORS.expense}
+        title="Expense Distribution"
       />
       <MetricChart
-        data={browserData}
-        colors={COLORS.browser}
-        title="Browser Usage"
+        data={portfolioAllocationData}
+        colors={COLORS.portfolio}
+        title="Portfolio Allocation"
       />
     </div>
   );
