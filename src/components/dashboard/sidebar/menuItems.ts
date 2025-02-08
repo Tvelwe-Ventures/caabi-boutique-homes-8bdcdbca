@@ -1,11 +1,11 @@
 
-import { Bird, CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload } from "lucide-react";
 
 export const menuItems = [
   {
     title: "QuacQBoard",
     href: "/dashboard",
-    icon: Bird
+    icon: () => <img src="/lovable-uploads/3663f795-4903-49b5-b73d-f510b0b4a4f9.png" alt="QuackOS" className="h-5 w-5" />
   },
   {
     title: "Finance & Revenue Management",
