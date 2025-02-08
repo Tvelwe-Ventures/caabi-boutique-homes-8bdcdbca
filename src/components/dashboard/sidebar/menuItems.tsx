@@ -6,7 +6,7 @@ export const menuItems = [
   {
     title: "QuacQBoard",
     href: "/dashboard",
-    icon: () => <img src="/lovable-uploads/cf11a80b-158e-468d-821f-7527807fb753.png" alt="QuackOS" className="h-6 w-6" />
+    icon: () => <div className="font-bold text-xl text-primary">Q</div>
   },
   {
     title: "Finance & Revenue Management",
@@ -34,7 +34,7 @@ export const menuItems = [
     icon: Settings
   },
   {
-    title: "Data Import",
+    title: "Data Export",
     href: "/dashboard/data-import",
     icon: Upload
   },
