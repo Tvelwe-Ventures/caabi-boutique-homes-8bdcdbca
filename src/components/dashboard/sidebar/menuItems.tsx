@@ -1,3 +1,4 @@
+
 import React from "react";
 import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload } from "lucide-react";
 
@@ -5,7 +6,7 @@ export const menuItems = [
   {
     title: "QuacQBoard",
     href: "/dashboard",
-    icon: () => <img src="/lovable-uploads/3663f795-4903-49b5-b73d-f510b0b4a4f9.png" alt="QuackOS" className="h-5 w-5" />
+    icon: () => <img src="/lovable-uploads/cf11a80b-158e-468d-821f-7527807fb753.png" alt="QuackOS" className="h-6 w-6" />
   },
   {
     title: "Finance & Revenue Management",
