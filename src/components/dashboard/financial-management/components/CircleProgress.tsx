@@ -47,12 +47,12 @@ export const CircleProgress = ({ title, value, label, progress, color }: CircleP
               transition={{ duration: 1, ease: "easeOut" }}
             />
           </svg>
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-2xl font-bold text-gray-900">{value}</span>
-            <span className="text-sm text-gray-600">{label}</span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+            <span className="text-xl font-bold text-gray-900">{value}</span>
+            <span className="text-xs text-gray-600 mt-1 max-w-[80%]">{label}</span>
           </div>
         </div>
-        <h3 className="mt-4 text-lg font-semibold text-gray-900">{title}</h3>
+        <h3 className="mt-4 text-sm font-semibold text-gray-900">{title}</h3>
       </motion.div>
     </Card>
   );
