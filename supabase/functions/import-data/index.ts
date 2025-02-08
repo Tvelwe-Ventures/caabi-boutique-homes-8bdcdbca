@@ -1,11 +1,10 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-};
+import { corsHeaders } from "./utils.ts";
+import { processPriceLabsData } from "./processors/pricelabs.ts";
+import { processHostawayData } from "./processors/hostaway.ts";
+import { processBookingsData } from "./processors/bookings.ts";
+import { processGuestsData } from "./processors/guests.ts";
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -26,17 +25,6 @@ serve(async (req) => {
         }
       );
     }
-
-    const supabaseClient = createClient(
-      Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      {
-        auth: {
-          autoRefreshToken: false,
-          persistSession: false,
-        },
-      }
-    );
 
     const results = [];
     
@@ -64,128 +52,18 @@ serve(async (req) => {
           continue;
         }
 
-        // Process PriceLabs data
+        // Process data based on file type
         if (file.name.toLowerCase().includes('pricelabs')) {
-          console.log('Processing PriceLabs data:', parsedData);
-          for (const metric of parsedData.metrics || []) {
-            const { data, error } = await supabaseClient
-              .from('financial_metrics')
-              .upsert({
-                property_id: metric.property_id,
-                month: metric.date,
-                monthly_revenue: metric.revenue || 0,
-                avg_daily_rate: metric.adr || 0,
-                occupancy_rate: metric.occupancy || 0,
-                market_demand_score: metric.demand_score,
-                competitive_index: metric.comp_index,
-                forecast_revenue: metric.forecast,
-                market_occupancy: metric.market_occupancy || 0,
-                market_penetration_index: metric.market_penetration || 0,
-                booking_pace_30_days: metric.booking_pace_30d || 0,
-                booking_pace_60_days: metric.booking_pace_60d || 0,
-                booking_pace_90_days: metric.booking_pace_90d || 0,
-                recommended_price: metric.recommended_rate || 0,
-                market_listed_price: metric.market_rate || 0,
-                data_source: 'pricelabs',
-                last_sync_pricelabs: new Date().toISOString()
-              }, {
-                onConflict: 'property_id,month',
-                ignoreDuplicates: false
-              });
-
-            if (error) {
-              console.error('Error inserting PriceLabs metric:', error);
-              throw error;
-            }
-          }
+          await processPriceLabsData(parsedData);
         }
 
-        // Process Hostaway data with expanded metrics
         if (file.name.toLowerCase().includes('hostaway')) {
-          console.log('Processing Hostaway data:', parsedData);
-          for (const metric of parsedData.metrics || []) {
-            const { data, error } = await supabaseClient
-              .from('financial_metrics')
-              .upsert({
-                property_id: metric.property_id,
-                month: metric.date,
-                monthly_revenue: metric.revenue || 0,
-                avg_daily_rate: metric.daily_rate || 0,
-                occupancy_rate: metric.occupancy || 0,
-                booking_pace: metric.pace || 0,
-                channel_distribution: metric.channel_distribution || {},
-                average_length_of_stay: metric.average_stay_length || 0,
-                total_bookings: metric.total_bookings || 0,
-                revenue_by_channel: metric.revenue_by_channel || {},
-                data_source: 'hostaway',
-                last_sync_hostaway: new Date().toISOString()
-              }, {
-                onConflict: 'property_id,month',
-                ignoreDuplicates: false
-              });
-
-            if (error) {
-              console.error('Error inserting Hostaway metric:', error);
-              throw error;
-            }
-          }
+          await processHostawayData(parsedData);
         }
 
-        // Keep existing guest and booking processing
-        if (parsedData.guests && Array.isArray(parsedData.guests)) {
-          for (const guest of parsedData.guests) {
-            const { data, error } = await supabaseClient
-              .from('guests')
-              .upsert({
-                id: guest.id || undefined,
-                first_name: guest.first_name,
-                last_name: guest.last_name,
-                email: guest.email,
-                phone: guest.phone,
-                nationality: guest.nationality,
-                preferred_language: guest.preferred_language,
-                total_stays: guest.total_stays || 0,
-                average_rating: guest.average_rating || 0,
-                last_stay_date: guest.last_stay_date,
-              }, {
-                onConflict: 'id',
-                ignoreDuplicates: false
-              });
-
-            if (error) {
-              console.error('Error inserting guest:', error);
-              throw error;
-            }
-          }
-        }
-
-        if (parsedData.bookings && Array.isArray(parsedData.bookings)) {
-          for (const booking of parsedData.bookings) {
-            const { data, error } = await supabaseClient
-              .from('bookings')
-              .upsert({
-                id: booking.id || undefined,
-                property_id: booking.property_id,
-                guest_id: booking.guest_id,
-                check_in_date: booking.check_in_date,
-                check_out_date: booking.check_out_date,
-                status: booking.status || 'pending',
-                total_amount: booking.total_amount,
-                booking_source: booking.booking_source,
-                external_booking_id: booking.external_booking_id,
-                number_of_guests: booking.number_of_guests,
-                special_requests: booking.special_requests,
-              }, {
-                onConflict: 'id',
-                ignoreDuplicates: false
-              });
-
-            if (error) {
-              console.error('Error inserting booking:', error);
-              throw error;
-            }
-          }
-        }
+        // Process bookings and guests data
+        await processBookingsData(parsedData);
+        await processGuestsData(parsedData);
 
         results.push({
           filename: file.name,
