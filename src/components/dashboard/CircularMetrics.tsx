@@ -1,45 +1,60 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { Database, TrendingUp, TrendingDown, Building2, Wallet, PieChart as PieChartIcon, BarChart3 } from "lucide-react";
 
 const revenueSourcesData = [
-  { name: "Property Rentals", value: 45 },
-  { name: "Service Fees", value: 30 },
-  { name: "Management Fees", value: 25 },
+  { name: "Property Rentals", value: 45, trend: "+5.2%" },
+  { name: "Service Fees", value: 30, trend: "+2.8%" },
+  { name: "Management Fees", value: 25, trend: "-1.5%" },
 ];
 
 const expenseDistributionData = [
-  { name: "Operations", value: 40 },
-  { name: "Maintenance", value: 35 },
-  { name: "Marketing", value: 25 },
+  { name: "Operations", value: 40, trend: "+3.1%" },
+  { name: "Maintenance", value: 35, trend: "+0.8%" },
+  { name: "Marketing", value: 25, trend: "-2.3%" },
 ];
 
 const portfolioAllocationData = [
-  { name: "Residential", value: 50 },
-  { name: "Commercial", value: 30 },
-  { name: "Vacation", value: 20 },
+  { name: "Residential", value: 50, trend: "+4.2%" },
+  { name: "Commercial", value: 30, trend: "+1.7%" },
+  { name: "Vacation", value: 20, trend: "+6.3%" },
 ];
 
-// Updated color scheme using design system colors
+const marketDistributionData = [
+  { name: "Urban", value: 45, trend: "+3.8%" },
+  { name: "Suburban", value: 35, trend: "+5.2%" },
+  { name: "Rural", value: 20, trend: "+1.4%" },
+];
+
 const COLORS = {
   revenue: ['#8394CA', '#B2D1E3', '#DFD5EA'],
   expense: ['#1A2957', '#8E9196', '#F8F9FC'],
   portfolio: ['#8394CA', '#1A2957', '#DFD5EA'],
+  market: ['#B2D1E3', '#8394CA', '#1A2957']
 };
 
 interface MetricChartProps {
-  data: Array<{ name: string; value: number }>;
+  data: Array<{ name: string; value: number; trend: string }>;
   colors: string[];
   title: string;
+  icon: React.ElementType;
+  source: string;
 }
 
-const MetricChart = ({ data, colors, title }: MetricChartProps) => (
+const MetricChart = ({ data, colors, title, icon: Icon, source }: MetricChartProps) => (
   <Card className="hover:shadow-lg transition-shadow duration-200">
-    <CardHeader>
-      <CardTitle className="text-lg font-medium">{title}</CardTitle>
+    <CardHeader className="space-y-0 pb-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Icon className="h-5 w-5 text-muted-foreground" />
+          <CardTitle className="text-lg font-medium">{title}</CardTitle>
+        </div>
+        <span className="text-xs text-muted-foreground">Source: {source}</span>
+      </div>
     </CardHeader>
     <CardContent>
-      <div className="h-[300px] relative flex">
+      <div className="h-[280px] relative flex">
         <ResponsiveContainer width="50%" height="100%">
           <PieChart>
             <Pie
@@ -68,9 +83,22 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
                 className="w-3 h-3 rounded-full" 
                 style={{ backgroundColor: colors[index] }}
               />
-              <span className="text-sm text-gray-600">
-                {entry.name} ({entry.value}%)
-              </span>
+              <div className="flex flex-col">
+                <div className="flex items-center gap-2">
+                  <span className="text-sm text-gray-600">
+                    {entry.name} ({entry.value}%)
+                  </span>
+                  <span className={`text-xs font-medium ${
+                    entry.trend.startsWith('+') ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {entry.trend}
+                    {entry.trend.startsWith('+') 
+                      ? <TrendingUp className="h-3 w-3 inline ml-1" />
+                      : <TrendingDown className="h-3 w-3 inline ml-1" />
+                    }
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -86,18 +114,30 @@ export const CircularMetrics = () => {
         data={revenueSourcesData}
         colors={COLORS.revenue}
         title="Revenue Sources"
+        icon={Wallet}
+        source="Financial Reports"
       />
       <MetricChart
         data={expenseDistributionData}
         colors={COLORS.expense}
         title="Expense Distribution"
+        icon={PieChartIcon}
+        source="Expense Tracker"
       />
       <MetricChart
         data={portfolioAllocationData}
         colors={COLORS.portfolio}
         title="Portfolio Allocation"
+        icon={Building2}
+        source="Asset Management"
       />
-      <div className="hidden md:block" /> {/* Empty div for 2x2 grid alignment */}
+      <MetricChart
+        data={marketDistributionData}
+        colors={COLORS.market}
+        title="Market Distribution"
+        icon={BarChart3}
+        source="Market Analysis"
+      />
     </div>
   );
 };
