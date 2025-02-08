@@ -12,29 +12,34 @@ interface Property {
   location: string;
   monthly_rent: number;
   occupancy_rate: number;
-  latitude?: number;
-  longitude?: number;
+  latitude: number;
+  longitude: number;
+  property_type: string;
+  bedrooms: number;
+  bathrooms: number;
+  area_sqft: number;
+  maintenance_status: string | null;
 }
 
 const PortfolioMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
 
-  const { data: properties } = useQuery({
+  const { data: properties, isLoading } = useQuery({
     queryKey: ['properties'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('properties')
-        .select('*');
+        .select('*')
+        .not('latitude', 'is', null)
+        .not('longitude', 'is', null);
       
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching properties:', error);
+        throw error;
+      }
       
-      // For development, let's add some sample coordinates since they're not in DB yet
-      return (data as Property[]).map(property => ({
-        ...property,
-        latitude: 25.2048 + (Math.random() - 0.5) * 0.1, // Random spread around Dubai
-        longitude: 55.2708 + (Math.random() - 0.5) * 0.1
-      }));
+      return data as Property[];
     }
   });
 
@@ -51,7 +56,7 @@ const PortfolioMap = () => {
 
         mapboxgl.accessToken = mapboxToken;
         
-        if (map.current) return; // Prevent duplicate initialization
+        if (map.current) return;
 
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
@@ -70,9 +75,59 @@ const PortfolioMap = () => {
         );
 
         map.current.on('load', () => {
-          if (!map.current?.getLayer('3d-buildings')) {
-            // Add 3D building layer only if it doesn't exist
-            map.current?.addLayer({
+          if (!map.current) return;
+
+          // Add heat map layer for property density
+          map.current.addSource('properties', {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: properties?.map(property => ({
+                type: 'Feature',
+                geometry: {
+                  type: 'Point',
+                  coordinates: [property.longitude, property.latitude]
+                },
+                properties: {
+                  id: property.id,
+                  rent: property.monthly_rent
+                }
+              })) || []
+            }
+          });
+
+          map.current.addLayer({
+            id: 'property-heat',
+            type: 'heatmap',
+            source: 'properties',
+            paint: {
+              'heatmap-weight': [
+                'interpolate',
+                ['linear'],
+                ['get', 'rent'],
+                0, 0,
+                100000, 1
+              ],
+              'heatmap-intensity': 1,
+              'heatmap-color': [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0, 'rgba(33,102,172,0)',
+                0.2, 'rgb(103,169,207)',
+                0.4, 'rgb(209,229,240)',
+                0.6, 'rgb(253,219,199)',
+                0.8, 'rgb(239,138,98)',
+                1, 'rgb(178,24,43)'
+              ],
+              'heatmap-radius': 30,
+              'heatmap-opacity': 0.7
+            }
+          });
+
+          // Add 3D building layer
+          if (!map.current.getLayer('3d-buildings')) {
+            map.current.addLayer({
               'id': '3d-buildings',
               'source': 'composite',
               'source-layer': 'building',
@@ -101,6 +156,10 @@ const PortfolioMap = () => {
                   <h3 class="font-bold text-lg mb-2">${property.name}</h3>
                   <div class="space-y-2">
                     <p class="text-sm">
+                      <span class="font-semibold">Property Type:</span> 
+                      ${property.property_type}
+                    </p>
+                    <p class="text-sm">
                       <span class="font-semibold">Monthly Rent:</span> 
                       AED ${property.monthly_rent.toLocaleString()}
                     </p>
@@ -109,20 +168,32 @@ const PortfolioMap = () => {
                       ${property.occupancy_rate}%
                     </p>
                     <p class="text-sm">
+                      <span class="font-semibold">Details:</span> 
+                      ${property.bedrooms} beds, ${property.bathrooms} baths, ${property.area_sqft} sqft
+                    </p>
+                    <p class="text-sm">
                       <span class="font-semibold">Location:</span> 
                       ${property.location}
                     </p>
+                    ${property.maintenance_status ? `
+                    <p class="text-sm">
+                      <span class="font-semibold">Maintenance:</span> 
+                      <span class="px-2 py-1 rounded-full text-xs ${
+                        property.maintenance_status === 'good' ? 'bg-green-100 text-green-800' :
+                        property.maintenance_status === 'needs_attention' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
+                      }">${property.maintenance_status}</span>
+                    </p>
+                    ` : ''}
                   </div>
                 </div>
               `);
 
             // Add marker to map with popup
-            if (property.latitude && property.longitude) {
-              new mapboxgl.Marker(markerEl)
-                .setLngLat([property.longitude, property.latitude])
-                .setPopup(popup)
-                .addTo(map.current!);
-            }
+            new mapboxgl.Marker(markerEl)
+              .setLngLat([property.longitude, property.latitude])
+              .setPopup(popup)
+              .addTo(map.current!);
           });
         });
 

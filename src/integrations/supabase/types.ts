@@ -611,7 +611,9 @@ export type Database = {
           is_furnished: boolean | null
           last_renovation_date: string | null
           last_sync_at: string | null
+          latitude: number | null
           location: string
+          longitude: number | null
           maintenance_status: string | null
           manager_id: string | null
           market_rate: number | null
@@ -637,7 +639,9 @@ export type Database = {
           is_furnished?: boolean | null
           last_renovation_date?: string | null
           last_sync_at?: string | null
+          latitude?: number | null
           location: string
+          longitude?: number | null
           maintenance_status?: string | null
           manager_id?: string | null
           market_rate?: number | null
@@ -663,7 +667,9 @@ export type Database = {
           is_furnished?: boolean | null
           last_renovation_date?: string | null
           last_sync_at?: string | null
+          latitude?: number | null
           location?: string
+          longitude?: number | null
           maintenance_status?: string | null
           manager_id?: string | null
           market_rate?: number | null
