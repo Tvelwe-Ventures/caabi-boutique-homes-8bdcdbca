@@ -48,12 +48,34 @@ export const CircleProgress = ({ title, value, label, progress, color }: CircleP
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-            <span className="text-xl font-bold text-gray-900">{value}</span>
-            <span className="text-xs text-gray-600 mt-1 max-w-[80%]">{label}</span>
+            <motion.span 
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-2xl font-bold text-gray-900"
+            >
+              {value}
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-sm text-gray-600 mt-2 max-w-[80%]"
+            >
+              {label}
+            </motion.span>
           </div>
         </div>
-        <h3 className="mt-4 text-sm font-semibold text-gray-900">{title}</h3>
+        <motion.h3 
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-4 text-base font-semibold text-gray-900"
+        >
+          {title}
+        </motion.h3>
       </motion.div>
     </Card>
   );
 };
+
