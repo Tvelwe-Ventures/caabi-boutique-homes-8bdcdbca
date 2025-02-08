@@ -14,6 +14,7 @@ import { TimelineSection } from "./design-system/TimelineSection";
 import { DataDisplaySection } from "./design-system/DataDisplaySection";
 import { AnimatedComponentsSection } from "./design-system/AnimatedComponentsSection";
 import { AnimatedCardsSection } from "./design-system/AnimatedCards";
+import { KPICardsSection } from "./design-system/KPICardsSection";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
@@ -95,6 +96,7 @@ const DesignSystemDemo = () => {
           <TypographySection />
           <GradientsSection />
           <IconsSection />
+          <KPICardsSection />
           <ChartSection />
           <DataDisplaySection />
           <BentoSection />
