@@ -1,13 +1,12 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { LineChart, Settings } from "lucide-react";
+import { LineChart, Settings, Users, DollarSign, Wallet, TrendingUp } from "lucide-react";
 import { EmptyState } from "@/components/ui/empty-state";
-import { LoadingState } from "@/components/ui/loading-state";
 import { ChartLoading } from "@/components/ui/chart-loading";
 import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/components/ui/card";
 import { formatCurrency } from "@/lib/utils";
 import { CircularMetrics } from "./CircularMetrics";
+import { KPICard } from "@/components/ui/kpi-card";
 
 export const FinancialOverview = () => {
   const { data: financialData, isLoading } = useQuery({
@@ -62,6 +61,41 @@ export const FinancialOverview = () => {
     );
   }
 
+  const kpiData = [
+    {
+      title: "Total Revenue",
+      value: formatCurrency(financialData.summary.totalRevenue),
+      change: "+33%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <DollarSign className="h-4 w-4 text-green-700" />
+    },
+    {
+      title: "Monthly Rent",
+      value: formatCurrency(financialData.summary.totalMonthlyRent),
+      change: "13.0%",
+      changeType: "negative" as const,
+      trendType: "down" as const,
+      icon: <Wallet className="h-4 w-4 text-red-700" />
+    },
+    {
+      title: "Portfolio Value",
+      value: formatCurrency(financialData.summary.totalValue),
+      change: "0.0%",
+      changeType: "neutral" as const,
+      trendType: "neutral" as const,
+      icon: <TrendingUp className="h-4 w-4 text-yellow-700" />
+    },
+    {
+      title: "Properties",
+      value: financialData.summary.propertyCount,
+      change: "+1.0%",
+      changeType: "positive" as const,
+      trendType: "up" as const,
+      icon: <Users className="h-4 w-4 text-green-700" />
+    }
+  ];
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -69,6 +103,16 @@ export const FinancialOverview = () => {
         <Settings className="h-5 w-5 text-muted-foreground" />
       </div>
       
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {kpiData.map((kpi, index) => (
+          <KPICard
+            key={index}
+            {...kpi}
+            variant="gradient"
+          />
+        ))}
+      </div>
+
       <div className="grid gap-6">
         <CircularMetrics />
       </div>
