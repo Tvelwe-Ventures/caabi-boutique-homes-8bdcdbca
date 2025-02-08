@@ -22,14 +22,34 @@ import html2pdf from "html2pdf.js";
 const DesignSystemDemo = () => {
   const { toast } = useToast();
 
-  const handleExportPDF = () => {
+  const handleExportPDF = async () => {
     const element = document.getElementById('design-system-content');
+    if (!element) {
+      toast({
+        title: "Export Failed",
+        description: "Could not find content to export",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const opt = {
-      margin: 1,
+      margin: [0.5, 0.5],
       filename: 'quackos-design-system.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { 
+        scale: 2,
+        useCORS: true,
+        logging: true,
+        letterRendering: true,
+        allowTaint: true,
+      },
+      jsPDF: { 
+        unit: 'in', 
+        format: 'a4', 
+        orientation: 'portrait',
+        compress: true,
+      }
     };
 
     toast({
@@ -37,13 +57,22 @@ const DesignSystemDemo = () => {
       description: "Your design system documentation is being exported...",
     });
 
-    html2pdf().set(opt).from(element).save()
-      .then(() => {
-        toast({
-          title: "Export Complete",
-          description: "Your design system has been exported to PDF",
-        });
+    try {
+      const pdf = await html2pdf().set(opt).from(element).save();
+      console.log('PDF generation completed:', pdf);
+      
+      toast({
+        title: "Export Complete",
+        description: "Your design system has been exported to PDF",
       });
+    } catch (error) {
+      console.error('PDF generation failed:', error);
+      toast({
+        title: "Export Failed",
+        description: "Could not generate PDF. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -62,7 +91,7 @@ const DesignSystemDemo = () => {
           </Button>
         </div>
 
-        <div id="design-system-content" className="space-y-24">
+        <div id="design-system-content" className="space-y-24 bg-background">
           <TypographySection />
           <GradientsSection />
           <IconsSection />
