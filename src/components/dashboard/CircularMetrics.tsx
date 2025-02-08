@@ -20,11 +20,11 @@ const portfolioAllocationData = [
   { name: "Vacation", value: 20 },
 ];
 
-// Professional financial color scheme
+// Updated color scheme using design system colors
 const COLORS = {
-  revenue: ['#4CAF50', '#81C784', '#A5D6A7'],
-  expense: ['#FF7043', '#FFB74D', '#FFCC80'],
-  portfolio: ['#42A5F5', '#64B5F6', '#90CAF9'],
+  revenue: ['#8394CA', '#B2D1E3', '#DFD5EA'],
+  expense: ['#1A2957', '#8E9196', '#F8F9FC'],
+  portfolio: ['#8394CA', '#1A2957', '#DFD5EA'],
 };
 
 interface MetricChartProps {
