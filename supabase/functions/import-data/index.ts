@@ -100,7 +100,7 @@ serve(async (req) => {
           }
         }
 
-        // Process Hostaway data
+        // Process Hostaway data with expanded metrics
         if (file.name.toLowerCase().includes('hostaway')) {
           console.log('Processing Hostaway data:', parsedData);
           for (const metric of parsedData.metrics || []) {
@@ -112,7 +112,11 @@ serve(async (req) => {
                 monthly_revenue: metric.revenue || 0,
                 avg_daily_rate: metric.daily_rate || 0,
                 occupancy_rate: metric.occupancy || 0,
-                booking_pace: metric.pace,
+                booking_pace: metric.pace || 0,
+                channel_distribution: metric.channel_distribution || {},
+                average_length_of_stay: metric.average_stay_length || 0,
+                total_bookings: metric.total_bookings || 0,
+                revenue_by_channel: metric.revenue_by_channel || {},
                 data_source: 'hostaway',
                 last_sync_hostaway: new Date().toISOString()
               }, {

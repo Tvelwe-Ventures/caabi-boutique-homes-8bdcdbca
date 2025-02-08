@@ -300,11 +300,13 @@ export type Database = {
       }
       financial_metrics: {
         Row: {
+          average_length_of_stay: number | null
           avg_daily_rate: number | null
           booking_pace: number | null
           booking_pace_30_days: number | null
           booking_pace_60_days: number | null
           booking_pace_90_days: number | null
+          channel_distribution: Json | null
           competitive_index: number | null
           created_at: string | null
           data_source: string | null
@@ -325,16 +327,20 @@ export type Database = {
           operating_expenses: number
           property_id: string | null
           recommended_price: number | null
+          revenue_by_channel: Json | null
           revpar: number | null
           source: string | null
+          total_bookings: number | null
           updated_at: string | null
         }
         Insert: {
+          average_length_of_stay?: number | null
           avg_daily_rate?: number | null
           booking_pace?: number | null
           booking_pace_30_days?: number | null
           booking_pace_60_days?: number | null
           booking_pace_90_days?: number | null
+          channel_distribution?: Json | null
           competitive_index?: number | null
           created_at?: string | null
           data_source?: string | null
@@ -355,16 +361,20 @@ export type Database = {
           operating_expenses?: number
           property_id?: string | null
           recommended_price?: number | null
+          revenue_by_channel?: Json | null
           revpar?: number | null
           source?: string | null
+          total_bookings?: number | null
           updated_at?: string | null
         }
         Update: {
+          average_length_of_stay?: number | null
           avg_daily_rate?: number | null
           booking_pace?: number | null
           booking_pace_30_days?: number | null
           booking_pace_60_days?: number | null
           booking_pace_90_days?: number | null
+          channel_distribution?: Json | null
           competitive_index?: number | null
           created_at?: string | null
           data_source?: string | null
@@ -385,8 +395,10 @@ export type Database = {
           operating_expenses?: number
           property_id?: string | null
           recommended_price?: number | null
+          revenue_by_channel?: Json | null
           revpar?: number | null
           source?: string | null
+          total_bookings?: number | null
           updated_at?: string | null
         }
         Relationships: [
