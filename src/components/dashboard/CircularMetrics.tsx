@@ -34,11 +34,11 @@ interface MetricChartProps {
 }
 
 const renderCustomizedLabel = ({ cy, index, name, value }: any) => {
-  const y = cy - 30 + (index * 20);
+  const y = cy - 20 + (index * 25); // Increased spacing between labels
   
   return (
     <text
-      x={200}
+      x={160} // Moved labels further right
       y={y}
       fill="#374151"
       textAnchor="start"
@@ -61,7 +61,7 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
           <PieChart>
             <Pie
               data={data}
-              cx="30%"
+              cx={80} // Moved chart to the left
               cy="50%"
               innerRadius={60}
               outerRadius={80}
