@@ -35,20 +35,20 @@ interface MetricChartProps {
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }: any) => {
-  const radius = outerRadius * 1.35;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  const sin = Math.sin(-RADIAN * midAngle);
+  const cos = Math.cos(-RADIAN * RADIAN);
+  
+  // Calculate x position to align all labels on the right side
+  const x = cx + 1.8 * outerRadius;
+  // Calculate y position for stacked labels
+  const y = cy - outerRadius + (index * 20);
 
-  // Calculate line points
-  const innerX = cx + (innerRadius + (outerRadius - innerRadius) * 0.5) * Math.cos(-midAngle * RADIAN);
-  const innerY = cy + (innerRadius + (outerRadius - innerRadius) * 0.5) * Math.sin(-midAngle * RADIAN);
-
-  // Draw connecting line and label
   return (
     <g>
       {/* Connecting line */}
       <path
-        d={`M ${innerX},${innerY} L ${x},${y}`}
+        d={`M ${cx + (outerRadius * Math.cos(-midAngle * RADIAN))},${cy + (outerRadius * Math.sin(-midAngle * RADIAN))} 
+           L ${x - 40},${y}`}
         stroke="#9CA3AF"
         fill="none"
         strokeWidth="1"
@@ -58,7 +58,7 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
         x={x}
         y={y}
         fill="#374151"
-        textAnchor={x > cx ? 'start' : 'end'}
+        textAnchor="start"
         dominantBaseline="central"
         fontSize="12"
       >
@@ -74,12 +74,12 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
       <CardTitle className="text-lg font-medium">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="h-[300px] relative"> {/* Increased height further for better spacing */}
+      <div className="h-[300px] relative">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
-              cx="50%"
+              cx="30%"
               cy="50%"
               innerRadius={60}
               outerRadius={80}
