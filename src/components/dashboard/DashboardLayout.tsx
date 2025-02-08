@@ -1,12 +1,40 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { SidebarContent } from "./sidebar/SidebarContent";
 import { DashboardFooter } from "./DashboardFooter";
+import { useToast } from "@/components/ui/use-toast";
+import { useLocalStorage } from "@/hooks/use-local-storage";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useLocalStorage("quack-sounds-enabled", false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (soundEnabled) {
+      const quackInterval = setInterval(() => {
+        const audio = new Audio("/quack.mp3");
+        audio.volume = 0.3;
+        audio.play().catch(() => {
+          // Ignore autoplay errors
+        });
+      }, 300000); // Every 5 minutes
+
+      return () => clearInterval(quackInterval);
+    }
+  }, [soundEnabled]);
+
+  const toggleSound = () => {
+    setSoundEnabled(!soundEnabled);
+    toast({
+      title: soundEnabled ? "Quack sounds disabled" : "Quack sounds enabled",
+      description: soundEnabled ? 
+        "You won't hear any more quacks" : 
+        "You'll hear occasional quacks while using the dashboard",
+    });
+  };
 
   return (
     <div className="min-h-screen flex w-full bg-gray-50">
@@ -39,6 +67,17 @@ const DashboardLayout = () => {
         open ? "ml-[240px]" : "ml-[70px]"
       )}>
         <div className="container py-6 space-y-6 flex-1">
+          <div className="flex justify-end mb-4">
+            <button
+              onClick={toggleSound}
+              className={cn(
+                "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                soundEnabled ? "bg-primary text-white" : "bg-gray-100 text-gray-600"
+              )}
+            >
+              {soundEnabled ? "Disable Quacks" : "Enable Quacks"}
+            </button>
+          </div>
           <Outlet />
         </div>
         <DashboardFooter />

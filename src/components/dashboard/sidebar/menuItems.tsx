@@ -1,6 +1,6 @@
 
 import React from "react";
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload, Egg } from "lucide-react";
 
 export const menuItems = [
   {
@@ -44,9 +44,9 @@ export const menuItems = [
     icon: Palette
   },
   {
-    title: "Documentation",
+    title: "Duck-umentation",
     href: "/dashboard/docs",
-    icon: BookOpen
+    icon: Egg
   },
   {
     title: "Help & Support",
