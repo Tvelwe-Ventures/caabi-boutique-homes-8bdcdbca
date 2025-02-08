@@ -1,4 +1,4 @@
-
+import React from "react";
 import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload } from "lucide-react";
 
 export const menuItems = [
@@ -53,4 +53,3 @@ export const menuItems = [
     icon: HelpCircle
   }
 ] as const;
-
