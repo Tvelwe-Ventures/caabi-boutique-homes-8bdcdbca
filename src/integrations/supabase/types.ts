@@ -223,6 +223,45 @@ export type Database = {
           },
         ]
       }
+      dashboard_metrics: {
+        Row: {
+          category: string
+          change_percentage: number | null
+          created_at: string | null
+          icon: string | null
+          id: string
+          last_updated: string | null
+          status: string | null
+          title: string
+          updated_at: string | null
+          value: number
+        }
+        Insert: {
+          category: string
+          change_percentage?: number | null
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          last_updated?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string | null
+          value: number
+        }
+        Update: {
+          category?: string
+          change_percentage?: number | null
+          created_at?: string | null
+          icon?: string | null
+          id?: string
+          last_updated?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+          value?: number
+        }
+        Relationships: []
+      }
       dubai_market_metrics: {
         Row: {
           area: string | null
@@ -386,6 +425,36 @@ export type Database = {
           preferred_language?: string | null
           ratings?: Json | null
           total_stays?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      integration_status: {
+        Row: {
+          created_at: string | null
+          id: string
+          last_sync: string | null
+          name: string
+          status: string
+          success_rate: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          last_sync?: string | null
+          name: string
+          status: string
+          success_rate?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          last_sync?: string | null
+          name?: string
+          status?: string
+          success_rate?: number | null
           updated_at?: string | null
         }
         Relationships: []
