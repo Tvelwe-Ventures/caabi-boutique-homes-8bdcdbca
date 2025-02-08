@@ -56,7 +56,7 @@ export const RevenueMetricsGrid = () => {
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg">
               <div className="px-6 pt-6">
                 <div className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5 text-primary" />
+                  <DollarSign className="h-5 w-5 text-[#8394CA]" />
                   <h3 className="text-lg font-medium">Monthly Revenue</h3>
                 </div>
                 <p className="mt-2 text-3xl font-bold">${monthlyRevenue.toLocaleString()}</p>
@@ -68,7 +68,7 @@ export const RevenueMetricsGrid = () => {
                   value="+12.3%"
                   label="Monthly Growth"
                   progress={78}
-                  color="rgb(var(--primary))"
+                  color="#8394CA"
                 />
               </div>
             </div>
@@ -79,7 +79,7 @@ export const RevenueMetricsGrid = () => {
             <div className="absolute inset-px rounded-lg bg-white"></div>
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg p-6">
               <div className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
+                <TrendingUp className="h-5 w-5 text-[#8394CA]" />
                 <h3 className="text-lg font-medium">Average Daily Rate</h3>
               </div>
               <p className="mt-2 text-2xl font-bold">
@@ -88,7 +88,7 @@ export const RevenueMetricsGrid = () => {
               <p className="text-sm text-muted-foreground">+5.2% from last month</p>
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
-                  <div className="h-full w-3/4 bg-primary rounded-full"></div>
+                  <div className="h-full w-3/4 bg-[#8394CA] rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -99,14 +99,14 @@ export const RevenueMetricsGrid = () => {
             <div className="absolute inset-px rounded-lg bg-white"></div>
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg p-6">
               <div className="flex items-center gap-2">
-                <DollarSign className="h-5 w-5 text-primary" />
+                <DollarSign className="h-5 w-5 text-[#8394CA]" />
                 <h3 className="text-lg font-medium">RevPAR</h3>
               </div>
               <p className="mt-2 text-2xl font-bold">${revpar.toLocaleString()}</p>
               <p className="text-sm text-muted-foreground">+8.7% from last month</p>
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
-                  <div className="h-full w-2/3 bg-primary rounded-full"></div>
+                  <div className="h-full w-2/3 bg-[#8394CA] rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -117,7 +117,7 @@ export const RevenueMetricsGrid = () => {
             <div className="absolute inset-px rounded-lg bg-white"></div>
             <div className="relative flex h-full flex-col overflow-hidden rounded-lg p-6">
               <div className="flex items-center gap-2">
-                <Percent className="h-5 w-5 text-primary" />
+                <Percent className="h-5 w-5 text-[#8394CA]" />
                 <h3 className="text-lg font-medium">Occupancy Rate</h3>
               </div>
               <p className="mt-2 text-2xl font-bold">{metrics?.occupancy_rate}%</p>
@@ -125,7 +125,7 @@ export const RevenueMetricsGrid = () => {
               <div className="mt-4 flex-1">
                 <div className="h-2 w-full bg-gray-100 rounded-full">
                   <div 
-                    className="h-full bg-primary rounded-full" 
+                    className="h-full bg-[#8394CA] rounded-full" 
                     style={{ width: `${metrics?.occupancy_rate}%` }}
                   ></div>
                 </div>
