@@ -5,6 +5,13 @@ export const DashboardFooter = () => {
   return (
     <footer className="pb-6 pt-16 lg:pb-8 lg:pt-24">
       <div className="px-4 lg:px-8">
+        <div className="flex justify-start mb-6">
+          <img
+            src="/lovable-uploads/44f2bccc-e7ea-4068-ad2d-4e6ccefba870.png"
+            alt="QuacQOS"
+            className="h-6 w-auto"
+          />
+        </div>
         <div className="border-t mt-6 pt-6 md:mt-4 md:pt-8">
           <nav className="lg:mt-0">
             <ul className="list-none flex flex-wrap -my-1 -mx-2 justify-center">
@@ -35,11 +42,6 @@ export const DashboardFooter = () => {
             </ul>
           </nav>
           <div className="mt-6 flex items-center justify-center gap-6">
-            <img
-              src="/lovable-uploads/44f2bccc-e7ea-4068-ad2d-4e6ccefba870.png"
-              alt="QuacQOS"
-              className="h-6 w-auto"
-            />
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>Built by</span>
               <img
