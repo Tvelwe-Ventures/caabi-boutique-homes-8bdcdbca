@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Star, Users } from "lucide-react";
@@ -54,7 +55,7 @@ const defaultProps: FooterProps = {
     { href: "/terms", label: "Terms of Service" }
   ],
   copyright: {
-    text: "© 2024 Caabi Boutique Homes. All rights reserved.",
+    text: "© 2024 Caabi",
   }
 };
 
@@ -140,3 +141,4 @@ export function Footer({
 }
 
 export default Footer;
+
