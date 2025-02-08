@@ -1,12 +1,18 @@
 
 import React from "react";
-import { CreditCard, Users, LineChart, Settings, Palette, BookOpen, HelpCircle, Upload, Egg } from "lucide-react";
+import { CreditCard, Users, LineChart, Settings, Palette, Egg, HelpCircle, Upload } from "lucide-react";
 
 export const menuItems = [
   {
     title: "QuacQBoard",
     href: "/dashboard",
-    icon: () => <div className="font-bold text-xl text-primary">Q</div>
+    icon: () => (
+      <img 
+        src="/lovable-uploads/3985a0bc-481c-4618-b10f-8ea4abccc1ad.png" 
+        alt="QuacQBoard"
+        className="h-8 w-auto"
+      />
+    )
   },
   {
     title: "Finance & Revenue Management",

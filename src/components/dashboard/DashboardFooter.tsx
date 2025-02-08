@@ -1,5 +1,5 @@
-import { Github, Star, Users } from "lucide-react";
-import { Button } from "../ui/button";
+
+import { motion } from "framer-motion";
 
 export const DashboardFooter = () => {
   return (
@@ -34,8 +34,26 @@ export const DashboardFooter = () => {
               </li>
             </ul>
           </nav>
-          <div className="mt-6 text-sm leading-6 text-muted-foreground text-center">
-            © 2024 Caabi Boutique Homes. All rights reserved.
+          <div className="mt-6 flex items-center justify-center gap-6">
+            <img
+              src="/lovable-uploads/44f2bccc-e7ea-4068-ad2d-4e6ccefba870.png"
+              alt="QuacQOS"
+              className="h-6 w-auto"
+            />
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Built by</span>
+              <img
+                src="/lovable-uploads/4d90cbfe-2d43-4fcd-b896-0717319eaf6e.png"
+                alt="Qogniti AI"
+                className="h-4 w-auto"
+              />
+              <span>&</span>
+              <img
+                src="/lovable-uploads/c6c34a31-9708-4577-af77-f4a8ca48259e.png"
+                alt="Mounntn Design Studio"
+                className="h-4 w-auto"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -4,12 +4,6 @@ import { menuItems } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 
-type MenuItem = {
-  title: string;
-  href: string;
-  icon: LucideIcon | (() => JSX.Element);
-};
-
 export const NavigationTabs = () => {
   const navigate = useNavigate();
   
@@ -23,8 +17,8 @@ export const NavigationTabs = () => {
     <ExpandableTabs
       tabs={menuItems.map(item => ({
         title: item.title,
-        icon: typeof item.icon === 'function' ? item.icon : item.icon,
-        type: 'default'
+        icon: item.icon,
+        type: "tab"
       }))}
       onChange={handleTabChange}
       className="mb-4"
