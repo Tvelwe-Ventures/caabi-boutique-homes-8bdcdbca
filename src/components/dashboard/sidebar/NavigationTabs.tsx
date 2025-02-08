@@ -19,16 +19,17 @@ export const NavigationTabs = () => {
     }
   };
 
+  const tabs: TabItem[] = menuItems.map(item => ({
+    title: item.title,
+    icon: item.icon,
+    type: "tab"
+  }));
+
   return (
     <ExpandableTabs
-      tabs={menuItems.map(item => ({
-        title: item.title,
-        icon: item.icon,
-        type: "tab" as const
-      }))}
+      tabs={tabs}
       onChange={handleTabChange}
       className="mb-4"
     />
   );
 };
-

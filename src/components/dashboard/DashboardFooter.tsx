@@ -41,25 +41,14 @@ export const DashboardFooter = () => {
               </li>
             </ul>
           </nav>
-          <div className="mt-6 flex items-center justify-center gap-6">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Built by</span>
-              <img
-                src="/lovable-uploads/4d90cbfe-2d43-4fcd-b896-0717319eaf6e.png"
-                alt="Qogniti AI"
-                className="h-4 w-auto"
-              />
-              <span>&</span>
-              <img
-                src="/lovable-uploads/c6c34a31-9708-4577-af77-f4a8ca48259e.png"
-                alt="Mounntn Design Studio"
-                className="h-4 w-auto"
-              />
-            </div>
+          <div className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <span>Built by</span>
+            <span>Qogniti AI</span>
+            <span>&</span>
+            <span>Mounntn Design Studio</span>
           </div>
         </div>
       </div>
     </footer>
   );
 };
-
