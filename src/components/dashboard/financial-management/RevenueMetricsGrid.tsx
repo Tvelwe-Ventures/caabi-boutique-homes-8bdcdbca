@@ -66,11 +66,7 @@ export const RevenueMetricsGrid = () => {
       {revenueMetrics.map((metric, index) => (
         <RevenueMetricsCard
           key={index}
-          title={metric.title}
-          progress={metric.progress}
-          value={metric.value}
-          lastUpdated={metric.lastUpdated}
-          issues={metric.issues}
+          {...metric}
           loading={isLoading}
         />
       ))}

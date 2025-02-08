@@ -54,8 +54,8 @@ const FinanceAndRevenueManagement = () => {
 
   const StatusBadge = ({ status, time, percentage }: { status: 'completed' | 'failed', time: string, percentage: number }) => (
     <div className={cn(
-      "flex items-center justify-between px-3 py-1.5 rounded-full text-sm",
-      status === 'completed' ? "bg-[#F2FCE2] text-green-700" : "bg-[#FFDEE2] text-red-700"
+      "flex items-center justify-between px-3 py-1.5 rounded-full text-sm transition-colors duration-200",
+      status === 'completed' ? "bg-[#F2FCE2] text-green-700 hover:bg-[#E7F7D4]" : "bg-[#FFDEE2] text-red-700 hover:bg-[#FFD4D9]"
     )}>
       <div className="flex items-center gap-2">
         {status === 'completed' ? <Check className="w-4 h-4" /> : <Clock className="w-4 h-4" />}
@@ -63,7 +63,7 @@ const FinanceAndRevenueManagement = () => {
         <span className="text-gray-500 text-xs">{time}</span>
       </div>
       <span className={cn(
-        "flex items-center",
+        "flex items-center font-medium",
         percentage > 0 ? "text-green-600" : "text-red-600"
       )}>
         {percentage > 0 ? "+" : ""}{percentage}%
@@ -103,20 +103,30 @@ const FinanceAndRevenueManagement = () => {
             </div>
           </div>
 
-          {/* Data Flow Visualization */}
-          <DataFlowVisualization />
+          {/* Data Flow Visualization with unified hub design */}
+          <Card className="p-6 bg-gradient-to-br from-background to-secondary/20">
+            <DataFlowVisualization />
+          </Card>
 
-          {/* Revenue Metrics Grid */}
-          <RevenueMetricsGrid />
+          {/* Revenue Metrics Grid with new design */}
+          <Card className="p-6 bg-gradient-to-br from-background to-secondary/20">
+            <RevenueMetricsGrid />
+          </Card>
 
-          {/* Key Financial Metrics */}
-          <SummaryMetrics metrics={metrics} isLoading={isLoading} />
+          {/* Key Financial Metrics with circular design */}
+          <Card className="p-6 bg-gradient-to-br from-background to-secondary/20">
+            <SummaryMetrics metrics={metrics} isLoading={isLoading} />
+          </Card>
           
-          {/* Operational Performance */}
-          <OperationalMetrics metrics={metrics} isLoading={isLoading} />
+          {/* Operational Performance with updated styling */}
+          <Card className="p-6 bg-gradient-to-br from-background to-secondary/20">
+            <OperationalMetrics metrics={metrics} isLoading={isLoading} />
+          </Card>
           
-          {/* Integration Status */}
-          <IntegrationMetrics metrics={metrics} />
+          {/* Integration Status with new logos */}
+          <Card className="p-6 bg-gradient-to-br from-background to-secondary/20">
+            <IntegrationMetrics metrics={metrics} />
+          </Card>
         </motion.div>
       </div>
     </div>
