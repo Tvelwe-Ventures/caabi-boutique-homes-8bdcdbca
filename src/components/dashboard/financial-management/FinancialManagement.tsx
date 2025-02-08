@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
@@ -122,9 +121,13 @@ const FinanceAndRevenueManagement = () => {
           {/* Header section */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-2xl md:text-3xl font-bold mb-2">
-                Finance & Revenue Management
-              </h1>
+              <div className="flex items-center gap-2 mb-2">
+                <img 
+                  src="/lovable-uploads/dcc3e3a2-4ae3-4d6c-8301-ac7bcc8bd14f.png" 
+                  alt="QuacaBoard" 
+                  className="h-8 md:h-10"
+                />
+              </div>
               <p className="text-sm md:text-base text-muted-foreground">
                 Track and optimize your portfolio's financial performance
               </p>
