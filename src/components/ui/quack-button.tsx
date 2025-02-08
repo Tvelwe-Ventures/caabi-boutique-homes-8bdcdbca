@@ -110,7 +110,7 @@ export function QuackButton({
             isAttracting && "scale-110"
           )} />
         )}
-        {enabled ? "Quacks Enabled" : "Enable Quacks"}
+        Quacks
       </span>
     </Button>
   );
