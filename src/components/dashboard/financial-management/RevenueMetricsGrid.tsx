@@ -38,10 +38,18 @@ export const RevenueMetricsGrid = () => {
     );
   }
 
+  // Calculate monthly revenue from daily revenue
+  const monthlyRevenue = metrics?.daily_revenue ? metrics.daily_revenue * 30 : 0;
+  
+  // Calculate RevPAR (Revenue Per Available Room)
+  const revpar = metrics?.average_daily_rate && metrics?.occupancy_rate 
+    ? (metrics.average_daily_rate * metrics.occupancy_rate / 100)
+    : 0;
+
   const revenueMetrics = [
     {
       title: "Monthly Revenue",
-      value: metrics?.monthly_revenue ? `$${metrics.monthly_revenue.toLocaleString()}` : "$0",
+      value: `$${monthlyRevenue.toLocaleString()}`,
       change: "+12.3%",
       changeType: "positive" as const,
       trendType: "up" as const,
@@ -49,7 +57,7 @@ export const RevenueMetricsGrid = () => {
     },
     {
       title: "Average Daily Rate",
-      value: metrics?.avg_daily_rate ? `$${metrics.avg_daily_rate.toLocaleString()}` : "$0",
+      value: metrics?.average_daily_rate ? `$${metrics.average_daily_rate.toLocaleString()}` : "$0",
       change: "+5.2%",
       changeType: "positive" as const,
       trendType: "up" as const,
@@ -57,7 +65,7 @@ export const RevenueMetricsGrid = () => {
     },
     {
       title: "RevPAR",
-      value: metrics?.revpar ? `$${metrics.revpar.toLocaleString()}` : "$0",
+      value: `$${revpar.toLocaleString()}`,
       change: "+8.7%",
       changeType: "positive" as const,
       trendType: "up" as const,
