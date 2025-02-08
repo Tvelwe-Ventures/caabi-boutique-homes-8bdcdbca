@@ -5,15 +5,14 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Label } from "recharts";
 const trafficData = [
   { name: "Search", value: 35 },
   { name: "Direct", value: 25 },
-  { name: "Social", value: 20 },
   { name: "Referral", value: 20 },
+  { name: "Social", value: 20 },
 ];
 
 const deviceData = [
   { name: "Mobile", value: 45 },
   { name: "Desktop", value: 35 },
-  { name: "Tablet", value: 15 },
-  { name: "Smart TV", value: 5 },
+  { name: "Tablet", value: 20 },
 ];
 
 const browserData = [
@@ -26,7 +25,7 @@ const browserData = [
 // Soft pastel colors matching the design
 const COLORS = {
   traffic: ['#FFD975', '#FFE5A3', '#FFF2D1', '#FFFAF0'],
-  device: ['#7ED49F', '#A5E4BE', '#C9F0D9', '#E8F9EF'],
+  device: ['#7ED49F', '#A5E4BE', '#C9F0D9'],
   browser: ['#FF8B8B', '#FFB3B3', '#FFD1D1', '#FFEAEA'],
 };
 
