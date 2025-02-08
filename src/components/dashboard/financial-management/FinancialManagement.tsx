@@ -9,6 +9,8 @@ import { OperationalMetrics } from "./components/OperationalMetrics";
 import { IntegrationMetrics } from "./components/IntegrationMetrics";
 import { RevenueMetricsGrid } from "./RevenueMetricsGrid";
 import DataFlowVisualization from "./components/DataFlowVisualization";
+import { Check, Clock } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const FinanceAndRevenueManagement = () => {
   const { toast } = useToast();
@@ -50,6 +52,25 @@ const FinanceAndRevenueManagement = () => {
     }
   });
 
+  const StatusBadge = ({ status, time, percentage }: { status: 'completed' | 'failed', time: string, percentage: number }) => (
+    <div className={cn(
+      "flex items-center justify-between px-3 py-1.5 rounded-full text-sm",
+      status === 'completed' ? "bg-[#F2FCE2] text-green-700" : "bg-[#FFDEE2] text-red-700"
+    )}>
+      <div className="flex items-center gap-2">
+        {status === 'completed' ? <Check className="w-4 h-4" /> : <Clock className="w-4 h-4" />}
+        <span className="font-medium capitalize">{status}</span>
+        <span className="text-gray-500 text-xs">{time}</span>
+      </div>
+      <span className={cn(
+        "flex items-center",
+        percentage > 0 ? "text-green-600" : "text-red-600"
+      )}>
+        {percentage > 0 ? "+" : ""}{percentage}%
+      </span>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-background">
       <div className="p-6 md:p-8 space-y-8">
@@ -68,23 +89,17 @@ const FinanceAndRevenueManagement = () => {
                 Track and optimize your portfolio's financial performance
               </p>
             </div>
-            <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
-              <Card className="p-3 w-full md:w-auto bg-card">
-                <p className="text-xs text-muted-foreground">Last PriceLabs sync:</p>
-                <p className="text-sm font-medium">
-                  {metrics?.last_sync_pricelabs 
-                    ? new Date(metrics.last_sync_pricelabs).toLocaleString() 
-                    : 'Never'}
-                </p>
-              </Card>
-              <Card className="p-3 w-full md:w-auto bg-card">
-                <p className="text-xs text-muted-foreground">Last Hostaway sync:</p>
-                <p className="text-sm font-medium">
-                  {metrics?.last_sync_hostaway 
-                    ? new Date(metrics.last_sync_hostaway).toLocaleString() 
-                    : 'Never'}
-                </p>
-              </Card>
+            <div className="flex flex-col gap-2 w-full md:w-auto">
+              <StatusBadge 
+                status="completed" 
+                time="2h ago" 
+                percentage={12.3} 
+              />
+              <StatusBadge 
+                status="failed" 
+                time="1m ago" 
+                percentage={-5.2} 
+              />
             </div>
           </div>
 
