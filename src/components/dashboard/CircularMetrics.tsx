@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell, Label } from "recharts";
 
 const trafficData = [
   { name: "Search", value: 35 },
@@ -23,9 +23,9 @@ const browserData = [
   { name: "Edge", value: 10 },
 ];
 
-// Light mode colors
+// Soft pastel colors matching the design
 const COLORS = {
-  traffic: ['#F7C948', '#FFD975', '#FFE5A3', '#FFF2D1'],
+  traffic: ['#FFD975', '#FFE5A3', '#FFF2D1', '#FFFAF0'],
   device: ['#7ED49F', '#A5E4BE', '#C9F0D9', '#E8F9EF'],
   browser: ['#FF8B8B', '#FFB3B3', '#FFD1D1', '#FFEAEA'],
 };
@@ -39,7 +39,7 @@ interface MetricChartProps {
 const MetricChart = ({ data, colors, title }: MetricChartProps) => (
   <Card className="hover:shadow-lg transition-shadow duration-200">
     <CardHeader>
-      <CardTitle className="text-lg font-semibold">{title}</CardTitle>
+      <CardTitle className="text-lg font-medium">{title}</CardTitle>
     </CardHeader>
     <CardContent>
       <div className="h-[200px] relative">
@@ -53,28 +53,36 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
               outerRadius={80}
               paddingAngle={2}
               dataKey="value"
+              label={({ cx, cy, midAngle, innerRadius, outerRadius, value, name }) => {
+                const RADIAN = Math.PI / 180;
+                const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+                const x = cx + radius * Math.cos(-midAngle * RADIAN);
+                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+                return (
+                  <text
+                    x={x}
+                    y={y}
+                    fill="#374151"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    fontSize="12"
+                  >
+                    {`${name} (${value}%)`}
+                  </text>
+                );
+              }}
             >
               {data.map((_, index) => (
-                <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                <Cell 
+                  key={`cell-${index}`} 
+                  fill={colors[index % colors.length]}
+                  strokeWidth={0}
+                />
               ))}
             </Pie>
           </PieChart>
         </ResponsiveContainer>
-        <div className="absolute bottom-0 w-full">
-          <div className="flex flex-wrap justify-center gap-4">
-            {data.map((entry, index) => (
-              <div key={`legend-${index}`} className="flex items-center">
-                <div
-                  className="w-3 h-3 rounded-full mr-2"
-                  style={{ backgroundColor: colors[index] }}
-                />
-                <span className="text-sm text-gray-600">
-                  {entry.name} ({entry.value}%)
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </CardContent>
   </Card>
