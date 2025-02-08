@@ -1141,6 +1141,50 @@ export type Database = {
           },
         ]
       }
+      revenue_metrics: {
+        Row: {
+          created_at: string | null
+          id: string
+          metric_type: Database["public"]["Enums"]["metric_type"]
+          month_over_month_change: number | null
+          period: string
+          property_id: string | null
+          updated_at: string | null
+          value: number
+          year_over_year_change: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          metric_type: Database["public"]["Enums"]["metric_type"]
+          month_over_month_change?: number | null
+          period: string
+          property_id?: string | null
+          updated_at?: string | null
+          value?: number
+          year_over_year_change?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          metric_type?: Database["public"]["Enums"]["metric_type"]
+          month_over_month_change?: number | null
+          period?: string
+          property_id?: string | null
+          updated_at?: string | null
+          value?: number
+          year_over_year_change?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "revenue_metrics_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shareholders: {
         Row: {
           created_at: string
@@ -1382,6 +1426,7 @@ export type Database = {
       feedback_type: "stay" | "suggestion" | "general"
       guest_status: "confirmed" | "pending" | "cancelled" | "completed"
       investment_role: "founder" | "coo" | "investor"
+      metric_type: "revenue" | "expense" | "occupancy" | "market"
       property_type: "apartment" | "villa" | "townhouse" | "penthouse"
       quacq_feedback_type: "general" | "bug" | "feature"
       report_type: "spam" | "harassment" | "inappropriate" | "other"

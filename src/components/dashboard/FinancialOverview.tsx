@@ -13,17 +13,34 @@ export const FinancialOverview = () => {
     queryKey: ['financial-overview'],
     queryFn: async () => {
       console.log("Fetching financial overview data...");
-      const { data: properties, error } = await supabase
-        .from('properties')
-        .select('monthly_rent, current_value, property_type, revenue_ytd, occupancy_rate')
-        .eq('owner_id', (await supabase.auth.getUser()).data.user?.id);
+      const [propertiesResponse, metricsResponse] = await Promise.all([
+        supabase
+          .from('properties')
+          .select('monthly_rent, current_value, property_type, revenue_ytd, occupancy_rate')
+          .eq('owner_id', (await supabase.auth.getUser()).data.user?.id),
+        supabase
+          .from('revenue_metrics')
+          .select('*')
+          .eq('metric_type', 'revenue')
+          .order('period', { ascending: false })
+          .limit(1)
+      ]);
       
-      if (error) {
-        console.error("Error fetching properties:", error);
-        throw error;
+      if (propertiesResponse.error) {
+        console.error("Error fetching properties:", propertiesResponse.error);
+        throw propertiesResponse.error;
       }
 
+      if (metricsResponse.error) {
+        console.error("Error fetching metrics:", metricsResponse.error);
+        throw metricsResponse.error;
+      }
+
+      const properties = propertiesResponse.data;
+      const metrics = metricsResponse.data[0];
+      
       console.log("Properties data:", properties);
+      console.log("Metrics data:", metrics);
       
       // Calculate totals and averages
       const totalMonthlyRent = properties?.reduce((sum, prop) => sum + (Number(prop.monthly_rent) || 0), 0) || 0;
@@ -35,6 +52,7 @@ export const FinancialOverview = () => {
 
       return {
         properties,
+        metrics,
         summary: {
           totalMonthlyRent,
           totalValue,
@@ -65,18 +83,18 @@ export const FinancialOverview = () => {
     {
       title: "Total Revenue",
       value: formatCurrency(financialData.summary.totalRevenue),
-      change: "+33%",
-      changeType: "positive" as const,
-      trendType: "up" as const,
+      change: `${financialData.metrics?.year_over_year_change?.toFixed(1)}%` || "0.0%",
+      changeType: (financialData.metrics?.year_over_year_change || 0) > 0 ? "positive" as const : "negative" as const,
+      trendType: (financialData.metrics?.year_over_year_change || 0) > 0 ? "up" as const : "down" as const,
       icon: <DollarSign className="h-4 w-4 text-green-700" />
     },
     {
       title: "Monthly Rent",
       value: formatCurrency(financialData.summary.totalMonthlyRent),
-      change: "13.0%",
-      changeType: "negative" as const,
-      trendType: "down" as const,
-      icon: <Wallet className="h-4 w-4 text-red-700" />
+      change: `${financialData.metrics?.month_over_month_change?.toFixed(1)}%` || "0.0%",
+      changeType: (financialData.metrics?.month_over_month_change || 0) > 0 ? "positive" as const : "negative" as const,
+      trendType: (financialData.metrics?.month_over_month_change || 0) > 0 ? "up" as const : "down" as const,
+      icon: <Wallet className="h-4 w-4 text-blue-700" />
     },
     {
       title: "Portfolio Value",
