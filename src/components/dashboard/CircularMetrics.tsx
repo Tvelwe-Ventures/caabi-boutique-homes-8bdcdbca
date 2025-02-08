@@ -1,6 +1,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ResponsiveContainer, PieChart, Pie, Cell, Label } from "recharts";
+import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 
 const revenueSourcesData = [
   { name: "Property Rentals", value: 45 },
@@ -33,13 +33,48 @@ interface MetricChartProps {
   title: string;
 }
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name, value }: any) => {
+  const radius = outerRadius * 1.35;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  // Calculate line points
+  const innerX = cx + (innerRadius + (outerRadius - innerRadius) * 0.5) * Math.cos(-midAngle * RADIAN);
+  const innerY = cy + (innerRadius + (outerRadius - innerRadius) * 0.5) * Math.sin(-midAngle * RADIAN);
+
+  // Draw connecting line and label
+  return (
+    <g>
+      {/* Connecting line */}
+      <path
+        d={`M ${innerX},${innerY} L ${x},${y}`}
+        stroke="#9CA3AF"
+        fill="none"
+        strokeWidth="1"
+      />
+      {/* Label text */}
+      <text
+        x={x}
+        y={y}
+        fill="#374151"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+        fontSize="12"
+      >
+        {`${name} (${value}%)`}
+      </text>
+    </g>
+  );
+};
+
 const MetricChart = ({ data, colors, title }: MetricChartProps) => (
   <Card className="hover:shadow-lg transition-shadow duration-200">
     <CardHeader>
       <CardTitle className="text-lg font-medium">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="h-[200px] relative">
+      <div className="h-[250px] relative"> {/* Increased height to accommodate labels */}
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
@@ -50,25 +85,8 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
               outerRadius={80}
               paddingAngle={2}
               dataKey="value"
-              label={({ cx, cy, midAngle, innerRadius, outerRadius, value, name }) => {
-                const RADIAN = Math.PI / 180;
-                const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-                return (
-                  <text
-                    x={x}
-                    y={y}
-                    fill="#374151"
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fontSize="12"
-                  >
-                    {`${name} (${value}%)`}
-                  </text>
-                );
-              }}
+              labelLine={false}
+              label={renderCustomizedLabel}
             >
               {data.map((_, index) => (
                 <Cell 
