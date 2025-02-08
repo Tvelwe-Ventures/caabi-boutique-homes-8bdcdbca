@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
 import { Database, TrendingUp, TrendingDown, Building2, Wallet, PieChart as PieChartIcon, BarChart3 } from "lucide-react";
