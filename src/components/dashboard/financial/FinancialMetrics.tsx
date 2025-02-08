@@ -1,5 +1,5 @@
 
-import { DollarSign, TrendingUp, Building2, Percent } from "lucide-react";
+import { Wallet, TrendingUp, Building2, Percent } from "lucide-react";
 import { StandardCard } from "@/components/ui/standard-card";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,7 +13,8 @@ export const FinancialMetrics = () => {
       console.log("Fetching financial metrics...");
       const { data: properties, error } = await supabase
         .from('properties')
-        .select('monthly_rent, occupancy_rate, market_rate');
+        .select('monthly_rent, occupancy_rate, market_rate')
+        .eq('owner_id', (await supabase.auth.getUser()).data.user?.id);
       
       if (error) {
         console.error("Error fetching properties:", error);
@@ -46,7 +47,7 @@ export const FinancialMetrics = () => {
     {
       title: "Total Annual Revenue",
       value: isLoading ? "Loading..." : formatCurrency(metrics?.totalRevenue || 0),
-      icon: DollarSign,
+      icon: Wallet,
       description: "Combined revenue from all properties",
       trend: "+12.3%",
       trendType: "positive"

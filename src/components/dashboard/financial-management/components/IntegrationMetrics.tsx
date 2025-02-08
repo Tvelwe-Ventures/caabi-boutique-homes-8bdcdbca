@@ -1,6 +1,5 @@
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Activity, BarChart3, DollarSign } from "lucide-react";
+import { Activity, BarChart3, Wallet } from "lucide-react";
 
 interface IntegrationMetricsProps {
   metrics: any;
@@ -12,7 +11,11 @@ export const IntegrationMetrics = ({ metrics }: IntegrationMetricsProps) => {
       <Card className="glass-card transition-all duration-200 hover:shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <DollarSign className="h-5 w-5 text-primary" />
+            <img 
+              src="/lovable-uploads/786cf82a-e892-43b6-aa38-60b725047da4.png" 
+              alt="PriceLabs" 
+              className="h-6 w-6"
+            />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#9b87f5] to-[#7E69AB]">
               PriceLabs Insights
             </span>
@@ -39,7 +42,11 @@ export const IntegrationMetrics = ({ metrics }: IntegrationMetricsProps) => {
       <Card className="glass-card transition-all duration-200 hover:shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <BarChart3 className="h-5 w-5 text-primary" />
+            <img 
+              src="/lovable-uploads/2ada2207-044c-44ca-b711-b7a27afb08d0.png" 
+              alt="Hostaway" 
+              className="h-6"
+            />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#9b87f5] to-[#7E69AB]">
               Hostaway Analytics
             </span>
@@ -66,7 +73,11 @@ export const IntegrationMetrics = ({ metrics }: IntegrationMetricsProps) => {
       <Card className="glass-card transition-all duration-200 hover:shadow-lg">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
-            <Activity className="h-5 w-5 text-primary" />
+            <img 
+              src="/lovable-uploads/0c37be55-d45c-4cb0-a807-fa77e68ede5d.png" 
+              alt="Booking.com" 
+              className="h-6"
+            />
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#9b87f5] to-[#7E69AB]">
               Financial Health
             </span>
