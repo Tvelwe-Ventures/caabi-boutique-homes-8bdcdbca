@@ -33,42 +33,23 @@ interface MetricChartProps {
   title: string;
 }
 
-const renderCustomizedLabel = ({ cy, index, name, value }: any) => {
-  const y = cy - 20 + (index * 25); // Increased spacing between labels
-  
-  return (
-    <text
-      x={160} // Moved labels further right
-      y={y}
-      fill="#374151"
-      textAnchor="start"
-      dominantBaseline="central"
-      fontSize="12"
-    >
-      {`${name} (${value}%)`}
-    </text>
-  );
-};
-
 const MetricChart = ({ data, colors, title }: MetricChartProps) => (
   <Card className="hover:shadow-lg transition-shadow duration-200">
     <CardHeader>
       <CardTitle className="text-lg font-medium">{title}</CardTitle>
     </CardHeader>
     <CardContent>
-      <div className="h-[300px] relative">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="h-[300px] relative flex">
+        <ResponsiveContainer width="50%" height="100%">
           <PieChart>
             <Pie
               data={data}
-              cx={80} // Moved chart to the left
+              cx="50%"
               cy="50%"
               innerRadius={60}
               outerRadius={80}
               paddingAngle={2}
               dataKey="value"
-              labelLine={false}
-              label={renderCustomizedLabel}
             >
               {data.map((_, index) => (
                 <Cell 
@@ -80,6 +61,19 @@ const MetricChart = ({ data, colors, title }: MetricChartProps) => (
             </Pie>
           </PieChart>
         </ResponsiveContainer>
+        <div className="flex flex-col justify-center space-y-4 pl-4">
+          {data.map((entry, index) => (
+            <div key={entry.name} className="flex items-center gap-2">
+              <div 
+                className="w-3 h-3 rounded-full" 
+                style={{ backgroundColor: colors[index] }}
+              />
+              <span className="text-sm text-gray-600">
+                {entry.name} ({entry.value}%)
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </CardContent>
   </Card>
