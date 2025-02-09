@@ -4,7 +4,7 @@ import { menuItems } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 
-interface TabItem {
+export interface TabItem {
   title: string;
   icon: LucideIcon | (() => JSX.Element);
   type: "tab";

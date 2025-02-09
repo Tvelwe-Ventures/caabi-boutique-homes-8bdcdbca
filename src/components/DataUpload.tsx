@@ -14,6 +14,12 @@ interface UploadItem {
   filename?: string;
 }
 
+interface PayloadNew {
+  status: string;
+  filename?: string;
+  [key: string]: any;
+}
+
 export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -31,13 +37,14 @@ export const DataUpload = () => {
           table: 'data_exports'
         },
         (payload) => {
+          const newPayload = payload.new as PayloadNew;
           setRecentUploads(prev => [{
-            status: payload.new.status,
-            filename: payload.new.filename
+            status: newPayload.status,
+            filename: newPayload.filename
           }, ...prev].slice(0, 5));
           toast({
             title: "New Export Activity",
-            description: `Data export ${payload.new.status}`,
+            description: `Data export ${newPayload.status}`,
           });
         }
       )

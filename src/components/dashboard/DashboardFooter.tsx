@@ -17,6 +17,14 @@ export const DashboardFooter = () => {
             <ul className="list-none flex flex-wrap -my-1 -mx-2 justify-center">
               <li className="my-1 mx-2 shrink-0">
                 <a
+                  href="/"
+                  className="text-sm text-primary underline-offset-4 hover:underline"
+                >
+                  Caabi Home
+                </a>
+              </li>
+              <li className="my-1 mx-2 shrink-0">
+                <a
                   href="/dashboard"
                   className="text-sm text-primary underline-offset-4 hover:underline"
                 >
