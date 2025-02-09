@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Upload, File, ArrowUpToLine, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DataFlowVisualization from "./dashboard/financial-management/components/DataFlowVisualization";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
 type RecentUpload = {
   filename: string;
@@ -18,28 +19,29 @@ export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [recentUploads, setRecentUploads] = useState<RecentUpload[]>([]);
+  const [documentType, setDocumentType] = useState<string>("");
   const { toast } = useToast();
 
   useEffect(() => {
     const channel = supabase
-      .channel('schema-db-changes')
+      .channel('document-changes')
       .on(
         'postgres_changes',
         {
           event: '*',
           schema: 'public',
-          table: 'data_exports'
+          table: 'documents'
         },
         (payload) => {
-          if (payload.new && 'status' in payload.new) {
+          if (payload.new && 'title' in payload.new) {
             setRecentUploads(prev => [{
-              filename: payload.new.filename || 'Unnamed file',
-              status: payload.new.status as 'success' | 'error'
+              filename: payload.new.title || 'Unnamed document',
+              status: 'success'
             }, ...prev].slice(0, 5));
             
             toast({
-              title: "New Export Activity",
-              description: `Data export ${payload.new.status}`,
+              title: "Document Upload Success",
+              description: `Document ${payload.new.title} uploaded successfully`,
             });
           }
         }
@@ -61,7 +63,16 @@ export const DataUpload = () => {
     if (!files || files.length === 0) {
       toast({
         title: "No files selected",
-        description: "Please select one or more files to export",
+        description: "Please select a file to upload",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!documentType) {
+      toast({
+        title: "No document type selected",
+        description: "Please select a document type",
         variant: "destructive",
       });
       return;
@@ -70,45 +81,50 @@ export const DataUpload = () => {
     setIsUploading(true);
 
     try {
-      const formData = new FormData();
-      Array.from(files).forEach((file) => {
-        formData.append('files', file);
+      const file = files[0]; // Handle one file at a time
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${crypto.randomUUID()}.${fileExt}`;
+
+      // Upload file to storage
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('documents')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('documents')
+        .getPublicUrl(fileName);
+
+      // Create document record
+      const { error: documentError } = await supabase
+        .from('documents')
+        .insert({
+          title: file.name,
+          file_path: fileName,
+          status: 'pending_signature',
+          description: `Uploaded ${new Date().toLocaleDateString()}`
+        });
+
+      if (documentError) throw documentError;
+
+      toast({
+        title: "Success",
+        description: "Document uploaded successfully",
       });
-
-      const { data, error } = await supabase.functions.invoke('import-data', {
-        body: formData,
-      });
-
-      if (error) throw error;
-
-      if (data.results) {
-        const successCount = data.results.filter((r: any) => r.status === 'success').length;
-        const errorCount = data.results.filter((r: any) => r.status === 'error').length;
-
-        if (errorCount > 0) {
-          toast({
-            title: "Partial Success",
-            description: `Successfully exported ${successCount} file(s). ${errorCount} file(s) had errors.`,
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Success!",
-            description: `Successfully exported ${successCount} file(s)`,
-            variant: "default",
-          });
-        }
-      }
       
+      // Reset form
       setFiles(null);
+      setDocumentType("");
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       
-    } catch (error) {
-      console.error('Error exporting files:', error);
+    } catch (error: any) {
+      console.error('Error uploading document:', error);
       toast({
         title: "Error",
-        description: "Failed to export files. Please try again.",
+        description: error.message || "Failed to upload document",
         variant: "destructive",
       });
     } finally {
@@ -123,37 +139,54 @@ export const DataUpload = () => {
           <div className="space-y-6">
             <div className="flex items-center gap-2">
               <ArrowUpToLine className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-              <h2 className="text-2xl font-bold text-violet-800 dark:text-violet-200">Export Data</h2>
+              <h2 className="text-2xl font-bold text-violet-800 dark:text-violet-200">Upload Document</h2>
             </div>
             
-            <div className="space-y-2">
-              <Label htmlFor="file">Select Files</Label>
-              <Input
-                id="file"
-                type="file"
-                onChange={handleFileChange}
-                className="cursor-pointer border-violet-200 dark:border-violet-700 focus:ring-violet-400"
-                multiple
-              />
-              <p className="text-sm text-muted-foreground">
-                Export one or more files of any format
-              </p>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="documentType">Document Type</Label>
+                <Select value={documentType} onValueChange={setDocumentType}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select document type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="business_deck">Business Deck</SelectItem>
+                    <SelectItem value="management_proposal">Management Proposal</SelectItem>
+                    <SelectItem value="evaluation_report">Evaluation Report</SelectItem>
+                    <SelectItem value="management_contract">Management Contract</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="file">Select File</Label>
+                <Input
+                  id="file"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="cursor-pointer border-violet-200 dark:border-violet-700 focus:ring-violet-400"
+                  accept=".pdf,.doc,.docx,.ppt,.pptx"
+                />
+                <p className="text-sm text-muted-foreground">
+                  Supported formats: PDF, Word, PowerPoint
+                </p>
+              </div>
             </div>
 
             <FeyButton
               onClick={handleUpload}
-              disabled={!files || isUploading}
+              disabled={!files || isUploading || !documentType}
               className="w-full bg-violet-600 hover:bg-violet-700 text-white"
             >
               {isUploading ? (
                 <div className="flex items-center gap-2">
                   <Activity className="w-4 h-4 animate-pulse" />
-                  <span>Exporting...</span>
+                  <span>Uploading...</span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <Upload className="w-4 h-4" />
-                  <span>Export Files {files && `(${files.length} selected)`}</span>
+                  <span>Upload Document {files && `(${files.length} selected)`}</span>
                 </div>
               )}
             </FeyButton>
@@ -162,7 +195,7 @@ export const DataUpload = () => {
 
         <Card className="p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 backdrop-blur-sm shadow-lg">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200">Recent Export Activity</h3>
+            <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200">Recent Document Uploads</h3>
             {recentUploads.length > 0 ? (
               <div className="space-y-3">
                 {recentUploads.map((upload, index) => (
@@ -182,14 +215,14 @@ export const DataUpload = () => {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-muted-foreground">No recent export activity</p>
+              <p className="text-sm text-muted-foreground">No recent uploads</p>
             )}
           </div>
         </Card>
       </div>
 
       <div className="mt-8">
-        <h3 className="text-xl font-semibold mb-4">Real-time Data Integration</h3>
+        <h3 className="text-xl font-semibold mb-4">Document Integration Flow</h3>
         <DataFlowVisualization />
       </div>
     </div>
