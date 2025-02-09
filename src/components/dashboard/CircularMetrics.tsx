@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { Database, TrendingUp, TrendingDown, Building2, Wallet, PieChartIcon, BarChart3 } from "lucide-react";
+import { Database, TrendingUp, TrendingDown } from "lucide-react";
 
 const revenueSourcesData = [
   { name: "Property Rentals", value: 45, trend: "+5.2%" },
@@ -22,17 +22,10 @@ const portfolioAllocationData = [
   { name: "Vacation", value: 20, trend: "+6.3%" },
 ];
 
-const marketDistributionData = [
-  { name: "Urban", value: 45, trend: "+3.8%" },
-  { name: "Suburban", value: 35, trend: "+5.2%" },
-  { name: "Rural", value: 20, trend: "+1.4%" },
-];
-
 const COLORS = {
   revenue: ['#8394CA', '#B2D1E3', '#DFD5EA'],
   expense: ['#E5DEFF', '#D3E4FD', '#FDE1D3'],
-  portfolio: ['#8394CA', '#1A2957', '#DFD5EA'],
-  market: ['#B2D1E3', '#8394CA', '#1A2957']
+  portfolio: ['#8394CA', '#1A2957', '#DFD5EA']
 };
 
 interface MetricChartProps {
@@ -124,34 +117,27 @@ const MetricChart = ({ data, colors, title, icon: Icon, source }: MetricChartPro
 
 export const CircularMetrics = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <MetricChart
         data={revenueSourcesData}
         colors={COLORS.revenue}
         title="Revenue Distribution"
-        icon={Wallet}
+        icon={Database}
         source="Financial Reports"
       />
       <MetricChart
         data={expenseDistributionData}
         colors={COLORS.expense}
         title="Expense Distribution"
-        icon={PieChartIcon}
+        icon={TrendingUp}
         source="Expense Tracker"
       />
       <MetricChart
         data={portfolioAllocationData}
         colors={COLORS.portfolio}
         title="Portfolio Allocation"
-        icon={Building2}
+        icon={Database}
         source="Asset Management"
-      />
-      <MetricChart
-        data={marketDistributionData}
-        colors={COLORS.market}
-        title="Market Distribution"
-        icon={BarChart3}
-        source="Market Analysis"
       />
     </div>
   );
