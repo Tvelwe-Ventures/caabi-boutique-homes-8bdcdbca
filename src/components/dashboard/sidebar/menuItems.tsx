@@ -7,11 +7,9 @@ export const menuItems = [
     title: "QuacQBoard",
     href: "/dashboard",
     icon: () => (
-      <img 
-        src="/lovable-uploads/3985a0bc-481c-4618-b10f-8ea4abccc1ad.png" 
-        alt="QuacQBoard"
-        className="h-8 w-auto"
-      />
+      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-xl">
+        Q
+      </div>
     )
   },
   {
@@ -60,3 +58,4 @@ export const menuItems = [
     icon: HelpCircle
   }
 ] as const;
+
