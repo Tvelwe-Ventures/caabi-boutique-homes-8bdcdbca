@@ -16,7 +16,14 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
         "flex items-center transition-all duration-200",
         !open ? "justify-center p-4" : "px-6 py-4"
       )}>
-        <span className="text-2xl font-bold">Q</span>
+        <img 
+          src="/lovable-uploads/cf11a80b-158e-468d-821f-7527807fb753.png"
+          alt="QuackOS"
+          className={cn(
+            "transition-all duration-300",
+            open ? "h-8" : "h-8 w-8"
+          )}
+        />
       </div>
 
       <nav className="flex-1 px-3 py-4">
@@ -52,3 +59,4 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
     </div>
   );
 };
+
