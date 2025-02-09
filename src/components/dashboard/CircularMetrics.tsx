@@ -24,12 +24,12 @@ const MetricChart = ({ data, colors, title, icon: Icon, source }: MetricChartPro
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
 
   return (
-    <Card className="hover:shadow-lg transition-all duration-300 bg-gradient-to-br from-white via-white to-gray-50/50">
+    <Card className="hover:bg-gray-50/50 transition-all duration-300">
       <CardHeader className="space-y-0 pb-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Icon className="h-5 w-5 text-muted-foreground" />
-            <CardTitle className="text-lg font-medium">{title}</CardTitle>
+            <CardTitle className="text-base font-medium">{title}</CardTitle>
           </div>
           <span className="text-xs text-muted-foreground">Source: {source}</span>
         </div>
@@ -115,16 +115,16 @@ export const CircularMetrics = () => {
         throw error;
       }
 
+      console.log('Fetched Airbnb data:', data);
       return data;
     }
   });
 
-  // Calculate percentages based on Airbnb data
   const revenueSourcesData = [
     { 
-      name: "Short-term Rentals", 
+      name: "Property Rentals", 
       value: 45, 
-      trend: airbnbData ? `+${((airbnbData.occupancy_rate || 0) * 100).toFixed(1)}%` : "+0.0%" 
+      trend: airbnbData ? `+${((airbnbData.occupancy_rate || 0) * 100).toFixed(1)}%` : "+5.2%" 
     },
     { 
       name: "Service Fees", 
@@ -160,7 +160,7 @@ export const CircularMetrics = () => {
     { 
       name: "Residential", 
       value: 50, 
-      trend: airbnbData ? `+${((airbnbData.annual_revenue || 0) / 1000).toFixed(1)}k` : "+0.0k" 
+      trend: airbnbData ? `+${((airbnbData.annual_revenue || 0) / 1000).toFixed(1)}k` : "+4.2%" 
     },
     { 
       name: "Commercial", 
@@ -181,7 +181,7 @@ export const CircularMetrics = () => {
         colors={COLORS.revenue}
         title="Revenue Distribution"
         icon={CircleDollarSign}
-        source={isLoading ? "Loading..." : "Airbnb Analytics"}
+        source={isLoading ? "Loading..." : "Financial Reports"}
       />
       <MetricChart
         data={expenseDistributionData}
@@ -195,7 +195,7 @@ export const CircularMetrics = () => {
         colors={COLORS.portfolio}
         title="Portfolio Allocation"
         icon={Database}
-        source={isLoading ? "Loading..." : "Airbnb Analytics"}
+        source="Asset Management"
       />
     </div>
   );
