@@ -299,6 +299,7 @@ export type Database = {
         Row: {
           content: Json
           created_at: string | null
+          created_by: string | null
           email_status: Database["public"]["Enums"]["email_status"] | null
           email_thread_id: string | null
           generated_file_url: string | null
@@ -319,6 +320,7 @@ export type Database = {
         Insert: {
           content?: Json
           created_at?: string | null
+          created_by?: string | null
           email_status?: Database["public"]["Enums"]["email_status"] | null
           email_thread_id?: string | null
           generated_file_url?: string | null
@@ -339,6 +341,7 @@ export type Database = {
         Update: {
           content?: Json
           created_at?: string | null
+          created_by?: string | null
           email_status?: Database["public"]["Enums"]["email_status"] | null
           email_thread_id?: string | null
           generated_file_url?: string | null

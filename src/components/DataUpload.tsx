@@ -23,6 +23,32 @@ export const DataUpload = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    const fetchRecentUploads = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: documents, error } = await supabase
+        .from('documents')
+        .select('title, status')
+        .eq('created_by', user.id)
+        .order('created_at', { ascending: false })
+        .limit(5);
+
+      if (error) {
+        console.error('Error fetching recent uploads:', error);
+        return;
+      }
+
+      if (documents) {
+        setRecentUploads(documents.map(doc => ({
+          filename: doc.title,
+          status: 'success'
+        })));
+      }
+    };
+
+    fetchRecentUploads();
+
     const channel = supabase
       .channel('document-changes')
       .on(
@@ -79,15 +105,20 @@ export const DataUpload = () => {
       return;
     }
 
+    const { data: { user } } = await supabase.auth.getUser();
+      
+    if (!user) {
+      toast({
+        title: "Authentication required",
+        description: "Please sign in to upload documents",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsUploading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        throw new Error("User not authenticated");
-      }
-
       const file = files[0];
       const fileExt = file.name.split('.').pop();
       const fileName = `${crypto.randomUUID()}.${fileExt}`;
