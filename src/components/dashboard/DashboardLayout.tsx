@@ -8,10 +8,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { QuackButton } from "@/components/ui/quack-button";
 import { QuacQOSAIAssistant } from "./QuacQOSAIAssistant";
-import { Plus, FileText, Settings, Search } from "lucide-react";
-import { Button } from "../ui/button";
 
-const DashboardLayout = () => {
+export const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
   const [soundEnabled, setSoundEnabled] = useLocalStorage("quack-sounds-enabled", false);
   const { toast } = useToast();
@@ -75,9 +73,9 @@ const DashboardLayout = () => {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <img 
-                  src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png"
-                  alt="QuackBoard"
-                  className="h-12 w-auto"
+                  src="/lovable-uploads/82d28674-b4c3-4231-92b7-1b7a9a1c582a.png"
+                  alt="QuacQboard"
+                  className="h-8 w-auto"
                 />
               </div>
               <div className="flex items-center gap-3">
@@ -85,28 +83,8 @@ const DashboardLayout = () => {
                 <QuackButton enabled={soundEnabled} onToggle={toggleSound} />
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-lg font-medium">Your centralized dashboard for comprehensive business insights</h1>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button size="sm" className="gap-2">
-                  <Plus className="h-4 w-4" />
-                  Add Property
-                </Button>
-                <Button size="sm" variant="outline" className="gap-2">
-                  <FileText className="h-4 w-4" />
-                  Create Report
-                </Button>
-                <Button size="sm" variant="outline" className="gap-2">
-                  <Settings className="h-4 w-4" />
-                  Settings
-                </Button>
-                <Button size="sm" variant="outline" className="gap-2">
-                  <Search className="h-4 w-4" />
-                  System Feedback
-                </Button>
-              </div>
+            <div>
+              <h1 className="text-lg font-medium text-gray-600">Your centralized dashboard for comprehensive business insights</h1>
             </div>
           </div>
           <Outlet />

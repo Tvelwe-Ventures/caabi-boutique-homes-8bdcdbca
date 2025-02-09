@@ -13,8 +13,8 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
   return (
     <div className="flex flex-col h-full bg-white">
       <div className={cn(
-        "flex items-center p-6 transition-all duration-200",
-        !open ? "justify-center" : "px-6"
+        "flex items-center transition-all duration-200",
+        !open ? "justify-center p-4" : "px-6 py-4"
       )}>
         <span className="text-2xl font-bold">Q</span>
       </div>
