@@ -21,7 +21,7 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
           alt="QuackOS"
           className={cn(
             "transition-all duration-300",
-            open ? "h-6" : "h-6 w-6"
+            open ? "h-8" : "h-8 w-8"
           )}
         />
       </div>
