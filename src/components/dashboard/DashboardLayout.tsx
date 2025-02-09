@@ -9,7 +9,7 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { QuackButton } from "@/components/ui/quack-button";
 import { QuacQOSAIAssistant } from "./QuacQOSAIAssistant";
 
-export const DashboardLayout = () => {
+const DashboardLayout = () => {
   const [open, setOpen] = useState(true);
   const [soundEnabled, setSoundEnabled] = useLocalStorage("quack-sounds-enabled", false);
   const { toast } = useToast();
@@ -69,22 +69,21 @@ export const DashboardLayout = () => {
         open ? "ml-[240px]" : "ml-[70px]"
       )}>
         <div className="container py-6 space-y-6 flex-1">
-          <div className="flex flex-col space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <img 
-                  src="/lovable-uploads/82d28674-b4c3-4231-92b7-1b7a9a1c582a.png"
-                  alt="QuacQboard"
-                  className="h-8 w-auto"
-                />
-              </div>
-              <div className="flex items-center gap-3">
-                <QuacQOSAIAssistant />
-                <QuackButton enabled={soundEnabled} onToggle={toggleSound} />
-              </div>
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-col items-start">
+              <img 
+                src="/lovable-uploads/e3dce32b-7ebc-44e2-8286-7329641c3558.png"
+                alt="QuackBoard"
+                className="h-16 w-auto mb-2"
+              />
+              <span className="text-sm text-gray-600">QuackBoard Dashboard</span>
             </div>
-            <div>
-              <h1 className="text-lg font-medium text-gray-600">Your centralized dashboard for comprehensive business insights</h1>
+            <div className="flex items-center gap-4">
+              <QuacQOSAIAssistant />
+              <QuackButton 
+                enabled={soundEnabled}
+                onToggle={toggleSound}
+              />
             </div>
           </div>
           <Outlet />
