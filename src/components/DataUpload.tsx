@@ -33,15 +33,16 @@ export const DataUpload = () => {
           table: 'documents'
         },
         (payload) => {
-          if (payload.new && 'title' in payload.new) {
-            setRecentUploads(prev => [{
-              filename: payload.new.title || 'Unnamed document',
+          if (payload.new) {
+            const newUpload: RecentUpload = {
+              filename: (payload.new as any).title || 'Unnamed document',
               status: 'success'
-            }, ...prev].slice(0, 5));
+            };
+            setRecentUploads(prev => [newUpload, ...prev].slice(0, 5));
             
             toast({
               title: "Document Upload Success",
-              description: `Document ${payload.new.title} uploaded successfully`,
+              description: `Document ${(payload.new as any).title} uploaded successfully`,
             });
           }
         }
@@ -81,7 +82,7 @@ export const DataUpload = () => {
     setIsUploading(true);
 
     try {
-      const file = files[0]; // Handle one file at a time
+      const file = files[0];
       const fileExt = file.name.split('.').pop();
       const fileName = `${crypto.randomUUID()}.${fileExt}`;
 
@@ -102,9 +103,11 @@ export const DataUpload = () => {
         .from('documents')
         .insert({
           title: file.name,
+          description: `Uploaded ${new Date().toLocaleDateString()}`,
           file_path: fileName,
           status: 'pending_signature',
-          description: `Uploaded ${new Date().toLocaleDateString()}`
+          type: documentType as any,
+          metadata: { originalName: file.name }
         });
 
       if (documentError) throw documentError;
@@ -122,6 +125,11 @@ export const DataUpload = () => {
       
     } catch (error: any) {
       console.error('Error uploading document:', error);
+      setRecentUploads(prev => [{
+        filename: files[0].name,
+        status: 'error'
+      }, ...prev].slice(0, 5));
+      
       toast({
         title: "Error",
         description: error.message || "Failed to upload document",
