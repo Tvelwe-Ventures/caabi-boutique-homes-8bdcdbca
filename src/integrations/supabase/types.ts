@@ -262,6 +262,102 @@ export type Database = {
         }
         Relationships: []
       }
+      document_templates: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          title: string
+          type: Database["public"]["Enums"]["document_type"]
+          updated_at: string | null
+          variables: Json
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          title: string
+          type: Database["public"]["Enums"]["document_type"]
+          updated_at?: string | null
+          variables?: Json
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          title?: string
+          type?: Database["public"]["Enums"]["document_type"]
+          updated_at?: string | null
+          variables?: Json
+        }
+        Relationships: []
+      }
+      documents: {
+        Row: {
+          content: Json
+          created_at: string | null
+          generated_file_url: string | null
+          id: string
+          lead_id: string | null
+          metadata: Json
+          property_id: string | null
+          signature_data: Json | null
+          signed_url: string | null
+          status: string
+          title: string
+          type: Database["public"]["Enums"]["document_type"]
+          updated_at: string | null
+        }
+        Insert: {
+          content?: Json
+          created_at?: string | null
+          generated_file_url?: string | null
+          id?: string
+          lead_id?: string | null
+          metadata?: Json
+          property_id?: string | null
+          signature_data?: Json | null
+          signed_url?: string | null
+          status?: string
+          title: string
+          type: Database["public"]["Enums"]["document_type"]
+          updated_at?: string | null
+        }
+        Update: {
+          content?: Json
+          created_at?: string | null
+          generated_file_url?: string | null
+          id?: string
+          lead_id?: string | null
+          metadata?: Json
+          property_id?: string | null
+          signature_data?: Json | null
+          signed_url?: string | null
+          status?: string
+          title?: string
+          type?: Database["public"]["Enums"]["document_type"]
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "property_leads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "documents_property_id_fkey"
+            columns: ["property_id"]
+            isOneToOne: false
+            referencedRelation: "properties"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       dubai_market_metrics: {
         Row: {
           area: string | null
@@ -1429,6 +1525,7 @@ export type Database = {
     }
     Enums: {
       booking_status: "confirmed" | "pending" | "cancelled" | "completed"
+      document_type: "contract" | "invoice" | "evaluation_report"
       feedback_type: "stay" | "suggestion" | "general"
       guest_status: "confirmed" | "pending" | "cancelled" | "completed"
       investment_role: "founder" | "coo" | "investor"
