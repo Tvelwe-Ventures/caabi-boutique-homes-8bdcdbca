@@ -16,11 +16,19 @@ const DashboardLayout = () => {
 
   useEffect(() => {
     if (soundEnabled) {
+      // Initial quack when enabled
+      const audio = new Audio("/quack.mp3");
+      audio.volume = 0.3;
+      audio.play().catch(() => {
+        // Ignore autoplay errors
+      });
+
       const quackInterval = setInterval(() => {
         const audio = new Audio("/quack.mp3");
         audio.volume = 0.3;
-        audio.play().catch(() => {
-          // Ignore autoplay errors
+        console.log("Playing quack sound..."); // Debug log
+        audio.play().catch((error) => {
+          console.error("Error playing quack:", error);
         });
       }, 300000); // Every 5 minutes
 
@@ -30,11 +38,21 @@ const DashboardLayout = () => {
 
   const toggleSound = () => {
     setSoundEnabled(!soundEnabled);
+    
+    // Play a test quack immediately when enabled
+    if (!soundEnabled) {
+      const audio = new Audio("/quack.mp3");
+      audio.volume = 0.3;
+      audio.play().catch((error) => {
+        console.error("Error playing initial quack:", error);
+      });
+    }
+    
     toast({
       title: soundEnabled ? "Quack sounds disabled" : "Quack sounds enabled",
       description: soundEnabled ? 
         "You won't hear any more quacks" : 
-        "You'll hear occasional quacks while using the dashboard",
+        "You'll hear a quack now and then every 5 minutes while using the dashboard",
     });
   };
 
