@@ -9,7 +9,9 @@ import { Upload, File, ArrowUpToLine, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DataFlowVisualization from "./dashboard/financial-management/components/DataFlowVisualization";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Database } from "@/integrations/supabase/types";
 
+type DocumentType = Database["public"]["Tables"]["documents"]["Row"]["type"];
 type RecentUpload = {
   filename: string;
   status: 'success' | 'error';
@@ -19,7 +21,7 @@ export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [recentUploads, setRecentUploads] = useState<RecentUpload[]>([]);
-  const [documentType, setDocumentType] = useState<string>("");
+  const [documentType, setDocumentType] = useState<DocumentType>();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -143,7 +145,7 @@ export const DataUpload = () => {
           description: `Uploaded ${new Date().toLocaleDateString()}`,
           file_path: fileName,
           status: 'pending_signature',
-          type: documentType as any,
+          type: documentType,
           metadata: { originalName: file.name },
           created_by: user.id
         });
@@ -157,7 +159,7 @@ export const DataUpload = () => {
       
       // Reset form
       setFiles(null);
-      setDocumentType("");
+      setDocumentType(undefined);
       const fileInput = document.querySelector('input[type="file"]') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       
@@ -191,7 +193,7 @@ export const DataUpload = () => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="documentType">Document Type</Label>
-                <Select value={documentType} onValueChange={setDocumentType}>
+                <Select value={documentType} onValueChange={(value) => setDocumentType(value as DocumentType)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select document type" />
                   </SelectTrigger>

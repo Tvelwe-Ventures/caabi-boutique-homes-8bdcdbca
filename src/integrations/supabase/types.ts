@@ -300,6 +300,7 @@ export type Database = {
           content: Json
           created_at: string | null
           created_by: string | null
+          description: string | null
           email_status: Database["public"]["Enums"]["email_status"] | null
           email_thread_id: string | null
           generated_file_url: string | null
@@ -321,6 +322,7 @@ export type Database = {
           content?: Json
           created_at?: string | null
           created_by?: string | null
+          description?: string | null
           email_status?: Database["public"]["Enums"]["email_status"] | null
           email_thread_id?: string | null
           generated_file_url?: string | null
@@ -342,6 +344,7 @@ export type Database = {
           content?: Json
           created_at?: string | null
           created_by?: string | null
+          description?: string | null
           email_status?: Database["public"]["Enums"]["email_status"] | null
           email_thread_id?: string | null
           generated_file_url?: string | null
