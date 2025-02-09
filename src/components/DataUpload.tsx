@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { Label } from "./ui/label";
@@ -127,7 +126,7 @@ export const DataUpload = () => {
       console.error('Error uploading document:', error);
       setRecentUploads(prev => [{
         filename: files[0].name,
-        status: 'error'
+        status: 'error' as const
       }, ...prev].slice(0, 5));
       
       toast({

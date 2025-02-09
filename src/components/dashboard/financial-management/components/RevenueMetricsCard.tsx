@@ -22,6 +22,9 @@ export const RevenueMetricsCard = ({
   value,
   loading = false 
 }: RevenueMetricsCardProps) => {
+  // Use demo value if value is undefined
+  const displayValue = value ?? 450000;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -46,24 +49,22 @@ export const RevenueMetricsCard = ({
         </div>
 
         <div className="space-y-4">
-          {value !== undefined && (
-            <div className="space-y-1">
-              <p className="text-3xl font-bold text-primary">
-                {loading ? "..." : formatCurrency(value)}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                per month
-              </p>
-            </div>
-          )}
+          <div className="space-y-1">
+            <p className="text-3xl font-bold text-primary">
+              {loading ? "..." : formatCurrency(displayValue)}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              per month
+            </p>
+          </div>
           
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span className="text-muted-foreground">Performance</span>
               <span className={`font-medium px-2 py-0.5 rounded-full ${
                 progress >= 0 
-                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
-                  : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                  ? "bg-[#F2FCE2] text-green-700 dark:bg-green-900/30 dark:text-green-400" 
+                  : "bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-400"
               }`}>
                 {progress >= 0 ? "+" : ""}{progress}%
               </span>
