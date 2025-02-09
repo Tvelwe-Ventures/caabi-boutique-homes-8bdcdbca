@@ -1380,6 +1380,42 @@ export type Database = {
         }
         Relationships: []
       }
+      uae_market_prices: {
+        Row: {
+          created_at: string | null
+          id: string
+          location: string
+          price: number
+          property_type: string | null
+          segment: string | null
+          time_period: string | null
+          updated_at: string | null
+          volume: number
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          location: string
+          price: number
+          property_type?: string | null
+          segment?: string | null
+          time_period?: string | null
+          updated_at?: string | null
+          volume: number
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          location?: string
+          price?: number
+          property_type?: string | null
+          segment?: string | null
+          time_period?: string | null
+          updated_at?: string | null
+          volume?: number
+        }
+        Relationships: []
+      }
       user_follows: {
         Row: {
           created_at: string
