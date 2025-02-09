@@ -9,6 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      airbnb_revenue_estimates: {
+        Row: {
+          annual_revenue: number | null
+          average_daily_rate: number | null
+          bathrooms: number
+          bedrooms: number
+          created_at: string | null
+          id: string
+          last_updated: string | null
+          latitude: number
+          longitude: number
+          occupancy_rate: number | null
+          radius_used: number | null
+          sample_size: number | null
+          updated_at: string | null
+        }
+        Insert: {
+          annual_revenue?: number | null
+          average_daily_rate?: number | null
+          bathrooms: number
+          bedrooms: number
+          created_at?: string | null
+          id?: string
+          last_updated?: string | null
+          latitude: number
+          longitude: number
+          occupancy_rate?: number | null
+          radius_used?: number | null
+          sample_size?: number | null
+          updated_at?: string | null
+        }
+        Update: {
+          annual_revenue?: number | null
+          average_daily_rate?: number | null
+          bathrooms?: number
+          bedrooms?: number
+          created_at?: string | null
+          id?: string
+          last_updated?: string | null
+          latitude?: number
+          longitude?: number
+          occupancy_rate?: number | null
+          radius_used?: number | null
+          sample_size?: number | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           booking_source: string | null
