@@ -9,7 +9,7 @@ import { Upload, File, ArrowUpToLine, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DataFlowVisualization from "./dashboard/financial-management/components/DataFlowVisualization";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { Database } from "@/integrations/supabase/types";
+import type { Database } from "@/integrations/supabase/types";
 
 type DocumentType = Database["public"]["Tables"]["documents"]["Row"]["type"];
 type RecentUpload = {
