@@ -2,7 +2,7 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { Database, TrendingUp, TrendingDown, Building2, Wallet, PieChart as PieChartIcon, BarChart3 } from "lucide-react";
+import { Database, TrendingUp, TrendingDown, Building2, Wallet, PieChartIcon, BarChart3 } from "lucide-react";
 
 const revenueSourcesData = [
   { name: "Property Rentals", value: 45, trend: "+5.2%" },
@@ -30,7 +30,7 @@ const marketDistributionData = [
 
 const COLORS = {
   revenue: ['#8394CA', '#B2D1E3', '#DFD5EA'],
-  expense: ['#E5DEFF', '#D3E4FD', '#FDE1D3'], // Updated softer colors for expense distribution
+  expense: ['#E5DEFF', '#D3E4FD', '#FDE1D3'],
   portfolio: ['#8394CA', '#1A2957', '#DFD5EA'],
   market: ['#B2D1E3', '#8394CA', '#1A2957']
 };
@@ -128,7 +128,7 @@ export const CircularMetrics = () => {
       <MetricChart
         data={revenueSourcesData}
         colors={COLORS.revenue}
-        title="Revenue Sources"
+        title="Revenue Distribution"
         icon={Wallet}
         source="Financial Reports"
       />
