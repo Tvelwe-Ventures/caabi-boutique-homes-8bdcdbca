@@ -299,11 +299,16 @@ export type Database = {
         Row: {
           content: Json
           created_at: string | null
+          email_status: Database["public"]["Enums"]["email_status"] | null
+          email_thread_id: string | null
           generated_file_url: string | null
           id: string
+          last_email_received_at: string | null
+          last_email_sent_at: string | null
           lead_id: string | null
           metadata: Json
           property_id: string | null
+          recipient_email: string | null
           signature_data: Json | null
           signed_url: string | null
           status: string
@@ -314,11 +319,16 @@ export type Database = {
         Insert: {
           content?: Json
           created_at?: string | null
+          email_status?: Database["public"]["Enums"]["email_status"] | null
+          email_thread_id?: string | null
           generated_file_url?: string | null
           id?: string
+          last_email_received_at?: string | null
+          last_email_sent_at?: string | null
           lead_id?: string | null
           metadata?: Json
           property_id?: string | null
+          recipient_email?: string | null
           signature_data?: Json | null
           signed_url?: string | null
           status?: string
@@ -329,11 +339,16 @@ export type Database = {
         Update: {
           content?: Json
           created_at?: string | null
+          email_status?: Database["public"]["Enums"]["email_status"] | null
+          email_thread_id?: string | null
           generated_file_url?: string | null
           id?: string
+          last_email_received_at?: string | null
+          last_email_sent_at?: string | null
           lead_id?: string | null
           metadata?: Json
           property_id?: string | null
+          recipient_email?: string | null
           signature_data?: Json | null
           signed_url?: string | null
           status?: string
@@ -1526,6 +1541,7 @@ export type Database = {
     Enums: {
       booking_status: "confirmed" | "pending" | "cancelled" | "completed"
       document_type: "contract" | "invoice" | "evaluation_report"
+      email_status: "draft" | "sent" | "received" | "signed" | "archived"
       feedback_type: "stay" | "suggestion" | "general"
       guest_status: "confirmed" | "pending" | "cancelled" | "completed"
       investment_role: "founder" | "coo" | "investor"
