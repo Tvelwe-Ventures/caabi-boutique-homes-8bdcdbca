@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Star, Users } from "lucide-react";
@@ -27,11 +28,6 @@ export interface FooterProps {
 const defaultProps: FooterProps = {
   logo: <img src="/lovable-uploads/84797c58-4f93-470b-b0d1-f07546eba52b.png" alt="Caabi" className="h-8 w-auto" />,
   brandName: "Caabi Boutique Homes",
-  mainLinks: [
-    { href: "https://caabi.com", label: "Caabi Home" },
-    { href: "/community", label: "PropOsphere" },
-    { href: "/statistics", label: "Statistics" }
-  ],
   socialLinks: [
     {
       icon: <Github className="h-5 w-5" />,
@@ -48,6 +44,11 @@ const defaultProps: FooterProps = {
       href: "/community",
       label: "Community"
     }
+  ],
+  mainLinks: [
+    { href: "/", label: "Caabi Boutique Homes" },
+    { href: "/community", label: "PropOsphere" },
+    { href: "/statistics", label: "Statistics" }
   ],
   legalLinks: [
     { href: "/privacy", label: "Privacy Policy" },
@@ -140,3 +141,4 @@ export function Footer({
 }
 
 export default Footer;
+

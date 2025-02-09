@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { Label } from "./ui/label";
@@ -11,7 +12,7 @@ import DataFlowVisualization from "./dashboard/financial-management/components/D
 export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [recentUploads, setRecentUploads] = useState<Array<{status: string}>>([]);
+  const [recentUploads, setRecentUploads] = useState<any[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
