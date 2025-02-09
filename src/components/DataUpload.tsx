@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Card } from "./ui/card";
 import { Label } from "./ui/label";
@@ -81,6 +82,12 @@ export const DataUpload = () => {
     setIsUploading(true);
 
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        throw new Error("User not authenticated");
+      }
+
       const file = files[0];
       const fileExt = file.name.split('.').pop();
       const fileName = `${crypto.randomUUID()}.${fileExt}`;
@@ -106,7 +113,8 @@ export const DataUpload = () => {
           file_path: fileName,
           status: 'pending_signature',
           type: documentType as any,
-          metadata: { originalName: file.name }
+          metadata: { originalName: file.name },
+          created_by: user.id
         });
 
       if (documentError) throw documentError;
