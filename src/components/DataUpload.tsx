@@ -9,10 +9,15 @@ import { Upload, File, ArrowUpToLine, Activity } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import DataFlowVisualization from "./dashboard/financial-management/components/DataFlowVisualization";
 
+type RecentUpload = {
+  filename: string;
+  status: 'success' | 'error';
+};
+
 export const DataUpload = () => {
   const [files, setFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [recentUploads, setRecentUploads] = useState<any[]>([]);
+  const [recentUploads, setRecentUploads] = useState<RecentUpload[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -26,11 +31,17 @@ export const DataUpload = () => {
           table: 'data_exports'
         },
         (payload) => {
-          setRecentUploads(prev => [payload.new, ...prev].slice(0, 5));
-          toast({
-            title: "New Export Activity",
-            description: `Data export ${payload.new.status}`,
-          });
+          if (payload.new && 'status' in payload.new) {
+            setRecentUploads(prev => [{
+              filename: payload.new.filename || 'Unnamed file',
+              status: payload.new.status as 'success' | 'error'
+            }, ...prev].slice(0, 5));
+            
+            toast({
+              title: "New Export Activity",
+              description: `Data export ${payload.new.status}`,
+            });
+          }
         }
       )
       .subscribe();

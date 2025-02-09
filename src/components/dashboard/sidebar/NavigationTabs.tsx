@@ -4,11 +4,11 @@ import { menuItems } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 
-interface TabItem {
+type TabItem = {
   title: string;
   icon: LucideIcon | (() => JSX.Element);
-  type: "tab" | "separator";
-}
+  type: "tab";
+};
 
 export const NavigationTabs = () => {
   const navigate = useNavigate();
