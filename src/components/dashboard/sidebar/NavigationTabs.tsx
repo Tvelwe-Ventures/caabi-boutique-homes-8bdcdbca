@@ -4,10 +4,10 @@ import { menuItems } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
 
-interface TabItem {
+interface NavigationTabItem {
   title: string;
   icon: LucideIcon | (() => JSX.Element);
-  type: "tab" | "separator";
+  type: "tab";
 }
 
 export const NavigationTabs = () => {
@@ -19,10 +19,10 @@ export const NavigationTabs = () => {
     }
   };
 
-  const tabs: TabItem[] = menuItems.map(item => ({
+  const tabs: NavigationTabItem[] = menuItems.map(item => ({
     title: item.title,
     icon: item.icon,
-    type: "tab" as const
+    type: "tab"
   }));
 
   return (
