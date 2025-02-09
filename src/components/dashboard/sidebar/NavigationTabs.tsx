@@ -6,8 +6,8 @@ import { LucideIcon } from "lucide-react";
 
 interface TabItem {
   title: string;
-  icon: LucideIcon;
-  type: "tab";
+  icon: LucideIcon | (() => JSX.Element);
+  type: "tab" | "separator";
 }
 
 export const NavigationTabs = () => {

@@ -13,15 +13,15 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
   return (
     <div className="flex flex-col h-full bg-white">
       <div className={cn(
-        "flex items-center transition-all duration-200",
-        !open ? "justify-center p-4" : "px-6 py-4"
+        "flex items-center p-6 transition-all duration-200",
+        !open ? "justify-center" : "px-6"
       )}>
         <img 
           src="/lovable-uploads/cf11a80b-158e-468d-821f-7527807fb753.png"
           alt="QuackOS"
           className={cn(
             "transition-all duration-300",
-            open ? "h-8" : "h-8 w-8"
+            open ? "w-48" : "w-12"
           )}
         />
       </div>
@@ -59,4 +59,3 @@ export const SidebarContent = ({ open }: SidebarContentProps) => {
     </div>
   );
 };
-
