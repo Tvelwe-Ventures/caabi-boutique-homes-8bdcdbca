@@ -27,7 +27,7 @@ const Index = () => {
     searchScript.onload = () => {
       // @ts-ignore - Hostaway widget global
       window.searchBar({
-        baseUrl: 'https://caabihome.holidayfuture.com/',
+        baseUrl: 'https://booking.caabiboutiquehomes.com/',  // Updated to use the booking subdomain
         showLocation: true,
         color: '#1A2957', // Using your brand color
         rounded: true,
