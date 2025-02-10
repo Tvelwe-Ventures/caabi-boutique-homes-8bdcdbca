@@ -627,6 +627,90 @@ export type Database = {
         }
         Relationships: []
       }
+      hostaway_integration_settings: {
+        Row: {
+          configuration: Json
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          updated_at: string | null
+          widget_type: string
+        }
+        Insert: {
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          updated_at?: string | null
+          widget_type: string
+        }
+        Update: {
+          configuration?: Json
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          updated_at?: string | null
+          widget_type?: string
+        }
+        Relationships: []
+      }
+      hostaway_properties: {
+        Row: {
+          amenities: Json | null
+          availability_calendar: Json | null
+          bathrooms: number | null
+          bedrooms: number | null
+          booking_settings: Json | null
+          created_at: string | null
+          description: string | null
+          hostaway_id: string
+          id: string
+          images: string[] | null
+          location: Json | null
+          max_guests: number | null
+          name: string
+          price_per_night: number | null
+          thumbnail_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          amenities?: Json | null
+          availability_calendar?: Json | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          booking_settings?: Json | null
+          created_at?: string | null
+          description?: string | null
+          hostaway_id: string
+          id?: string
+          images?: string[] | null
+          location?: Json | null
+          max_guests?: number | null
+          name: string
+          price_per_night?: number | null
+          thumbnail_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          amenities?: Json | null
+          availability_calendar?: Json | null
+          bathrooms?: number | null
+          bedrooms?: number | null
+          booking_settings?: Json | null
+          created_at?: string | null
+          description?: string | null
+          hostaway_id?: string
+          id?: string
+          images?: string[] | null
+          location?: Json | null
+          max_guests?: number | null
+          name?: string
+          price_per_night?: number | null
+          thumbnail_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       integration_status: {
         Row: {
           created_at: string | null
