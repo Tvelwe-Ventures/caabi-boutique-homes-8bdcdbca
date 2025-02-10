@@ -3,12 +3,11 @@ import { ExpandableTabs } from "@/components/ui/expandable-tabs";
 import { menuItems } from "./menuItems";
 import { useNavigate } from "react-router-dom";
 import { LucideIcon } from "lucide-react";
-import { TabItem } from "@/components/ui/expandable-tabs";
+import type { Tab } from "@/components/ui/expandable-tabs";
 
-interface NavigationTabItem extends TabItem {
+interface NavigationTab extends Tab {
   title: string;
   icon: LucideIcon | (() => JSX.Element);
-  type: "tab";
 }
 
 export const NavigationTabs = () => {
@@ -22,8 +21,7 @@ export const NavigationTabs = () => {
 
   const tabs = menuItems.map(item => ({
     title: item.title,
-    icon: item.icon,
-    type: "tab" as const
+    icon: item.icon
   }));
 
   return (

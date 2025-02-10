@@ -1,24 +1,16 @@
+
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
-interface Tab {
+export interface Tab {
   title: string;
-  icon: LucideIcon;
-  type?: never;
+  icon: LucideIcon | (() => JSX.Element);
 }
-
-interface Separator {
-  type: "separator";
-  title?: never;
-  icon?: never;
-}
-
-type TabItem = Tab | Separator;
 
 interface ExpandableTabsProps {
-  tabs: TabItem[];
+  tabs: Tab[];
   className?: string;
   activeColor?: string;
   onChange?: (index: number | null) => void;
@@ -58,10 +50,6 @@ export function ExpandableTabs({
     onChange?.(index);
   };
 
-  const Separator = () => (
-    <div className="mx-1 h-[24px] w-[1.2px] bg-border" aria-hidden="true" />
-  );
-
   return (
     <div
       className={cn(
@@ -70,14 +58,10 @@ export function ExpandableTabs({
       )}
     >
       {tabs.map((tab, index) => {
-        if (tab.type === "separator") {
-          return <Separator key={`separator-${index}`} />;
-        }
-
-        const TabIcon = (tab as Tab).icon;
+        const TabIcon = tab.icon;
         return (
           <motion.button
-            key={(tab as Tab).title}
+            key={tab.title}
             variants={buttonVariants}
             initial={false}
             animate="animate"
@@ -102,7 +86,7 @@ export function ExpandableTabs({
                   transition={transition}
                   className="overflow-hidden whitespace-nowrap"
                 >
-                  {(tab as Tab).title}
+                  {tab.title}
                 </motion.span>
               )}
             </AnimatePresence>
