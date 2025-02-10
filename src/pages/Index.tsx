@@ -16,8 +16,32 @@ import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Chat from "@/components/Chat";
+import { useEffect } from "react";
 
 const Index = () => {
+  useEffect(() => {
+    // Initialize Hostaway Search Bar
+    const searchScript = document.createElement("script");
+    searchScript.src = "https://d2q3n06xhbi0am.cloudfront.net/widget.js?1640277196";
+    searchScript.async = true;
+    searchScript.onload = () => {
+      // @ts-ignore - Hostaway widget global
+      window.searchBar({
+        baseUrl: 'https://caabihome.holidayfuture.com/',
+        showLocation: true,
+        color: '#1A2957', // Using your brand color
+        rounded: true,
+        openInNewTab: false,
+        font: 'Inter',
+      });
+    };
+    document.body.appendChild(searchScript);
+
+    return () => {
+      document.body.removeChild(searchScript);
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -27,6 +51,28 @@ const Index = () => {
     >
       <Header />
       <Hero />
+      
+      {/* Hostaway Booking Widgets Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl font-bold text-gray-900">
+                Find Your Perfect Stay
+              </h2>
+              <p className="text-gray-600">
+                Search through our curated selection of premium properties
+              </p>
+            </div>
+            
+            {/* Hostaway Search Widget */}
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <div id="hostaway-booking-widget" className="w-full"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <About />
       <Globe />
       <Services />
