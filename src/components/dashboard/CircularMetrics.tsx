@@ -15,7 +15,7 @@ export const CircularMetrics = () => {
         .select('*')
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
       if (error) {
         console.error('Error fetching Airbnb revenue data:', error);
@@ -85,21 +85,21 @@ export const CircularMetrics = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <MetricChart
         data={revenueSourcesData}
-        colors={COLORS.revenue}
+        colors={[...COLORS.revenue]}
         title="Revenue Distribution"
         icon={CircleDollarSign}
         source={isLoading ? "Loading..." : "Financial Reports"}
       />
       <MetricChart
         data={expenseDistributionData}
-        colors={COLORS.expense}
+        colors={[...COLORS.expense]}
         title="Expense Distribution"
         icon={TrendingUp}
         source="Expense Tracker"
       />
       <MetricChart
         data={portfolioAllocationData}
-        colors={COLORS.portfolio}
+        colors={[...COLORS.portfolio]}
         title="Portfolio Allocation"
         icon={Database}
         source="Asset Management"
