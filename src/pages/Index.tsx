@@ -17,30 +17,55 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Chat from "@/components/Chat";
 import { useEffect } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
+  const { toast } = useToast();
+
   useEffect(() => {
     // Initialize Hostaway Search Bar
     const searchScript = document.createElement("script");
     searchScript.src = "https://d2q3n06xhbi0am.cloudfront.net/widget.js?1640277196";
     searchScript.async = true;
-    searchScript.onload = () => {
-      // @ts-ignore - Hostaway widget global
-      window.searchBar({
-        baseUrl: 'https://booking.caabiboutiquehomes.com/',  // Updated to use the booking subdomain
-        showLocation: true,
-        color: '#1A2957', // Using your brand color
-        rounded: true,
-        openInNewTab: false,
-        font: 'Inter',
+    
+    searchScript.onerror = (error) => {
+      console.error("Failed to load Hostaway widget script:", error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to load booking widget. Please try refreshing the page.",
       });
     };
+
+    searchScript.onload = () => {
+      try {
+        console.log("Initializing Hostaway widget...");
+        // @ts-ignore - Hostaway widget global
+        window.searchBar({
+          baseUrl: 'https://proxy3.holidayfuture.com/',  // Using direct proxy URL until subdomain is ready
+          showLocation: true,
+          color: '#1A2957', // Using your brand color
+          rounded: true,
+          openInNewTab: false,
+          font: 'Inter',
+        });
+        console.log("Hostaway widget initialized successfully");
+      } catch (error) {
+        console.error("Error initializing Hostaway widget:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to initialize booking widget. Please try refreshing the page.",
+        });
+      }
+    };
+
     document.body.appendChild(searchScript);
 
     return () => {
       document.body.removeChild(searchScript);
     };
-  }, []);
+  }, [toast]);
 
   return (
     <motion.div
@@ -103,3 +128,4 @@ const Index = () => {
 };
 
 export default Index;
+
