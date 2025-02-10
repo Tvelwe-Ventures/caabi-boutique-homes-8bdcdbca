@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Database, TrendingUp, CircleDollarSign } from "lucide-react";
+import { Database, TrendingUp, CircleDollarSign, BarChart } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { MetricChart } from "./metrics/MetricChart";
@@ -81,8 +81,26 @@ export const CircularMetrics = () => {
     },
   ];
 
+  const marketAnalysisData = [
+    {
+      name: "Growth Markets",
+      value: 45,
+      trend: "+7.2%"
+    },
+    {
+      name: "Stable Markets",
+      value: 35,
+      trend: "+2.1%"
+    },
+    {
+      name: "Emerging Markets",
+      value: 20,
+      trend: "+4.8%"
+    },
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <MetricChart
         data={revenueSourcesData}
         colors={[...COLORS.revenue]}
@@ -103,6 +121,13 @@ export const CircularMetrics = () => {
         title="Portfolio Allocation"
         icon={Database}
         source="Asset Management"
+      />
+      <MetricChart
+        data={marketAnalysisData}
+        colors={[...COLORS.market]}
+        title="Market Analysis"
+        icon={BarChart}
+        source="Market Intelligence"
       />
     </div>
   );

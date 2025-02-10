@@ -13,4 +13,5 @@ export interface ChartColors {
   revenue: string[];
   expense: string[];
   portfolio: string[];
+  market: string[];
 }
