@@ -711,6 +711,69 @@ export type Database = {
         }
         Relationships: []
       }
+      hostaway_webhook_configs: {
+        Row: {
+          created_at: string | null
+          event_types: string[]
+          id: string
+          is_enabled: boolean | null
+          secret_key: string | null
+          updated_at: string | null
+          webhook_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          event_types: string[]
+          id?: string
+          is_enabled?: boolean | null
+          secret_key?: string | null
+          updated_at?: string | null
+          webhook_url: string
+        }
+        Update: {
+          created_at?: string | null
+          event_types?: string[]
+          id?: string
+          is_enabled?: boolean | null
+          secret_key?: string | null
+          updated_at?: string | null
+          webhook_url?: string
+        }
+        Relationships: []
+      }
+      hostaway_webhooks: {
+        Row: {
+          created_at: string | null
+          error_message: string | null
+          event_type: string
+          id: string
+          payload: Json
+          processed_at: string | null
+          status: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          error_message?: string | null
+          event_type: string
+          id?: string
+          payload: Json
+          processed_at?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          error_message?: string | null
+          event_type?: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          status?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       integration_status: {
         Row: {
           created_at: string | null
