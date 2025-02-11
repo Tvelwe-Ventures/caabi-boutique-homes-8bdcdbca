@@ -23,11 +23,11 @@ const Booking = () => {
   const isMobile = useIsMobile();
 
   const images = [
-    "/lovable-uploads/c5902c9f-a64c-4de1-9b6d-761cb47d05d8.png", // Living room
-    "/lovable-uploads/fcea24d8-44c8-4a75-9f8c-329a416f9fa8.png", // Dining room
-    "/lovable-uploads/20ef23e7-7914-4739-8e09-59c7660417c8.png", // Bedroom
-    "/lovable-uploads/7991a2c3-27fc-4d0e-a270-d195af276951.png", // Kitchen
-    "/lovable-uploads/d5623907-02e5-4601-8db4-e7614ef6f391.png"  // Bathroom
+    "/lovable-uploads/c78fa731-6e3b-4ba8-9d05-cf24ba6177e7.png", // Main hero (dining room)
+    "/lovable-uploads/2d171c22-90cf-46aa-824e-a1742f0b063b.png", // Lounge area
+    "/lovable-uploads/9a203233-b92d-40c6-8f4b-1dfcf4ff761f.png", // Living room with view
+    "/lovable-uploads/ebbf7c09-e663-412c-b8f5-29ddb23e577e.png", // Kitchen amenities
+    "/lovable-uploads/ec0bc7a8-68c9-47e2-bc82-245a20634e5b.png"  // Dining chair detail
   ];
 
   useEffect(() => {
