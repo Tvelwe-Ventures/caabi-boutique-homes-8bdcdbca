@@ -105,10 +105,8 @@ const Booking = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-white pt-16 sm:pt-0"
+      className="min-h-screen bg-white"
     >
-      <QuickSearch onSearch={handleQuickSearch} />
-
       <div className="relative">
         <HeroCarousel 
           images={images}
@@ -123,22 +121,21 @@ const Booking = () => {
               transition={{ duration: 0.8 }}
               className="max-w-4xl mx-auto text-center"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl hero-heading mb-4 sm:mb-6 md:mb-8 text-white drop-shadow-lg font-bold">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl hero-heading mb-4 sm:mb-6 text-white drop-shadow-lg font-bold px-4">
                 Your Dubai Haven Awaits
               </h1>
-              <p className="mt-4 md:mt-6 text-base sm:text-lg md:text-2xl lg:text-3xl text-white mb-6 sm:mb-8 md:mb-10 drop-shadow-lg px-4 md:px-0 leading-relaxed">
-                Discover handpicked luxury properties<br className="hidden sm:block" />
-                in Dubai's most coveted locations
+              <p className="mt-2 md:mt-4 text-base sm:text-lg md:text-xl lg:text-2xl text-white mb-6 sm:mb-8 drop-shadow-lg px-4 leading-relaxed">
+                Discover handpicked luxury properties in Dubai's most coveted locations
               </p>
               
               <div 
                 ref={hostawayWidgetRef}
-                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 sm:p-8 max-w-3xl mx-auto relative"
+                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 sm:p-6 lg:p-8 max-w-3xl mx-auto relative"
                 style={{ zIndex: 1000 }}
               >
                 <PropertyFilters onFilterChange={handleFilterChange} />
                 
-                <div className="mt-8">
+                <div className="mt-6">
                   <div 
                     id="hostaway-booking-widget" 
                     className="w-full relative"
@@ -156,6 +153,15 @@ const Booking = () => {
                         #hostaway-booking-widget [role="dialog"],
                         #hostaway-booking-widget [role="presentation"] {
                           z-index: 1100 !important;
+                        }
+
+                        /* Mobile-friendly adjustments */
+                        @media (max-width: 640px) {
+                          #hostaway-booking-widget input,
+                          #hostaway-booking-widget button {
+                            font-size: 14px;
+                            padding: 8px 12px;
+                          }
                         }
                       `}
                     </style>

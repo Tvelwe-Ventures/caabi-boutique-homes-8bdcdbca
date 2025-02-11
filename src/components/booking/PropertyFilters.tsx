@@ -8,14 +8,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { MapPin, Building2, Eye, Bed, Users } from "lucide-react";
+import { Building2, Eye, Bed, Users } from "lucide-react";
 
 interface PropertyFiltersProps {
   onFilterChange: (filters: PropertyFilters) => void;
 }
 
 export interface PropertyFilters {
-  location: string;
   building: string;
   view: string;
   bedrooms: string;
@@ -24,7 +23,6 @@ export interface PropertyFilters {
 
 export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
   const [filters, setFilters] = useState<PropertyFilters>({
-    location: '',
     building: '',
     view: '',
     bedrooms: '',
@@ -38,27 +36,8 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
-            Location
-          </label>
-          <Select
-            value={filters.location}
-            onValueChange={(value) => handleFilterChange('location', value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select Area" />
-            </SelectTrigger>
-            <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
-              <SelectItem value="business-bay">Business Bay</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
+    <div className="space-y-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
             <Building2 className="w-4 h-4" />
@@ -145,7 +124,7 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
         </div>
       </div>
 
-      <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-lg">
+      <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-lg mt-6">
         <p>✨ Select your preferences to find the perfect luxury apartment in Downtown Dubai. All our properties feature premium amenities and stunning views.</p>
       </div>
     </div>
