@@ -1,14 +1,25 @@
-
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Particles } from "@/components/ui/particles";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Booking = () => {
   const { toast } = useToast();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [date, setDate] = useState<Date>();
+  const [guests, setGuests] = useState("2");
+  const hostawayWidgetRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const images = [
     "/lovable-uploads/c5902c9f-a64c-4de1-9b6d-761cb47d05d8.png", // Living room
@@ -25,6 +36,14 @@ const Booking = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+  const handleQuickSearch = () => {
+    if (hostawayWidgetRef.current) {
+      hostawayWidgetRef.current.scrollIntoView({ behavior: 'smooth' });
+      // Note: Hostaway widget doesn't currently support pre-filling values,
+      // but we can implement this when they add the feature
+    }
+  };
 
   useEffect(() => {
     // Initialize Hostaway Search Bar
@@ -46,7 +65,7 @@ const Booking = () => {
         console.log("Initializing Hostaway widget...");
         // @ts-ignore - Hostaway widget global
         window.searchBar({
-          baseUrl: 'https://proxy3.holidayfuture.com/',  // Using direct proxy URL until subdomain is ready
+          baseUrl: 'https://proxy3.holidayfuture.com/',
           showLocation: true,
           color: '#1A2957',
           rounded: true,
@@ -78,6 +97,51 @@ const Booking = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-white"
     >
+      {/* Quick Search Bar - Fixed at top */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-md py-3 px-4">
+        <div className="max-w-4xl mx-auto flex flex-wrap md:flex-nowrap items-center gap-2">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "justify-start text-left font-normal",
+                  !date && "text-muted-foreground"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? format(date, "PPP") : "Pick a date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+          
+          <Input
+            type="number"
+            placeholder="Guests"
+            value={guests}
+            onChange={(e) => setGuests(e.target.value)}
+            className="w-24"
+            min="1"
+            max="20"
+          />
+          
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white flex-1 md:flex-none"
+            onClick={handleQuickSearch}
+          >
+            Search
+          </Button>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-dark">
         <Particles
@@ -104,7 +168,7 @@ const Booking = () => {
         
         <div className="absolute inset-0 bg-black/20" />
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container mx-auto px-4 relative z-10 pt-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,8 +183,11 @@ const Booking = () => {
               in Dubai's most coveted locations
             </p>
             
-            {/* Search Widget */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 max-w-3xl mx-auto">
+            {/* Full Search Widget */}
+            <div 
+              ref={hostawayWidgetRef}
+              className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 max-w-3xl mx-auto"
+            >
               <div 
                 id="hostaway-booking-widget" 
                 className="w-full"
