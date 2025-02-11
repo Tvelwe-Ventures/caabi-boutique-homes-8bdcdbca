@@ -1,7 +1,8 @@
+
 import { NavLink } from "./NavLink";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
-import { Menu, Calculator, Building2, FileSpreadsheet, Users, Home, LogOut } from "lucide-react";
+import { Menu, Calculator, Building2, FileSpreadsheet, Users, Home, LogOut, CalendarDays } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
@@ -43,6 +44,15 @@ export const MobileNav = () => {
             <Home className="h-4 w-4" />
             <span>Home</span>
           </NavLink>
+
+          <Button
+            variant="default"
+            className="flex items-center gap-2 px-4 py-2 rounded-md w-full justify-start"
+            onClick={() => navigate("/booking")}
+          >
+            <CalendarDays className="h-4 w-4" />
+            <span>Book Now</span>
+          </Button>
 
           <div className="px-4 py-2 text-sm font-medium text-gray-500">Investment Tools</div>
           <div className="pl-4 space-y-2">

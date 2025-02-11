@@ -1,9 +1,10 @@
+
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "./NavLink";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
-import { LogOut } from "lucide-react";
+import { LogOut, CalendarDays } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -69,6 +70,15 @@ export const DesktopNav = () => {
       <NavLink to="/community" className="text-white hover:text-white/80">
         Community
       </NavLink>
+
+      <Button
+        variant="outline"
+        className="text-white hover:text-white/80 border-white hover:bg-white/10"
+        onClick={() => navigate("/booking")}
+      >
+        <CalendarDays className="w-4 h-4 mr-2" />
+        Book Now
+      </Button>
 
       <div className="flex-1" />
       

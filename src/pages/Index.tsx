@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
@@ -11,16 +10,26 @@ import Portfolio from "@/components/Portfolio";
 import PropertyPerformance from "@/components/PropertyPerformance";
 import Feedback from "@/components/Feedback";
 import { WebsiteFeedback } from "@/components/WebsiteFeedback";
-import Footer from "@/components/Footer";
 import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Chat from "@/components/Chat";
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const { toast } = useToast();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [date, setDate] = useState<Date>();
+  const [guests, setGuests] = useState("2");
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Initialize Hostaway Search Bar
@@ -67,6 +76,10 @@ const Index = () => {
     };
   }, [toast]);
 
+  const handleQuickSearch = () => {
+    navigate("/booking");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -75,8 +88,118 @@ const Index = () => {
       className="min-h-screen bg-white"
     >
       <Header />
-      <Hero />
       
+      {/* Hero Section */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-dark">
+        <Particles
+          className="absolute inset-0 -z-10"
+          quantity={100}
+          staticity={30}
+          color="#8798CE"
+        />
+        
+        {images.map((image, index) => (
+          <motion.img
+            key={image}
+            src={image}
+            alt={`Luxury Dubai Property ${index + 1}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ 
+              opacity: currentImageIndex === index ? 0.8 : 0,
+              scale: currentImageIndex === index ? 1 : 1.1
+            }}
+            transition={{ duration: 1 }}
+          />
+        ))}
+        
+        <div className="absolute inset-0 bg-black/20" />
+        
+        <div className="container mx-auto px-4 pt-20 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <h1 className="text-5xl md:text-7xl lg:text-8xl hero-heading mb-6 md:mb-8 text-white drop-shadow-lg font-bold">
+              Turning Properties into Profit
+            </h1>
+            <p className="mt-4 md:mt-6 text-lg md:text-2xl lg:text-3xl text-white mb-8 md:mb-10 drop-shadow-lg px-4 md:px-0 leading-relaxed">
+              Detail-oriented? We iron the welcome mats.<br />
+              People-focused? We remember your cat's birthday.<br />
+              Performance-driven? Our returns make economists blush.
+            </p>
+
+            {/* Quick Search Bar */}
+            <div className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg p-6 max-w-3xl mx-auto mb-8">
+              <div className="flex flex-wrap md:flex-nowrap items-center gap-4">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "justify-start text-left font-normal flex-1",
+                        !date && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {date ? format(date, "PPP") : "When would you like to stay?"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0">
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                
+                <Input
+                  type="number"
+                  placeholder="Guests"
+                  value={guests}
+                  onChange={(e) => setGuests(e.target.value)}
+                  className="w-24 md:w-32"
+                  min="1"
+                  max="20"
+                />
+                
+                <Button 
+                  className="bg-primary hover:bg-primary/90 text-white w-full md:w-auto"
+                  onClick={handleQuickSearch}
+                >
+                  Search Available Properties
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+              <FeyButton 
+                onClick={() => navigate("/calculator")}
+                className="w-full md:w-auto bg-[#8798CE] hover:bg-[#8798CE]/90"
+              >
+                <span className="flex items-center gap-2">
+                  Calculate ROI
+                  <Calculator className="w-4 h-4" />
+                </span>
+              </FeyButton>
+              <FeyButton 
+                onClick={() => navigate("/property-evaluation")}
+                className="w-full md:w-auto bg-gradient-to-r from-[#4169E1] to-[#8798CE] hover:from-[#4169E1]/90 hover:to-[#8798CE]/90 animate-pulse"
+              >
+                <span className="flex items-center gap-2">
+                  Evaluate Your Property
+                  <ArrowRight className="w-4 h-4" />
+                </span>
+              </FeyButton>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Hostaway Booking Widgets Section */}
       <section className="py-24 bg-gradient-to-br from-primary-light/20 via-white to-secondary-light/20">
         <div className="container mx-auto px-4">
