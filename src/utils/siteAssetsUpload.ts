@@ -29,6 +29,30 @@ export const uploadSiteAsset = async (file: File, size: number, fileName: string
   }
 };
 
+export const uploadLogo = async (file: File, fileName: string) => {
+  try {
+    const { data, error } = await supabase.storage
+      .from('site-assets')
+      .upload(`logos/${fileName}`, file, {
+        cacheControl: '3600',
+        upsert: true
+      });
+
+    if (error) {
+      throw error;
+    }
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('site-assets')
+      .getPublicUrl(`logos/${fileName}`);
+
+    return publicUrl;
+  } catch (error) {
+    console.error('Error uploading logo:', error);
+    throw error;
+  }
+};
+
 export const getFaviconSizes = () => [
   { size: 16, name: 'favicon-16x16.png' },
   { size: 32, name: 'favicon-32x32.png' },
