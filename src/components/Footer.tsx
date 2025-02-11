@@ -1,6 +1,9 @@
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Star, Users } from "lucide-react";
+import { WebsiteFeedback } from "./WebsiteFeedback";
+import { useLocation, Link } from "react-router-dom";
 
 export interface FooterProps {
   logo?: React.ReactNode;
@@ -47,7 +50,8 @@ const defaultProps: FooterProps = {
   mainLinks: [
     { href: "/", label: "Caabi Boutique Homes" },
     { href: "/community", label: "PropOsphere" },
-    { href: "/statistics", label: "Statistics" }
+    { href: "/statistics", label: "Statistics" },
+    { href: "/auth", label: "QuackOS Dashboard" }
   ],
   legalLinks: [
     { href: "/privacy", label: "Privacy Policy" },
@@ -66,6 +70,12 @@ export function Footer({
   legalLinks = defaultProps.legalLinks,
   copyright = defaultProps.copyright,
 }: FooterProps) {
+  const location = useLocation();
+  const isDashboard = location.pathname.includes('dashboard');
+
+  // Don't render feedback component in dashboard
+  const shouldShowFeedback = !isDashboard;
+
   return (
     <motion.footer
       initial={{ opacity: 0 }}
@@ -75,14 +85,14 @@ export function Footer({
     >
       <div className="px-4 lg:px-8">
         <div className="md:flex md:items-start md:justify-between">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="flex items-center gap-x-2"
             aria-label={brandName}
           >
             {logo}
             <span className="font-bold text-xl">{brandName}</span>
-          </a>
+          </Link>
           <ul className="flex list-none mt-6 md:mt-0 space-x-3">
             {socialLinks.map((link, i) => (
               <li key={i}>
@@ -105,12 +115,12 @@ export function Footer({
             <ul className="list-none flex flex-wrap -my-1 -mx-3">
               {legalLinks.map((link, i) => (
                 <li key={i} className="my-1 mx-3 shrink-0">
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-muted-foreground underline-offset-4 hover:underline"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -123,18 +133,19 @@ export function Footer({
             <ul className="list-none flex flex-wrap -my-1 -mx-2 lg:justify-end">
               {mainLinks.map((link, i) => (
                 <li key={i} className="my-1 mx-2 shrink-0">
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-sm text-primary underline-offset-4 hover:underline"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
         </div>
       </div>
+      {shouldShowFeedback && <WebsiteFeedback />}
     </motion.footer>
   );
 }

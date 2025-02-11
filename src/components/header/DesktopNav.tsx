@@ -71,20 +71,16 @@ export const DesktopNav = () => {
         Community
       </NavLink>
 
-      <Button
-        variant="outline"
-        className="text-white hover:text-white/80 border-white hover:bg-white/10"
-        onClick={() => navigate("/booking")}
-      >
-        <CalendarDays className="w-4 h-4 mr-2" />
-        Book Now
-      </Button>
-
       <div className="flex-1" />
       
-      <NavLink to="/auth" className="text-white hover:text-white/80 text-lg font-semibold">
-        QuacQOS
-      </NavLink>
+      <Button
+        variant="default"
+        className="bg-white text-primary hover:bg-white/90 hover:text-primary/90 flex items-center gap-2"
+        onClick={() => navigate("/booking")}
+      >
+        <CalendarDays className="w-4 h-4" />
+        Book Now
+      </Button>
 
       <Button
         variant="ghost"
