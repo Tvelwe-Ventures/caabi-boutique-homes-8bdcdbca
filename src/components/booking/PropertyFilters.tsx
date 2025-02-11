@@ -84,9 +84,6 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
             <SelectContent className="bg-white z-[1200]">
               <SelectItem value="boulevard-central">Boulevard Central</SelectItem>
               <SelectItem value="downtown-oasis">Downtown Oasis</SelectItem>
-              <SelectItem value="boulevard-central-203">Boulevard Central 203</SelectItem>
-              <SelectItem value="boulevard-central-1104">Boulevard Central 1104</SelectItem>
-              <SelectItem value="downtown-oasis-1805">Downtown Oasis 1805</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -118,3 +115,4 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
     </div>
   );
 };
+
