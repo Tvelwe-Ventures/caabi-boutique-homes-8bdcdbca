@@ -82,8 +82,12 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
               <SelectValue placeholder="Select Building" />
             </SelectTrigger>
             <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="boulevard-central">Boulevard Central</SelectItem>
-              <SelectItem value="downtown-oasis">Downtown Oasis</SelectItem>
+              <SelectItem value="boulevard-tower-1">Boulevard Tower 1</SelectItem>
+              <SelectItem value="burj-royale">Burj Royale</SelectItem>
+              <SelectItem value="standpoint-tower-a">Standpoint Residences Tower A</SelectItem>
+              <SelectItem value="downtown-views-2-tower-3">Downtown Views 2 Tower 3</SelectItem>
+              <SelectItem value="act-two-tower-2">Act Two Tower 2</SelectItem>
+              <SelectItem value="29-boulevard-tower-2">29 Boulevard Tower 2</SelectItem>
             </SelectContent>
           </Select>
         </div>
