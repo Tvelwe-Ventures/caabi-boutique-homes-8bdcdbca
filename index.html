@@ -11,16 +11,20 @@
     <!-- Hostaway Head Script -->
     <script>
       window.HWSearchBarSettings = {
-        aid: "YOUR_ACCOUNT_ID", // This would be your actual Hostaway Account ID
+        aid: "YOUR_ACCOUNT_ID", // Replace with your actual Account ID
         baseUrl: "https://proxy3.holidayfuture.com/",
         defaultCurrency: "AED",
         defaultLanguage: "en",
         theme: {
           primaryColor: "#1A2957",
           fontFamily: "Inter"
-        }
+        },
+        listings: "all", // This ensures all listings are included
+        showAllListings: true // Additional parameter to ensure all listings are displayed
       };
     </script>
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
 
   <body>
@@ -33,7 +37,20 @@
 
     <!-- Hostaway Body Script -->
     <script>
-      // Any additional Hostaway configuration or tracking code would go here
+      window.onload = function() {
+        if (window.searchBar) {
+          window.searchBar({
+            baseUrl: 'https://proxy3.holidayfuture.com/',
+            showLocation: true,
+            color: '#1A2957',
+            rounded: true,
+            openInNewTab: false,
+            font: 'Inter',
+            listings: 'all',
+            showAllListings: true
+          });
+        }
+      };
     </script>
   </body>
 </html>
