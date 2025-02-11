@@ -1,7 +1,6 @@
 
 import { useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Particles } from "@/components/ui/particles";
@@ -79,8 +78,6 @@ const Booking = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-white"
     >
-      <Header />
-      
       {/* Hero Section */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-dark">
         <Particles
@@ -107,7 +104,7 @@ const Booking = () => {
         
         <div className="absolute inset-0 bg-black/20" />
         
-        <div className="container mx-auto px-4 pt-20 relative z-10">
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
