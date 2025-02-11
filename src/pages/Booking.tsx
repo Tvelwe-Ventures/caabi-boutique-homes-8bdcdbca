@@ -13,8 +13,6 @@ import { Features } from "@/components/booking/Features";
 const Booking = () => {
   const { toast } = useToast();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [date, setDate] = useState<Date>();
-  const [guests, setGuests] = useState("2");
   const hostawayWidgetRef = useRef<HTMLDivElement>(null);
 
   const images = [
@@ -35,7 +33,10 @@ const Booking = () => {
 
   const handleQuickSearch = () => {
     if (hostawayWidgetRef.current) {
-      hostawayWidgetRef.current.scrollIntoView({ behavior: 'smooth' });
+      hostawayWidgetRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
     }
   };
 
@@ -94,13 +95,7 @@ const Booking = () => {
       transition={{ duration: 0.5 }}
       className="min-h-screen bg-white pt-16 sm:pt-0"
     >
-      <QuickSearch
-        date={date}
-        setDate={setDate}
-        guests={guests}
-        setGuests={setGuests}
-        onSearch={handleQuickSearch}
-      />
+      <QuickSearch onSearch={handleQuickSearch} />
 
       <div className="relative">
         <HeroCarousel 
