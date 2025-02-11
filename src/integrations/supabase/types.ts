@@ -1536,6 +1536,45 @@ export type Database = {
         }
         Relationships: []
       }
+      site_settings: {
+        Row: {
+          booking_engine_logo_url: string | null
+          created_at: string
+          created_by: string | null
+          dashboard_logo_url: string | null
+          favicon_url: string | null
+          id: string
+          last_modified_by: string | null
+          main_logo_url: string | null
+          site_id: string
+          updated_at: string
+        }
+        Insert: {
+          booking_engine_logo_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          dashboard_logo_url?: string | null
+          favicon_url?: string | null
+          id?: string
+          last_modified_by?: string | null
+          main_logo_url?: string | null
+          site_id?: string
+          updated_at?: string
+        }
+        Update: {
+          booking_engine_logo_url?: string | null
+          created_at?: string
+          created_by?: string | null
+          dashboard_logo_url?: string | null
+          favicon_url?: string | null
+          id?: string
+          last_modified_by?: string | null
+          main_logo_url?: string | null
+          site_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       uae_market_indicators: {
         Row: {
           created_at: string

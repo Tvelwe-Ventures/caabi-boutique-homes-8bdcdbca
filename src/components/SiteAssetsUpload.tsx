@@ -6,6 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
 import { uploadSiteAsset, uploadLogo, getFaviconSizes } from "@/utils/siteAssetsUpload";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { supabase } from "@/integrations/supabase/client";
 
 export const SiteAssetsUpload = () => {
   const [isUploading, setIsUploading] = useState(false);
@@ -24,10 +25,27 @@ export const SiteAssetsUpload = () => {
       const totalFiles = faviconSizes.length;
       let completed = 0;
 
+      // Get current user for tracking changes
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
+
       for (const { size, name } of faviconSizes) {
-        await uploadSiteAsset(file, size, name);
+        const publicUrl = await uploadSiteAsset(file, size, name);
         completed++;
         setProgress((completed / totalFiles) * 100);
+
+        // Update site settings with the main favicon URL (16x16)
+        if (name === 'favicon-16x16.png') {
+          const { error: updateError } = await supabase
+            .from('site_settings')
+            .update({
+              favicon_url: publicUrl,
+              last_modified_by: user.id
+            })
+            .eq('site_id', 'default');
+
+          if (updateError) throw updateError;
+        }
       }
 
       toast({
@@ -55,8 +73,22 @@ export const SiteAssetsUpload = () => {
     setIsUploading(true);
 
     try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
+
       const fileName = event.target.name === 'mainLogo' ? 'main-logo.png' : 'dashboard-logo.png';
-      await uploadLogo(file, fileName);
+      const publicUrl = await uploadLogo(file, fileName);
+
+      // Update site settings with the new logo URL
+      const { error: updateError } = await supabase
+        .from('site_settings')
+        .update({
+          [event.target.name === 'mainLogo' ? 'main_logo_url' : 'dashboard_logo_url']: publicUrl,
+          last_modified_by: user.id
+        })
+        .eq('site_id', 'default');
+
+      if (updateError) throw updateError;
 
       toast({
         title: "Success",
