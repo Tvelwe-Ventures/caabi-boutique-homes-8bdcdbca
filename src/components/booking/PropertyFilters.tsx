@@ -8,27 +8,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Building2, Eye, Bed, Users, MapPin } from "lucide-react";
+import { Building2, Eye } from "lucide-react";
 
 interface PropertyFiltersProps {
   onFilterChange: (filters: PropertyFilters) => void;
 }
 
 export interface PropertyFilters {
-  location: string;
   building: string;
   view: string;
-  bedrooms: string;
-  guests: string;
 }
 
 export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
   const [filters, setFilters] = useState<PropertyFilters>({
-    location: '',
     building: '',
     view: '',
-    bedrooms: '',
-    guests: ''
   });
 
   const handleFilterChange = (key: keyof PropertyFilters, value: string) => {
@@ -39,26 +33,42 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="space-y-2 sm:col-span-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-            <MapPin className="w-4 h-4" />
-            Location
-          </label>
-          <Select
-            value={filters.location}
-            onValueChange={(value) => handleFilterChange('location', value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select Location" />
-            </SelectTrigger>
-            <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
-              <SelectItem value="business-bay">Business Bay</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <div 
+        id="hostaway-booking-widget" 
+        className="w-full relative mb-6"
+        style={{
+          minHeight: '80px',
+          borderRadius: '0.75rem',
+          overflow: 'visible',
+          isolation: 'isolate'
+        }}
+      >
+        <style>
+          {`
+            /* Ensure Hostaway dropdown menus are visible */
+            #hostaway-booking-widget [role="listbox"],
+            #hostaway-booking-widget [role="dialog"],
+            #hostaway-booking-widget [role="presentation"] {
+              z-index: 1100 !important;
+            }
 
+            /* Mobile-friendly adjustments */
+            @media (max-width: 640px) {
+              #hostaway-booking-widget input,
+              #hostaway-booking-widget button {
+                font-size: 14px;
+                padding: 8px 12px;
+              }
+            }
+          `}
+        </style>
+      </div>
+
+      <div className="text-sm font-medium text-gray-700 mb-4">
+        Additional Filters
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
             <Building2 className="w-4 h-4" />
@@ -97,45 +107,6 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
               <SelectItem value="boulevard">Boulevard View</SelectItem>
               <SelectItem value="burj-khalifa">Burj Khalifa View</SelectItem>
               <SelectItem value="downtown">Downtown View</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-            <Bed className="w-4 h-4" />
-            Bedrooms
-          </label>
-          <Select
-            value={filters.bedrooms}
-            onValueChange={(value) => handleFilterChange('bedrooms', value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Number of Bedrooms" />
-            </SelectTrigger>
-            <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="1">1 Bedroom</SelectItem>
-              <SelectItem value="2">2 Bedrooms</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
-            <Users className="w-4 h-4" />
-            Guests
-          </label>
-          <Select
-            value={filters.guests}
-            onValueChange={(value) => handleFilterChange('guests', value)}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Number of Guests" />
-            </SelectTrigger>
-            <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="1-2">1-2 Guests</SelectItem>
-              <SelectItem value="3-4">3-4 Guests</SelectItem>
-              <SelectItem value="5-6">5-6 Guests</SelectItem>
             </SelectContent>
           </Select>
         </div>

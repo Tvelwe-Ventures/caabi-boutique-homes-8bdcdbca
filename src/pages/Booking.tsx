@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Footer from "@/components/Footer";
@@ -42,12 +41,11 @@ const Booking = () => {
   };
 
   const handleFilterChange = (filters: PropertyFiltersType) => {
-    console.log('Selected filters:', filters);
-    // Here we can integrate these filters with Hostaway's widget
-    // by pre-selecting options based on the user's choices
+    console.log('Additional filters selected:', filters);
+    // Here we can add additional filtering logic if needed
     toast({
       title: "Filters Updated",
-      description: "We've found properties matching your preferences.",
+      description: "Showing properties matching your preferences.",
       duration: 3000,
     });
   };
@@ -134,39 +132,6 @@ const Booking = () => {
                 style={{ zIndex: 1000 }}
               >
                 <PropertyFilters onFilterChange={handleFilterChange} />
-                
-                <div className="mt-6">
-                  <div 
-                    id="hostaway-booking-widget" 
-                    className="w-full relative"
-                    style={{
-                      minHeight: '120px',
-                      borderRadius: '0.75rem',
-                      overflow: 'visible',
-                      isolation: 'isolate'
-                    }}
-                  >
-                    <style>
-                      {`
-                        /* Ensure Hostaway dropdown menus are visible */
-                        #hostaway-booking-widget [role="listbox"],
-                        #hostaway-booking-widget [role="dialog"],
-                        #hostaway-booking-widget [role="presentation"] {
-                          z-index: 1100 !important;
-                        }
-
-                        /* Mobile-friendly adjustments */
-                        @media (max-width: 640px) {
-                          #hostaway-booking-widget input,
-                          #hostaway-booking-widget button {
-                            font-size: 14px;
-                            padding: 8px 12px;
-                          }
-                        }
-                      `}
-                    </style>
-                  </div>
-                </div>
               </div>
             </motion.div>
           </div>
