@@ -15,6 +15,7 @@ interface PropertyFiltersProps {
 }
 
 export interface PropertyFilters {
+  location: string;
   building: string;
   view: string;
   bedrooms: string;
@@ -23,6 +24,7 @@ export interface PropertyFilters {
 
 export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
   const [filters, setFilters] = useState<PropertyFilters>({
+    location: '',
     building: '',
     view: '',
     bedrooms: '',
@@ -38,6 +40,25 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-2 sm:col-span-2">
+          <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+            <MapPin className="w-4 h-4" />
+            Location
+          </label>
+          <Select
+            value={filters.location}
+            onValueChange={(value) => handleFilterChange('location', value)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select Location" />
+            </SelectTrigger>
+            <SelectContent className="bg-white z-[1200]">
+              <SelectItem value="downtown-dubai">Downtown Dubai</SelectItem>
+              <SelectItem value="business-bay">Business Bay</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
         <div className="space-y-2">
           <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
             <Building2 className="w-4 h-4" />
@@ -53,6 +74,9 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
             <SelectContent className="bg-white z-[1200]">
               <SelectItem value="boulevard-central">Boulevard Central</SelectItem>
               <SelectItem value="downtown-oasis">Downtown Oasis</SelectItem>
+              <SelectItem value="boulevard-central-203">Boulevard Central 203</SelectItem>
+              <SelectItem value="boulevard-central-1104">Boulevard Central 1104</SelectItem>
+              <SelectItem value="downtown-oasis-1805">Downtown Oasis 1805</SelectItem>
             </SelectContent>
           </Select>
         </div>
