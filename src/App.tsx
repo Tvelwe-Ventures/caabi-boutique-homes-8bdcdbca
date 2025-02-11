@@ -18,6 +18,7 @@ import { MessageSquare } from "lucide-react";
 import Chat from "@/components/Chat";
 import Community from "@/components/Community";
 import Dashboard from "@/pages/Dashboard";
+import Booking from "@/pages/Booking";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/booking" element={<Booking />} />
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/property-evaluation" element={<PropertyEvaluation />} />
             <Route path="/investment" element={<InvestmentProposal />} />
