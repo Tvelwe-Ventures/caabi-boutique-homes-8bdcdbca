@@ -10,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, MessageCircle } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Booking = () => {
@@ -89,6 +89,10 @@ const Booking = () => {
       document.body.removeChild(searchScript);
     };
   }, [toast]);
+
+  const handleWhatsAppChat = () => {
+    window.open('https://wa.me/+971585067700', '_blank');
+  };
 
   return (
     <motion.div
@@ -244,6 +248,15 @@ const Booking = () => {
           </div>
         </div>
       </section>
+
+      {/* WhatsApp Chat Button - Fixed Position */}
+      <Button
+        onClick={handleWhatsAppChat}
+        className="fixed bottom-6 right-6 z-50 rounded-full w-14 h-14 bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+        size="icon"
+      >
+        <MessageCircle className="w-6 h-6" />
+      </Button>
 
       <Footer />
     </motion.div>
