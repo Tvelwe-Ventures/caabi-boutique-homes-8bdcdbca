@@ -65,7 +65,7 @@ const Booking = () => {
         console.log("Initializing Hostaway widget...");
         // @ts-ignore - Hostaway widget global
         window.searchBar({
-          baseUrl: 'https://proxy3.holidayfuture.com/',
+          baseUrl: 'https://app.hostaway.com/widget', // Replace this with your actual Hostaway account URL
           showLocation: true,
           color: '#1A2957',
           rounded: true,
