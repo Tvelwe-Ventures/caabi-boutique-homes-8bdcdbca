@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Upload, Check, AlertCircle } from "lucide-react";
+import { Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
@@ -24,7 +24,7 @@ export const SiteAssetsUpload = () => {
       let completed = 0;
 
       for (const { size, name } of faviconSizes) {
-        await uploadSiteAsset(file, name);
+        await uploadSiteAsset(file, size, name);
         completed++;
         setProgress((completed / totalFiles) * 100);
       }

@@ -1,23 +1,27 @@
 
 import { supabase } from "@/integrations/supabase/client";
 
-export const uploadSiteAsset = async (file: File, fileName: string) => {
+export const uploadSiteAsset = async (file: File, size: number, fileName: string) => {
   try {
-    const { data, error } = await supabase.storage
-      .from('site-assets')
-      .upload(fileName, file, {
-        cacheControl: '3600',
-        upsert: true
-      });
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('size', size.toString());
+    formData.append('fileName', fileName);
 
-    if (error) {
-      throw error;
+    const response = await fetch(`${process.env.VITE_SUPABASE_URL}/functions/v1/resize-favicon`, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${process.env.VITE_SUPABASE_ANON_KEY}`
+      }
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Failed to upload file');
     }
 
-    const { data: { publicUrl } } = supabase.storage
-      .from('site-assets')
-      .getPublicUrl(fileName);
-
+    const { publicUrl } = await response.json();
     return publicUrl;
   } catch (error) {
     console.error('Error uploading site asset:', error);
