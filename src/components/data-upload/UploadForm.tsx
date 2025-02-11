@@ -29,12 +29,12 @@ export const UploadForm = ({
       <div className="space-y-6">
         <div className="flex items-center gap-2">
           <ArrowUpToLine className="w-5 h-5 text-violet-600 dark:text-violet-400" />
-          <h2 className="text-2xl font-bold text-violet-800 dark:text-violet-200">Upload Document</h2>
+          <h2 className="text-2xl font-bold text-[#221F26] dark:text-violet-200">Upload Document</h2>
         </div>
         
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="documentType">Document Type</Label>
+            <Label htmlFor="documentType" className="text-[#221F26] dark:text-violet-200">Document Type</Label>
             <Select value={documentType} onValueChange={onDocumentTypeChange}>
               <SelectTrigger>
                 <SelectValue placeholder="Select document type" />
@@ -49,7 +49,7 @@ export const UploadForm = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="file">Select File</Label>
+            <Label htmlFor="file" className="text-[#221F26] dark:text-violet-200">Select File</Label>
             <Input
               id="file"
               type="file"
@@ -57,7 +57,7 @@ export const UploadForm = ({
               className="cursor-pointer border-violet-200 dark:border-violet-700 focus:ring-violet-400"
               accept=".pdf,.doc,.docx,.ppt,.pptx"
             />
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-[#403E43] dark:text-violet-300">
               Supported formats: PDF, Word, PowerPoint
             </p>
           </div>
