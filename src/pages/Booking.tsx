@@ -121,17 +121,30 @@ const Booking = () => {
               
               <div 
                 ref={hostawayWidgetRef}
-                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 sm:p-8 max-w-3xl mx-auto"
+                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 sm:p-8 max-w-3xl mx-auto relative"
+                style={{ zIndex: 1000 }}
               >
                 <div 
                   id="hostaway-booking-widget" 
-                  className="w-full"
+                  className="w-full relative"
                   style={{
                     minHeight: '120px',
                     borderRadius: '0.75rem',
-                    overflow: 'hidden'
+                    overflow: 'visible',
+                    isolation: 'isolate'
                   }}
-                />
+                >
+                  <style>
+                    {`
+                      /* Ensure Hostaway dropdown menus are visible */
+                      #hostaway-booking-widget [role="listbox"],
+                      #hostaway-booking-widget [role="dialog"],
+                      #hostaway-booking-widget [role="presentation"] {
+                        z-index: 1100 !important;
+                      }
+                    `}
+                  </style>
+                </div>
               </div>
             </motion.div>
           </div>
