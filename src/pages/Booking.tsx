@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Footer from "@/components/Footer";
@@ -73,7 +74,7 @@ const Booking = () => {
         console.log("Initializing Hostaway widget...");
         // @ts-ignore - Hostaway widget global
         window.searchBar({
-          baseUrl: 'https://app.hostaway.com/widget/101010',
+          baseUrl: 'https://app.hostaway.com/widget/41616',
           showLocation: true,
           color: '#1A2957',
           rounded: true,
@@ -154,3 +155,4 @@ const Booking = () => {
 };
 
 export default Booking;
+
