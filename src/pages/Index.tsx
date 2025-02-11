@@ -78,21 +78,45 @@ const Index = () => {
       <Hero />
       
       {/* Hostaway Booking Widgets Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-24 bg-gradient-to-br from-primary-light/20 via-white to-secondary-light/20">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto space-y-8">
+          <div className="max-w-4xl mx-auto space-y-12">
             <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-gray-900">
+              <h2 className="text-4xl font-bold text-gray-900 font-bricolage">
                 Find Your Perfect Stay
               </h2>
-              <p className="text-gray-600">
-                Search through our curated selection of premium properties
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover our curated collection of premium properties across Dubai's most sought-after locations
               </p>
             </div>
             
             {/* Hostaway Search Widget */}
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <div id="hostaway-booking-widget" className="w-full"></div>
+            <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-8 border border-gray-100">
+              <div 
+                id="hostaway-booking-widget" 
+                className="w-full"
+                style={{
+                  minHeight: '120px',
+                  borderRadius: '0.75rem',
+                  overflow: 'hidden'
+                }}
+              />
+            </div>
+
+            {/* Additional Features */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
+                <div className="text-primary text-lg font-semibold mb-2">Instant Booking</div>
+                <p className="text-gray-600">Secure your stay immediately with our real-time booking system</p>
+              </div>
+              <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
+                <div className="text-primary text-lg font-semibold mb-2">Best Price Guarantee</div>
+                <p className="text-gray-600">Get the best rates directly through our platform</p>
+              </div>
+              <div className="p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 text-center">
+                <div className="text-primary text-lg font-semibold mb-2">24/7 Support</div>
+                <p className="text-gray-600">Our dedicated team is here to assist you around the clock</p>
+              </div>
             </div>
           </div>
         </div>
@@ -128,4 +152,3 @@ const Index = () => {
 };
 
 export default Index;
-

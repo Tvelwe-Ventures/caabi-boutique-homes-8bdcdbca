@@ -41,8 +41,16 @@ export const PropertyBookingWidget = ({ listingId, baseUrl }: PropertyBookingWid
   }, [listingId, baseUrl]);
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-      <div id="hostaway-calendar-widget" className="w-full"></div>
+    <div className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100">
+      <div 
+        id="hostaway-calendar-widget" 
+        className="w-full"
+        style={{
+          minHeight: '400px',
+          borderRadius: '0.75rem',
+          overflow: 'hidden'
+        }}
+      />
     </div>
   );
 };
