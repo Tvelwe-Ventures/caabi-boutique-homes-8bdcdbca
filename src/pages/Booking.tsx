@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Footer from "@/components/Footer";
@@ -9,6 +8,7 @@ import { MessageCircle } from "lucide-react";
 import { QuickSearch } from "@/components/booking/QuickSearch";
 import { HeroCarousel } from "@/components/booking/HeroCarousel";
 import { Features } from "@/components/booking/Features";
+import { PropertyFilters, PropertyFilters as PropertyFiltersType } from "@/components/booking/PropertyFilters";
 
 const Booking = () => {
   const { toast } = useToast();
@@ -38,6 +38,12 @@ const Booking = () => {
         block: 'center'
       });
     }
+  };
+
+  const handleFilterChange = (filters: PropertyFiltersType) => {
+    console.log('Selected filters:', filters);
+    // Here we can integrate with Hostaway's filtering system
+    // or use these filters to pre-select options in the widget
   };
 
   useEffect(() => {
@@ -124,26 +130,30 @@ const Booking = () => {
                 className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 sm:p-8 max-w-3xl mx-auto relative"
                 style={{ zIndex: 1000 }}
               >
-                <div 
-                  id="hostaway-booking-widget" 
-                  className="w-full relative"
-                  style={{
-                    minHeight: '120px',
-                    borderRadius: '0.75rem',
-                    overflow: 'visible',
-                    isolation: 'isolate'
-                  }}
-                >
-                  <style>
-                    {`
-                      /* Ensure Hostaway dropdown menus are visible */
-                      #hostaway-booking-widget [role="listbox"],
-                      #hostaway-booking-widget [role="dialog"],
-                      #hostaway-booking-widget [role="presentation"] {
-                        z-index: 1100 !important;
-                      }
-                    `}
-                  </style>
+                <PropertyFilters onFilterChange={handleFilterChange} />
+                
+                <div className="mt-6">
+                  <div 
+                    id="hostaway-booking-widget" 
+                    className="w-full relative"
+                    style={{
+                      minHeight: '120px',
+                      borderRadius: '0.75rem',
+                      overflow: 'visible',
+                      isolation: 'isolate'
+                    }}
+                  >
+                    <style>
+                      {`
+                        /* Ensure Hostaway dropdown menus are visible */
+                        #hostaway-booking-widget [role="listbox"],
+                        #hostaway-booking-widget [role="dialog"],
+                        #hostaway-booking-widget [role="presentation"] {
+                          z-index: 1100 !important;
+                        }
+                      `}
+                    </style>
+                  </div>
                 </div>
               </div>
             </motion.div>
