@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { Building2, Eye, Bed, Users } from "lucide-react";
+import { Building2, Eye, Bed, Users, MapPin } from "lucide-react";
 
 interface PropertyFiltersProps {
   onFilterChange: (filters: PropertyFilters) => void;
@@ -51,10 +51,8 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
               <SelectValue placeholder="Select Building" />
             </SelectTrigger>
             <SelectContent className="bg-white z-[1200]">
-              <SelectItem value="address-residences">The Address Residences</SelectItem>
               <SelectItem value="boulevard-central">Boulevard Central</SelectItem>
-              <SelectItem value="burj-vista">Burj Vista</SelectItem>
-              <SelectItem value="downtown-views">Downtown Views</SelectItem>
+              <SelectItem value="downtown-oasis">Downtown Oasis</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -72,11 +70,9 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
               <SelectValue placeholder="Select View" />
             </SelectTrigger>
             <SelectContent className="bg-white z-[1200]">
+              <SelectItem value="boulevard">Boulevard View</SelectItem>
               <SelectItem value="burj-khalifa">Burj Khalifa View</SelectItem>
-              <SelectItem value="fountain">Dubai Fountain View</SelectItem>
-              <SelectItem value="dubai-opera">Dubai Opera View</SelectItem>
               <SelectItem value="downtown">Downtown View</SelectItem>
-              <SelectItem value="sheikh-zayed">Sheikh Zayed Road View</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -96,8 +92,6 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
             <SelectContent className="bg-white z-[1200]">
               <SelectItem value="1">1 Bedroom</SelectItem>
               <SelectItem value="2">2 Bedrooms</SelectItem>
-              <SelectItem value="3">3 Bedrooms</SelectItem>
-              <SelectItem value="4">4+ Bedrooms</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -118,14 +112,13 @@ export const PropertyFilters = ({ onFilterChange }: PropertyFiltersProps) => {
               <SelectItem value="1-2">1-2 Guests</SelectItem>
               <SelectItem value="3-4">3-4 Guests</SelectItem>
               <SelectItem value="5-6">5-6 Guests</SelectItem>
-              <SelectItem value="7+">7+ Guests</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       <div className="text-sm text-gray-500 bg-blue-50 p-4 rounded-lg mt-6">
-        <p>✨ Select your preferences to find the perfect luxury apartment in Downtown Dubai. All our properties feature premium amenities and stunning views.</p>
+        <p>✨ Find your perfect Downtown Dubai apartment. Our properties feature premium amenities and are professionally managed for your comfort.</p>
       </div>
     </div>
   );
