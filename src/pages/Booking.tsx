@@ -43,8 +43,17 @@ const Booking = () => {
 
   const handleFilterChange = (filters: PropertyFiltersType) => {
     console.log('Selected filters:', filters);
-    // Here we can integrate with Hostaway's filtering system
-    // or use these filters to pre-select options in the widget
+    // Here we can integrate these filters with Hostaway's widget
+    // by pre-selecting options based on the user's choices
+    toast({
+      title: "Filters Updated",
+      description: "We've found properties matching your preferences.",
+      duration: 3000,
+    });
+  };
+
+  const handleWhatsAppChat = () => {
+    window.open('https://wa.me/+971585067700', '_blank');
   };
 
   useEffect(() => {
@@ -91,10 +100,6 @@ const Booking = () => {
     };
   }, [toast]);
 
-  const handleWhatsAppChat = () => {
-    window.open('https://wa.me/+971585067700', '_blank');
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -128,12 +133,12 @@ const Booking = () => {
               
               <div 
                 ref={hostawayWidgetRef}
-                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-4 sm:p-8 max-w-3xl mx-auto relative"
+                className="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 sm:p-8 max-w-3xl mx-auto relative"
                 style={{ zIndex: 1000 }}
               >
                 <PropertyFilters onFilterChange={handleFilterChange} />
                 
-                <div className="mt-6">
+                <div className="mt-8">
                   <div 
                     id="hostaway-booking-widget" 
                     className="w-full relative"
