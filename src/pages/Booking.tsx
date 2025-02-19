@@ -15,20 +15,20 @@ const Booking = () => {
   const { toast } = useToast();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const hostawayWidgetRef = useRef<HTMLDivElement>(null);
+  const [widgetLoaded, setWidgetLoaded] = useState(false);
 
   const images = [
-    "/lovable-uploads/c78fa731-6e3b-4ba8-9d05-cf24ba6177e7.png", // Main hero (dining room)
-    "/lovable-uploads/2d171c22-90cf-46aa-824e-a1742f0b063b.png", // Lounge area
-    "/lovable-uploads/9a203233-b92d-40c6-8f4b-1dfcf4ff761f.png", // Living room with view
-    "/lovable-uploads/ebbf7c09-e663-412c-b8f5-29ddb23e577e.png", // Kitchen amenities
-    "/lovable-uploads/ec0bc7a8-68c9-47e2-bc82-245a20634e5b.png"  // Dining chair detail
+    "/lovable-uploads/c78fa731-6e3b-4ba8-9d05-cf24ba6177e7.png",
+    "/lovable-uploads/2d171c22-90cf-46aa-824e-a1742f0b063b.png",
+    "/lovable-uploads/9a203233-b92d-40c6-8f4b-1dfcf4ff761f.png",
+    "/lovable-uploads/ebbf7c09-e663-412c-b8f5-29ddb23e577e.png",
+    "/lovable-uploads/ec0bc7a8-68c9-47e2-bc82-245a20634e5b.png"
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 5000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -43,7 +43,6 @@ const Booking = () => {
 
   const handleFilterChange = (filters: PropertyFiltersType) => {
     console.log('Additional filters selected:', filters);
-    // Here we can add additional filtering logic if needed
     toast({
       title: "Filters Updated",
       description: "Showing properties matching your preferences.",
@@ -56,29 +55,22 @@ const Booking = () => {
   };
 
   useEffect(() => {
-    const searchScript = document.createElement("script");
-    searchScript.src = "https://d2q3n06xhbi0am.cloudfront.net/widget.js?1640277196";
-    searchScript.async = true;
-    
-    searchScript.onerror = (error) => {
-      console.error("Failed to load Hostaway widget script:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load booking widget. Please try refreshing the page.",
-      });
-    };
+    let scriptElement: HTMLScriptElement | null = null;
 
-    searchScript.onload = () => {
+    const initializeWidget = () => {
+      if (!window.searchBar) {
+        console.error("Hostaway widget not loaded properly");
+        return;
+      }
+
       try {
         console.log("Initializing Hostaway widget...");
-        // @ts-ignore - Hostaway widget global
         window.searchBar({
           baseUrl: 'https://app.hostaway.com/widget/41616',
           showLocation: true,
           color: '#1A2957',
           rounded: true,
-          openInNewTab: false,
+          openInNewTab: true, // Changed to true to avoid potential routing issues
           font: 'Inter',
           currency: 'AED',
           language: 'en',
@@ -90,8 +82,10 @@ const Booking = () => {
           adults: 2,
           children: 0,
           infants: 0,
-          forceMobileView: false
+          forceMobileView: false,
+          containerId: 'hostaway-booking-widget'
         });
+        setWidgetLoaded(true);
         console.log("Hostaway widget initialized successfully");
       } catch (error) {
         console.error("Error initializing Hostaway widget:", error);
@@ -103,10 +97,41 @@ const Booking = () => {
       }
     };
 
-    document.body.appendChild(searchScript);
+    const loadWidget = () => {
+      scriptElement = document.createElement("script");
+      scriptElement.src = "https://d2q3n06xhbi0am.cloudfront.net/widget.js?1640277196";
+      scriptElement.async = true;
+      
+      scriptElement.onerror = (error) => {
+        console.error("Failed to load Hostaway widget script:", error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to load booking widget. Please try refreshing the page.",
+        });
+      };
+
+      scriptElement.onload = () => {
+        // Add a small delay to ensure DOM is ready
+        setTimeout(initializeWidget, 100);
+      };
+
+      document.body.appendChild(scriptElement);
+    };
+
+    // Ensure any existing script is removed before adding a new one
+    const existingScript = document.querySelector('script[src*="widget.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Load the widget
+    loadWidget();
 
     return () => {
-      document.body.removeChild(searchScript);
+      if (scriptElement && document.body.contains(scriptElement)) {
+        document.body.removeChild(scriptElement);
+      }
     };
   }, [toast]);
 
