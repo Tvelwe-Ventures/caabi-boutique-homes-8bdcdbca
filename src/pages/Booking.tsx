@@ -80,6 +80,17 @@ const Booking = () => {
           rounded: true,
           openInNewTab: false,
           font: 'Inter',
+          currency: 'AED',
+          language: 'en',
+          searchButtonBackground: '#1A2957',
+          searchButtonText: 'Search',
+          searchButtonTextColor: '#FFFFFF',
+          focusColor: '#1A2957',
+          dateFormat: 'DD/MM/YYYY',
+          adults: 2,
+          children: 0,
+          infants: 0,
+          forceMobileView: false
         });
         console.log("Hostaway widget initialized successfully");
       } catch (error) {
@@ -155,4 +166,3 @@ const Booking = () => {
 };
 
 export default Booking;
-
