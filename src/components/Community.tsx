@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "./ui/use-toast";
@@ -10,6 +11,12 @@ import { RightSidebar } from "./community/RightSidebar";
 import { usePostsSubscription } from "@/hooks/usePostsSubscription";
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
+
+declare global {
+  interface Window {
+    searchBar?: any;
+  }
+}
 
 const Community = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -25,28 +32,26 @@ const Community = () => {
   }, []);
 
   const checkAuth = async () => {
-    const { data: { session }, error } = await supabase.auth.getSession();
-    console.log("Checking auth status:", session ? "Authenticated" : "Not authenticated");
-    
-    if (error) {
-      console.error("Auth check error:", error);
-      toast({
-        title: "Error checking authentication",
-        description: error.message,
-        variant: "destructive",
-      });
-      navigate("/auth");
-      return;
-    }
+    try {
+      const { data: { session }, error } = await supabase.auth.getSession();
+      console.log("Checking auth status:", session ? "Authenticated" : "Not authenticated");
+      
+      if (error) {
+        console.error("Auth check error:", error);
+        toast({
+          title: "Error checking authentication",
+          description: error.message,
+          variant: "destructive",
+        });
+        return;
+      }
 
-    if (!session) {
-      console.log("No session found, redirecting to auth");
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to access the community.",
-      });
-      navigate("/auth");
-      return;
+      if (!session) {
+        console.log("No session found");
+        return;
+      }
+    } catch (error) {
+      console.error("Error in checkAuth:", error);
     }
   };
 
@@ -55,7 +60,6 @@ const Community = () => {
   const fetchPosts = async () => {
     console.log("Fetching posts");
     try {
-      // First, get all posts
       const { data: postsData, error: postsError } = await supabase
         .from("posts")
         .select("*")
@@ -63,7 +67,6 @@ const Community = () => {
 
       if (postsError) throw postsError;
 
-      // Then, for each post, get the profile information of its author
       const postsWithProfiles = await Promise.all(
         (postsData || []).map(async (post) => {
           const { data: profileData } = await supabase
