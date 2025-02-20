@@ -29,16 +29,16 @@
     <!-- Hostaway Head Script -->
     <script>
       window.HWSearchBarSettings = {
-        aid: "YOUR_ACCOUNT_ID", // Replace with your actual Account ID
-        baseUrl: "https://proxy3.holidayfuture.com/",
+        aid: "41616", // Updated to match your account ID
+        baseUrl: "https://app.hostaway.com/widget/41616",
         defaultCurrency: "AED",
         defaultLanguage: "en",
         theme: {
           primaryColor: "#1A2957",
           fontFamily: "Inter"
         },
-        listings: "all", // This ensures all listings are included
-        showAllListings: true // Additional parameter to ensure all listings are displayed
+        listings: "all",
+        showAllListings: true
       };
     </script>
     <!-- Google reCAPTCHA -->
@@ -58,12 +58,23 @@
       window.onload = function() {
         if (window.searchBar) {
           window.searchBar({
-            baseUrl: 'https://proxy3.holidayfuture.com/',
+            baseUrl: 'https://app.hostaway.com/widget/41616',
             showLocation: true,
             color: '#1A2957',
             rounded: true,
-            openInNewTab: false,
+            openInNewTab: true,
             font: 'Inter',
+            currency: 'AED',
+            language: 'en',
+            searchButtonBackground: '#1A2957',
+            searchButtonText: 'Search',
+            searchButtonTextColor: '#FFFFFF',
+            focusColor: '#1A2957',
+            dateFormat: 'DD/MM/YYYY',
+            adults: 2,
+            children: 0,
+            infants: 0,
+            forceMobileView: false,
             listings: 'all',
             showAllListings: true
           });
