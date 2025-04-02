@@ -19,6 +19,7 @@ import Chat from "@/components/Chat";
 import Community from "@/components/Community";
 import Dashboard from "@/pages/Dashboard";
 import Booking from "@/pages/Booking";
+import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
 
 const queryClient = new QueryClient();
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/community" element={<Community />} />
             <Route path="/dashboard/*" element={<Dashboard />} />
+            <Route path="/design-system" element={<DesignSystemDemo />} />
           </Routes>
           
           {/* Global Chat Dialog */}
