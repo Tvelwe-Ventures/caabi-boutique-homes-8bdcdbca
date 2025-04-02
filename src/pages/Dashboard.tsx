@@ -1,6 +1,6 @@
 
-import { useEffect } from "react";
-import { useNavigate, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, Routes, Route, Navigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import DesignSystemDemo from "@/components/dashboard/DesignSystemDemo";
@@ -13,28 +13,69 @@ import ServiceManagement from "@/components/dashboard/service-management/Service
 import Documentation from "@/pages/docs/Documentation";
 import { DashboardTour } from "@/components/dashboard/onboarding/DashboardTour";
 import { DataUpload } from "@/components/DataUpload";
+import { useToast } from "@/components/ui/use-toast";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      try {
+        setIsLoading(true);
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (!session) {
+          toast({
+            title: "Authentication required",
+            description: "Please log in to access the dashboard",
+            variant: "destructive",
+          });
+          navigate('/auth', { state: { from: '/dashboard' } });
+          return;
+        }
+        
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error("Auth check error:", error);
+        toast({
+          title: "Error",
+          description: "Failed to check authentication status",
+          variant: "destructive",
+        });
         navigate('/auth');
+      } finally {
+        setIsLoading(false);
       }
     };
     
     checkAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        setIsAuthenticated(false);
         navigate('/auth');
+      } else if (event === 'SIGNED_IN' && session) {
+        setIsAuthenticated(true);
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, toast]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-xl">Loading dashboard...</div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" state={{ from: '/dashboard' }} />;
+  }
 
   return (
     <div className="min-h-screen bg-background">

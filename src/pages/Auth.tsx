@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
@@ -13,8 +13,24 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [sessionChecked, setSessionChecked] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+  const redirectPath = location.state?.from || "/dashboard";
+
+  // Check if user is already authenticated
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        navigate(redirectPath, { replace: true });
+      }
+      setSessionChecked(true);
+    };
+    
+    checkSession();
+  }, [navigate, redirectPath]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,12 +48,19 @@ const Auth = () => {
           description: "Please check your email to verify your account.",
         });
       } else {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         });
         if (error) throw error;
-        navigate("/community");
+        
+        if (data.session) {
+          toast({
+            title: "Welcome back!",
+            description: "Successfully logged in.",
+          });
+          navigate(redirectPath);
+        }
       }
     } catch (error: any) {
       toast({
@@ -49,6 +72,11 @@ const Auth = () => {
       setLoading(false);
     }
   };
+
+  // Don't render anything until we've checked if the user is already logged in
+  if (!sessionChecked) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-soft-gradient p-4">
